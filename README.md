@@ -1,9 +1,10 @@
 # MATSS-pipeline
-Developing an analysis pipeline for MATSS
+Developing an analysis pipeline for [MATSS](https://github.com/weecology/MATSS), Macroecological Analysis of Time Series Structure
 
 ## Research Questions
 * How many community types are detected in ecosystem datasets?
 * How many changepoints are identified in ecosystem datasets?
+* What are the common patterns across 
 
 ## Analysis Methods
 * [LDATS](https://github.com/weecology/LDATS)
