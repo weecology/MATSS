@@ -1,0 +1,28 @@
+Package: MATSS-pipeline
+Title: Macro-ecological Analyses of Time Series Structure
+Version: 0.0.0.9000
+Maintainer: Hao Ye <hao.ye@weecology.org>
+Author: Hao Ye [aut],
+    Ellen K. Bledsoe [aut],
+    Renata M. Diaz [aut],
+    Juniper L. Simonis [aut],
+    Glenda M. Yenni [aut]
+Description: Perform automated analyses of ecological time series.  The idea is to add datasets and/or analysis methods using code (in the case of data, code to bring the data into standardized formats), and have automated analyses with updated reports.
+License: MIT + file LICENSE
+URL: https://github.com/weecology/MATSS-pipeline
+BugReports: https://github.com/weecology/MATSS-pipeline/issues
+LazyData: true
+Depends: R (>= 3.4.0)
+Imports:
+    ggplot2,
+    portalr (>= 0.1.2),
+    LDATS (>= 0.0.5)
+Suggests:
+  testthat,
+  knitr,
+  rmarkdown
+RoxygenNote: 6.0.1
+VignetteBuilder: knitr
+Remotes:  
+    weecology/LDATS,
+    weecology/portalr
