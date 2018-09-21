@@ -1,0 +1,5 @@
+^output$
+^scripts_to_pull_in$
+^.travis.yml$
+^.*\.Rproj$
+^\.Rproj\.user$

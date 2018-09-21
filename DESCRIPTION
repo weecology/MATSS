@@ -1,0 +1,28 @@
+Package: MATSSpipeline
+Type: Package
+Title: Macroecological Analayses of Time Series Structure pipeline
+Version: 0.0.1
+Authors@R: c(
+	person("Ellen", "Bledsoe", role = c("aut")),
+    person("Erica", "Christensen", role = c("aut")),
+	person("Renata", "Diaz", role = c("aut")),
+    person("S. K. Morgan", "Ernest", role = c("aut")),
+    person("Juniper", "Simonis", role = c("aut")),
+    person("Ethan", "White", role = c("aut")),
+    person("Hao", "Ye", email = "hao.ye@weecology.org", 
+      role = c("aut", "cre")),
+    person("Glenda", "Yenni", role = c("aut"))
+    )
+Description: Analyze the structure of ecological time series.
+Depends: R (>= 3.2.3)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+Suggests:
+    knitr,
+    rmarkdown,
+    testthat
+VignetteBuilder:
+    knitr
+RoxygenNote: 6.0.1
