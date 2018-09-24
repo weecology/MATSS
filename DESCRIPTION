@@ -3,9 +3,9 @@ Type: Package
 Title: Macroecological Analayses of Time Series Structure pipeline
 Version: 0.0.1
 Authors@R: c(
-	  person("Ellen", "Bledsoe", role = c("aut")),
+    person("Ellen", "Bledsoe", role = c("aut")),
     person("Erica", "Christensen", role = c("aut")),
-	  person("Renata", "Diaz", role = c("aut")),
+    person("Renata", "Diaz", role = c("aut")),
     person("S. K. Morgan", "Ernest", role = c("aut")),
     person("Juniper", "Simonis", role = c("aut")),
     person("Ethan", "White", role = c("aut")),
@@ -13,8 +13,7 @@ Authors@R: c(
         role = c("aut", "cre")),
     person("Glenda", "Yenni", role = c("aut"))
   )
-Description: Analyze the structure of ecological time series.
-Depends: R (>= 3.4.0)
+Description: Perform automated analyses of ecological time series.  The idea is to add datasets and/or analysis methods using code (in the case of data, code to bring the data into standardized formats), and have automated analyses with updated reports.
 License: MIT + file LICENSE
 URL: https://github.com/weecology/MATSS-pipeline
 BugReports: https://github.com/weecology/MATSS-pipeline/issues
@@ -23,13 +22,17 @@ Depends: R (>= 3.4.0)
 Imports:
     ggplot2,
     portalr (>= 0.1.2),
-    LDATS (>= 0.0.5)
+    LDATS (>= 0.0.5),
+    drake (>= 5.4.0.9001),
+    dplyr,
+    tidyr
 Suggests:
     testthat,
     knitr,
     rmarkdown
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
-Remotes:  
+Remotes: 
     weecology/LDATS,
-    weecology/portalr
+    weecology/portalr,
+    ropensci/drake
