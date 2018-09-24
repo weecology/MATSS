@@ -1,5 +1,4 @@
-^output$
-^scripts_to_pull_in$
-^.travis.yml$
+^LICENSE\.md$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^.travis.yml$
