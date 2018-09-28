@@ -19,3 +19,9 @@ with consistent treatments}
 
 \item{type}{type of animals to get}
 }
+\description{
+get portal rodent data
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
+tempor incididunt ut labore et dolore magna aliqua.
+}
