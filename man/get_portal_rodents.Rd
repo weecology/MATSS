@@ -23,7 +23,9 @@ with consistent treatments}
 \description{
 get portal rodent data
 
+
 Import Portal rodent data using portalr functions
 Currently returns rodent data formatted appropriately for
 LDA analysis.
+
 }
