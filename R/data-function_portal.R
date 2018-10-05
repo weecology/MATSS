@@ -2,14 +2,15 @@
 
 #' @title get portal rodent data
 #' 
-#' Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod 
-#' tempor incididunt ut labore et dolore magna aliqua. 
+#' Import Portal rodent data using portalr functions. 
+#' Currently returns rodent data formatted appropriately for
+#' LDA analysis. 
 #' 
 #' @param time_or_plots select whether to: (1) "time" == get the data for the 
 #'   entire timespan of the experiment, or (2) "plots" == just the time period 
 #'   with consistent treatments
 #' @param treatment "control" or "exclosure" treatments
-#' @param type type of animals to get
+#' @param type type of animals to get: "Rodents" or restrict to "Granivores"
 #' 
 #' @export
 get_portal_rodents <- function(time_or_plots = "plots", 
