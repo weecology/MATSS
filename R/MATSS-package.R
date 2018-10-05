@@ -10,3 +10,7 @@
 #' @keywords package
 #'
 NULL
+
+.onAttach <- function(libname, pkgname) {
+    packageStartupMessage('Please look at our data formats by running `vignette("data-formats")`')
+}
