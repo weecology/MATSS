@@ -4,7 +4,7 @@
 \alias{get_portal_rodents}
 \title{get portal rodent data
 
-Import Portal rodent data using portalr functions
+Import Portal rodent data using portalr functions. 
 Currently returns rodent data formatted appropriately for
 LDA analysis.}
 \usage{
@@ -18,14 +18,12 @@ with consistent treatments}
 
 \item{treatment}{"control" or "exclosure" treatments}
 
-\item{type}{type of animals to get}
+\item{type}{type of animals to get: "Rodents" or restrict to "Granivores"}
 }
 \description{
 get portal rodent data
 
-
-Import Portal rodent data using portalr functions
+Import Portal rodent data using portalr functions. 
 Currently returns rodent data formatted appropriately for
 LDA analysis.
-
 }

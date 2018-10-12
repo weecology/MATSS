@@ -4,7 +4,7 @@
 \alias{retriever_data}
 \title{Load all retriever data}
 \usage{
-retriever_data(names = c("bbs", "mapped-plant-quads-mt",
+retriever_data(names = c("breed-bird-survey", "mapped-plant-quads-mt",
   "fray-jorge-ecology", "veg-plots-sdl"))
 }
 \arguments{
