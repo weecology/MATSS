@@ -2,7 +2,6 @@ library(MATSS)
 library(dplyr)
 library(drake)
 
-<<<<<<< HEAD
 ## Read in the maizuru community data from a csv file
 get_maizuru_data <- function()
 {
