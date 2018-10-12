@@ -1,0 +1,29 @@
+---
+title: "Data Formats"
+author: 
+- Ellen K. Bledsoe
+- Hao Ye
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## This is data should be formatted for the `run_LDA` functions:
+a data.frame or tibble; each row is an observation (e.g. in time or space), and each column is a variable. Here, the common usage is for each column to be a species or taxon, and each row to be an observed sample. In the original specification for LDA, each row is a document, and each column is a word, with the entries being the counts of the words in each document.
+
+```{r example crosstab data, echo = FALSE}
+data <- data.frame("Red Spotted Dragon" = c(2,6,0,5,4,4),
+                   "Green Striped Dragon" = c(6,0,4,1,9,7),
+                   "Blue Eyes White Dragon" = c(0,0,0,1,0,0))
+knitr::kable(data) 
+```
