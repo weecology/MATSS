@@ -2,6 +2,7 @@ library(MATSS)
 library(dplyr)
 library(drake)
 
+<<<<<<< HEAD
 ## Read in the maizuru community data from a csv file
 get_maizuru_data <- function()
 {
@@ -25,8 +26,14 @@ methods <- drake_plan(
 ## The combination of each method x dataset 
 analyses <- plan_analyses(methods, data = datasets)
 
+## Summary reports
+reports <- drake_plan(
+    lda_report = rmarkdown::render(input = 'lda_report.Rmd', 
+                                   output_file = 'lda_report.html')
+)
+
 ## The entire pipeline
-pipeline <- rbind(datasets, analyses)
+pipeline <- rbind(datasets, analyses, reports)
 
 ## View the graph of the plan
 if (interactive())
@@ -35,5 +42,6 @@ if (interactive())
     vis_drake_graph(config)
 }
 
+## Run the pipeline
 make(pipeline)
 
