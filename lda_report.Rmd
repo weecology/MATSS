@@ -10,6 +10,6 @@ knitr::opts_chunk$set(echo = TRUE)
 source('R/plots_from_LDATS.R')
 ```
 
-```{r plot LDA}
+```{r plot LDA, echo = F}
 plot_lda_edited(drake::readd(portal_lda), drake::readd(portal_data_raw)$censusdate, select_samples = NULL)
 ```
