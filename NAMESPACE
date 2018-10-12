@@ -3,4 +3,5 @@
 export(get_portal_rodents)
 export(get_retriever_data)
 export(retriever_data)
+export(run_LDA)
 importFrom(magrittr,"%>%")

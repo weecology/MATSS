@@ -15,6 +15,7 @@
 #' @inheritParams LDATS::parLDA
 #' 
 #' @return the best fit model object, from running `LDATS::parLDA()`
+#' @export
 #' 
 run_LDA <- function(data, 
                     max_topics = 6, nseeds = 200, 
