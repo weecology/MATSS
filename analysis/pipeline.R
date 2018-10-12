@@ -8,7 +8,7 @@ lda_analysis <- drake::drake_plan(
         select(-period, -censusdate), 
     portal_lda = run_LDA(portal_data, 
                          max_topics = 6, ncores = 4, nseeds = 20),
-    lda_report = knitr::knit(knitr_in('lda_report.Rmd'), file_out('lda_report.md'), quiet = T)
+    lda_report = knitr::knit(knitr_in('lda_report.Rmd'), file_out('lda_report.html'), quiet = T)
 )
 
 source('R/analysis-function_LDA.R')
