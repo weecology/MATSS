@@ -11,10 +11,21 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r}
 library(MATSS)
+library(drake)
 ```
 
 ```{r plot LDA, echo = F}
-plot_lda_edited(drake::readd(lda_maizuru_data), 
-                drake::readd(portal_data_raw)$censusdate, 
-                select_samples = NULL)
+lda_results <- readd(lda_results)
+
+for (i in seq(lda_results))
+{
+    if (names(lda_results)[i] == "lda_portal_data")
+    {
+        plot_lda_edited(lda_results[[i]], 
+                        drake::readd(portal_data_raw)$censusdate)
+    } else {
+        plot_lda_edited(lda_results[[i]])
+    }
+    
+}
 ```

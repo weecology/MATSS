@@ -25,20 +25,27 @@ datasets <- drake_plan(
 
 ## Analysis methods
 methods <- drake_plan(
-    lda = run_LDA(dataset__, max_topics = 6, ncores = 4, nseeds = 20)
+    lda = run_LDA(dataset__, max_topics = 6, ncores = 2, nseeds = 20)
 )
 
 ## The combination of each method x dataset 
 analyses <- plan_analyses(methods, data = datasets)
 
+## Combine LDA analyses together
+lda_results_plan <- gather_plan(
+    plan = analyses, 
+    target = "lda_results", 
+    gather = "list"
+)
+
 ## Summary reports
 reports <- drake_plan(
     lda_report = rmarkdown::render(input = 'lda_report.Rmd', 
-                                   output_file = 'lda_report.html')
+                                   output_file = 'lda_report.md')
 )
 
 ## The entire pipeline
-pipeline <- rbind(datasets_raw, datasets, analyses, reports)
+pipeline <- rbind(datasets_raw, datasets, analyses, lda_results_plan, reports)
 
 ## View the graph of the plan
 if (interactive())
@@ -48,5 +55,5 @@ if (interactive())
 }
 
 ## Run the pipeline
-make(pipeline)
+make(pipeline, verbose = 2)
 

@@ -1,7 +1,8 @@
 # switched to colorblind-friendly palette from http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette
 
 #' @export
-plot_lda_edited <- function(x, observed_dates, ..., select_samples, cols = NULL){
+plot_lda_edited <- function(x, observed_dates = NULL, ..., 
+                            select_samples = NULL, cols = NULL){
   
   gamma <- x@gamma
   beta <- exp(x@beta)
@@ -17,7 +18,12 @@ plot_lda_edited <- function(x, observed_dates, ..., select_samples, cols = NULL)
     
   }
   
-  observed_dates <-  as.numeric(format(as.Date(observed_dates, format="%d/%m/%Y"),'%Y'))
+  if (is.null(observed_dates))
+  {
+      observed_dates <- seq(nobs)
+  } else {
+      observed_dates <-  as.numeric(format(as.Date(observed_dates, format="%d/%m/%Y"),'%Y'))
+  }
   
   if(!is.null(select_samples)) observed_dates <- observed_dates[select_samples]
   
