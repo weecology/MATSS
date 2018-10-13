@@ -1,5 +1,6 @@
 # switched to colorblind-friendly palette from http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette
 
+#' @export
 plot_lda_edited <- function(x, observed_dates, ..., select_samples, cols = NULL){
   
   gamma <- x@gamma

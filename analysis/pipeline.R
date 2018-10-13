@@ -3,18 +3,24 @@ library(dplyr)
 library(drake)
 
 ## Read in the maizuru community data from a csv file
-get_maizuru_data <- function()
+get_maizuru_data_raw <- function()
 {
-    read.csv(here::here("data", "Maizuru_dominant_sp.csv")) %>%
-        select(-date_tag, -surf.t, -bot.t, -Y, -M, -D) %>%
-        mutate_all(~round(. + 1e-10))
+    read.csv(here::here("data", "Maizuru_dominant_sp.csv"))
 }
+
+## Get raw data
+datasets_raw <- drake_plan(
+    portal_data_raw = get_portal_rodents(), 
+    maizuru_data_raw = get_maizuru_data_raw()
+)
 
 ## Clean and transform the data into the appropriate format
 datasets <- drake_plan(
-    portal_data = get_portal_rodents() %>%
+    portal_data = portal_data_raw %>%
         select(-period, -censusdate),
-    maizuru_data = get_maizuru_data()
+    maizuru_data = maizuru_data_raw %>% 
+        select(-date_tag, -surf.t, -bot.t, -Y, -M, -D) %>%
+        mutate_all(~round(. + 1e-10))
 )
 
 ## Analysis methods
@@ -32,7 +38,7 @@ reports <- drake_plan(
 )
 
 ## The entire pipeline
-pipeline <- rbind(datasets, analyses, reports)
+pipeline <- rbind(datasets_raw, datasets, analyses, reports)
 
 ## View the graph of the plan
 if (interactive())

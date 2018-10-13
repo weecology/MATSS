@@ -2,6 +2,7 @@
 
 export(get_portal_rodents)
 export(get_retriever_data)
+export(plot_lda_edited)
 export(retriever_data)
 export(run_LDA)
 importFrom(magrittr,"%>%")

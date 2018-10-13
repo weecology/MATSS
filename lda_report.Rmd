@@ -2,14 +2,19 @@
 title: "LDA report"
 author: "Renata Diaz"
 date: "10/12/2018"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-source('R/plots_from_LDATS.R')
+```
+
+```{r}
+library(MATSS)
 ```
 
 ```{r plot LDA, echo = F}
-plot_lda_edited(drake::readd(portal_lda), drake::readd(portal_data_raw)$censusdate, select_samples = NULL)
+plot_lda_edited(drake::readd(lda_maizuru_data), 
+                drake::readd(portal_data_raw)$censusdate, 
+                select_samples = NULL)
 ```
