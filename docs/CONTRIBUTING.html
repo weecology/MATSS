@@ -167,7 +167,7 @@ newfunc &lt;- function() ...</code></pre>
 <div id="building" class="section level3">
 <h3 class="hasAnchor">
 <a href="#building" class="anchor"></a>Building</h3>
-<p>To fully build the package, including documentation, running-tests, you will need the <code>roxygen2</code>, <code>testthat</code>, <code>devtools</code>, and <code>usethis</code> R packages.</p>
+<p>To fully build the package, including documentation, running-tests, you will need the <code>roxygen2</code>, <code>testthat</code>, <code>devtools</code>, <code>pkgdown</code>, and <code>usethis</code> R packages.</p>
 <p>Specific operations are then done by calling the appropriate functions from within R, while your working directory is somewhere in the package folder.</p>
 <p>The suggested workflow is:</p>
 <ol>
@@ -180,6 +180,7 @@ newfunc &lt;- function() ...</code></pre>
 <li>Run <code><a href="http://www.rdocumentation.org/packages/devtools/topics/document">devtools::document()</a></code> to generate the documentation files and update the <code>NAMESPACE</code> file.</li>
 <li>Run <code><a href="http://www.rdocumentation.org/packages/devtools/topics/install">devtools::install()</a></code> to install the new version of the package.</li>
 <li>Run <code><a href="http://www.rdocumentation.org/packages/devtools/topics/test">devtools::test()</a></code> to run the test scripts on the new version of the package.</li>
+<li>Run <code><a href="http://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code> to update the pkgdown site built from the documentation.</li>
 </ol>
 <p>If you are also prepping the package as a whole, then you will also want to run <code><a href="http://www.rdocumentation.org/packages/devtools/topics/check">devtools::check()</a></code> and/or <code><a href="http://www.rdocumentation.org/packages/devtools/topics/check_cran">devtools::check_cran()</a></code> to make sure that the package is complete.</p>
 <p>For more info, see the <a href="https://github.com/hadley/devtools">GitHub repo</a> for the <code>devtools</code> package.</p>
