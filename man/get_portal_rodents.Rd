@@ -20,3 +20,10 @@ with consistent treatments}
 
 \item{type}{type of animals to get: "Rodents" or restrict to "Granivores"}
 }
+\description{
+get portal rodent data
+
+Import Portal rodent data using portalr functions. 
+Currently returns rodent data formatted appropriately for
+LDA analysis.
+}
