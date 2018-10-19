@@ -10,4 +10,4 @@ reference:
   - title: "Plotting Functions"
     desc: "Functions to plot outputs"
     contents:
-      - plot_lda_edited
+      - plot_lda
