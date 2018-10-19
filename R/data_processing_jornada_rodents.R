@@ -21,7 +21,7 @@ process_jornada_data <- function(data_path = "data/",
     
     # put data in wide format
     jornada_abundance_table <- jornada_abundances %>%
-        dplyr::spread(spp, count, fill = 0)
+        tidyr::spread(spp, count, fill = 0)
     
     # split into two dataframes and save
     jornada_covariates_time <- jornada_abundance_table[,1:2]
