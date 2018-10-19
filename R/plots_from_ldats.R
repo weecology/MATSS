@@ -1,8 +1,16 @@
-# switched to colorblind-friendly palette from http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette
-
+#' @name plot_lda
+#' @title Plot LDA topic composition and time series
+#' @description Plot the species composition of LDA topics, and the 
+#' topic composition of the community over the time series. 
+#' 
+#' @param x an LDATS LDA object.
+#' @param observed_dates a vector of dates for the observed samples. If 
+#' observed_dates == NULL, samples will be labelled sequentially starting
+#' from 1. 
+#' 
 #' @export
-plot_lda_edited <- function(x, observed_dates = NULL, ..., 
-                            select_samples = NULL, cols = NULL){
+
+plot_lda <- function(x, observed_dates = NULL, ...,select_samples = NULL){
   
   gamma <- x@gamma
   beta <- exp(x@beta)
@@ -28,23 +36,6 @@ plot_lda_edited <- function(x, observed_dates = NULL, ...,
   if(!is.null(select_samples)) observed_dates <- observed_dates[select_samples]
   
   gamma <- cbind(gamma, observed_dates)
-  
-  # if (length(cols) == 0){
-  #   set.seed(12)
-  #   cols <- rgb(runif(ntopics), runif(ntopics), runif(ntopics))
-  # }
-  # if (length(cols) == 1){
-  #   if (cols == "greys"){
-  #     ggg <- runif(ntopics, 0, 0.8)
-  #     cols <- rep(NA, ntopics)
-  #     for (i in 1:ntopics){
-  #       cols[i] <- rgb(ggg[i], ggg[i], ggg[i])
-  #     }
-  #   }
-  # }
-  # if (length(cols) > ntopics){
-  #   cols <- cols[1:ntopics]
-  # }
   
   
   cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
