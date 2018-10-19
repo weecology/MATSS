@@ -53,7 +53,7 @@ You can see the existing tests as examples of how to organize your tests, but no
 
 ### Building
 
-To fully build the package, including documentation, running-tests, you will need the `roxygen2`, `testthat`, `devtools`, and `usethis` R packages.
+To fully build the package, including documentation, running-tests, you will need the `roxygen2`, `testthat`, `devtools`, `pkgdown`, and `usethis` R packages.
 
 Specific operations are then done by calling the appropriate functions from within R, while your working directory is somewhere in the package folder.
 
@@ -63,6 +63,7 @@ The suggested workflow is:
 2. Run `devtools::document()` to generate the documentation files and update the `NAMESPACE` file.
 3. Run `devtools::install()` to install the new version of the package.
 4. Run `devtools::test()` to run the test scripts on the new version of the package.
+5. Run `pkgdown::build_site()` to update the pkgdown site built from the documentation.
 
 If you are also prepping the package as a whole, then you will also want to run `devtools::check()` and/or `devtools::check_cran()` to make sure that the package is complete.
 
