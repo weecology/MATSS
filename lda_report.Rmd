@@ -21,10 +21,10 @@ for (i in seq(lda_results))
 {
     if (names(lda_results)[i] == "lda_portal_data")
     {
-        plot_lda(lda_results[[i]], 
+        plot_lda(lda_results[[i]][[1]], 
                         drake::readd(portal_data_raw)$censusdate)
     } else {
-        plot_lda(lda_results[[i]])
+        plot_lda(lda_results[[i]][[1]])
     }
     
 }

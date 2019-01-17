@@ -25,7 +25,7 @@ datasets <- drake_plan(
 
 ## Analysis methods
 methods <- drake_plan(
-    lda = run_LDA(dataset__, max_topics = 6, ncores = 2, nseeds = 20)
+    lda = run_LDA(dataset__, max_topics = 6, nseeds = 20)
 )
 
 ## The combination of each method x dataset 
