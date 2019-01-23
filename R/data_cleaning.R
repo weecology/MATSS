@@ -65,3 +65,66 @@ filter_ts <- function(bbs_data, start_yr, end_yr, min_num_yrs) {
         dplyr::filter(year >= start_yr, year <= end_yr) %>%
         dplyr::filter(site_id %in% sites_to_keep$site_id)
 }
+
+#' @title Create Sonoran desert lab time-series data
+#'
+#' @description Original data found here http://www.eebweb.arizona.edu/faculty/venable/LTREB/LTREB%20data.htm
+#'
+#' @param sdl_data_tables list of all SDL tables (Count1906,Photo_info,Plot_corners,
+#' Plots,Seedling_counts,SMCover,SMDensity,Species,Stake_info)
+#' @param plots vector of plots to keep
+#'
+#' @return list of two dataframes, one with abundance data, the other with covariate data
+#' 
+#' @examples get_sdl_data(sdl_data_tables=retriever_data()$'veg-plots-sdl')
+#' @export
+
+get_sdl_data <- function(sdl_data_tables, plots = c(4,7,8,9,10,11,12,14,15,16,17)){
+    sdl_data <- sdl_data_tables$SMDensity %>%
+        dplyr::select(-countns) %>%
+        dplyr::filter(plot %in% plots) %>%
+        dplyr::group_by(year,code) %>%
+        dplyr::summarise(count = mean(count)) %>%
+        tidyr::spread(key = code, value = count, fill = 0) %>%
+        dplyr::rename(UNKN=V1) %>%
+        dplyr::ungroup()
+    
+    abundance <- sdl_data %>%
+        dplyr::select(-year)
+    
+    covariates <- sdl_data %>%
+        dplyr::select(year)
+    
+    return(list('abundance' = abundance, 'covariates' = covariates))
+}
+
+#' @title Create Montana plant quad time-series data
+#'
+#' @description Original data found here 
+#'
+#' @param mtquad_data_tables list of all montana plant tables (allrecords_cover,
+#' allrecords_density,species_list)
+#'
+#' @return list of two dataframes, one with abundance data, the other with covariate data
+#' 
+#' @examples get_mtquad_data(mtquad_data_tables=retriever_data()$'mapped-plant-quads-mt')
+#' @export
+
+get_mtquad_data <- function(mtquad_data_tables){
+    mtquad_data <- mtquad_data_tables$allrecords_density %>%
+        dplyr::select(-objectid,-seedling,-x,-y) %>%
+        dplyr::group_by(year,species,quad) %>%
+        dplyr::summarise(abundance = sum(stems)) %>%
+        dplyr::group_by(year,species) %>%
+        dplyr::summarise(abundance = mean(abundance)) %>%
+        tidyr::spread(key = species, value = abundance, fill = 0) %>%
+        dplyr::ungroup()
+    
+    abundance <- mtquad_data %>%
+        dplyr::select(-year)
+    
+    covariates <- mtquad_data %>%
+        dplyr::select(year)
+    
+    return(list('abundance' = abundance, 'covariates' = covariates))
+}
