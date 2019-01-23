@@ -1,6 +1,14 @@
 #' @importFrom magrittr "%>%"
 
-process_jornada_data <- function(data_path = "data/jornada_rodents.csv"){
+#' @title get Jornada rodent data
+#' 
+#' Import Jornada rodent abundance from data files
+#' 
+#' @param data_path  location of the raw data
+#' 
+#' @export
+process_jornada_data <- function(data_path = here::here("data", "jornada_rodents.csv"))
+{
     
     # read in Jornada rodent data
     jornada <- read.csv(data_path)

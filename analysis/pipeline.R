@@ -22,7 +22,7 @@ datasets <- drake_plan(
     maizuru_data = maizuru_data_raw %>% 
         select(-date_tag, -surf.t, -bot.t, -Y, -M, -D) %>%
         mutate_all(~round(. + 1e-10)),
-    jornada_data = jornada_raw$abundance
+    jornada_data = jornada_data_raw$abundance
 )
 
 ## Analysis methods
