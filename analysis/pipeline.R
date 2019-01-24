@@ -23,8 +23,8 @@ datasets <- drake_plan(
     maizuru_data = list(abundance = dplyr::select(maizuru_data_raw, -date_tag, -surf.t, -bot.t, -Y, -M, -D) %>%
                             mutate_all(~round(. + 1e-10)), 
                         covariates = dplyr::select(maizuru_data_raw, date_tag, surf.t, bot.t, Y, M, D)),
-    jornada_data = jornada_data_raw$abundance,
-    sgs_data = sgs_data_raw$abundance
+    jornada_data = jornada_data_raw,
+    sgs_data = sgs_data_raw
 )
 
 ## Analysis methods
