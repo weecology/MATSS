@@ -63,4 +63,13 @@ if (interactive())
 }
 
 ## Run the pipeline
-make(pipeline, verbose = 2)
+future::plan(future::multiprocess)
+db <- DBI::dbConnect(RSQLite::SQLite(), "drake-cache.sqlite")
+cache <- storr::storr_dbi("datatable", "keystable", db)
+make(pipeline,
+     cache = cache,
+     verbose = 2,
+     parallelism = "future",
+     jobs = 2,
+     caching = "master" # Important for DBI caches!
+)
