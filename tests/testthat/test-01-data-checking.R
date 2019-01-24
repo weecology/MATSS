@@ -6,6 +6,8 @@ test_that("check_data_format works on basic examples", {
     
     expect_true(check_data_format(list(abundance = mtcars)))
     
+    expect_false(check_data_format(list(abundance = iris)))
+    
     expect_true(check_data_format(list(abundance = mtcars, 
                                        covariates = mtcars)))
     
