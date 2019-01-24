@@ -36,3 +36,30 @@ for (i in seq(lda_results))
     
 }
 ```
+
+## Summarize LDA results
+
+```{r summarize LDA results}
+
+lda_summary <- as.data.frame(names(lda_results))
+lda_summary$ntopics <- NA
+lda_summary$ntimeseries <- NA
+lda_summary$ntimesteps <- NA
+
+for(i in seq(lda_results)) {
+    lda_summary$ntopics[i] <- lda_results[[i]][1]$k@k
+    lda_summary$ntimeseries[i] <- as.integer(length(lda_results[[i]][1]$k@terms))
+    lda_summary$ntimesteps[i] <- lda_results[[i]][1]$k@wordassignments$nrow
+}
+
+lda_summary
+
+```
+
+```{r plot lda summary, echo = F}
+
+plot(lda_summary$ntimeseries, lda_summary$ntopics, main = 'Number of topics by number of timeseries', xlab = 'Number of timeseries', ylab ='Number of topics')
+
+plot(lda_summary$ntimesteps, lda_summary$ntopics, main = 'Number of topics by length of timeseries',  xlab = 'Length of timeseries (number of timesteps)', ylab ='Number of topics')
+
+```
