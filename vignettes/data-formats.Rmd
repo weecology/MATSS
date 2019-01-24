@@ -18,12 +18,60 @@ knitr::opts_chunk$set(
 )
 ```
 
-## This is data should be formatted for the `run_LDA` functions:
-a data.frame or tibble; each row is an observation (e.g. in time or space), and each column is a variable. Here, the common usage is for each column to be a species or taxon, and each row to be an observed sample. In the original specification for LDA, each row is a document, and each column is a word, with the entries being the counts of the words in each document.
+## Data Structure
+
+The universal data structure we're going to use is:
+
+* a list with at least 1 element:
+  - a data.frame or tibble, named `abundance` (required)
+  - a data.frame or tibble, named `covariates` (optional)
+  
+If both elements are present in the list, then the two data.frames must have the same number of rows.
+
+### abundance
+
+In the `abundance` data.frame:
+
+* each row is an observation (e.g. in time or space)
+* each column is a variable
+
+Here, the common usage is for each column to be a species or taxon, and each row to be an observed sample. In other words, each column is a time series, with the rows sorted such that time advances down (higher row indices correspond to later times).
+
+### covariates
+
+In the `covariates` data.frame:
+
+* each row is an observation (e.g. in time or space)
+* each column is a variable
+
+The number of rows should match that of `abundance`, and rows of `covariates` should line up with `abundance` (either sampled simultaneously or concurrently). Common covariates are date and time, temperature, treatments, etc.
+
+## Example Data
+
+Here is an example of a correctly formatted dataset with covariates:
 
 ```{r example crosstab data, echo = FALSE}
-data <- data.frame("Red Spotted Dragon" = c(2,6,0,5,4,4),
-                   "Green Striped Dragon" = c(6,0,4,1,9,7),
-                   "Blue Eyes White Dragon" = c(0,0,0,1,0,0))
-knitr::kable(data) 
+abundance <- data.frame("Red Spotted Dragon" = c(2,6,0,5,4,4),
+                        "Green Striped Dragon" = c(6,0,4,1,9,7),
+                        "Blue Eyes White Dragon" = c(0,0,0,1,0,0))
+
+num_rows <- NROW(abundance)
+
+covariates <- data.frame("date" = rev(seq.Date(from = Sys.Date(), by = "-1 year", length.out = num_rows)), 
+                         "precipitation" = rpois(num_rows, lambda = 10))
+
+dat <- mget(c("abundance", "covariates"))
+
+str(dat)
+knitr::kable(dat)
 ```
+
+## Checking Data
+
+We also provide a function for checking whether the data is formatted correctly:
+
+```{r check dat}
+library(MATSS)
+check_data_format(dat)
+```
+
