@@ -32,8 +32,6 @@ process_sgs_data <- function(data_path = here::here("data", "shortgrass_steppe_r
     covariates <- sgs_abundance_table[,1:2]
     abundance <- sgs_abundance_table[,-c(1:2)]
     
-    sgs_raw <- list(abundance, covariates)
-    sgs_raw <- setNames(sgs, c("abundance", "covariates"))
-    return(sgs_raw)
+    return(mget(c("abundance", "covariates")))
     
 }

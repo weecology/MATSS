@@ -5,31 +5,28 @@ Renata Diaz
 
 ``` r
 library(MATSS)
-```
-
-    ## Please look at our data formats by running `vignette("data-formats")`
-
-``` r
 library(drake)
 ```
 
-Plot LDAS
----------
+## Plot LDAS
 
     ## [1] "lda_portal_data"
 
-![](lda_report_files/figure-markdown_github/plot%20LDA-1.png)
+![](lda_report_files/figure-gfm/plot%20LDA-1.png)<!-- -->
 
     ## [1] "lda_maizuru_data"
 
-![](lda_report_files/figure-markdown_github/plot%20LDA-2.png)
+![](lda_report_files/figure-gfm/plot%20LDA-2.png)<!-- -->
 
     ## [1] "lda_jornada_data"
 
-![](lda_report_files/figure-markdown_github/plot%20LDA-3.png)
+![](lda_report_files/figure-gfm/plot%20LDA-3.png)<!-- -->
 
-Summarize LDA results
----------------------
+    ## [1] "lda_sgs_data"
+
+![](lda_report_files/figure-gfm/plot%20LDA-4.png)<!-- -->
+
+## Summarize LDA results
 
 ``` r
 lda_summary <- as.data.frame(names(lda_results))
@@ -50,5 +47,6 @@ lda_summary
     ## 1    lda_portal_data       5          21        295
     ## 2   lda_maizuru_data       6          15        285
     ## 3   lda_jornada_data       6          17         24
+    ## 4       lda_sgs_data       4          11         13
 
-![](lda_report_files/figure-markdown_github/plot%20lda%20summary-1.png)![](lda_report_files/figure-markdown_github/plot%20lda%20summary-2.png)
+![](lda_report_files/figure-gfm/plot%20lda%20summary-1.png)<!-- -->![](lda_report_files/figure-gfm/plot%20lda%20summary-2.png)<!-- -->
