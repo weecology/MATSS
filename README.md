@@ -23,3 +23,8 @@ devtools::install_github("weecology/MATSS-pipeline")
 ## Examples
 
 {add examples of using the `MATSS` package to get data and/or use the analysis methods}
+
+
+## Using the pipeline
+
+Having installed the package, clone or copy the repository and open `analysis/pipeline.R` in an instance of R to ammend or execute the pipeline code. 

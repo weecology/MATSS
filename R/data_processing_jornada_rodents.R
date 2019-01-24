@@ -1,12 +1,17 @@
 #' @importFrom magrittr "%>%"
 
-process_jornada_data <- function(data_path = "data/", 
-                                 rodent_file = file.path(data_path, "jornada_rodents.csv"), 
-                                 abundance_file = file.path(data_path, "jornada_abundance_table.RDS"),
-                                 covariates_file = file.path(data_path, "jornada_covariates_time.RDS"))
+#' @title get Jornada rodent data
+#' 
+#' Import Jornada rodent abundance from data files
+#' 
+#' @param data_path  location of the raw data
+#' 
+#' @export
+process_jornada_data <- function(data_path = here::here("data", "jornada_rodents.csv"))
 {
+    
     # read in Jornada rodent data
-    jornada <- read.csv(rodent_file)
+    jornada <- read.csv(data_path)
     
     # select key columns 
     # filter out unknown species and recaptures
@@ -24,12 +29,12 @@ process_jornada_data <- function(data_path = "data/",
         tidyr::spread(spp, count, fill = 0)
     
     # split into two dataframes and save
-    jornada_covariates_time <- jornada_abundance_table[,1:2]
-    jornada_abundance_table <- jornada_abundance_table[,-c(1:2)]
+    covariates <- jornada_abundance_table[,1:2]
+    abundance <- jornada_abundance_table[,-c(1:2)]
     
-    saveRDS(jornada_abundance_table, file = abundance_file)
-    saveRDS(jornada_covariates_time, file = covariates_file)
-    return()
-       
+    jornada_raw <- list(abundance, covariates)
+    jornada_raw <- setNames(jornada_raw, c("abundance", "covariates"))
+    return(jornada_raw)
+    
 }
 
