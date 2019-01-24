@@ -1,4 +1,4 @@
-context("test-data-checking")
+context("test data-checking function")
 
 test_that("check_data_format works on basic examples", {
     expect_false(check_data_format(mtcars))
@@ -20,5 +20,3 @@ test_that("check_data_format works on basic examples", {
                                        covariates = data.frame("date" = rev(seq.Date(from = Sys.Date(), by = "-1 year", length.out = 6)), 
                                                                "precipitation" = rpois(6, lambda = 10)))))
 })
-    
-    
