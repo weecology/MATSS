@@ -4,8 +4,8 @@
 \alias{retriever_data}
 \title{Load all retriever data}
 \usage{
-retriever_data(names = c("bbs", "mapped-plant-quads-mt", "fray-jorge-ecology",
-  "veg-plots-sdl"))
+retriever_data(names = c("breed-bird-survey", "mapped-plant-quads-mt",
+  "fray-jorge-ecology", "veg-plots-sdl"))
 }
 \arguments{
 \item{names}{List of dataset names (from retriever) to load}

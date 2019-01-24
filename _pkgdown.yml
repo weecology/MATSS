@@ -1,0 +1,13 @@
+reference:
+  - title: "Raw Data"
+    desc: "Functions to pull in raw data"
+    contents:
+      - get_portal_rodents
+  - title: "Analysis Methods"
+    desc: "Functions to compute analyses"
+    contents:
+      - run_LDA
+  - title: "Plotting Functions"
+    desc: "Functions to plot outputs"
+    contents:
+      - plot_lda

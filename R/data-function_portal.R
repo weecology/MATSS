@@ -50,6 +50,7 @@ get_portal_rodents <- function(time_or_plots = "plots",
         dplyr::select(-newmoonnumber, -ntraps) %>%
         dplyr::group_by(period, species, censusdate) %>%
         dplyr::summarize(abundance = round(standard_effort * mean(abundance, na.rm = TRUE) + 1e-10)) %>%
+        dplyr::ungroup() %>%
         tidyr::spread(species, abundance)
     
     return(dat2)

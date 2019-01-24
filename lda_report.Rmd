@@ -1,0 +1,31 @@
+---
+title: "LDA report"
+author: "Renata Diaz"
+date: "10/12/2018"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(MATSS)
+library(drake)
+```
+
+```{r plot LDA, echo = F}
+lda_results <- readd(lda_results)
+
+for (i in seq(lda_results))
+{
+    if (names(lda_results)[i] == "lda_portal_data")
+    {
+        plot_lda(lda_results[[i]], 
+                        drake::readd(portal_data_raw)$censusdate)
+    } else {
+        plot_lda(lda_results[[i]])
+    }
+    
+}
+```
