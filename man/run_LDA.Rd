@@ -4,23 +4,25 @@
 \alias{run_LDA}
 \title{Run Latent Dirichlet Allocation on Tabular Data}
 \usage{
-run_LDA(data, max_topics = 6, nseeds = 200, ncores = 4)
+run_LDA(data, max_topics = 6, nseeds = 200,
+  control = LDATS::LDA_controls_list())
 }
 \arguments{
-\item{data}{a data.frame or tibble; each row is an observation (e.g. in time 
-or space), and each column is a variable. Here, the common usage is for 
-each column to be a species or taxon, and each row to be an observed 
-sample. In the original specification for LDA, each row is a document, and 
-each column is a word, with the entries being the counts of the words in 
-each document.}
+\item{data}{a data.frame or tibble; each row is an observation (e.g. in 
+time or space), and each column is a variable. Here, the common usage is  
+for each column to be a species or taxon, and each row to be an observed 
+sample. In the original specification for LDA, each row is a document, 
+and each column is a word, with the entries being the counts of the words
+in each document.}
 
 \item{max_topics}{the maximum number of topics to try (the function will 
 test a number of topics from 2 to `max_topics`)}
 
-\item{nseeds}{number of seeds (replicate starts) to use for each value of
-ntopics}
+\item{nseeds}{Number of seeds (replicate starts) to use for each 
+value of \code{topics}. Must be conformable to \code{integer} value.}
 
-\item{ncores}{integer number of cores to use}
+\item{control}{Class \code{LDA_controls} list of control parameters to be
+used in \code{LDA} (note that \code{seed} will be overwritten).}
 }
 \value{
 the best fit model object, from running `LDATS::parLDA()`

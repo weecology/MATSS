@@ -12,17 +12,23 @@ get_maizuru_data_raw <- function()
 datasets_raw <- drake_plan(
     portal_data_raw = get_portal_rodents(), 
     maizuru_data_raw = get_maizuru_data_raw(),
-    jornada_data_raw = process_jornada_data()
+    jornada_data_raw = process_jornada_data(),
+    sgs_data_raw = process_sgs_data(),
+    retriever_data_raw = retriever_data()
 )
 
 ## Clean and transform the data into the appropriate format
 datasets <- drake_plan(
-    portal_data = portal_data_raw %>%
-        select(-period, -censusdate),
-    maizuru_data = maizuru_data_raw %>% 
-        select(-date_tag, -surf.t, -bot.t, -Y, -M, -D) %>%
-        mutate_all(~round(. + 1e-10)),
-    jornada_data = jornada_data_raw$abundance
+    portal_data = list(abundance = dplyr::select(portal_data_raw, -period, -censusdate), 
+                       covariates = dplyr::select(portal_data_raw, period, censusdate)),
+    maizuru_data = list(abundance = dplyr::select(maizuru_data_raw, -date_tag, -surf.t, -bot.t, -Y, -M, -D) %>%
+                            mutate_all(~round(. + 1e-10)), 
+                        covariates = dplyr::select(maizuru_data_raw, date_tag, surf.t, bot.t, Y, M, D)),
+    jornada_data = jornada_data_raw,
+    sgs_data = sgs_data_raw,
+    bbs_data = get_bbs_data(retriever_data_raw$'breed-bird-survey',region=7)$abundance,
+    sdl_data = get_sdl_data(retriever_data_raw$'veg-plots-sdl')$abundance,
+    mtquad_data = get_mtquad_data(retriever_data_raw$'mapped-plant-quads-mt')$abundance
 )
 
 ## Analysis methods
@@ -58,4 +64,3 @@ if (interactive())
 
 ## Run the pipeline
 make(pipeline, verbose = 2)
-
