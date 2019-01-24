@@ -16,11 +16,6 @@ each document.}
 
 \item{max_topics}{the maximum number of topics to try (the function will 
 test a number of topics from 2 to `max_topics`)}
-
-\item{nseeds}{number of seeds (replicate starts) to use for each value of
-ntopics}
-
-\item{ncores}{integer number of cores to use}
 }
 \value{
 the best fit model object, from running `LDATS::parLDA()`

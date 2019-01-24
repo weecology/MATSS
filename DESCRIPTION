@@ -28,9 +28,10 @@ BugReports: https://github.com/weecology/MATSS-pipeline/issues
 LazyData: true
 Depends: R (>= 3.4.0)
 Imports:
+    forecast,
     ggplot2,
     portalr (>= 0.1.2),
-    LDATS (>= 0.0.5),
+    LDATS (>= 0.1.0),
     drake (>= 5.4.0.9001),
     dplyr,
     tidyr

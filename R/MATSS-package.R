@@ -1,3 +1,5 @@
+#' @importFrom forecast na.interp
+
 #' @title Macroecological Analayses of Time Series Structure
 #'
 #' @description Functions for obtaining and processing ecological time series 
