@@ -1,3 +1,8 @@
+#' @importFrom dplyr %>%
+#' @importFrom forecast na.interp
+#' @importFrom lubridate is.Date
+#' @importFrom stats acf
+
 #' @title Macroecological Analayses of Time Series Structure
 #'
 #' @description Functions for obtaining and processing ecological time series 
