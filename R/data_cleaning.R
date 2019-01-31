@@ -84,7 +84,7 @@ get_sdl_data <- function(sdl_data_tables, plots = c(4,7,8,9,10,11,12,14,15,16,17
         dplyr::select(-countns) %>%
         dplyr::filter(plot %in% plots) %>%
         dplyr::group_by(year,code) %>%
-        dplyr::summarise(count = mean(count)) %>%
+        dplyr::summarise(count = sum(count)) %>%
         tidyr::spread(key = code, value = count, fill = 0) %>%
         dplyr::rename(UNKN=V1) %>%
         dplyr::ungroup()
@@ -116,7 +116,7 @@ get_mtquad_data <- function(mtquad_data_tables){
         dplyr::group_by(year,species,quad) %>%
         dplyr::summarise(abundance = sum(stems)) %>%
         dplyr::group_by(year,species) %>%
-        dplyr::summarise(abundance = mean(abundance)) %>%
+        dplyr::summarise(abundance = sum(abundance)) %>%
         tidyr::spread(key = species, value = abundance, fill = 0) %>%
         dplyr::ungroup()
     
