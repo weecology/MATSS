@@ -29,11 +29,12 @@ LazyData: true
 Depends: R (>= 3.4.0)
 Imports:
     ggplot2,
-    portalr (>= 0.1.2),
-    LDATS (>= 0.0.5),
-    drake (>= 5.4.0.9001),
+    portalr (>= 0.2.0),
+    LDATS (>= 0.1.0),
+    drake (>= 6.2.0),
     dplyr,
-    tidyr
+    tidyr,
+    rdataretriever
 Suggests:
     testthat,
     knitr,

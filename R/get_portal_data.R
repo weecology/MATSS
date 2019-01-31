@@ -53,5 +53,6 @@ get_portal_rodents <- function(time_or_plots = "plots",
         dplyr::ungroup() %>%
         tidyr::spread(species, abundance)
     
-    return(dat2)
+    list(abundance = dplyr::select(dat2, -period, -censusdate), 
+         covariates = dplyr::select(dat2, period, censusdate))
 }
