@@ -8,37 +8,39 @@ library(MATSS)
 library(drake)
 ```
 
-## Plot LDAS
+Plot LDAS
+---------
 
     ## [1] "lda_portal_data"
 
-![](lda_report_files/figure-gfm/plot%20LDA-1.png)<!-- -->
+![](lda_report_files/figure-markdown_github/plot%20LDA-1.png)
 
     ## [1] "lda_maizuru_data"
 
-![](lda_report_files/figure-gfm/plot%20LDA-2.png)<!-- -->
+![](lda_report_files/figure-markdown_github/plot%20LDA-2.png)
 
     ## [1] "lda_jornada_data"
 
-![](lda_report_files/figure-gfm/plot%20LDA-3.png)<!-- -->
+![](lda_report_files/figure-markdown_github/plot%20LDA-3.png)
 
     ## [1] "lda_sgs_data"
 
-![](lda_report_files/figure-gfm/plot%20LDA-4.png)<!-- -->
+![](lda_report_files/figure-markdown_github/plot%20LDA-4.png)
 
     ## [1] "lda_bbs_data"
 
-![](lda_report_files/figure-gfm/plot%20LDA-5.png)<!-- -->
+![](lda_report_files/figure-markdown_github/plot%20LDA-5.png)
 
     ## [1] "lda_sdl_data"
 
-![](lda_report_files/figure-gfm/plot%20LDA-6.png)<!-- -->
+![](lda_report_files/figure-markdown_github/plot%20LDA-6.png)
 
     ## [1] "lda_mtquad_data"
 
-![](lda_report_files/figure-gfm/plot%20LDA-7.png)<!-- -->
+![](lda_report_files/figure-markdown_github/plot%20LDA-7.png)
 
-## Summarize LDA results
+Summarize LDA results
+---------------------
 
 ``` r
 lda_summary <- as.data.frame(names(lda_results))
@@ -64,4 +66,4 @@ lda_summary
     ## 6       lda_sdl_data       6          98         22
     ## 7    lda_mtquad_data       6          42         14
 
-![](lda_report_files/figure-gfm/plot%20lda%20summary-1.png)<!-- -->![](lda_report_files/figure-gfm/plot%20lda%20summary-2.png)<!-- -->
+![](lda_report_files/figure-markdown_github/plot%20lda%20summary-1.png)![](lda_report_files/figure-markdown_github/plot%20lda%20summary-2.png)

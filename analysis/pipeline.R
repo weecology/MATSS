@@ -14,9 +14,9 @@ get_maizuru_data <- function()
 
 ## Get raw data
 datasets_raw <- drake_plan(
-    bbs_data_tables = rdataretriever::fetch("breed-bird-survey"), 
-    sdl_data_tables = rdataretriever::fetch("veg-plots-sdl"), 
-    mtquad_data_tables = rdataretriever::fetch("mapped-plant-quads-mt"), 
+    bbs_data_tables = rdataretriever::fetch("breed-bird-survey"),
+    sdl_data_tables = rdataretriever::fetch("veg-plots-sdl"),
+    mtquad_data_tables = rdataretriever::fetch("mapped-plant-quads-mt"),
     strings_in_dots = "literals"
 )
 
@@ -49,7 +49,8 @@ lda_results_plan <- gather_plan(
 ## Summary reports
 reports <- drake_plan(
     lda_report = rmarkdown::render(knitr_in("lda_report.Rmd"), 
-                                   output_file = file_out("lda_report.md"))
+                                   output_file = file_out("lda_report.md")), 
+    strings_in_dots = "literals"
 )
 
 ## The entire pipeline
@@ -64,7 +65,7 @@ if (interactive())
 
 ## Run the pipeline
 future::plan(future::multiprocess)
-db <- DBI::dbConnect(RSQLite::SQLite(), "drake-cache.sqlite")
+db <- DBI::dbConnect(RSQLite::SQLite(), here::here("output", "drake-cache.sqlite"))
 cache <- storr::storr_dbi("datatable", "keystable", db)
 make(pipeline,
      cache = cache,
