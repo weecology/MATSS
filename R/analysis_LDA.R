@@ -25,8 +25,9 @@ run_LDA <- function(data,
     {
         abundances <- data$abundance
     } else {
-        abundances <- data
-    }
+        warning("Incorrect data structure, see data-formats vignette")
+        return(NA)
+        }
     
     topics_vector <- c(2:max_topics)
     
