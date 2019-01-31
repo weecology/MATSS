@@ -3,32 +3,32 @@ library(dplyr)
 library(drake)
 
 ## Read in the maizuru community data from a csv file
-get_maizuru_data_raw <- function()
+get_maizuru_data <- function()
 {
-    read.csv(here::here("data", "Maizuru_dominant_sp.csv"))
+    raw_data <- read.csv(here::here("data", "Maizuru_dominant_sp.csv"))
+    
+    list(abundance = dplyr::select(raw_data, -date_tag, -surf.t, -bot.t, -Y, -M, -D) %>%
+             mutate_all(~round(. + 1e-10)), 
+         covariates = dplyr::select(raw_data, date_tag, surf.t, bot.t, Y, M, D))
 }
 
 ## Get raw data
 datasets_raw <- drake_plan(
-    portal_data_raw = get_portal_rodents(), 
-    maizuru_data_raw = get_maizuru_data_raw(),
-    jornada_data_raw = process_jornada_data(),
-    sgs_data_raw = process_sgs_data(),
-    retriever_data_raw = retriever_data()
+    bbs_data_tables = rdataretriever::fetch("breed-bird-survey"), 
+    sdl_data_tables = rdataretriever::fetch("veg-plots-sdl"), 
+    mtquad_data_tables = rdataretriever::fetch("mapped-plant-quads-mt"), 
+    strings_in_dots = "literals"
 )
 
 ## Clean and transform the data into the appropriate format
 datasets <- drake_plan(
-    portal_data = list(abundance = dplyr::select(portal_data_raw, -period, -censusdate), 
-                       covariates = dplyr::select(portal_data_raw, period, censusdate)),
-    maizuru_data = list(abundance = dplyr::select(maizuru_data_raw, -date_tag, -surf.t, -bot.t, -Y, -M, -D) %>%
-                            mutate_all(~round(. + 1e-10)), 
-                        covariates = dplyr::select(maizuru_data_raw, date_tag, surf.t, bot.t, Y, M, D)),
-    jornada_data = jornada_data_raw,
-    sgs_data = sgs_data_raw,
-    bbs_data = get_bbs_data(retriever_data_raw$'breed-bird-survey',region=7)$abundance,
-    sdl_data = get_sdl_data(retriever_data_raw$'veg-plots-sdl')$abundance,
-    mtquad_data = get_mtquad_data(retriever_data_raw$'mapped-plant-quads-mt')$abundance
+    portal_data = get_portal_rodents(),
+    maizuru_data = get_maizuru_data(), 
+    jornada_data = process_jornada_data(),
+    sgs_data = process_sgs_data(),
+    bbs_data = get_bbs_data(bbs_data_tables, region = 7),
+    sdl_data = get_sdl_data(sdl_data_tables),
+    mtquad_data = get_mtquad_data(mtquad_data_tables)
 )
 
 ## Analysis methods
@@ -48,8 +48,8 @@ lda_results_plan <- gather_plan(
 
 ## Summary reports
 reports <- drake_plan(
-    lda_report = rmarkdown::render(input = "lda_report.Rmd", 
-                                   output_file = "lda_report.md")
+    lda_report = rmarkdown::render(knitr_in("lda_report.Rmd"), 
+                                   output_file = file_out("lda_report.md"))
 )
 
 ## The entire pipeline

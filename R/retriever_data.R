@@ -12,16 +12,16 @@
 
 get_retriever_data <- function(name, save = FALSE)
 {
-
-if(save) { 
-    library(here)
-    folder_path <- here::here("data", name)
-    dir.create(folder_path)
-    rdataretriever::install(name, "csv", 
-                           data_dir = folder_path)
-}
-
-rdataretriever::fetch(name)
+    
+    if(save) { 
+        library(here)
+        folder_path <- here::here("data", name)
+        dir.create(folder_path)
+        rdataretriever::install(name, "csv", 
+                                data_dir = folder_path)
+    }
+    
+    rdataretriever::fetch(name)
     
 }
 
@@ -42,8 +42,8 @@ retriever_data <- function(names = c('breed-bird-survey',
                                      'veg-plots-sdl'))
 {
     
-retriever <- sapply(names,rdataretriever::fetch, USE.NAMES = TRUE)
-
-return(retriever)
-
+    retriever <- sapply(names,rdataretriever::fetch, USE.NAMES = TRUE)
+    
+    return(retriever)
+    
 }
