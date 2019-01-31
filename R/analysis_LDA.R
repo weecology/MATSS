@@ -19,11 +19,19 @@
 #' 
 run_LDA <- function(data, 
                     max_topics = 6, nseeds = 200,
-                    control = LDATS::LDA_controls_list()){
+                    control = LDATS::LDA_controls_list())
+{
+    if (suppressMessages(check_data_format(data)))
+    {
+        abundances <- data$abundance
+    } else {
+        abundances <- data
+    }
+    
     topics_vector <- c(2:max_topics)
     
     #### Run LDAs ####
-    LDA_models = LDATS::LDA_set(document_term_table = data, 
+    LDA_models = LDATS::LDA_set(document_term_table = abundances, 
                                topics = topics_vector,
                                nseeds = nseeds, control = control)
     

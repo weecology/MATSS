@@ -48,8 +48,8 @@ lda_results_plan <- gather_plan(
 
 ## Summary reports
 reports <- drake_plan(
-    lda_report = rmarkdown::render(input = 'lda_report.Rmd', 
-                                   output_file = 'lda_report.md')
+    lda_report = rmarkdown::render(input = "lda_report.Rmd", 
+                                   output_file = "lda_report.md")
 )
 
 ## The entire pipeline
