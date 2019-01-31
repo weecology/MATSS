@@ -2,6 +2,15 @@
 
 Thanks for checking out our project! If you haven't already, please check out the [readme](README.md) for general info about this project.
 
+* [Contributor Code of Conduct](CONTRIBUTING.md#contributor-code-of-conduct)
+* [For the General Public](CONTRIBUTING.md#for-the-general-public)
+* [Weecologists](CONTRIBUTING.md#weecologists)
+* [Documentation](CONTRIBUTING.md#documentation)
+* [Testing](CONTRIBUTING.md#testing)
+* [Building](CONTRIBUTING.md#building)
+* [Contributing Data](CONTRIBUTING.md#contributing-data)
+
+
 ## Contributor Code of Conduct
 All contributors will be expected to follow our [code of conduct](CODE_OF_CONDUCT.md).
 
@@ -12,13 +21,13 @@ If you're not a member of the Weecology lab, we ask that you use one of the foll
 
 2. Fork and create a pull request -- if you have suggested bugfixes or changes. For more info, please check out this Github [guide](https://help.github.com/articles/about-pull-requests/). We ask that you follow our guidelines below on documentation and testing.
 
-### Weecologists
+## Weecologists
 
 If you're actively working on this repo, then you should have write access. For anything beyond a minor change to documentation or coding files, please create a branch for any new features or bugfixes and create a pull request when you'd like your work to be merged in.
 
 If you don't have write access and you would like to, please contact @gmyenni for access.
 
-### Documentation
+## Documentation
 
 If you are contributing code to this project, you generally don't need any additional packages, since the documentation will be written as comments in the R scripts. If you are also building the package, see the [section below](#building) for more details.
 
@@ -39,7 +48,7 @@ newfunc <- function() ...
 
 Note that you can also include links to other functions, math formatting, and more. For more details, see the [chapter on documentation ](http://r-pkgs.had.co.nz/man.html) in Hadley Wickham's book for R packages.
 
-### Testing
+## Testing
 
 If you are adding new functionality, please include automated tests to verify that some of the basic functionality is correct.
 
@@ -51,7 +60,7 @@ As a general rule, you don't need to test all possible inputs and outputs for a 
 
 You can see the existing tests as examples of how to organize your tests, but note that there are several different kinds of `expect_` functions that test for different things. For more details, see the [chapter on testing ](http://r-pkgs.had.co.nz/tests.html) in Hadley Wickham's book for R packages.
 
-### Building
+## Building
 
 To fully build the package, including documentation, running-tests, you will need the `roxygen2`, `testthat`, `devtools`, `pkgdown`, and `usethis` R packages.
 
@@ -68,3 +77,7 @@ The suggested workflow is:
 If you are also prepping the package as a whole, then you will also want to run `devtools::check()` and/or `devtools::check_cran()` to make sure that the package is complete.
 
 For more info, see the [GitHub repo](https://github.com/hadley/devtools) for the `devtools` package. 
+
+## Contributing Data
+
+We use a specific data structure that handles community data and optional covariates. For more information, please see the related [vignette](https://weecology.github.io/MATSS-pipeline/articles/data-formats.html).
