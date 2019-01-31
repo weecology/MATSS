@@ -3,6 +3,7 @@
 \name{ts_summary}
 \alias{ts_summary}
 \alias{uni_ts_summary}
+\alias{ts_summary_drake}
 \title{Summarize a time series}
 \usage{
 ts_summary(obs, times = NULL, effort = NULL, obs_per_effort = FALSE,
@@ -10,6 +11,8 @@ ts_summary(obs, times = NULL, effort = NULL, obs_per_effort = FALSE,
 
 uni_ts_summary(obs, times = NULL, effort = NULL,
   obs_per_effort = FALSE, interp_method = "na.interp")
+
+ts_summary_drake(x)
 }
 \arguments{
 \item{obs}{\code{ts_summary}: a 1- or 2-dimensional set of \code{numeric}
@@ -29,14 +32,22 @@ corrected for \code{effort} before summaries are done.}
 
 \item{interp_method}{\code{character} representing a function name used to 
 interpolate \code{obs}. Defaults to \code{"\link[forecast]{na.interp}"}.}
+
+\item{x}{Three-element \code{list} (\code{abundance}, \code{covariates},
+\code{metadata}) for data objects in the MATSS pipeline.}
 }
 \value{
 \code{ts_summary}: \code{list} of number of species, number of
   observations, species richness summary, total observation summary, 
-  species-by-species summary, times summary, effort summary.
+  among-species correlation, species-by-species summary, times summary, 
+  and effort summary.
   \cr \cr
   \code{uni_ts_summary}: \code{list} of observation summary, times summary,
-  effort summary, autocorrelation.
+  effort summary, and autocorrelation.
+  \cr \cr
+  \code{ts_summary_drake}: \code{list} as with \code{ts_summary} but based
+  on the \code{list} data structure used in the MATSS pipeline with 
+  \code{abundance}, \code{covariates} and \code{metadata} elements.
 }
 \description{
 \code{ts_summary}: summarize a potentially multivariate set of
@@ -46,5 +57,8 @@ interpolate \code{obs}. Defaults to \code{"\link[forecast]{na.interp}"}.}
   Summaries occur based on \code{times}, with effort-based correction (if
   requested via \code{obs_per_effort}) and interpretation of missing 
   values for autocorrelation calcuations (if needed) via 
-  \code{interp_method}.
+  \code{interp_method}. \cr \cr
+  \code{ts_summary_drake}: operates \code{ts_summary} but on a \code{list} 
+  data structure used in the MATSS pipeline with \code{abundance}, 
+  \code{covariates} and \code{metadata} elements.
 }

@@ -1,4 +1,4 @@
-#' @importFrom dplyr %>%
+#' @importFrom dplyr %>% pull
 #' @importFrom forecast na.interp
 #' @importFrom lubridate is.Date
 #' @importFrom stats acf

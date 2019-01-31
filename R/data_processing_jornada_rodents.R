@@ -27,13 +27,17 @@ process_jornada_data <- function(data_path = here::here("data", "jornada_rodents
     # put data in wide format
     jornada_abundance_table <- jornada_abundances %>%
         tidyr::spread(spp, count, fill = 0)
-    
+ 
+    season <- rep(0, nrow(jornada_abundance_table))
+    season[which(jornada_abundance_table$season == "F")] <- 0.5
+    jornada_abundance_table$samples <- jornada_abundance_table$year + season
+
     # split into two dataframes and save
-    covariates <- jornada_abundance_table[,1:2]
-    abundance <- jornada_abundance_table[,-c(1:2)]
-    
-    jornada_raw <- list(abundance, covariates)
-    jornada_raw <- setNames(jornada_raw, c("abundance", "covariates"))
+    covariates <- jornada_abundance_table[,c("year", "season", "samples")]
+    abundance <- jornada_abundance_table[,-which(colnames(jornada_abundance_table) %in% c("year", "season", "samples"))]
+    metadata <- list(times = "samples", effort = NULL)
+    jornada_raw <- list(abundance, covariates, metadata)
+    jornada_raw <- setNames(jornada_raw, c("abundance", "covariates", "metadata"))
     return(jornada_raw)
     
 }

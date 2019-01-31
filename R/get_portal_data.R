@@ -47,11 +47,13 @@ get_portal_rodents <- function(time_or_plots = "plots",
     dat2 <- dat %>%
         dplyr::filter(period %in% start_period:436, 
                       ntraps >= 1) %>%
-        dplyr::select(-newmoonnumber, -ntraps) %>%
-        dplyr::group_by(period, species, censusdate) %>%
+        dplyr::select(-period, -ntraps) %>%
+        dplyr::group_by(censusdate, species, newmoonnumber) %>%
         dplyr::summarize(abundance = round(standard_effort * mean(abundance, na.rm = TRUE) + 1e-10)) %>%
         dplyr::ungroup() %>%
         tidyr::spread(species, abundance)
     
-    return(dat2)
+  list(abundance = dplyr::select(dat2, -newmoonnumber, -censusdate), 
+       covariates = dplyr::select(dat2, newmoonnumber, censusdate),
+       metadata = list(times = "newmoonnumber", effort = NULL))
 }

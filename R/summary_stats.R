@@ -7,7 +7,10 @@
 #'   Summaries occur based on \code{times}, with effort-based correction (if
 #'   requested via \code{obs_per_effort}) and interpretation of missing 
 #'   values for autocorrelation calcuations (if needed) via 
-#'   \code{interp_method}.
+#'   \code{interp_method}. \cr \cr
+#'   \code{ts_summary_drake}: operates \code{ts_summary} but on a \code{list} 
+#'   data structure used in the MATSS pipeline with \code{abundance}, 
+#'   \code{covariates} and \code{metadata} elements.
 #'
 #' @param obs \code{ts_summary}: a 1- or 2-dimensional set of \code{numeric}
 #'   observations (columns if 2-dimensional) across times (rows if 
@@ -27,6 +30,9 @@
 #' @param interp_method \code{character} representing a function name used to 
 #'   interpolate \code{obs}. Defaults to \code{"\link[forecast]{na.interp}"}.
 #'
+#' @param x Three-element \code{list} (\code{abundance}, \code{covariates},
+#'   \code{metadata}) for data objects in the MATSS pipeline. 
+#'
 #' @return \code{ts_summary}: \code{list} of number of species, number of
 #'   observations, species richness summary, total observation summary, 
 #'   among-species correlation, species-by-species summary, times summary, 
@@ -34,6 +40,10 @@
 #'   \cr \cr
 #'   \code{uni_ts_summary}: \code{list} of observation summary, times summary,
 #'   effort summary, and autocorrelation.
+#'   \cr \cr
+#'   \code{ts_summary_drake}: \code{list} as with \code{ts_summary} but based
+#'   on the \code{list} data structure used in the MATSS pipeline with 
+#'   \code{abundance}, \code{covariates} and \code{metadata} elements.
 #'
 #' @export
 #'
@@ -162,6 +172,24 @@ uni_ts_summary <- function(obs, times = NULL, effort = NULL,
        autocorrelation = auto_cor)
 }
 
+#' @rdname ts_summary
+#'
+#' @export
+#'
+ts_summary_drake <- function(x){
+  if (!is.null(x$metadata$times)){
+    times <- pull(x$covariates, x$metadata$times)
+  } else{
+    times <- NULL
+  }  
+  if (!is.null(x$metadata$effort)){
+    effort <- pull(x$covariates, x$metadata$effort)
+  } else{
+    effort <- NULL
+  }
+  ts_summary(x$abundance, times = times, effort = effort)
+}
+
 #' @title Summarize univariate observations, times, or efforts
 #'
 #' @param obs \code{numeric} vector of observations.
@@ -245,7 +273,7 @@ summarize_times <- function(obs, times, round_out = TRUE, digits = NULL){
            mean = mean(times), sd = sd(times), n = length(times))
   if (round_out){
     if (is.null(digits)){
-      digits <- max(c(0, 2 + -floor(log10(min(times[times > 0])))))
+      digits <- max(c(1, 2 + -floor(log10(min(times[times > 0])))))
     } else if (digits %% 1 != 0){
       stop("`digits` must be an integer")
     }
@@ -294,7 +322,7 @@ summarize_effort <- function(obs, effort, round_out = TRUE, digits = NULL){
            mean = mean(effort), sd = sd(effort), n = length(effort))
   if (round_out){
     if (is.null(digits)){
-      digits <- max(c(0, 2 + -floor(log10(min(effort[effort > 0])))))
+      digits <- max(c(1, 2 + -floor(log10(min(effort[effort > 0])))))
     } else if (digits %% 1 != 0){
       stop("`digits` must be an integer")
     }
