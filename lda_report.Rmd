@@ -5,23 +5,29 @@ date: "10/12/2018"
 output: github_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-```
 
-```{r}
 library(MATSS)
 library(drake)
+```
+
+## Read in the results
+
+```{r load LDA results}
+# define where the cache is located
+db <- DBI::dbConnect(RSQLite::SQLite(), here::here("output", "drake-cache.sqlite"))
+cache <- storr::storr_dbi("datatable", "keystable", db)
+
+lda_results <- readd(results_lda, cache = cache)
 ```
 
 ## Plot LDAS
 
 ```{r plot LDA, echo = F}
-lda_results <- readd(lda_results)
-
 for (i in seq(lda_results))
 {
-    print(names(lda_results)[i])
+ #   print(names(lda_results)[i])
     if (names(lda_results)[i] == "lda_portal_data")
     {
        LDATS:::plot.LDA_VEM(lda_results[[i]][1][[1]], 
