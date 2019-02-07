@@ -4,7 +4,7 @@
 #' 
 #' @export
 #'
-get_maizuru_data_raw <- function()
+get_maizuru_data <- function()
 {
   x <- read.csv(here::here("data", "Maizuru_dominant_sp.csv"))
   x$Date <- dplyr::select(x, Y, M, D) %>%
@@ -15,3 +15,4 @@ get_maizuru_data_raw <- function()
                         covariates = dplyr::select(x, date_tag, surf.t, bot.t, Y, M, D, Date),
                         metadata = list(times = "Date"))
 }
+
