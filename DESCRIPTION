@@ -32,10 +32,13 @@ Imports:
     drake (>= 5.4.0.9001),
     forecast,    
     ggplot2,
-    LDATS (>= 0.1.0),
     lubridate,
-    portalr (>= 0.1.2),
-    tidyr
+    portalr (>= 0.2.0),
+    LDATS (>= 0.1.0),
+    drake (>= 6.2.1),
+    dplyr,
+    tidyr,
+    rdataretriever
 Suggests:
     knitr,
     rmarkdown,

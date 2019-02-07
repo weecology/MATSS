@@ -16,11 +16,14 @@
 #' @examples get_bbs_data(bbs_data_tables=retriever_data()$'breed-bird-survey',region=7)
 #' @export
 
-get_bbs_data <- function(bbs_data_tables, start_yr=1965, end_yr=2017, min_num_yrs=10, region){
-    bbs_data <- bbs_data_tables$weather %>%
+get_bbs_data <- function(bbs_data_tables, start_yr=1965, end_yr=2017, min_num_yrs=10, region)
+{
+    bbs_data <- bbs_data_tables$breed_bird_survey_weather %>%
         dplyr::filter(runtype==1, rpid==101) %>%
-        dplyr::left_join(bbs_data_tables$counts, by = c('statenum','route','rpid','year','routedataid','countrynum')) %>%
-        dplyr::left_join(bbs_data_tables$routes, by = c('statenum','route','countrynum')) %>%
+        dplyr::left_join(bbs_data_tables$breed_bird_survey_counts, 
+                         by = c('statenum','route','rpid','year','routedataid','countrynum')) %>%
+        dplyr::left_join(bbs_data_tables$breed_bird_survey_routes, 
+                         by = c('statenum','route','countrynum')) %>%
         dplyr::filter(statenum==region) %>%
         dplyr::mutate(site_id = statenum*1000 + route) %>%
         dplyr::rename(lat = latitude,
@@ -57,7 +60,7 @@ filter_ts <- function(bbs_data, start_yr, end_yr, min_num_yrs) {
     sites_to_keep = bbs_data %>%
         dplyr::filter(year >= start_yr, year <= end_yr) %>%
         dplyr::group_by(site_id) %>%
-        dplyr::summarise(num_years=length(unique(year))) %>%
+        dplyr::summarise(num_years = length(unique(year))) %>%
         dplyr::ungroup() %>%
         dplyr::filter(num_years >= min_num_yrs)
     
@@ -80,11 +83,11 @@ filter_ts <- function(bbs_data, start_yr, end_yr, min_num_yrs) {
 #' @export
 
 get_sdl_data <- function(sdl_data_tables, plots = c(4,7,8,9,10,11,12,14,15,16,17)){
-    sdl_data <- sdl_data_tables$SMDensity %>%
+    sdl_data <- sdl_data_tables$veg_plots_sdl_SMDensity %>%
         dplyr::select(-countns) %>%
         dplyr::filter(plot %in% plots) %>%
         dplyr::group_by(year,code) %>%
-        dplyr::summarise(count = mean(count)) %>%
+        dplyr::summarise(count = sum(count)) %>%
         tidyr::spread(key = code, value = count, fill = 0) %>%
         dplyr::rename(UNKN=V1) %>%
         dplyr::ungroup()
@@ -111,12 +114,12 @@ get_sdl_data <- function(sdl_data_tables, plots = c(4,7,8,9,10,11,12,14,15,16,17
 #' @export
 
 get_mtquad_data <- function(mtquad_data_tables){
-    mtquad_data <- mtquad_data_tables$allrecords_density %>%
+    mtquad_data <- mtquad_data_tables$mapped_plant_quads_mt_allrecords_density %>%
         dplyr::select(-objectid,-seedling,-x,-y) %>%
         dplyr::group_by(year,species,quad) %>%
         dplyr::summarise(abundance = sum(stems)) %>%
         dplyr::group_by(year,species) %>%
-        dplyr::summarise(abundance = mean(abundance)) %>%
+        dplyr::summarise(abundance = sum(abundance)) %>%
         tidyr::spread(key = species, value = abundance, fill = 0) %>%
         dplyr::ungroup()
     

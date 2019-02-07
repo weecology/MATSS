@@ -53,7 +53,9 @@ get_portal_rodents <- function(time_or_plots = "plots",
         dplyr::ungroup() %>%
         tidyr::spread(species, abundance)
     
+
   list(abundance = dplyr::select(dat2, -newmoonnumber, -censusdate), 
        covariates = dplyr::select(dat2, newmoonnumber, censusdate),
        metadata = list(times = "newmoonnumber", effort = NULL))
+
 }
