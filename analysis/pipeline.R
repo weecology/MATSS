@@ -7,7 +7,7 @@ get_maizuru_data <- function()
 {
     data_path <- system.file("extdata", "Maizuru_dominant_sp.csv", 
                              package = "MATSS", mustWork = TRUE)
-    raw_data <- read.csv(data_path
+    raw_data <- read.csv(data_path)
     
     list(abundance = dplyr::select(raw_data, -date_tag, -surf.t, -bot.t, -Y, -M, -D) %>%
              mutate_all(~round(. + 1e-10)), 
@@ -65,34 +65,38 @@ analyses <- drake_plan(
 )
 
 ## Summary reports
+# I don't quite understand the pathing here... - Hao
 reports <- drake_plan(
     lda_report = rmarkdown::render(
-        knitr_in(!!here::here("analysis", "lda_report.Rmd")), 
-        output_file = file_out(!!here::here("analysis", "lda_report.md"))
+        knitr_in("analysis/lda_report.Rmd"), 
+        output_file = file_out("lda_report.md")
     )
 )
 
 ## The entire pipeline
 pipeline <- bind_rows(datasets_raw, datasets, methods, analyses, reports)
 
-## View the graph of the plan
-if (interactive())
-{
-    config <- drake_config(pipeline)
-    sankey_drake_graph(config)           # requires "networkD3" package
-    vis_drake_graph(config)              # requires "visNetwork" package
-}
-
-## Run the pipeline
+## Set up the cache and config
 db <- DBI::dbConnect(RSQLite::SQLite(), here::here("output", "drake-cache.sqlite"))
 cache <- storr::storr_dbi("datatable", "keystable", db)
 
-future::plan(future::multiprocess)
-make(pipeline,
-     force = TRUE, 
-     cache = cache,
-     verbose = 2,
-     parallelism = "future",
-     jobs = 2,
-     caching = "master" # Important for DBI caches!
-)
+## View the graph of the plan
+if (interactive())
+{
+    config <- drake_config(pipeline, cache = cache)
+    sankey_drake_graph(config, build_times = "none")  # requires "networkD3" package
+    vis_drake_graph(config, build_times = "none")     # requires "visNetwork" package
+}
+
+## Run the pipeline
+make(pipeline, cache = cache)
+
+## Run the pipeline (parallelized)
+# future::plan(future::multiprocess)
+# make(pipeline, 
+#      force = TRUE, 
+#      cache = cache,
+#      verbose = 2,
+#      parallelism = "future",
+#      jobs = 2,
+#      caching = "master") # Important for DBI caches!

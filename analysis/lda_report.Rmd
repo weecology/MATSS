@@ -31,7 +31,7 @@ for (i in seq(lda_results))
     if (names(lda_results)[i] == "lda_portal_data")
     {
        LDATS:::plot.LDA_VEM(lda_results[[i]][1][[1]], 
-             xtime = drake::readd(portal_data_raw)$censusdate,
+             xtime = drake::readd(portal_data, cache = cache)$censusdate,
              xname = 'Year')
         title(main = names(lda_results)[i])
     } else {
