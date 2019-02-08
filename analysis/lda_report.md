@@ -3,8 +3,7 @@ LDA report
 Renata Diaz
 10/12/2018
 
-Read in the results
--------------------
+## Read in the results
 
 ``` r
 # define where the cache is located
@@ -14,13 +13,11 @@ cache <- storr::storr_dbi("datatable", "keystable", db)
 lda_results <- readd(results_lda, cache = cache)
 ```
 
-Plot LDAS
----------
+## Plot LDAS
 
-![](/Users/hye/projects/MATSS-pipeline/analysis/lda_report_files/figure-markdown_github/plot%20LDA-1.png)![](/Users/hye/projects/MATSS-pipeline/analysis/lda_report_files/figure-markdown_github/plot%20LDA-2.png)![](/Users/hye/projects/MATSS-pipeline/analysis/lda_report_files/figure-markdown_github/plot%20LDA-3.png)![](/Users/hye/projects/MATSS-pipeline/analysis/lda_report_files/figure-markdown_github/plot%20LDA-4.png)![](/Users/hye/projects/MATSS-pipeline/analysis/lda_report_files/figure-markdown_github/plot%20LDA-5.png)![](/Users/hye/projects/MATSS-pipeline/analysis/lda_report_files/figure-markdown_github/plot%20LDA-6.png)![](/Users/hye/projects/MATSS-pipeline/analysis/lda_report_files/figure-markdown_github/plot%20LDA-7.png)
+![](lda_report_files/figure-gfm/plot%20LDA-1.png)<!-- -->![](lda_report_files/figure-gfm/plot%20LDA-2.png)<!-- -->![](lda_report_files/figure-gfm/plot%20LDA-3.png)<!-- -->![](lda_report_files/figure-gfm/plot%20LDA-4.png)<!-- -->![](lda_report_files/figure-gfm/plot%20LDA-5.png)<!-- -->![](lda_report_files/figure-gfm/plot%20LDA-6.png)<!-- -->![](lda_report_files/figure-gfm/plot%20LDA-7.png)<!-- -->
 
-Summarize LDA results
----------------------
+## Summarize LDA results
 
 ``` r
 lda_summary <- as.data.frame(names(lda_results))
@@ -46,4 +43,4 @@ lda_summary
     ## 6     analysis_lda_sdl_data       6          98         22
     ## 7  analysis_lda_mtquad_data       6          42         14
 
-![](/Users/hye/projects/MATSS-pipeline/analysis/lda_report_files/figure-markdown_github/plot%20lda%20summary-1.png)![](/Users/hye/projects/MATSS-pipeline/analysis/lda_report_files/figure-markdown_github/plot%20lda%20summary-2.png)
+![](lda_report_files/figure-gfm/plot%20lda%20summary-1.png)<!-- -->![](lda_report_files/figure-gfm/plot%20lda%20summary-2.png)<!-- -->
