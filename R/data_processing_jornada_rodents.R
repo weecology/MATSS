@@ -4,13 +4,13 @@
 #' 
 #' Import Jornada rodent abundance from data files
 #' 
-#' @param data_path  location of the raw data
-#' 
 #' @export
-process_jornada_data <- function(data_path = here::here("data", "jornada_rodents.csv"))
+process_jornada_data <- function()
 {
     
     # read in Jornada rodent data
+    data_path <- system.file("extdata", "jornada_rodents.csv", 
+                             package = "MATSS", mustWork = TRUE)
     jornada <- read.csv(data_path)
     
     # select key columns 

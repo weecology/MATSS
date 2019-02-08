@@ -5,7 +5,9 @@ library(drake)
 ## Read in the maizuru community data from a csv file
 get_maizuru_data <- function()
 {
-    raw_data <- read.csv(here::here("data", "Maizuru_dominant_sp.csv"))
+    data_path <- system.file("extdata", "Maizuru_dominant_sp.csv", 
+                             package = "MATSS", mustWork = TRUE)
+    raw_data <- read.csv(data_path
     
     list(abundance = dplyr::select(raw_data, -date_tag, -surf.t, -bot.t, -Y, -M, -D) %>%
              mutate_all(~round(. + 1e-10)), 
