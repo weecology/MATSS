@@ -2,6 +2,9 @@
 #'
 #' Import maizuru data from data files
 #' 
+#' @return list of two dataframes (one with abundance data, the other with covariate data) 
+#'   and one list of metadata.
+#'
 #' @export
 #'
 get_maizuru_data <- function()
@@ -13,6 +16,6 @@ get_maizuru_data <- function()
   list(abundance = dplyr::select(x, -date_tag, -surf.t, -bot.t, -Y, -M, -D, -Date) %>%
                             mutate_all(~round(. + 1e-10)), 
                         covariates = dplyr::select(x, date_tag, surf.t, bot.t, Y, M, D, Date),
-                        metadata = list(times = "Date"))
+                        metadata = list(timename = "Date", effort = NULL))
 }
 

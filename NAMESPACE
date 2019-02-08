@@ -2,6 +2,7 @@
 
 export(check_data_format)
 export(get_bbs_data)
+export(get_maizuru_data)
 export(get_mtquad_data)
 export(get_portal_rodents)
 export(get_retriever_data)

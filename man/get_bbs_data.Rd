@@ -19,7 +19,8 @@ get_bbs_data(bbs_data_tables, start_yr = 1965, end_yr = 2017,
 \item{region}{region code of data to return (currently uses state codes)}
 }
 \value{
-list of two dataframes, one with abundance data, the other with covariate data
+list of two dataframes (one with abundance data, the other with covariate data) 
+  and one list of metadata.
 }
 \description{
 Modified from https://github.com/weecology/bbs-forecasting

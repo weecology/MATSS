@@ -6,6 +6,9 @@
 #' 
 #' @param data_path  location of the raw data
 #' 
+#' @return list of two dataframes (one with abundance data, the other with covariate data) 
+#'   and one list of metadata.
+#'
 #' @export
 process_sgs_data <- function(data_path = here::here("data", "shortgrass_steppe_rodents.csv"))
 {
@@ -36,7 +39,7 @@ process_sgs_data <- function(data_path = here::here("data", "shortgrass_steppe_r
     covariates <- sgs_abundance_table[,c("YEAR", "SESSION", "samples")]
     abundance <- sgs_abundance_table[,-which(colnames(sgs_abundance_table) %in% c("YEAR", "SESSION", "samples"))]
 
-    metadata <- list(times = "samples", effort = NULL)
+    metadata <- list(timename = "samples", effort = NULL)
     return(mget(c("abundance", "covariates", "metadata")))
     
 }

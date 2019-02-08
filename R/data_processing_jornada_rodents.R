@@ -6,6 +6,9 @@
 #' 
 #' @param data_path  location of the raw data
 #' 
+#' @return list of two dataframes (one with abundance data, the other with covariate data) 
+#'   and one list of metadata.
+#'
 #' @export
 process_jornada_data <- function(data_path = here::here("data", "jornada_rodents.csv"))
 {
@@ -28,14 +31,15 @@ process_jornada_data <- function(data_path = here::here("data", "jornada_rodents
     jornada_abundance_table <- jornada_abundances %>%
         tidyr::spread(spp, count, fill = 0)
  
+
     season <- rep(0, nrow(jornada_abundance_table))
     season[which(jornada_abundance_table$season == "F")] <- 0.5
-    jornada_abundance_table$samples <- jornada_abundance_table$year + season
+    jornada_abundance_table$time <- jornada_abundance_table$year + season
 
     # split into two dataframes and save
-    covariates <- jornada_abundance_table[,c("year", "season", "samples")]
+    covariates <- jornada_abundance_table[,c("year", "season", "time")]
     abundance <- jornada_abundance_table[,-which(colnames(jornada_abundance_table) %in% c("year", "season", "samples"))]
-    metadata <- list(times = "samples", effort = NULL)
+    metadata <- list(timename = "time", effort = NULL)
     jornada_raw <- list(abundance, covariates, metadata)
     jornada_raw <- setNames(jornada_raw, c("abundance", "covariates", "metadata"))
     return(jornada_raw)

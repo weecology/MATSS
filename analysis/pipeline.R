@@ -70,7 +70,8 @@ if (interactive())
 }
 
 ## Run the pipeline
-db <- DBI::dbConnect(RSQLite::SQLite(), here::here("output", "drake-cache.sqlite"))
+db <- DBI::dbConnect(RSQLite::SQLite(), 
+                     here::here("output", "drake-cache.sqlite"))
 cache <- storr::storr_dbi("datatable", "keystable", db)
 
 future::plan(future::multiprocess)

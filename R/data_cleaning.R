@@ -11,7 +11,8 @@
 #' @param min_num_yrs num minimum number of years of data between start_yr & end_yr
 #' @param region region code of data to return (currently uses state codes)
 #'
-#' @return list of two dataframes, one with abundance data, the other with covariate data
+#' @return list of two dataframes (one with abundance data, the other with covariate data) 
+#'   and one list of metadata.
 #' 
 #' @examples get_bbs_data(bbs_data_tables=retriever_data()$'breed-bird-survey',region=7)
 #' @export
@@ -41,8 +42,9 @@ get_bbs_data <- function(bbs_data_tables, start_yr=1965, end_yr=2017, min_num_yr
     
     covariates <- bbs_data %>%
         dplyr::select(-dplyr::starts_with('sp'))
-    
-    return(list('abundance' = abundance, 'covariates' = covariates))
+    covariates$date <- as.Date(paste(covariates$year, covariates$month, covariates$day, sep = "-")   )
+    metadata <- list(timename = "date", effort = NULL)
+    return(list('abundance' = abundance, 'covariates' = covariates, "metadata" = metadata))
 }
 
 #' @title Filter BBS to specified time series period and number of samples
@@ -77,8 +79,9 @@ filter_ts <- function(bbs_data, start_yr, end_yr, min_num_yrs) {
 #' Plots,Seedling_counts,SMCover,SMDensity,Species,Stake_info)
 #' @param plots vector of plots to keep
 #'
-#' @return list of two dataframes, one with abundance data, the other with covariate data
-#' 
+#' @return list of two dataframes (one with abundance data, the other with covariate data) 
+#'   and one list of metadata.
+#'
 #' @examples get_sdl_data(sdl_data_tables=retriever_data()$'veg-plots-sdl')
 #' @export
 
@@ -98,7 +101,9 @@ get_sdl_data <- function(sdl_data_tables, plots = c(4,7,8,9,10,11,12,14,15,16,17
     covariates <- sdl_data %>%
         dplyr::select(year)
     
-    return(list('abundance' = abundance, 'covariates' = covariates))
+    metadata <- list(timename = "year", effort = NULL)
+    return(list('abundance' = abundance, 'covariates' = covariates, 
+                "metadata" = metadata))
 }
 
 #' @title Create Montana plant quad time-series data
@@ -108,7 +113,8 @@ get_sdl_data <- function(sdl_data_tables, plots = c(4,7,8,9,10,11,12,14,15,16,17
 #' @param mtquad_data_tables list of all montana plant tables (allrecords_cover,
 #' allrecords_density,species_list)
 #'
-#' @return list of two dataframes, one with abundance data, the other with covariate data
+#' @return list of two dataframes (one with abundance data, the other with covariate data) 
+#'   and one list of metadata.
 #' 
 #' @examples get_mtquad_data(mtquad_data_tables=retriever_data()$'mapped-plant-quads-mt')
 #' @export
@@ -129,5 +135,7 @@ get_mtquad_data <- function(mtquad_data_tables){
     covariates <- mtquad_data %>%
         dplyr::select(year)
     
-    return(list('abundance' = abundance, 'covariates' = covariates))
+    metadata <- list(timename = "year", effort = NULL)
+    return(list('abundance' = abundance, 'covariates' = covariates, 
+                "metadata" = metadata))
 }

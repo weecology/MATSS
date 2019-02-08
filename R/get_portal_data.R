@@ -12,6 +12,9 @@
 #' @param treatment "control" or "exclosure" treatments
 #' @param type type of animals to get: "Rodents" or restrict to "Granivores"
 #' 
+#' @return list of two dataframes (one with abundance data, the other with covariate data) 
+#'   and one list of metadata.
+#'
 #' @export
 get_portal_rodents <- function(time_or_plots = "plots", 
                                treatment = "control",
@@ -56,6 +59,6 @@ get_portal_rodents <- function(time_or_plots = "plots",
 
   list(abundance = dplyr::select(dat2, -newmoonnumber, -censusdate), 
        covariates = dplyr::select(dat2, newmoonnumber, censusdate),
-       metadata = list(times = "newmoonnumber", effort = NULL))
+       metadata = list(timename = "newmoonnumber", effort = NULL))
 
 }
