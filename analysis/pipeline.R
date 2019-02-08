@@ -64,8 +64,10 @@ analyses <- drake_plan(
 
 ## Summary reports
 reports <- drake_plan(
-    lda_report = rmarkdown::render(knitr_in("lda_report.Rmd"), 
-                                   output_file = file_out("lda_report.md"))
+    lda_report = rmarkdown::render(
+        knitr_in(!!here::here("analysis", "lda_report.Rmd")), 
+        output_file = file_out(!!here::here("analysis", "lda_report.md"))
+    )
 )
 
 ## The entire pipeline

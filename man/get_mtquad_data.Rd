@@ -17,5 +17,7 @@ list of two dataframes, one with abundance data, the other with covariate data
 Original data found here
 }
 \examples{
-get_mtquad_data(mtquad_data_tables=retriever_data()$'mapped-plant-quads-mt')
+\dontrun{
+  get_mtquad_data(mtquad_data_tables=retriever_data()$'mapped-plant-quads-mt')
+}
 }

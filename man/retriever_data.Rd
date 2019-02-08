@@ -17,6 +17,8 @@ A list of lists, all datasets compiled and retaining their retriever names
 Load all useable data from retriever
 }
 \examples{
-retriever_data(c("portal","veg-plots-sdl"))
+\dontrun{
+  retriever_data(c("portal","veg-plots-sdl"))
+}
 
 }

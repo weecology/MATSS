@@ -5,8 +5,10 @@
 #' @param name Name of dataset to load
 #' @param save Logical If TRUE, save to data directory, in addition to loading
 #' @return A list, all data tables associated with named dataset
-#' @examples get_retriever_data(portal, save = FALSE)
-#' 
+#' @examples
+#' \dontrun{
+#'   get_retriever_data("portal", save = FALSE)
+#' }
 #' @export
 #'
 
@@ -14,7 +16,6 @@ get_retriever_data <- function(name, save = FALSE)
 {
     
     if(save) { 
-        library(here)
         folder_path <- here::here("data", name)
         dir.create(folder_path)
         rdataretriever::install(name, "csv", 
@@ -31,8 +32,11 @@ get_retriever_data <- function(name, save = FALSE)
 #'
 #' @param names List of dataset names (from retriever) to load
 #' @return A list of lists, all datasets compiled and retaining their retriever names
-#' @examples retriever_data(c("portal","veg-plots-sdl"))
-#'
+#' @examples
+#' \dontrun{
+#'   retriever_data(c("portal","veg-plots-sdl"))
+#' }
+#' 
 #' @export
 #'
 
