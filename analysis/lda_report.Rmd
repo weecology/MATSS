@@ -22,17 +22,32 @@ cache <- storr::storr_dbi("datatable", "keystable", db)
 lda_results <- readd(results_lda, cache = cache)
 ```
 
+## Errors
+Find LDAs that threw errors and remove them:
+```{r find error LDAS, echo = F}
+
+for (i in seq(lda_results)){
+    if(!is.list(lda_results[[i]])) {
+        print(names(lda_results)[i])
+        print(lda_results[[i]])
+        lda_results <- lda_results[-i]
+    }
+}
+```
+
 ## Plot LDAS
 
 ```{r plot LDA, echo = F}
+
 for (i in seq(lda_results))
 {
- #   print(names(lda_results)[i])
+    print(names(lda_results)[i])
+    
     if (names(lda_results)[i] == "lda_portal_data")
     {
-       LDATS:::plot.LDA_VEM(lda_results[[i]][1][[1]], 
-             xtime = drake::readd(portal_data, cache = cache)$censusdate,
-             xname = 'Year')
+        LDATS:::plot.LDA_VEM(lda_results[[i]][1][[1]], 
+                             xtime = drake::readd(portal_data, cache = cache)$censusdate,
+                             xname = 'Year')
         title(main = names(lda_results)[i])
     } else {
         LDATS:::plot.LDA_VEM(lda_results[[i]][1][[1]], xname = 'Time step')
@@ -51,7 +66,8 @@ lda_summary$ntopics <- NA
 lda_summary$ntimeseries <- NA
 lda_summary$ntimesteps <- NA
 
-for(i in seq(lda_results)) {
+for (i in seq(lda_results))
+{
     lda_summary$ntopics[i] <- lda_results[[i]][1]$k@k
     lda_summary$ntimeseries[i] <- as.integer(length(lda_results[[i]][1]$k@terms))
     lda_summary$ntimesteps[i] <- lda_results[[i]][1]$k@wordassignments$nrow
@@ -63,8 +79,12 @@ lda_summary
 
 ```{r plot lda summary, echo = F}
 
-plot(lda_summary$ntimeseries, lda_summary$ntopics, main = 'Number of topics by number of timeseries', xlab = 'Number of timeseries', ylab ='Number of topics')
+plot(lda_summary$ntimeseries, lda_summary$ntopics, 
+     main = 'Number of topics by number of timeseries', 
+     xlab = 'Number of timeseries', ylab = 'Number of topics')
 
-plot(lda_summary$ntimesteps, lda_summary$ntopics, main = 'Number of topics by length of timeseries',  xlab = 'Length of timeseries (number of timesteps)', ylab ='Number of topics')
+plot(lda_summary$ntimesteps, lda_summary$ntopics, 
+     main = 'Number of topics by length of timeseries', 
+     xlab = 'Length of timeseries (number of timesteps)', ylab = 'Number of topics')
 
 ```

@@ -13,9 +13,42 @@ cache <- storr::storr_dbi("datatable", "keystable", db)
 lda_results <- readd(results_lda, cache = cache)
 ```
 
+## Errors
+
+Find LDAs that threw errors and remove them:
+
+    ## [1] "analysis_lda_bad_portal"
+    ## [1] "Incorrect data structure"
+
 ## Plot LDAS
 
-![](lda_report_files/figure-gfm/plot%20LDA-1.png)<!-- -->![](lda_report_files/figure-gfm/plot%20LDA-2.png)<!-- -->![](lda_report_files/figure-gfm/plot%20LDA-3.png)<!-- -->![](lda_report_files/figure-gfm/plot%20LDA-4.png)<!-- -->![](lda_report_files/figure-gfm/plot%20LDA-5.png)<!-- -->![](lda_report_files/figure-gfm/plot%20LDA-6.png)<!-- -->![](lda_report_files/figure-gfm/plot%20LDA-7.png)<!-- -->
+    ## [1] "analysis_lda_portal_data"
+
+![](lda_report_files/figure-gfm/plot%20LDA-1.png)<!-- -->
+
+    ## [1] "analysis_lda_maizuru_data"
+
+![](lda_report_files/figure-gfm/plot%20LDA-2.png)<!-- -->
+
+    ## [1] "analysis_lda_jornada_data"
+
+![](lda_report_files/figure-gfm/plot%20LDA-3.png)<!-- -->
+
+    ## [1] "analysis_lda_sgs_data"
+
+![](lda_report_files/figure-gfm/plot%20LDA-4.png)<!-- -->
+
+    ## [1] "analysis_lda_bbs_data"
+
+![](lda_report_files/figure-gfm/plot%20LDA-5.png)<!-- -->
+
+    ## [1] "analysis_lda_sdl_data"
+
+![](lda_report_files/figure-gfm/plot%20LDA-6.png)<!-- -->
+
+    ## [1] "analysis_lda_mtquad_data"
+
+![](lda_report_files/figure-gfm/plot%20LDA-7.png)<!-- -->
 
 ## Summarize LDA results
 
@@ -25,7 +58,8 @@ lda_summary$ntopics <- NA
 lda_summary$ntimeseries <- NA
 lda_summary$ntimesteps <- NA
 
-for(i in seq(lda_results)) {
+for (i in seq(lda_results))
+{
     lda_summary$ntopics[i] <- lda_results[[i]][1]$k@k
     lda_summary$ntimeseries[i] <- as.integer(length(lda_results[[i]][1]$k@terms))
     lda_summary$ntimesteps[i] <- lda_results[[i]][1]$k@wordassignments$nrow
