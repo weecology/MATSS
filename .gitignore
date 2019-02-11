@@ -4,3 +4,5 @@ inst/doc
 .RData
 .Ruserdata
 /.drake/
+output/drake-cache.sqlite
+analysis/*.html
