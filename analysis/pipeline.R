@@ -14,7 +14,7 @@ datasets_raw <- drake_plan(
     maizuru_data_raw = get_maizuru_data_raw(),
     jornada_data_raw = process_jornada_data(),
     sgs_data_raw = process_sgs_data(),
-    bad_portal_data_raw = get_portal_rodents()
+    bad_portal_raw = get_portal_rodents()
 )
 
 ## Clean and transform the data into the appropriate format
@@ -26,7 +26,7 @@ datasets <- drake_plan(
                         covariates = dplyr::select(maizuru_data_raw, date_tag, surf.t, bot.t, Y, M, D)),
     jornada_data = jornada_data_raw,
     sgs_data = sgs_data_raw,
-    bad_portal_data = dplyr::select(bad_portal_data_raw, -period, -censusdate)
+    bad_portal = dplyr::select(bad_portal_raw, -period, -censusdate)
 )
 
 ## Analysis methods

@@ -8,6 +8,14 @@ library(MATSS)
 library(drake)
 ```
 
+Errors
+------
+
+Find LDAs that threw errors and remove them:
+
+    ## [1] "lda_bad_portal"
+    ## [1] "Incorrect data structure"
+
 Plot LDAS
 ---------
 
@@ -37,7 +45,6 @@ lda_summary$ntimeseries <- NA
 lda_summary$ntimesteps <- NA
 
 for(i in seq(lda_results)) {
-        if(is.na(lda_results[[i]])) next
 
     lda_summary$ntopics[i] <- lda_results[[i]][1]$k@k
     lda_summary$ntimeseries[i] <- as.integer(length(lda_results[[i]][1]$k@terms))
@@ -47,11 +54,10 @@ for(i in seq(lda_results)) {
 lda_summary
 ```
 
-    ##    names(lda_results) ntopics ntimeseries ntimesteps
-    ## 1     lda_portal_data       5          21        295
-    ## 2    lda_maizuru_data       6          15        285
-    ## 3    lda_jornada_data       6          17         24
-    ## 4        lda_sgs_data       4          11         13
-    ## 5 lda_bad_portal_data      NA          NA         NA
+    ##   names(lda_results) ntopics ntimeseries ntimesteps
+    ## 1    lda_portal_data       5          21        295
+    ## 2   lda_maizuru_data       6          15        285
+    ## 3   lda_jornada_data       6          17         24
+    ## 4       lda_sgs_data       4          11         13
 
 ![](lda_report_files/figure-markdown_github/plot%20lda%20summary-1.png)![](lda_report_files/figure-markdown_github/plot%20lda%20summary-2.png)

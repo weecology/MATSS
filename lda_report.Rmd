@@ -14,16 +14,29 @@ library(MATSS)
 library(drake)
 ```
 
+## Errors
+Find LDAs that threw errors and remove them:
+```{r find error LDAS, echo = F}
+lda_results <- readd(lda_results)
+
+for (i in seq(lda_results)){
+    if(!is.list(lda_results[[i]])) {
+        print(names(lda_results)[i])
+        print(lda_results[[i]])
+        lda_results <- lda_results[-i]
+    }
+}
+```
+
 ## Plot LDAS
 
 ```{r plot LDA, echo = F}
-lda_results <- readd(lda_results)
 
 for (i in seq(lda_results))
 {
-    if(is.na(lda_results[[i]])) next
     print(names(lda_results)[i])
-    if (names(lda_results)[i] == "lda_portal_data")
+   
+     if (names(lda_results)[i] == "lda_portal_data")
     {
        LDATS:::plot.LDA_VEM(lda_results[[i]][1][[1]], 
              xtime = drake::readd(portal_data_raw)$censusdate,
@@ -47,7 +60,6 @@ lda_summary$ntimeseries <- NA
 lda_summary$ntimesteps <- NA
 
 for(i in seq(lda_results)) {
-        if(is.na(lda_results[[i]])) next
 
     lda_summary$ntopics[i] <- lda_results[[i]][1]$k@k
     lda_summary$ntimeseries[i] <- as.integer(length(lda_results[[i]][1]$k@terms))

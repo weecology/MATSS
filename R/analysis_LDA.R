@@ -21,13 +21,14 @@ run_LDA <- function(data,
                     max_topics = 6, nseeds = 200,
                     control = LDATS::LDA_controls_list())
 {
-    if (suppressMessages(check_data_format(data)))
-    {
-        abundances <- data$abundance
-    } else {
-        warning("Incorrect data structure, see data-formats vignette")
-        return(NA)
-        }
+   
+    if(!check_data_format(data)) {
+        wrongFormat = simpleWarning("Incorrect data structure, see data-formats vignette")
+        tryCatch(warning(wrongFormat), finally = return('Incorrect data structure'))
+    } 
+    
+    abundances <- data$abundance
+    
     
     topics_vector <- c(2:max_topics)
     
