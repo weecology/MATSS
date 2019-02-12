@@ -3,7 +3,8 @@ LDA report
 Renata Diaz
 10/12/2018
 
-## Read in the results
+Read in the results
+-------------------
 
 ``` r
 # define where the cache is located
@@ -13,44 +14,47 @@ cache <- storr::storr_dbi("datatable", "keystable", db)
 lda_results <- readd(results_lda, cache = cache)
 ```
 
-## Errors
+Errors
+------
 
 Find LDAs that threw errors and remove them:
 
     ## [1] "analysis_lda_bad_portal"
     ## [1] "Incorrect data structure"
 
-## Plot LDAS
+Plot LDAS
+---------
 
     ## [1] "analysis_lda_portal_data"
 
-![](lda_report_files/figure-gfm/plot%20LDA-1.png)<!-- -->
+![](lda_report_files/figure-markdown_github/plot%20LDA-1.png)
 
     ## [1] "analysis_lda_maizuru_data"
 
-![](lda_report_files/figure-gfm/plot%20LDA-2.png)<!-- -->
+![](lda_report_files/figure-markdown_github/plot%20LDA-2.png)
 
     ## [1] "analysis_lda_jornada_data"
 
-![](lda_report_files/figure-gfm/plot%20LDA-3.png)<!-- -->
+![](lda_report_files/figure-markdown_github/plot%20LDA-3.png)
 
     ## [1] "analysis_lda_sgs_data"
 
-![](lda_report_files/figure-gfm/plot%20LDA-4.png)<!-- -->
+![](lda_report_files/figure-markdown_github/plot%20LDA-4.png)
 
     ## [1] "analysis_lda_bbs_data"
 
-![](lda_report_files/figure-gfm/plot%20LDA-5.png)<!-- -->
+![](lda_report_files/figure-markdown_github/plot%20LDA-5.png)
 
     ## [1] "analysis_lda_sdl_data"
 
-![](lda_report_files/figure-gfm/plot%20LDA-6.png)<!-- -->
+![](lda_report_files/figure-markdown_github/plot%20LDA-6.png)
 
     ## [1] "analysis_lda_mtquad_data"
 
-![](lda_report_files/figure-gfm/plot%20LDA-7.png)<!-- -->
+![](lda_report_files/figure-markdown_github/plot%20LDA-7.png)
 
-## Summarize LDA results
+Summarize LDA results
+---------------------
 
 ``` r
 lda_summary <- as.data.frame(names(lda_results))
@@ -77,4 +81,4 @@ lda_summary
     ## 6     analysis_lda_sdl_data       6          98         22
     ## 7  analysis_lda_mtquad_data       6          42         14
 
-![](lda_report_files/figure-gfm/plot%20lda%20summary-1.png)<!-- -->![](lda_report_files/figure-gfm/plot%20lda%20summary-2.png)<!-- -->
+![](lda_report_files/figure-markdown_github/plot%20lda%20summary-1.png)![](lda_report_files/figure-markdown_github/plot%20lda%20summary-2.png)
