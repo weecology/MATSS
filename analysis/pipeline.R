@@ -61,7 +61,7 @@ analyses <- drake_plan(
     # create a list of the created `analysis` objects, grouping by the `fun`
     # that made them - this keeps the results from the different methods
     # separated, so that the reports/syntheses can handle the right outputs
-    results = target(collect(analysis, ignore(analyses)),
+    results = target(collect(list(analysis), ignore(analyses)),
                      transform = combine(analysis, .by = fun)),
     trace = TRUE
 )
