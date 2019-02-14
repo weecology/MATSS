@@ -115,7 +115,7 @@ samples during that period." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create BBS population time-series data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/data_cleaning.R'><code>R/data_cleaning.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_retriever_data.R'><code>R/get_retriever_data.R</code></a></small>
     <div class="hidden name"><code>get_bbs_data.Rd</code></div>
     </div>
 
@@ -128,16 +128,12 @@ samples during that period.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_bbs_data</span>(<span class='no'>bbs_data_tables</span>, <span class='kw'>start_yr</span> <span class='kw'>=</span> <span class='fl'>1965</span>, <span class='kw'>end_yr</span> <span class='kw'>=</span> <span class='fl'>2017</span>,
-  <span class='kw'>min_num_yrs</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='no'>region</span>)</pre>
+    <pre class="usage"><span class='fu'>get_bbs_data</span>(<span class='kw'>start_yr</span> <span class='kw'>=</span> <span class='fl'>1965</span>, <span class='kw'>end_yr</span> <span class='kw'>=</span> <span class='fl'>2017</span>, <span class='kw'>min_num_yrs</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='no'>region</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>bbs_data_tables</th>
-      <td><p>list of all BBS tables (counts,region_codes,routes,species,weather)</p></td>
-    </tr>
     <tr>
       <th>start_yr</th>
       <td><p>num first year of time-series</p></td>
