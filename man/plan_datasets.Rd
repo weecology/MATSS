@@ -6,6 +6,10 @@
 \usage{
 plan_datasets()
 }
+\value{
+a drake plan (i.e. a tibble) specifying the targets and commands 
+  for gathering datasets
+}
 \description{
 plan_datasets
 }

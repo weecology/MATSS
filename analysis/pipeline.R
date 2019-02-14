@@ -11,15 +11,8 @@ if (FALSE)
 }
 
 ## Clean and transform the data into the appropriate format
-datasets <- drake_plan(
-    portal_data = get_portal_rodents(),
-    maizuru_data = get_maizuru_data(),
-    jornada_data = get_jornada_data(),
-    sgs_data = get_sgs_data(),
-    bbs_data = get_bbs_data(region = 7),
-    sdl_data = get_sdl_data(),
-    mtquad_data = get_mtquad_data(),
-    bad_portal = portal_data[[1]]
+datasets <- bind_rows(plan_datasets(), 
+                      drake_plan(bad_portal = portal_data[[1]])
 )
 
 ## Analysis methods
