@@ -4,8 +4,9 @@
 #' 
 #' Import Shortgrass Steppe rodent abundance from data files
 #' 
-#' @param data_path  location of the raw data
-#' 
+#' @return list of two dataframes (one with abundance data, the other with 
+#'   covariate data) and one list of metadata.
+#'
 #' @export
 process_sgs_data <- function()
 {
@@ -29,11 +30,16 @@ process_sgs_data <- function()
     # put data in wide format
     sgs_abundance_table <- sgs_abundances %>%
         tidyr::spread(SPP, count, fill = 0)
+
+    season <- rep(0, nrow(sgs_abundance_table))
+    season[grepl("Sep", sgs_abundance_table$SESSION)] <- 0.5
+    sgs_abundance_table$samples <- sgs_abundance_table$YEAR + season
     
     # split into two dataframes and save
-    covariates <- sgs_abundance_table[,1:2]
-    abundance <- sgs_abundance_table[,-c(1:2)]
-    
-    return(mget(c("abundance", "covariates")))
+    covariates <- sgs_abundance_table[,c("YEAR", "SESSION", "samples")]
+    abundance <- sgs_abundance_table[,-which(colnames(sgs_abundance_table) %in% c("YEAR", "SESSION", "samples"))]
+
+    metadata <- list(timename = "samples", effort = NULL)
+    return(mget(c("abundance", "covariates", "metadata")))
     
 }

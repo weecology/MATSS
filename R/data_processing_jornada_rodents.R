@@ -4,6 +4,9 @@
 #' 
 #' Import Jornada rodent abundance from data files
 #' 
+#' @return list of two dataframes (one with abundance data, the other with covariate data) 
+#'   and one list of metadata.
+#'
 #' @export
 process_jornada_data <- function()
 {
@@ -27,13 +30,18 @@ process_jornada_data <- function()
     # put data in wide format
     jornada_abundance_table <- jornada_abundances %>%
         tidyr::spread(spp, count, fill = 0)
-    
+ 
+
+    season <- rep(0, nrow(jornada_abundance_table))
+    season[which(jornada_abundance_table$season == "F")] <- 0.5
+    jornada_abundance_table$time <- jornada_abundance_table$year + season
+
     # split into two dataframes and save
-    covariates <- jornada_abundance_table[,1:2]
-    abundance <- jornada_abundance_table[,-c(1:2)]
-    
-    jornada_raw <- list(abundance, covariates)
-    jornada_raw <- setNames(jornada_raw, c("abundance", "covariates"))
+    covariates <- jornada_abundance_table[,c("year", "season", "time")]
+    abundance <- jornada_abundance_table[,-which(colnames(jornada_abundance_table) %in% c("year", "season", "samples", "time"))]
+    metadata <- list(timename = "time", effort = NULL)
+    jornada_raw <- list(abundance, covariates, metadata)
+    jornada_raw <- setNames(jornada_raw, c("abundance", "covariates", "metadata"))
     return(jornada_raw)
     
 }

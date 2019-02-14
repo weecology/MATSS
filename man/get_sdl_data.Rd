@@ -14,7 +14,8 @@ Plots,Seedling_counts,SMCover,SMDensity,Species,Stake_info)}
 \item{plots}{vector of plots to keep}
 }
 \value{
-list of two dataframes, one with abundance data, the other with covariate data
+list of two dataframes (one with abundance data, the other with covariate data) 
+  and one list of metadata.
 }
 \description{
 Original data found here http://www.eebweb.arizona.edu/faculty/venable/LTREB/LTREB%20data.htm

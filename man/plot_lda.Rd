@@ -12,6 +12,10 @@ plot_lda(x, observed_dates = NULL, ..., select_samples = NULL)
 \item{observed_dates}{a vector of dates for the observed samples. If 
 observed_dates == NULL, samples will be labelled sequentially starting
 from 1.}
+
+\item{...}{additional arguments to pass down}
+
+\item{select_samples}{select samples}
 }
 \description{
 Plot the species composition of LDA topics, and the 

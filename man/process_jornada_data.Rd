@@ -8,6 +8,10 @@ Import Jornada rodent abundance from data files}
 \usage{
 process_jornada_data()
 }
+\value{
+list of two dataframes (one with abundance data, the other with covariate data) 
+  and one list of metadata.
+}
 \description{
 get Jornada rodent data
 

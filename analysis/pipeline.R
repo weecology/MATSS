@@ -2,18 +2,6 @@ library(MATSS)
 library(dplyr)
 library(drake)
 
-## Read in the maizuru community data from a csv file
-get_maizuru_data <- function()
-{
-    data_path <- system.file("extdata", "Maizuru_dominant_sp.csv",
-                             package = "MATSS", mustWork = TRUE)
-    raw_data <- read.csv(data_path)
-    
-    list(abundance = dplyr::select(raw_data, -date_tag, -surf.t, -bot.t, -Y, -M, -D) %>%
-             mutate_all(~round(. + 1e-10)),
-         covariates = dplyr::select(raw_data, date_tag, surf.t, bot.t, Y, M, D))
-}
-
 ## Get raw data
 datasets_raw <- drake_plan(
     bbs_data_tables = rdataretriever::fetch("breed-bird-survey"),

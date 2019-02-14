@@ -7,7 +7,7 @@
 check_data_format(data)
 }
 \arguments{
-\item{data}{}
+\item{data}{dataset to check}
 }
 \value{
 TRUE or FALSE
