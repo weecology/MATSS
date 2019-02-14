@@ -1,5 +1,7 @@
 # MATSS-pipeline
 
+[![Build Status](https://travis-ci.org/weecology/MATSS.svg?branch=master)](https://travis-ci.org/weecology/MATSS)
+
 ## Overview
 This project is the development of a computational platform to serve as an analysis pipeline for [MATSS](https://github.com/weecology/MATSS)--Macroecological Analysis of Time Series Structure.
 
