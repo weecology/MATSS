@@ -61,7 +61,7 @@ ts_summary <- function(obs, times = NULL, effort = NULL,
     if (!is.Date(times)){
       stop("`times` must be numeric or a date")
     }
-    times <- as.numeric(difftime(times, min(times), unit = "days")) + 1
+    times <- as.numeric(difftime(times, min(times), units = "days")) + 1
   }
   if (!is.null(dim(times))){
     stop("`times` must be a single dimension")
@@ -137,7 +137,7 @@ uni_ts_summary <- function(obs, times = NULL, effort = NULL,
     if (!is.Date(times)){
       stop("`times` must be numeric or a Date")
     }
-    times <- as.numeric(difftime(times, min(times), unit = "days")) + 1
+    times <- as.numeric(difftime(times, min(times), units = "days")) + 1
   }
   if (!is.null(dim(times))){
     stop("`times` must be a single dimension")
@@ -257,7 +257,7 @@ summarize_times <- function(obs, times, round_out = TRUE, digits = NULL){
     if (!is.Date(times)){
       stop("`times` must be numeric or a Date")
     }
-    times <- as.numeric(difftime(times, min(times), unit = "days")) + 1
+    times <- as.numeric(difftime(times, min(times), units = "days")) + 1
   }
   if (!is.null(dim(times))){
     stop("`times` must be a single dimension")
@@ -392,7 +392,7 @@ temp_autocor <- function(obs, times, interp_method = "na.interp"){
     if (!is.Date(times)){
       stop("`times` must be numeric or a Date")
     }
-    times <- as.numeric(difftime(times, min(times), unit = "days")) + 1
+    times <- as.numeric(difftime(times, min(times), units = "days")) + 1
   }
   if (!is.null(dim(times))){
     stop("`times` must be a single dimension")
@@ -435,7 +435,7 @@ interpolate_obs <- function(obs, times, method = "na.interp"){
     if (!is.Date(times)){
       stop("`times` must be numeric or a Date")
     }
-    times <- as.numeric(difftime(times, min(times), unit = "days")) + 1
+    times <- as.numeric(difftime(times, min(times), units = "days")) + 1
   }
   if (!is.null(dim(times))){
     stop("`times` must be a single dimension")

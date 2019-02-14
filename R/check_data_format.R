@@ -3,7 +3,7 @@
 #' @description Check whether its input matches the specified data format in 
 #'   the `data-formats.Rmd` vignette
 #'
-#' @param data
+#' @param data dataset to check
 #'
 #' @return TRUE or FALSE
 #' 

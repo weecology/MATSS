@@ -8,12 +8,9 @@ Import Shortgrass Steppe rodent abundance from data files}
 \usage{
 process_sgs_data()
 }
-\arguments{
-\item{data_path}{location of the raw data}
-}
 \value{
-list of two dataframes (one with abundance data, the other with covariate data) 
-  and one list of metadata.
+list of two dataframes (one with abundance data, the other with 
+  covariate data) and one list of metadata.
 }
 \description{
 get Shortgrass Steppe rodent data

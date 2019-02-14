@@ -4,10 +4,8 @@
 #' 
 #' Import Shortgrass Steppe rodent abundance from data files
 #' 
-#' @param data_path  location of the raw data
-#' 
-#' @return list of two dataframes (one with abundance data, the other with covariate data) 
-#'   and one list of metadata.
+#' @return list of two dataframes (one with abundance data, the other with 
+#'   covariate data) and one list of metadata.
 #'
 #' @export
 process_sgs_data <- function()
