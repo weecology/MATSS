@@ -1,6 +1,6 @@
 Package: MATSS
 Type: Package
-Title: Macroecological Analayses of Time Series Structure pipeline
+Title: Macroecological Analayses of Time Series Structure
 Version: 0.0.2
 Authors@R: c(
     person("Hao", "Ye", role = c("aut", "cre"), 
@@ -21,10 +21,10 @@ Authors@R: c(
     person("Glenda", "Yenni", role = c("aut"), 
     	   comment = c(ORCID = "0000-0001-6969-1848"))
   )
-Description: Perform automated analyses of ecological time series.  The idea is to add datasets and/or analysis methods using code (in the case of data, code to bring the data into standardized formats), and have automated analyses with updated reports.
+Description: Support for automated analyses of ecological time series.  The goal is to support the ability of end users to run analyses on a collection of datasets. Users will be able to add datasets and/or analysis methods using code (in the case of data, code to bring the data into standardized formats), with functionality for Drake to automatically update downstream analyses and reports.
 License: MIT + file LICENSE
-URL: https://github.com/weecology/MATSS-pipeline
-BugReports: https://github.com/weecology/MATSS-pipeline/issues
+URL: https://github.com/weecology/MATSS
+BugReports: https://github.com/weecology/MATSS/issues
 LazyData: true
 Depends: R (>= 3.4.0)
 Imports:
