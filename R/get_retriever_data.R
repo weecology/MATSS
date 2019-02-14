@@ -5,7 +5,6 @@
 #' Selects sites with data spanning start_yr through end_yr containing at least min_num_yrs of data
 #' samples during that period.
 #'
-#' @param bbs_data_tables list of all BBS tables (counts,region_codes,routes,species,weather)
 #' @param start_yr num first year of time-series
 #' @param end_yr num last year of time-series
 #' @param min_num_yrs num minimum number of years of data between start_yr & end_yr
@@ -20,24 +19,26 @@
 #' }
 #' @export
 
-get_bbs_data <- function(bbs_data_tables, start_yr=1965, end_yr=2017, min_num_yrs=10, region)
+get_bbs_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10, region)
 {
+    bbs_data_tables <- import_retriever_data("breed-bird-survey")
+    
     bbs_data <- bbs_data_tables$breed_bird_survey_weather %>%
-        dplyr::filter(runtype==1, rpid==101) %>%
+        dplyr::filter(runtype == 1, rpid == 101) %>%
         dplyr::left_join(bbs_data_tables$breed_bird_survey_counts, 
-                         by = c('statenum','route','rpid','year','routedataid','countrynum')) %>%
+                         by = c('statenum', 'route', 'rpid', 'year', 'routedataid', 'countrynum')) %>%
         dplyr::left_join(bbs_data_tables$breed_bird_survey_routes, 
-                         by = c('statenum','route','countrynum')) %>%
-        dplyr::filter(statenum==region) %>%
+                         by = c('statenum', 'route', 'countrynum')) %>%
+        dplyr::filter(statenum == region) %>%
         dplyr::mutate(site_id = statenum*1000 + route) %>%
         dplyr::rename(lat = latitude,
                       long = longitude,
                       species_id = aou,
                       abundance = speciestotal) %>%
-        dplyr::mutate(species_id = paste('sp',species_id,sep='')) %>%
+        dplyr::mutate(species_id = paste('sp', species_id,sep='')) %>%
         filter_ts(start_yr, end_yr, min_num_yrs) %>%
         dplyr::ungroup() %>%
-        dplyr::select(-rpid,-runtype,-count10,-count20,-count30,-count40,-count50) %>%
+        dplyr::select(-rpid, -runtype, -count10, -count20, -count30, -count40, -count50) %>%
         tidyr::spread(key = species_id, value = abundance, fill = 0)
     
     abundance <- bbs_data %>%
@@ -78,8 +79,6 @@ filter_ts <- function(bbs_data, start_yr, end_yr, min_num_yrs) {
 #'
 #' @description Original data found here http://www.eebweb.arizona.edu/faculty/venable/LTREB/LTREB%20data.htm
 #'
-#' @param sdl_data_tables list of all SDL tables (Count1906,Photo_info,Plot_corners,
-#' Plots,Seedling_counts,SMCover,SMDensity,Species,Stake_info)
 #' @param plots vector of plots to keep
 #'
 #' @return list of two dataframes (one with abundance data, the other with covariate data) 
@@ -91,7 +90,10 @@ filter_ts <- function(bbs_data, start_yr, end_yr, min_num_yrs) {
 #' }
 #' @export
 
-get_sdl_data <- function(sdl_data_tables, plots = c(4,7,8,9,10,11,12,14,15,16,17)){
+get_sdl_data <- function(plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17))
+{
+    sdl_data_tables <- import_retriever_data("veg-plots-sdl")
+    
     sdl_data <- sdl_data_tables$veg_plots_sdl_SMDensity %>%
         dplyr::select(-countns) %>%
         dplyr::filter(plot %in% plots) %>%
@@ -128,7 +130,10 @@ get_sdl_data <- function(sdl_data_tables, plots = c(4,7,8,9,10,11,12,14,15,16,17
 #' }
 #' @export
 
-get_mtquad_data <- function(mtquad_data_tables){
+get_mtquad_data <- function()
+{
+    mtquad_data_tables <- import_retriever_data("mtquad_data_tables")
+    
     mtquad_data <- mtquad_data_tables$mapped_plant_quads_mt_allrecords_density %>%
         dplyr::select(-objectid,-seedling,-x,-y) %>%
         dplyr::group_by(year,species,quad) %>%
