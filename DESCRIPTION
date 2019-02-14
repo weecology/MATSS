@@ -39,7 +39,8 @@ Imports:
     rdataretriever,
     RSQLite,
     forecast,
-    networkD3
+    networkD3,
+    here
 Suggests:
     testthat,
     knitr,

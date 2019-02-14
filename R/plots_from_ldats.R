@@ -7,6 +7,8 @@
 #' @param observed_dates a vector of dates for the observed samples. If 
 #' observed_dates == NULL, samples will be labelled sequentially starting
 #' from 1. 
+#' @param ... additional arguments to pass down
+#' @param select_samples select samples
 #' 
 #' @export
 
