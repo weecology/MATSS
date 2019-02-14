@@ -6,11 +6,11 @@ test_that("Portal data is retrievable and works", {
 })
 
 test_that("Jornada data is retrievable and works", {
-    expect_error(jornada_data <- process_jornada_data(), NA)
+    expect_error(jornada_data <- get_jornada_data(), NA)
     expect_true(check_data_format(jornada_data))
 })
 
 test_that("Shortgrass Steppe data is retrievable and works", {
-    expect_error(sgs_data <- process_sgs_data(), NA)
+    expect_error(sgs_data <- get_sgs_data(), NA)
     expect_true(check_data_format(sgs_data))
 })

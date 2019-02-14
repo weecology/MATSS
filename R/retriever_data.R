@@ -1,29 +1,67 @@
-#' @title Fetch a dataset from data retriever
+#' @title Download a dataset from data retriever
 #'
-#' @description Load data, and optionally save to data directory
-#'
-#' @param name Name of dataset to load
-#' @param save Logical If TRUE, save to data directory, in addition to loading
-#' @return A list, all data tables associated with named dataset
+#' @description a wrapper around rdataretriever::install to facilitate 
+#'   downloading multiple datasets into a common data folder
+#'   
+#' @param data_path the overarching folder in which to download datasets
+#' @inheritParams rdataretriever::install
+#' 
+#' @return NULL
+#' 
 #' @examples
 #' \dontrun{
-#'   get_retriever_data("portal", save = FALSE)
+#'   install_retriever_data("veg-plots-sdl")
 #' }
 #' @export
 #'
 
-get_retriever_data <- function(name, save = FALSE)
+install_retriever_data <- function(dataset, data_path = "data")
 {
+    # check for existence of data_path
     
-    if(save) { 
-        folder_path <- here::here("data", name)
-        dir.create(folder_path)
-        rdataretriever::install(name, "csv", 
-                                data_dir = folder_path)
+    folder_path <- file.path(data_path, dataset)
+    dir.create(folder_path)
+    rdataretriever::install(dataset, "csv", 
+                            data_dir = folder_path)
+}
+
+#' @title Import a dataset downloaded from data retriever
+#'
+#' @description a function to import a previously downloaded dataset from 
+#'   rdataretriever
+#'   
+#' @param data_path the overarching folder in which to import datasets from
+#' @inheritParams rdataretriever::install
+#' 
+#' @return NULL
+#' 
+#' @examples
+#' \dontrun{
+#'   import_retriever_data("veg-plots-sdl")
+#' }
+#' @export
+#'
+import_retriever_data <- function(dataset, data_path = "data")
+{
+    # check for existence of data_path
+
+    folder_path <- file.path(data_path, dataset)
+    
+    files <- dir(folder_path)
+    if (length(files) == 0) # check for presence of downloaded files
+    {
+        warning("Didn't find any downloaded data in ", folder_path, ".\n", 
+                "Did you run get_retriever_data() first?")
+        return(NULL)
     }
     
-    rdataretriever::fetch(name)
-    
+    tempdata <- vector('list', length(files))
+    names(tempdata) <- sub('.csv', '', files)
+    for (j in seq_along(files))
+    {
+        tempdata[[j]] <- utils::read.csv(file.path(folder_path, files[j]))
+    }
+    return(tempdata)
 }
 
 #' @title Load all retriever data
