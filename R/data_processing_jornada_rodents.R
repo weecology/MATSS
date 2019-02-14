@@ -38,7 +38,7 @@ process_jornada_data <- function()
 
     # split into two dataframes and save
     covariates <- jornada_abundance_table[,c("year", "season", "time")]
-    abundance <- jornada_abundance_table[,-which(colnames(jornada_abundance_table) %in% c("year", "season", "samples"))]
+    abundance <- jornada_abundance_table[,-which(colnames(jornada_abundance_table) %in% c("year", "season", "samples", "time"))]
     metadata <- list(timename = "time", effort = NULL)
     jornada_raw <- list(abundance, covariates, metadata)
     jornada_raw <- setNames(jornada_raw, c("abundance", "covariates", "metadata"))
