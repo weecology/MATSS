@@ -8,7 +8,7 @@
 #'   covariate data) and one list of metadata.
 #'
 #' @export
-process_sgs_data <- function()
+get_sgs_data <- function()
 {
     
     # read in Shortgrass Steppe rodent data
@@ -41,5 +41,4 @@ process_sgs_data <- function()
 
     metadata <- list(timename = "samples", effort = NULL)
     return(mget(c("abundance", "covariates", "metadata")))
-    
 }

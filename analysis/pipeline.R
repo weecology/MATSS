@@ -13,8 +13,8 @@ datasets_raw <- drake_plan(
 datasets <- drake_plan(
     portal_data = get_portal_rodents(),
     maizuru_data = get_maizuru_data(),
-    jornada_data = process_jornada_data(),
-    sgs_data = process_sgs_data(),
+    jornada_data = get_jornada_data(),
+    sgs_data = get_sgs_data(),
     bbs_data = get_bbs_data(bbs_data_tables, region = 7),
     sdl_data = get_sdl_data(sdl_data_tables),
     mtquad_data = get_mtquad_data(mtquad_data_tables),

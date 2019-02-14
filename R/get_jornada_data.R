@@ -4,11 +4,11 @@
 #' 
 #' Import Jornada rodent abundance from data files
 #' 
-#' @return list of two dataframes (one with abundance data, the other with covariate data) 
-#'   and one list of metadata.
+#' @return list of two dataframes (one with abundance data, the other with
+#'   covariate data), and one list of metadata.
 #'
 #' @export
-process_jornada_data <- function()
+get_jornada_data <- function()
 {
     
     # read in Jornada rodent data
@@ -43,6 +43,5 @@ process_jornada_data <- function()
     jornada_raw <- list(abundance, covariates, metadata)
     jornada_raw <- setNames(jornada_raw, c("abundance", "covariates", "metadata"))
     return(jornada_raw)
-    
 }
 
