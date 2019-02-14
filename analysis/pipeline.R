@@ -12,12 +12,14 @@ datasets_raw <- drake_plan(
 ## Clean and transform the data into the appropriate format
 datasets <- drake_plan(
     portal_data = get_portal_rodents(),
-    maizuru_data = get_maizuru_data(), 
+    maizuru_data = get_maizuru_data(),
     jornada_data = process_jornada_data(),
     sgs_data = process_sgs_data(),
     bbs_data = get_bbs_data(bbs_data_tables, region = 7),
     sdl_data = get_sdl_data(sdl_data_tables),
-    mtquad_data = get_mtquad_data(mtquad_data_tables)
+    mtquad_data = get_mtquad_data(mtquad_data_tables),
+    bad_portal = portal_data[[1]]
+
 )
 
 ## Analysis methods
@@ -37,49 +39,53 @@ analyses <- drake_plan(
     # expand out each `fun(data)``, where
     #   `fun` is each of the values in methods$target
     #   `data` is each of the values in datasets$target
-    # note: tidyeval syntax is to get all the values from the previous plans, 
-    #       but keep them as unevaluated symbols, so that drake_plan handles 
+    # note: tidyeval syntax is to get all the values from the previous plans,
+    #       but keep them as unevaluated symbols, so that drake_plan handles
     #       them appropriately
-    analysis = target(fun(data), 
+    analysis = target(fun(data),
                       transform = cross(fun = !!rlang::syms(methods$target),
                                         data = !!rlang::syms(datasets$target))
-    ), 
-    # create a list of the created `analysis` objects, grouping by the `fun` 
-    # that made them - this keeps the results from the different methods 
+    ),
+    # create a list of the created `analysis` objects, grouping by the `fun`
+    # that made them - this keeps the results from the different methods
     # separated, so that the reports/syntheses can handle the right outputs
-    results = target(collect(analysis, ignore(analyses)), 
-                     transform = combine(analysis, .by = fun)), 
+    results = target(collect(list(analysis), ignore(analyses)),
+                     transform = combine(analysis, .by = fun)),
     trace = TRUE
 )
 
 ## Summary reports
+# I don't quite understand the pathing here... - Hao
 reports <- drake_plan(
-    lda_report = rmarkdown::render(knitr_in("lda_report.Rmd"), 
-                                   output_file = file_out("lda_report.md"))
+    lda_report = rmarkdown::render(
+        knitr_in("analysis/lda_report.Rmd")
+    )
 )
 
 ## The entire pipeline
 pipeline <- bind_rows(datasets_raw, datasets, methods, analyses, reports)
 
+## Set up the cache and config
+db <- DBI::dbConnect(RSQLite::SQLite(), here::here("output", "drake-cache.sqlite"))
+cache <- storr::storr_dbi("datatable", "keystable", db)
+
 ## View the graph of the plan
 if (interactive())
 {
-    config <- drake_config(pipeline)
-    sankey_drake_graph(config)           # requires "networkD3" package
-    vis_drake_graph(config)              # requires "visNetwork" package
+    config <- drake_config(pipeline, cache = cache)
+    sankey_drake_graph(config, build_times = "none")  # requires "networkD3" package
+    vis_drake_graph(config, build_times = "none")     # requires "visNetwork" package
 }
 
 ## Run the pipeline
-db <- DBI::dbConnect(RSQLite::SQLite(), 
-                     here::here("output", "drake-cache.sqlite"))
-cache <- storr::storr_dbi("datatable", "keystable", db)
+make(pipeline, cache = cache)
 
-future::plan(future::multiprocess)
-make(pipeline,
-     force = TRUE, 
-     cache = cache,
-     verbose = 2,
-     parallelism = "future",
-     jobs = 2,
-     caching = "master" # Important for DBI caches!
-)
+## Run the pipeline (parallelized)
+# future::plan(future::multiprocess)
+# make(pipeline, 
+#      force = TRUE, 
+#      cache = cache,
+#      verbose = 2,
+#      parallelism = "future",
+#      jobs = 2,
+#      caching = "master") # Important for DBI caches!

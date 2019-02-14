@@ -6,11 +6,7 @@
 
 Import Jornada rodent abundance from data files}
 \usage{
-process_jornada_data(data_path = here::here("data",
-  "jornada_rodents.csv"))
-}
-\arguments{
-\item{data_path}{location of the raw data}
+process_jornada_data()
 }
 \value{
 list of two dataframes (one with abundance data, the other with covariate data) 

@@ -1,7 +1,7 @@
 Package: MATSS
 Type: Package
 Title: Macroecological Analayses of Time Series Structure pipeline
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: c(
     person("Hao", "Ye", role = c("aut", "cre"), 
     	   email = "hao.ye@weecology.org", 
@@ -28,23 +28,20 @@ BugReports: https://github.com/weecology/MATSS-pipeline/issues
 LazyData: true
 Depends: R (>= 3.4.0)
 Imports:
-    dplyr,
-    drake (>= 5.4.0.9001),
-    forecast,    
+    magrittr, 
     ggplot2,
     lubridate,
     portalr (>= 0.2.0),
     LDATS (>= 0.1.0),
-    networkD3,
-    drake (>= 6.2.1),
+    drake (>= 6.2.1.9003),
     dplyr,
     tidyr,
     rdataretriever,
     RSQLite
 Suggests:
     knitr,
-    rmarkdown,
-    testthat
+    rmarkdown, 
+    pkgdown
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 Remotes: 

@@ -21,5 +21,7 @@ list of two dataframes (one with abundance data, the other with covariate data)
 Original data found here http://www.eebweb.arizona.edu/faculty/venable/LTREB/LTREB%20data.htm
 }
 \examples{
-get_sdl_data(sdl_data_tables=retriever_data()$'veg-plots-sdl')
+\dontrun{
+  get_sdl_data(sdl_data_tables=retriever_data()$'veg-plots-sdl')
+}
 }

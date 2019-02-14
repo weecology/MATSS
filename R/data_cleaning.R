@@ -14,7 +14,10 @@
 #' @return list of two dataframes (one with abundance data, the other with covariate data) 
 #'   and one list of metadata.
 #' 
-#' @examples get_bbs_data(bbs_data_tables=retriever_data()$'breed-bird-survey',region=7)
+#' @examples
+#' \dontrun{
+#'   get_bbs_data(bbs_data_tables=retriever_data()$'breed-bird-survey',region=7)
+#' }
 #' @export
 
 get_bbs_data <- function(bbs_data_tables, start_yr=1965, end_yr=2017, min_num_yrs=10, region)
@@ -82,7 +85,10 @@ filter_ts <- function(bbs_data, start_yr, end_yr, min_num_yrs) {
 #' @return list of two dataframes (one with abundance data, the other with covariate data) 
 #'   and one list of metadata.
 #'
-#' @examples get_sdl_data(sdl_data_tables=retriever_data()$'veg-plots-sdl')
+#' @examples
+#' \dontrun{
+#'   get_sdl_data(sdl_data_tables=retriever_data()$'veg-plots-sdl')
+#' }
 #' @export
 
 get_sdl_data <- function(sdl_data_tables, plots = c(4,7,8,9,10,11,12,14,15,16,17)){
@@ -116,7 +122,10 @@ get_sdl_data <- function(sdl_data_tables, plots = c(4,7,8,9,10,11,12,14,15,16,17
 #' @return list of two dataframes (one with abundance data, the other with covariate data) 
 #'   and one list of metadata.
 #' 
-#' @examples get_mtquad_data(mtquad_data_tables=retriever_data()$'mapped-plant-quads-mt')
+#' @examples
+#' \dontrun{
+#'   get_mtquad_data(mtquad_data_tables=retriever_data()$'mapped-plant-quads-mt')
+#' }
 #' @export
 
 get_mtquad_data <- function(mtquad_data_tables){

@@ -6,8 +6,7 @@
 
 Import Shortgrass Steppe rodent abundance from data files}
 \usage{
-process_sgs_data(data_path = here::here("data",
-  "shortgrass_steppe_rodents.csv"))
+process_sgs_data()
 }
 \arguments{
 \item{data_path}{location of the raw data}

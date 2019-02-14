@@ -10,10 +10,12 @@
 #'   and one list of metadata.
 #'
 #' @export
-process_sgs_data <- function(data_path = here::here("data", "shortgrass_steppe_rodents.csv"))
+process_sgs_data <- function()
 {
     
-    # read in Jornada rodent data
+    # read in Shortgrass Steppe rodent data
+    data_path <- system.file("extdata", "shortgrass_steppe_rodents.csv", 
+                             package = "MATSS", mustWork = TRUE)
     sgs_data <- read.csv(data_path)
     
     # select key columns 

@@ -29,5 +29,7 @@ Selects sites with data spanning start_yr through end_yr containing at least min
 samples during that period.
 }
 \examples{
-get_bbs_data(bbs_data_tables=retriever_data()$'breed-bird-survey',region=7)
+\dontrun{
+  get_bbs_data(bbs_data_tables=retriever_data()$'breed-bird-survey',region=7)
+}
 }

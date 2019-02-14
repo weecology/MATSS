@@ -18,6 +18,7 @@ A list, all data tables associated with named dataset
 Load data, and optionally save to data directory
 }
 \examples{
-get_retriever_data(portal, save = FALSE)
-
+\dontrun{
+  get_retriever_data("portal", save = FALSE)
+}
 }
