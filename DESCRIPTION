@@ -37,8 +37,11 @@ Imports:
     dplyr,
     tidyr,
     rdataretriever,
-    RSQLite
+    RSQLite,
+    forecast,
+    networkD3
 Suggests:
+    testthat,
     knitr,
     rmarkdown, 
     pkgdown
