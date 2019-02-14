@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check data format — check_data_format • MATSS</title>
+<title>Interpolate observations — temp_autocor • MATSS</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,11 @@
 
 
 
-<meta property="og:title" content="Check data format — check_data_format" />
+<meta property="og:title" content="Interpolate observations — temp_autocor" />
 
-<meta property="og:description" content="Check whether its input matches the specified data format in 
-  the `data-formats.Rmd` vignette" />
+<meta property="og:description" content="Calculate the autocorrelation of the observations based on 
+  their timestamps, with interpolation (based on a specified method) if 
+  necessary." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,32 +113,43 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check data format</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/check_data_format.R'><code>R/check_data_format.R</code></a></small>
-    <div class="hidden name"><code>check_data_format.Rd</code></div>
+    <h1>Interpolate observations</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/summary_stats.R'><code>R/summary_stats.R</code></a></small>
+    <div class="hidden name"><code>temp_autocor.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Check whether its input matches the specified data format in 
-  the `data-formats.Rmd` vignette</p>
+    <p>Calculate the autocorrelation of the observations based on 
+  their timestamps, with interpolation (based on a specified method) if 
+  necessary.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>check_data_format</span>(<span class='no'>data</span>)</pre>
+    <pre class="usage"><span class='fu'>temp_autocor</span>(<span class='no'>obs</span>, <span class='no'>times</span>, <span class='kw'>interp_method</span> <span class='kw'>=</span> <span class='st'>"na.interp"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>dataset to check</p></td>
+      <th>obs</th>
+      <td><p><code>numeric</code> vector of observations.</p></td>
+    </tr>
+    <tr>
+      <th>times</th>
+      <td><p><code>numeric</code> or <code>Date</code> vector of timestamps of the 
+observations.</p></td>
+    </tr>
+    <tr>
+      <th>interp_method</th>
+      <td><p><code>character</code> representing a function name used to 
+interpolate <code>obs</code>. Defaults to <code>"<a href='https://www.rdocumentation.org/packages/forecast/topics/na.interp'>na.interp</a>"</code>.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>TRUE or FALSE</p>
+    <p>Autocorrelation of the observation vector.</p>
     
 
   </div>

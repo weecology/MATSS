@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check data format — check_data_format • MATSS</title>
+<title>Count non-0 entries — richness • MATSS</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +30,10 @@
 
 
 
-<meta property="og:title" content="Check data format — check_data_format" />
+<meta property="og:title" content="Count non-0 entries — richness" />
 
-<meta property="og:description" content="Check whether its input matches the specified data format in 
-  the `data-formats.Rmd` vignette" />
+<meta property="og:description" content="Calculate the richness (number of non-0 entries) of a given 
+  sample." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,32 +112,32 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check data format</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/check_data_format.R'><code>R/check_data_format.R</code></a></small>
-    <div class="hidden name"><code>check_data_format.Rd</code></div>
+    <h1>Count non-0 entries</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/summary_stats.R'><code>R/summary_stats.R</code></a></small>
+    <div class="hidden name"><code>richness.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Check whether its input matches the specified data format in 
-  the `data-formats.Rmd` vignette</p>
+    <p>Calculate the richness (number of non-0 entries) of a given 
+  sample.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>check_data_format</span>(<span class='no'>data</span>)</pre>
+    <pre class="usage"><span class='fu'>richness</span>(<span class='no'>x</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>dataset to check</p></td>
+      <th>x</th>
+      <td><p><code>numeric</code> vector</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>TRUE or FALSE</p>
+    <p><code>numeric</code> value of the number of non-0 entries in <code>x</code>.</p>
     
 
   </div>

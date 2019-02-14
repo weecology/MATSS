@@ -6,7 +6,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Check data format — check_data_format • MATSS</title>
+<title>Read in the maizuru community data from a csv file
+
+Import maizuru data from data files — get_maizuru_data • MATSS</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,10 +32,12 @@
 
 
 
-<meta property="og:title" content="Check data format — check_data_format" />
+<meta property="og:title" content="Read in the maizuru community data from a csv file
 
-<meta property="og:description" content="Check whether its input matches the specified data format in 
-  the `data-formats.Rmd` vignette" />
+Import maizuru data from data files — get_maizuru_data" />
+
+<meta property="og:description" content="Read in the maizuru community data from a csv file
+Import maizuru data from data files" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -112,39 +116,32 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Check data format</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/check_data_format.R'><code>R/check_data_format.R</code></a></small>
-    <div class="hidden name"><code>check_data_format.Rd</code></div>
+    <h1>Read in the maizuru community data from a csv file
+
+Import maizuru data from data files</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/data_function_maizuru.R'><code>R/data_function_maizuru.R</code></a></small>
+    <div class="hidden name"><code>get_maizuru_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Check whether its input matches the specified data format in 
-  the `data-formats.Rmd` vignette</p>
+    <p>Read in the maizuru community data from a csv file</p>
+<p>Import maizuru data from data files</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>check_data_format</span>(<span class='no'>data</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>data</th>
-      <td><p>dataset to check</p></td>
-    </tr>
-    </table>
-    
+    <pre class="usage"><span class='fu'>get_maizuru_data</span>()</pre>
+        
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>TRUE or FALSE</p>
+    <p>list of two dataframes (one with abundance data, the other with 
+  covariate data) and one list of metadata.</p>
     
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
           </ul>
