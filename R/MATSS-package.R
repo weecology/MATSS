@@ -1,4 +1,5 @@
-#' @importFrom dplyr %>% pull
+#' @importFrom magrittr %>%
+#' @importFrom dplyr pull
 #' @importFrom forecast na.interp
 #' @importFrom graphics axis mtext par plot points rect text
 #' @importFrom lubridate is.Date
