@@ -18,8 +18,10 @@
 install_retriever_data <- function(dataset, data_path = "data")
 {
     # check for existence of data_path
-    
-    folder_path <- file.path(data_path, dataset)
+    if(!dir.exists(here::here('data'))) {
+        dir.create(here::here('data'))
+    }
+    folder_path <- file.path(here::here(data_path, dataset))
     dir.create(folder_path)
     rdataretriever::install(dataset, "csv", 
                             data_dir = folder_path)
