@@ -1,6 +1,6 @@
 Package: MATSS
 Type: Package
-Title: Macroecological Analayses of Time Series Structure
+Title: Macroecological Analyses of Time Series Structure
 Version: 0.0.2
 Authors@R: c(
     person("Hao", "Ye", role = c("aut", "cre"), 
