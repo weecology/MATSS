@@ -6,3 +6,6 @@ inst/doc
 /.drake/
 output/drake-cache.sqlite
 analysis/*.html
+data/
+.DS_Store
+R/.DS_Store

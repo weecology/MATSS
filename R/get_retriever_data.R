@@ -132,7 +132,7 @@ get_sdl_data <- function(plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17))
 
 get_mtquad_data <- function()
 {
-    mtquad_data_tables <- import_retriever_data("mtquad_data_tables")
+    mtquad_data_tables <- import_retriever_data("mapped-plant-quads-mt")
     
     mtquad_data <- mtquad_data_tables$mapped_plant_quads_mt_allrecords_density %>%
         dplyr::select(-objectid,-seedling,-x,-y) %>%
