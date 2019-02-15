@@ -1,11 +1,10 @@
-inst/doc
+/inst/doc
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
-/.drake/
-output/drake-cache.sqlite
-analysis/*.html
-data/
 .DS_Store
-R/.DS_Store
+/.drake/
+/output/drake-cache.sqlite
+/analysis/*.html
+/data/
