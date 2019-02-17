@@ -19,9 +19,9 @@
 #' }
 #' @export
 
-get_bbs_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10, region)
+get_bbs_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10, region, folder_path)
 {
-    bbs_data_tables <- import_retriever_data("breed-bird-survey")
+    bbs_data_tables <- import_retriever_data("breed-bird-survey", data_path = folder_path)
     
     bbs_data <- bbs_data_tables$breed_bird_survey_weather %>%
         dplyr::filter(runtype == 1, rpid == 101) %>%
@@ -90,9 +90,9 @@ filter_ts <- function(bbs_data, start_yr, end_yr, min_num_yrs) {
 #' }
 #' @export
 
-get_sdl_data <- function(plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17))
+get_sdl_data <- function(plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17), folder_path)
 {
-    sdl_data_tables <- import_retriever_data("veg-plots-sdl")
+    sdl_data_tables <- import_retriever_data("veg-plots-sdl", data_path = folder_path)
     
     sdl_data <- sdl_data_tables$veg_plots_sdl_SMDensity %>%
         dplyr::select(-countns) %>%
@@ -130,9 +130,9 @@ get_sdl_data <- function(plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17))
 #' }
 #' @export
 
-get_mtquad_data <- function()
+get_mtquad_data <- function(folder_path)
 {
-    mtquad_data_tables <- import_retriever_data("mtquad_data_tables")
+    mtquad_data_tables <- import_retriever_data('mapped-plant-quads-mt', data_path = folder_path)
     
     mtquad_data <- mtquad_data_tables$mapped_plant_quads_mt_allrecords_density %>%
         dplyr::select(-objectid,-seedling,-x,-y) %>%

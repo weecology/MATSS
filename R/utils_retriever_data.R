@@ -18,9 +18,13 @@
 install_retriever_data <- function(dataset, data_path = "data")
 {
     # check for existence of data_path
-    
+    data_path <- normalizePath(data_path, mustWork = TRUE)
+
+    # where to put the retriever data
     folder_path <- file.path(data_path, dataset)
     dir.create(folder_path)
+    
+    # install the retriever data
     rdataretriever::install(dataset, "csv", 
                             data_dir = folder_path)
 }
