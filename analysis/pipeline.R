@@ -18,7 +18,7 @@ datasets <- bind_rows(plan_datasets(),
 ## Analysis methods
 methods <- drake_plan(
     dataset_summary = function(dataset) {ts_summary_drake(dataset)},
-    lda = function(dataset) {run_LDA(dataset, max_topics = 6, nseeds = 20)}
+    lda = function(dataset) {run_LDA(dataset, max_topics = 3, nseeds = 5)}
 )
 
 ## Define how results are collected
@@ -53,6 +53,9 @@ analyses <- drake_plan(
 reports <- drake_plan(
     lda_report = rmarkdown::render(
         knitr_in("analysis/lda_report.Rmd")
+    ),
+    summary_report = rmarkdown::render(
+        knitr_in("analysis/summary_report.Rmd")
     )
 )
 

@@ -1,0 +1,38 @@
+---
+title: "Summary report"
+author: "Renata Diaz"
+date: "2/16/2019"
+output: github_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(MATSS)
+library(drake)
+```
+
+## Read in the results
+
+```{r load summary objects}
+# define where the cache is located
+db <- DBI::dbConnect(RSQLite::SQLite(), here::here("output", "drake-cache.sqlite"))
+cache <- storr::storr_dbi("datatable", "keystable", db)
+
+results_dataset_summary <- readd(results_dataset_summary, cache = cache)
+```
+
+## Errors
+Find datasets that threw errors and list them: 
+```{r find error datasets, echo = F}
+
+for (i in seq(results_dataset_summary)){
+    if(!is.list(results_dataset_summary[[i]])) {
+        print(names(results_dataset_summary)[i])
+        print(results_dataset_summary[[i]])
+        results_dataset_summary <- results_dataset_summary[-i]
+    }
+}
+```
+
+From here, choose aspects of results_dataset_summary to present in report. 
