@@ -17,6 +17,7 @@ datasets <- bind_rows(plan_datasets(),
 
 ## Analysis methods
 methods <- drake_plan(
+    dataset_summary = function(dataset) {ts_summary_drake(dataset)},
     lda = function(dataset) {run_LDA(dataset, max_topics = 6, nseeds = 20)}
 )
 

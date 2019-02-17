@@ -177,6 +177,11 @@ uni_ts_summary <- function(obs, times = NULL, effort = NULL,
 #' @export
 #'
 ts_summary_drake <- function(x){
+    if(!check_data_format(x)) {
+        wrongFormat = simpleWarning("Incorrect data structure, see data-formats vignette")
+        tryCatch(warning(wrongFormat), finally = return('Incorrect data structure'))
+    } 
+    
   if (!is.null(x$metadata$times)){
     times <- pull(x$covariates, x$metadata$times)
   } else{
