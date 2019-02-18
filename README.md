@@ -1,6 +1,8 @@
 # MATSS
 
 [![Build Status](https://travis-ci.org/weecology/MATSS.svg?branch=master)](https://travis-ci.org/weecology/MATSS)
+[![Coverage
+status](https://codecov.io/gh/weecology/MATSS/branch/master/graph/badge.svg)](https://codecov.io/github/weecology/MATSS?branch=master)
 
 ## Overview
 The *MATSS* package is intended to support Macroecological Analysis of Time Series Structure. We provide functions to :
