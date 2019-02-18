@@ -1,5 +1,3 @@
-> This is intended to be a general-purpose code of conduct for lab software projects, to facilitate interactions between the lab and outside contributors. Feel free to copy this file into the repo and delete this note.
-
 # Contributor Code of Conduct
 
 ## Our Pledge

@@ -1,5 +1,3 @@
-#' @importFrom magrittr "%>%"
-
 #' @title plan_datasets
 #' 
 #' @return a drake plan (i.e. a tibble) specifying the targets and commands 

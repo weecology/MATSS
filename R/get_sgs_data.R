@@ -1,5 +1,3 @@
-#' @importFrom magrittr "%>%"
-
 #' @title get Shortgrass Steppe rodent data
 #'
 #' Import Shortgrass Steppe rodent abundance from data files

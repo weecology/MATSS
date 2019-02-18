@@ -9,3 +9,5 @@
 ^analysis$
 ^output$
 ^.drake$
+^README\.Rmd$
+^README-.*\.png$

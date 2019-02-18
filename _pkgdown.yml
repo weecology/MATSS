@@ -1,13 +1,37 @@
 reference:
-  - title: "Raw Data"
-    desc: "Functions to pull in raw data"
+  - title: "Drake Plans"
+    desc: "Functions to help build Drake plans"
     contents:
+      - plan_datasets
+  - title: "Get Data"
+    desc: "Functions to load datasets"
+    contents:
+      - get_bbs_data
+      - get_jornada_data
+      - get_maizuru_data
+      - get_mtquad_data
       - get_portal_rodents
+      - get_sdl_data
+      - get_sgs_data
+  - title: "Rdataretriever"
+    desc: "Functions that use Rdataretriever to download and import data"
+    contents:
+      - import_retriever_data
+      - install_retriever_data
   - title: "Analysis Methods"
     desc: "Functions to compute analyses"
     contents:
       - run_LDA
+      - richness
+      - summarize_effort
+      - summarize_obs
+      - summarize_temps
+      - ts_summary
   - title: "Plotting Functions"
     desc: "Functions to plot outputs"
     contents:
       - plot_lda
+  - title: "Miscellaneous"
+    desc: "Other functions"
+    contents:
+      - check_data_format

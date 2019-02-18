@@ -1,5 +1,3 @@
-#' @importFrom magrittr "%>%"
-
 #' @title get portal rodent data
 #'
 #' Import Portal rodent data using portalr functions.

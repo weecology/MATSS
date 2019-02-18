@@ -1,5 +1,3 @@
-#' @importFrom magrittr "%>%"
-
 #' @title get Jornada rodent data
 #'
 #' Import Jornada rodent abundance from data files

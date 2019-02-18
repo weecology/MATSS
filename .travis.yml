@@ -3,10 +3,6 @@ cache: packages
 sudo: required
 warnings_are_errors: false
 
-r:
-  - release
-  - devel
-
 addons:
   apt:
     packages:
@@ -20,15 +16,19 @@ before_install:
   - sudo apt-get install libudunits2-dev
   - sudo apt-get install texlive-latex-base
 
-after_success:
-  - R CMD INSTALL .
-  - Rscript -e 'pkgdown::build_site()'
-
-deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_PAT
-  keep-history: true
-  local-dir: docs
-  on:
-    branch: master
+matrix:
+  include:
+  - r: devel
+  - r: release
+    after_success:
+    - R CMD INSTALL .
+    - Rscript -e 'pkgdown::build_site()'
+    - Rscript -e 'covr::codecov()'
+    deploy:
+      provider: pages
+      skip-cleanup: true
+      github-token: $GITHUB_PAT
+      keep-history: true
+      local-dir: docs
+      on:
+        branch: master

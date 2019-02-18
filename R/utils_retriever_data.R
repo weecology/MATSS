@@ -79,9 +79,8 @@ import_retriever_data <- function(dataset, data_path = "data")
 #'   retriever_data(c("portal","veg-plots-sdl"))
 #' }
 #' 
-#' @export
+#' @noRd
 #'
-
 retriever_data <- function(names = c('breed-bird-survey',
                                      'mapped-plant-quads-mt',
                                      'fray-jorge-ecology',
