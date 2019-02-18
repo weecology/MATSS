@@ -73,12 +73,12 @@ lda_summary
 ```
 
     ##          names(lda_results) ntopics ntimeseries ntimesteps
-    ## 1  analysis_lda_portal_data       5          21        295
-    ## 2 analysis_lda_maizuru_data       6          15        285
-    ## 3 analysis_lda_jornada_data       6          17         24
-    ## 4     analysis_lda_sgs_data       4          11         13
-    ## 5     analysis_lda_bbs_data       6         164      69564
-    ## 6     analysis_lda_sdl_data       6          98         22
-    ## 7  analysis_lda_mtquad_data       6          42         14
+    ## 1  analysis_lda_portal_data       2          21        295
+    ## 2 analysis_lda_maizuru_data       2          15        285
+    ## 3 analysis_lda_jornada_data       2          17         24
+    ## 4     analysis_lda_sgs_data       2          11         13
+    ## 5     analysis_lda_bbs_data       2         164      69564
+    ## 6     analysis_lda_sdl_data       2          98         22
+    ## 7  analysis_lda_mtquad_data       2          42         14
 
 ![](lda_report_files/figure-markdown_github/plot%20lda%20summary-1.png)![](lda_report_files/figure-markdown_github/plot%20lda%20summary-2.png)

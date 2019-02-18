@@ -10,6 +10,8 @@ if (FALSE)
     install_retriever_data("mapped-plant-quads-mt")
 }
 
+folder_path <- 'data'
+
 ## Clean and transform the data into the appropriate format
 datasets <- bind_rows(plan_datasets(), 
                       drake_plan(bad_portal = portal_data[[1]])
@@ -17,7 +19,7 @@ datasets <- bind_rows(plan_datasets(),
 
 ## Analysis methods
 methods <- drake_plan(
-    lda = function(dataset) {run_LDA(dataset, max_topics = 6, nseeds = 20)}
+    lda = function(dataset) {run_LDA(dataset, max_topics = 2, nseeds = 5)}
 )
 
 ## Define how results are collected
