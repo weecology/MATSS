@@ -11,51 +11,16 @@ if (FALSE)
 }
 
 folder_path <- 'data'
-
+report_path <- "analysis/lda_report.Rmd"
 ## Clean and transform the data into the appropriate format
 datasets <- bind_rows(plan_datasets(), 
                       drake_plan(bad_portal = portal_data[[1]])
 )
+methods <- generate_methods()
 
-## Analysis methods
-methods <- drake_plan(
-    lda = function(dataset) {run_LDA(dataset, max_topics = 2, nseeds = 5)}
-)
+analyses <- generate_analyses_section()
 
-## Define how results are collected
-collect <- function(list_of_results, plan)
-{
-    names(list_of_results) <- all.vars(match.call()$list_of_results)
-    list_of_results
-}
-
-## The combination of each method x dataset
-analyses <- drake_plan(
-    # expand out each `fun(data)``, where
-    #   `fun` is each of the values in methods$target
-    #   `data` is each of the values in datasets$target
-    # note: tidyeval syntax is to get all the values from the previous plans,
-    #       but keep them as unevaluated symbols, so that drake_plan handles
-    #       them appropriately
-    analysis = target(fun(data),
-                      transform = cross(fun = !!rlang::syms(methods$target),
-                                        data = !!rlang::syms(datasets$target))
-    ),
-    # create a list of the created `analysis` objects, grouping by the `fun`
-    # that made them - this keeps the results from the different methods
-    # separated, so that the reports/syntheses can handle the right outputs
-    results = target(collect(list(analysis), ignore(analyses)),
-                     transform = combine(analysis, .by = fun)),
-    trace = TRUE
-)
-
-## Summary reports
-# I don't quite understand the pathing here... - Hao
-reports <- drake_plan(
-    lda_report = rmarkdown::render(
-        knitr_in("analysis/lda_report.Rmd")
-    )
-)
+reports <- generate_reports_section()
 
 ## The entire pipeline
 pipeline <- bind_rows(datasets, methods, analyses, reports)

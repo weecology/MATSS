@@ -5,7 +5,7 @@
 \title{Create BBS population time-series data}
 \usage{
 get_bbs_data(start_yr = 1965, end_yr = 2017, min_num_yrs = 10,
-  region)
+  region, folder_path)
 }
 \arguments{
 \item{start_yr}{num first year of time-series}
