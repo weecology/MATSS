@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create BBS population time-series data — get_bbs_data • MATSS</title>
+<title>Generate a Drake Plan for Analyses — build_analyses_plan • MATSS</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,12 +30,16 @@
 
 
 
-<meta property="og:title" content="Create BBS population time-series data — get_bbs_data" />
+<meta property="og:title" content="Generate a Drake Plan for Analyses — build_analyses_plan" />
 
-<meta property="og:description" content="Modified from https://github.com/weecology/bbs-forecasting
-and https://github.com/weecology/MATSS-community-change 
-Selects sites with data spanning start_yr through end_yr containing at least min_num_yrs of data
-samples during that period." />
+<meta property="og:description" content="Given M methods to be applied to N datasets, make a drake plan 
+  that contains an `analysis` targets corresponding to each M x N 
+  combination, as well as M `results` targets corresponding to a list of 
+  the `analysis` outputs for each of the M methods.
+Given M methods to be applied to N datasets, make a drake plan 
+  that contains an `analysis` targets corresponding to each M x N 
+  combination, as well as M `results` targets corresponding to a list of 
+  the `analysis` outputs for each of the M methods." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -114,54 +118,61 @@ samples during that period." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create BBS population time-series data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_retriever_data.R'><code>R/get_retriever_data.R</code></a></small>
-    <div class="hidden name"><code>get_bbs_data.Rd</code></div>
+    <h1>Generate a Drake Plan for Analyses</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/build_analyses_plan.R'><code>R/build_analyses_plan.R</code></a>, <a href='https://github.com/weecology/MATSS/blob/master/R/build_plans.R'><code>R/build_plans.R</code></a></small>
+    <div class="hidden name"><code>build_analyses_plan.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Modified from https://github.com/weecology/bbs-forecasting
-and https://github.com/weecology/MATSS-community-change 
-Selects sites with data spanning start_yr through end_yr containing at least min_num_yrs of data
-samples during that period.</p>
+    <p>Given M methods to be applied to N datasets, make a drake plan 
+  that contains an `analysis` targets corresponding to each M x N 
+  combination, as well as M `results` targets corresponding to a list of 
+  the `analysis` outputs for each of the M methods.</p>
+<p>Given M methods to be applied to N datasets, make a drake plan 
+  that contains an `analysis` targets corresponding to each M x N 
+  combination, as well as M `results` targets corresponding to a list of 
+  the `analysis` outputs for each of the M methods.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_bbs_data</span>(<span class='kw'>start_yr</span> <span class='kw'>=</span> <span class='fl'>1965</span>, <span class='kw'>end_yr</span> <span class='kw'>=</span> <span class='fl'>2017</span>, <span class='kw'>min_num_yrs</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='no'>region</span>, <span class='no'>folder_path</span>)</pre>
+    <pre class="usage"><span class='fu'>build_analyses_plan</span>(<span class='no'>methods</span>, <span class='no'>datasets</span>)
+
+<span class='fu'>build_analyses_plan</span>(<span class='no'>methods</span>, <span class='no'>datasets</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>start_yr</th>
-      <td><p>num first year of time-series</p></td>
+      <th>methods</th>
+      <td><p>a drake plan listing the methods to be applied (it is 
+expected that each method is a function that takes in a dataset object)</p></td>
     </tr>
     <tr>
-      <th>end_yr</th>
-      <td><p>num last year of time-series</p></td>
+      <th>datasets</th>
+      <td><p>a drake plan listing the datasets to be analyzed</p></td>
     </tr>
     <tr>
-      <th>min_num_yrs</th>
-      <td><p>num minimum number of years of data between start_yr &amp; end_yr</p></td>
+      <th>methods</th>
+      <td><p>a drake plan listing the methods to be applied (it is 
+expected that each method is a function that takes in a dataset object)</p></td>
     </tr>
     <tr>
-      <th>region</th>
-      <td><p>region code of data to return (currently uses state codes)</p></td>
+      <th>datasets</th>
+      <td><p>a drake plan listing the datasets to be analyzed</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list of two dataframes (one with abundance data, the other with covariate data) 
-  and one list of metadata.</p>
+    <p>a drake plan (i.e. a tibble) specifying the targets and commands 
+  for all the analyses and the collected results (grouping the outputs from 
+  each method into a single list)</p>
+<p>a drake plan (i.e. a tibble) specifying the targets and commands 
+  for all the analyses and the collected results (grouping the outputs from 
+  each method into a single list)</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-  <span class='fu'>get_bbs_data</span>(<span class='kw'>bbs_data_tables</span><span class='kw'>=</span><span class='fu'>retriever_data</span>()$<span class='st'>'breed-bird-survey'</span>,<span class='kw'>region</span><span class='kw'>=</span><span class='fl'>7</span>)
-<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -169,9 +180,7 @@ samples during that period.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>
