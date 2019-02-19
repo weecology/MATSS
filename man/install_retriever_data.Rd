@@ -5,7 +5,8 @@
 \alias{import_retriever_data}
 \title{Download a dataset from data retriever}
 \usage{
-install_retriever_data(dataset, path = get_default_data_path())
+install_retriever_data(dataset, path = get_default_data_path(),
+  force_install = FALSE)
 
 import_retriever_data(dataset, path = get_default_data_path())
 }
@@ -13,6 +14,9 @@ import_retriever_data(dataset, path = get_default_data_path())
 \item{dataset}{the name of the dataset that you wish to download}
 
 \item{path}{the overarching folder in which to download datasets}
+
+\item{force_install}{whether to install the dataset if the correctly named 
+folder already exists}
 }
 \description{
 \code{install_retriever_data} downloads retriever datasets and 

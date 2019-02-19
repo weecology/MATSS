@@ -27,6 +27,8 @@ use_default_data_path <- function(path = NULL)
 #'   is a wrapper around rdataretriever::install 
 #'   
 #' @param path the overarching folder in which to download datasets
+#' @param force_install whether to install the dataset if the correctly named 
+#'   folder already exists
 #' @inheritParams rdataretriever::install
 #' 
 #' @return NULL
@@ -37,18 +39,26 @@ use_default_data_path <- function(path = NULL)
 #' }
 #' @export
 #'
-install_retriever_data <- function(dataset, path = get_default_data_path())
+install_retriever_data <- function(dataset, path = get_default_data_path(), 
+                                   force_install = FALSE)
 {
     # check for existence of data_path
     path <- normalizePath(path, mustWork = TRUE)
-
+    
     # where to put the retriever data
     folder_path <- file.path(path, dataset)
-    dir.create(folder_path)
-    
-    # install the retriever data
-    rdataretriever::install(dataset, "csv", 
-                            data_dir = folder_path)
+    if (dir.exists(folder_path) && !force_install)
+    {
+        message("A folder already exists for \"", dataset, "\".\n", 
+                "Use `force_install = TRUE` to overwrite it with a fresh install.")
+    } else {
+        # make the folder
+        dir.create(folder_path)
+        
+        # install the retriever data
+        rdataretriever::install(dataset, "csv", 
+                                data_dir = folder_path)
+    }
 }
 
 #' @title Import a dataset downloaded from data retriever
@@ -70,7 +80,7 @@ install_retriever_data <- function(dataset, path = get_default_data_path())
 import_retriever_data <- function(dataset, path = get_default_data_path())
 {
     folder_path <- file.path(path, dataset)
-
+    
     # check for existence of data_path
     files <- dir(folder_path)
     if (length(files) == 0) # check for presence of downloaded files
