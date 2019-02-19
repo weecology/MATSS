@@ -1,5 +1,5 @@
 library(MATSS)
-library(dplyr)
+#library(dplyr)
 library(drake)
 
 ## Make sure we have downloaded the raw datasets from retriever first
@@ -13,7 +13,7 @@ if (FALSE)
 folder_path <- 'data'
 report_path <- "analysis/lda_report.Rmd"
 ## Clean and transform the data into the appropriate format
-datasets <- bind_rows(plan_datasets(), 
+datasets <- dplyr::bind_rows(plan_datasets(), 
                       drake_plan(bad_portal = portal_data[[1]])
 )
 methods <- generate_methods()
@@ -23,7 +23,7 @@ analyses <- generate_analyses_section()
 reports <- generate_reports_section()
 
 ## The entire pipeline
-pipeline <- bind_rows(datasets, methods, analyses, reports)
+pipeline <- dplyr::bind_rows(datasets, methods, analyses, reports)
 
 ## Set up the cache and config
 db <- DBI::dbConnect(RSQLite::SQLite(), here::here("output", "drake-cache.sqlite"))

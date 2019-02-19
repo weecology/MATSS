@@ -39,7 +39,7 @@ generate_analyses_section <- function(){
                       transform = cross(fun = !!rlang::syms(methods$target),
                                         data = !!rlang::syms(datasets$target))
     ),
-    results = target(MATSS::collect(list(analysis), ignore(analyses)),
+    results = target(collect(list(analysis), ignore(analyses)),
                      transform = combine(analysis, .by = fun))
    )
     
