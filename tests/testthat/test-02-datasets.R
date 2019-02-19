@@ -1,4 +1,4 @@
-context("test datasets")
+context("Check Datasets")
 
 test_that("Portal data is retrievable and works", {
     expect_error(portal_data <- get_portal_rodents(), NA)
@@ -13,4 +13,9 @@ test_that("Jornada data is retrievable and works", {
 test_that("Shortgrass Steppe data is retrievable and works", {
     expect_error(sgs_data <- get_sgs_data(), NA)
     expect_true(check_data_format(sgs_data))
+})
+
+test_that("Maizuru data is retrievable and works", {
+    expect_error(maizuru_data <- get_maizuru_data(), NA)
+    expect_true(check_data_format(maizuru_data))
 })

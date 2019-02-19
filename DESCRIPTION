@@ -28,7 +28,7 @@ BugReports: https://github.com/weecology/MATSS/issues
 LazyData: true
 Depends: R (>= 3.4.0)
 Imports:
-    magrittr, 
+    magrittr,
     ggplot2,
     lubridate,
     portalr (>= 0.2.3),
@@ -40,7 +40,8 @@ Imports:
     RSQLite,
     forecast,
     networkD3,
-    here
+    here,
+    tibble
 Suggests:
     testthat,
     knitr,

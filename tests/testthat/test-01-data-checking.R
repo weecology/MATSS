@@ -1,4 +1,4 @@
-context("test data-checking function")
+context("Validation Function for Data Format")
 
 test_that("check_data_format works on basic examples", {
     
