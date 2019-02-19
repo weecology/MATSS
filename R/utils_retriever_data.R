@@ -1,9 +1,32 @@
-#' @title Download a dataset from data retriever
+#' @title What is the default data path?
 #'
-#' @description a wrapper around rdataretriever::install to facilitate 
-#'   downloading multiple datasets into a common data folder
+#' @description See \code{portalr::\link[portalr]{get_default_data_path}} for details.
+#' @inheritParams portalr::get_default_data_path
+#'
+#' @export
+get_default_data_path <- function(fallback = "~")
+{
+    portalr::get_default_data_path(fallback, ENV_VAR = "MATSS_DATA_PATH")
+}
+
+#' @title Manage the default path for downloading MATSS Data into
+#'
+#' @description See \code{portalr::\link[portalr]{use_default_data_path}} for details.
+#' @inheritParams portalr::use_default_data_path
+#'
+#' @export
+use_default_data_path <- function(path = NULL)
+{
+    portalr::use_default_data_path(path, ENV_VAR = "MATSS_DATA_PATH")
+}
+
+#' @title Download a dataset from data retriever
+#' @aliases import_retriever_data
+#'  
+#' @description \code{install_retriever_data} downloads retriever datasets and 
+#'   is a wrapper around rdataretriever::install 
 #'   
-#' @param data_path the overarching folder in which to download datasets
+#' @param path the overarching folder in which to download datasets
 #' @inheritParams rdataretriever::install
 #' 
 #' @return NULL
@@ -14,14 +37,13 @@
 #' }
 #' @export
 #'
-
-install_retriever_data <- function(dataset, data_path = "data")
+install_retriever_data <- function(dataset, path = get_default_data_path())
 {
     # check for existence of data_path
-    data_path <- normalizePath(data_path, mustWork = TRUE)
+    path <- normalizePath(path, mustWork = TRUE)
 
     # where to put the retriever data
-    folder_path <- file.path(data_path, dataset)
+    folder_path <- file.path(path, dataset)
     dir.create(folder_path)
     
     # install the retriever data
@@ -30,12 +52,12 @@ install_retriever_data <- function(dataset, data_path = "data")
 }
 
 #' @title Import a dataset downloaded from data retriever
+#' @rdname install_retriever_data
 #'
-#' @description a function to import a previously downloaded dataset from 
-#'   rdataretriever
+#' @description \code{import_retriever_data} loads a previously downloaded 
+#'   retriever dataset
 #'   
-#' @param data_path the overarching folder in which to import datasets from
-#' @inheritParams rdataretriever::install
+#' @inheritParams install_retriever_data
 #' 
 #' @return NULL
 #' 
@@ -45,12 +67,11 @@ install_retriever_data <- function(dataset, data_path = "data")
 #' }
 #' @export
 #'
-import_retriever_data <- function(dataset, data_path = "data")
+import_retriever_data <- function(dataset, path = get_default_data_path())
 {
-    # check for existence of data_path
+    folder_path <- file.path(path, dataset)
 
-    folder_path <- file.path(data_path, dataset)
-    
+    # check for existence of data_path
     files <- dir(folder_path)
     if (length(files) == 0) # check for presence of downloaded files
     {
@@ -59,6 +80,7 @@ import_retriever_data <- function(dataset, data_path = "data")
         return(NULL)
     }
     
+    # load each csv and return a list
     tempdata <- vector('list', length(files))
     names(tempdata) <- sub('.csv', '', files)
     for (j in seq_along(files))

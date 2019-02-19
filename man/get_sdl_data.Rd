@@ -5,10 +5,12 @@
 \title{Create Sonoran desert lab time-series data}
 \usage{
 get_sdl_data(plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17),
-  folder_path)
+  path = get_default_data_path())
 }
 \arguments{
 \item{plots}{vector of plots to keep}
+
+\item{path}{where to load the raw data files from}
 }
 \value{
 list of two dataframes (one with abundance data, the other with covariate data) 
