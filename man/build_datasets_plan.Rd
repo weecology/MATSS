@@ -4,7 +4,10 @@
 \alias{build_datasets_plan}
 \title{Generate a Drake Plan for Datasets}
 \usage{
-build_datasets_plan()
+build_datasets_plan(data_path = get_default_data_path())
+}
+\arguments{
+\item{data_path}{where to get the downloaded retriever datasets}
 }
 \value{
 a drake plan (i.e. a tibble) specifying the targets and commands 
