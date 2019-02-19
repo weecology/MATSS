@@ -4,7 +4,7 @@
 \alias{get_mtquad_data}
 \title{Create Montana plant quad time-series data}
 \usage{
-get_mtquad_data()
+get_mtquad_data(folder_path)
 }
 \arguments{
 \item{mtquad_data_tables}{list of all montana plant tables (allrecords_cover,
