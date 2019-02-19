@@ -2,21 +2,30 @@
 % Please edit documentation in R/utils_retriever_data.R
 \name{install_retriever_data}
 \alias{install_retriever_data}
+\alias{import_retriever_data}
 \title{Download a dataset from data retriever}
 \usage{
-install_retriever_data(dataset, data_path = "data")
+install_retriever_data(dataset, path = get_default_data_path())
+
+import_retriever_data(dataset, path = get_default_data_path())
 }
 \arguments{
 \item{dataset}{the name of the dataset that you wish to download}
 
-\item{data_path}{the overarching folder in which to download datasets}
+\item{path}{the overarching folder in which to download datasets}
 }
 \description{
-a wrapper around rdataretriever::install to facilitate 
-  downloading multiple datasets into a common data folder
+\code{install_retriever_data} downloads retriever datasets and 
+  is a wrapper around rdataretriever::install
+
+\code{import_retriever_data} loads a previously downloaded 
+  retriever dataset
 }
 \examples{
 \dontrun{
   install_retriever_data("veg-plots-sdl")
+}
+\dontrun{
+  import_retriever_data("veg-plots-sdl")
 }
 }

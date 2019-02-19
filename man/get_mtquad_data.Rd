@@ -4,11 +4,10 @@
 \alias{get_mtquad_data}
 \title{Create Montana plant quad time-series data}
 \usage{
-get_mtquad_data()
+get_mtquad_data(path = get_default_data_path())
 }
 \arguments{
-\item{mtquad_data_tables}{list of all montana plant tables (allrecords_cover,
-allrecords_density,species_list)}
+\item{path}{where to load the raw data files from}
 }
 \value{
 list of two dataframes (one with abundance data, the other with covariate data) 

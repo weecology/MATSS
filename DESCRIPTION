@@ -31,7 +31,7 @@ Imports:
     magrittr, 
     ggplot2,
     lubridate,
-    portalr (>= 0.2.0),
+    portalr (>= 0.2.3),
     LDATS (>= 0.1.0),
     drake (>= 6.2.1.9003),
     dplyr,
