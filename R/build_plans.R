@@ -29,6 +29,7 @@ collect_analyses <- function(list_of_results)
 #' @param methods a drake plan listing the methods to be applied (it is 
 #'   expected that each method is a function that takes in a dataset object)
 #' @param datasets a drake plan listing the datasets to be analyzed
+#' @param ... arguments to be passed to \code{drake::\link[drake]{drake_plan}} 
 #' 
 #' @return a drake plan (i.e. a tibble) specifying the targets and commands 
 #'   for all the analyses and the collected results (grouping the outputs from 
@@ -36,9 +37,8 @@ collect_analyses <- function(list_of_results)
 #' 
 #' @export
 #' 
-build_analyses_plan <- function(methods, datasets)
+build_analyses_plan <- function(methods, datasets, ...)
 {
-    
     ## The combination of each method x dataset
     drake::drake_plan(
         # expand out each `fun(data)``, where
@@ -56,7 +56,7 @@ build_analyses_plan <- function(methods, datasets)
         # separated, so that the reports/syntheses can handle the right outputs
         results = target(MATSS::collect_analyses(list(analysis)),
                          transform = combine(analysis, .by = fun)),
-        trace = TRUE
+        ...
     )
 }
 
