@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create Montana plant quad time-series data — get_mtquad_data • MATSS</title>
+<title>What is the default data path? — get_default_data_path • MATSS</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Create Montana plant quad time-series data — get_mtquad_data" />
+<meta property="og:title" content="What is the default data path? — get_default_data_path" />
 
-<meta property="og:description" content="Original data found here" />
+<meta property="og:description" content="See portalr::get_default_data_path for details." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -111,48 +111,35 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create Montana plant quad time-series data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_retriever_data.R'><code>R/get_retriever_data.R</code></a></small>
-    <div class="hidden name"><code>get_mtquad_data.Rd</code></div>
+    <h1>What is the default data path?</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/utils_retriever_data.R'><code>R/utils_retriever_data.R</code></a></small>
+    <div class="hidden name"><code>get_default_data_path.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Original data found here</p>
+    <p>See <code>portalr::<a href='https://www.rdocumentation.org/packages/portalr/topics/use_default_data_path'>get_default_data_path</a></code> for details.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_mtquad_data</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>())</pre>
+    <pre class="usage"><span class='fu'>get_default_data_path</span>(<span class='kw'>fallback</span> <span class='kw'>=</span> <span class='st'>"~"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>where to load the raw data files from</p></td>
+      <th>fallback</th>
+      <td><p>the default value to use if the setting is missing</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list of two dataframes (one with abundance data, the other with covariate data) 
-  and one list of metadata.</p>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-  <span class='fu'>get_mtquad_data</span>(<span class='kw'>mtquad_data_tables</span><span class='kw'>=</span><span class='fu'>retriever_data</span>()$<span class='st'>'mapped-plant-quads-mt'</span>)
-<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>

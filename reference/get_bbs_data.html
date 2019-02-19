@@ -129,7 +129,7 @@ samples during that period.</p>
     </div>
 
     <pre class="usage"><span class='fu'>get_bbs_data</span>(<span class='kw'>start_yr</span> <span class='kw'>=</span> <span class='fl'>1965</span>, <span class='kw'>end_yr</span> <span class='kw'>=</span> <span class='fl'>2017</span>, <span class='kw'>min_num_yrs</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='no'>region</span>, <span class='no'>folder_path</span>)</pre>
+  <span class='no'>region</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -149,6 +149,10 @@ samples during that period.</p>
     <tr>
       <th>region</th>
       <td><p>region code of data to return (currently uses state codes)</p></td>
+    </tr>
+    <tr>
+      <th>path</th>
+      <td><p>where to load the raw data files from</p></td>
     </tr>
     </table>
     

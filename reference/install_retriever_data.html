@@ -32,8 +32,10 @@
 
 <meta property="og:title" content="Download a dataset from data retriever — install_retriever_data" />
 
-<meta property="og:description" content="a wrapper around rdataretriever::install to facilitate 
-  downloading multiple datasets into a common data folder" />
+<meta property="og:description" content="install_retriever_data downloads retriever datasets and 
+  is a wrapper around rdataretriever::install
+import_retriever_data loads a previously downloaded 
+  retriever dataset" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -119,12 +121,16 @@
 
     <div class="ref-description">
     
-    <p>a wrapper around rdataretriever::install to facilitate 
-  downloading multiple datasets into a common data folder</p>
+    <p><code>install_retriever_data</code> downloads retriever datasets and 
+  is a wrapper around rdataretriever::install</p>
+<p><code>import_retriever_data</code> loads a previously downloaded 
+  retriever dataset</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>install_retriever_data</span>(<span class='no'>dataset</span>, <span class='kw'>data_path</span> <span class='kw'>=</span> <span class='st'>"data"</span>)</pre>
+    <pre class="usage"><span class='fu'>install_retriever_data</span>(<span class='no'>dataset</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>())
+
+<span class='fu'>import_retriever_data</span>(<span class='no'>dataset</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -134,7 +140,7 @@
       <td><p>the name of the dataset that you wish to download</p></td>
     </tr>
     <tr>
-      <th>data_path</th>
+      <th>path</th>
       <td><p>the overarching folder in which to download datasets</p></td>
     </tr>
     </table>
@@ -143,6 +149,8 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
   <span class='fu'>install_retriever_data</span>(<span class='st'>"veg-plots-sdl"</span>)
+<span class='co'># }</span><span class='co'># NOT RUN {</span>
+  <span class='fu'>import_retriever_data</span>(<span class='st'>"veg-plots-sdl"</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -35,10 +35,6 @@
 <meta property="og:description" content="This is a helper function that enables the NSE evaluation in 
   plan_analyses. For example, `collect_analyses(list(a, b))` 
   will return a list of two named elements, `a` and `b` corresponding to the 
-  objects `a` and `b`.
-This is a helper function that enables the NSE evaluation in 
-  plan_analyses. For example, `collect_analyses(list(a, b))` 
-  will return a list of two named elements, `a` and `b` corresponding to the 
   objects `a` and `b`." />
 <meta name="twitter:card" content="summary" />
 
@@ -119,7 +115,7 @@ This is a helper function that enables the NSE evaluation in
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Collect the Analyses Together as a List</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/build_analyses_plan.R'><code>R/build_analyses_plan.R</code></a>, <a href='https://github.com/weecology/MATSS/blob/master/R/build_plans.R'><code>R/build_plans.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/build_plans.R'><code>R/build_plans.R</code></a></small>
     <div class="hidden name"><code>collect_analyses.Rd</code></div>
     </div>
 
@@ -129,24 +125,14 @@ This is a helper function that enables the NSE evaluation in
   <code>plan_analyses</code>. For example, `collect_analyses(list(a, b))` 
   will return a list of two named elements, `a` and `b` corresponding to the 
   objects `a` and `b`.</p>
-<p>This is a helper function that enables the NSE evaluation in 
-  <code>plan_analyses</code>. For example, `collect_analyses(list(a, b))` 
-  will return a list of two named elements, `a` and `b` corresponding to the 
-  objects `a` and `b`.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>collect_analyses</span>(<span class='no'>list_of_results</span>)
-
-<span class='fu'>collect_analyses</span>(<span class='no'>list_of_results</span>)</pre>
+    <pre class="usage"><span class='fu'>collect_analyses</span>(<span class='no'>list_of_results</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>list_of_results</th>
-      <td><p>the list of objects</p></td>
-    </tr>
     <tr>
       <th>list_of_results</th>
       <td><p>the list of objects</p></td>
@@ -156,9 +142,6 @@ This is a helper function that enables the NSE evaluation in
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a drake plan (i.e. a tibble) specifying the targets and commands 
-  for all the analyses and the collected results (grouping the outputs from 
-  each method into a single list)</p>
-<p>a drake plan (i.e. a tibble) specifying the targets and commands 
   for all the analyses and the collected results (grouping the outputs from 
   each method into a single list)</p>
     
