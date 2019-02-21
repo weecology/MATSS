@@ -4,13 +4,15 @@
 \alias{build_analyses_plan}
 \title{Generate a Drake Plan for Analyses}
 \usage{
-build_analyses_plan(methods, datasets)
+build_analyses_plan(methods, datasets, ...)
 }
 \arguments{
 \item{methods}{a drake plan listing the methods to be applied (it is 
 expected that each method is a function that takes in a dataset object)}
 
 \item{datasets}{a drake plan listing the datasets to be analyzed}
+
+\item{...}{arguments to be passed to \code{drake::\link[drake]{drake_plan}}}
 }
 \value{
 a drake plan (i.e. a tibble) specifying the targets and commands 

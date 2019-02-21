@@ -3,12 +3,15 @@ library(dplyr)
 library(drake)
 
 ## Make sure we have downloaded the raw datasets from retriever first
-message("Using ", usethis::ui_code(get_default_data_path()), " as the downloaded data directory.")
-suppressMessages({
-    install_retriever_data("breed-bird-survey")
-    install_retriever_data("veg-plots-sdl")
-    install_retriever_data("mapped-plant-quads-mt")
-})
+if (check_default_data_path())
+{
+    message("Using ", usethis::ui_code(get_default_data_path()), " as the downloaded data directory.")
+    suppressMessages({
+        install_retriever_data("breed-bird-survey")
+        install_retriever_data("veg-plots-sdl")
+        install_retriever_data("mapped-plant-quads-mt")
+    })
+}
 
 ## Clean and transform the data into the appropriate format
 datasets <- bind_rows(build_datasets_plan(), 
