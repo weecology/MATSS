@@ -2,7 +2,14 @@ reference:
   - title: "Drake Plans"
     desc: "Functions to help build Drake plans"
     contents:
-      - plan_datasets
+      - build_analyses_plan
+      - build_datasets_plan
+  - title: "Configure Data Path"
+    desc: "Functions to configure the data path for storing downloaded datasets"
+    contents:
+      - get_default_data_path
+      - check_default_data_path
+      - use_default_data_path
   - title: "Get Data"
     desc: "Functions to load datasets"
     contents:
@@ -13,6 +20,7 @@ reference:
       - get_portal_rodents
       - get_sdl_data
       - get_sgs_data
+      - filter_ts
   - title: "Rdataretriever"
     desc: "Functions that use Rdataretriever to download and import data"
     contents:
@@ -27,6 +35,8 @@ reference:
       - summarize_obs
       - summarize_temps
       - ts_summary
+      - interpolate_obs
+      - temp_autocor
   - title: "Plotting Functions"
     desc: "Functions to plot outputs"
     contents:
