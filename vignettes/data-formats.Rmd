@@ -25,8 +25,9 @@ The universal data structure we're going to use is:
 * a list with at least 1 element:
   - a data.frame or tibble, named `abundance` (required)
   - a data.frame or tibble, named `covariates` (optional)
+  - a list, named `metadata` (optional)
   
-If both elements are present in the list, then the two data.frames must have the same number of rows.
+If both `abundance` and `covariates` are present in the list, then the two data.frames must have the same number of rows.
 
 ### abundance
 

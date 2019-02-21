@@ -1,0 +1,74 @@
+---
+title: "MATSS: Getting Started"
+author: 
+- Hao Ye
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Overview
+
+`MATSS` is a package for conducting Macroecological Analyses of Time Series Structure. In other words, we have designed it with researchers in mind, as a tool for getting started quickly.
+
+The goals of the package are to make it as easy as possible to:
+- obtain a hoard of ecological time series data, processed into a common [data format](data-formats.html)
+- build an analysis pipeline, using a mixture of functions from the `drake` package and functions that we provide which do some of the background lifting.
+
+## Installation
+
+You can install the `MATSS` package from github with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("weecology/MATSS")
+```
+
+And load the package in the typical fashion:
+
+```{r}
+library(MATSS)
+```
+
+# Data
+
+## Packaged datasets
+
+Several datasets are included with this package - these can be loaded individually using specific functions.
+
+```{r, eval = FALSE}
+get_jornada_data()
+get_maizuru_data()
+get_sgs_data()
+```
+
+## Downloadable datasets
+
+Other datasets require downloading. To facilitate this, we include functions to help configure a specific location on disk. To check your current setting:
+
+```{r}
+get_default_data_path()
+```
+
+and to configure this setting:
+
+```{r, eval = FALSE}
+use_default_data_path()
+```
+
+
+
+
+
+
+
