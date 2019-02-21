@@ -1,3 +1,13 @@
+#' @title Check if a default data path is set
+#' 
+#' @description See \code{portalr::\link[portalr]{check_default_data_path}} for details.
+#' 
+#' @export
+check_default_data_path <- function()
+{
+    portalr::check_default_data_path(ENV_VAR = "MATSS_DATA_PATH")
+}
+
 #' @title What is the default data path?
 #'
 #' @description See \code{portalr::\link[portalr]{get_default_data_path}} for details.
