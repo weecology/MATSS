@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate a Drake Plan for Analyses — build_analyses_plan • MATSS</title>
+<title>Check if a default data path is set — check_default_data_path • MATSS</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,12 +30,9 @@
 
 
 
-<meta property="og:title" content="Generate a Drake Plan for Analyses — build_analyses_plan" />
+<meta property="og:title" content="Check if a default data path is set — check_default_data_path" />
 
-<meta property="og:description" content="Given M methods to be applied to N datasets, make a drake plan 
-  that contains an `analysis` targets corresponding to each M x N 
-  combination, as well as M `results` targets corresponding to a list of 
-  the `analysis` outputs for each of the M methods." />
+<meta property="og:description" content="See portalr::check_default_data_path for details." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -114,55 +111,25 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate a Drake Plan for Analyses</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/build_plans.R'><code>R/build_plans.R</code></a></small>
-    <div class="hidden name"><code>build_analyses_plan.Rd</code></div>
+    <h1>Check if a default data path is set</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/utils_retriever_data.R'><code>R/utils_retriever_data.R</code></a></small>
+    <div class="hidden name"><code>check_default_data_path.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Given M methods to be applied to N datasets, make a drake plan 
-  that contains an `analysis` targets corresponding to each M x N 
-  combination, as well as M `results` targets corresponding to a list of 
-  the `analysis` outputs for each of the M methods.</p>
+    <p>See <code>portalr::<a href='https://www.rdocumentation.org/packages/portalr/topics/use_default_data_path'>check_default_data_path</a></code> for details.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>build_analyses_plan</span>(<span class='no'>methods</span>, <span class='no'>datasets</span>, <span class='no'>...</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>methods</th>
-      <td><p>a drake plan listing the methods to be applied (it is 
-expected that each method is a function that takes in a dataset object)</p></td>
-    </tr>
-    <tr>
-      <th>datasets</th>
-      <td><p>a drake plan listing the datasets to be analyzed</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>arguments to be passed to <code>drake::<a href='https://www.rdocumentation.org/packages/drake/topics/drake_plan'>drake_plan</a></code></p></td>
-    </tr>
-    </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>a drake plan (i.e. a tibble) specifying the targets and commands 
-  for all the analyses and the collected results (grouping the outputs from 
-  each method into a single list)</p>
-    
+    <pre class="usage"><span class='fu'>check_default_data_path</span>()</pre>
+        
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-          </ul>
+                </ul>
 
   </div>
 </div>
