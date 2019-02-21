@@ -76,7 +76,7 @@ build_datasets_plan <- function(data_path = get_default_data_path(),
     datasets <- drake::drake_plan(
         maizuru_data = get_maizuru_data(),
         jornada_data = get_jornada_data(),
-        sgs_data = get_sgs_data(),
+        sgs_data = get_sgs_data()
     )
     if(include_downloaded_data)
     {
@@ -89,7 +89,6 @@ build_datasets_plan <- function(data_path = get_default_data_path(),
                                      )
         )
     }
-    
     return(datasets)
 }
     
