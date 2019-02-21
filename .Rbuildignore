@@ -1,4 +1,3 @@
-^docs$
 ^_pkgdown\.yml$
 ^LICENSE\.md$
 ^CONTRIBUTING\.md$
@@ -6,8 +5,8 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^.travis.yml$
-^analysis$
-^output$
+^/analysis$
+^/output$
 ^.drake$
 ^README\.Rmd$
 ^README-.*\.png$
