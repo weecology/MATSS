@@ -14,7 +14,7 @@ if (check_default_data_path())
 }
 
 ## Clean and transform the data into the appropriate format
-datasets <- bind_rows(build_datasets_plan(), 
+datasets <- bind_rows(build_datasets_plan(include_downloaded_data = TRUE), 
                       drake_plan(bad_portal = portal_data[[1]])
 )
 
