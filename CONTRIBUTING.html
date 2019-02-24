@@ -73,6 +73,9 @@
   </a>
 </li>
 <li>
+  <a href="articles/MATSS.html">Get started</a>
+</li>
+<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -116,6 +119,15 @@
 <h2 class="hasAnchor">
 <a href="#guidelines-for-contributing" class="anchor"></a>Guidelines for Contributing</h2>
 <p>Thanks for checking out our project! If you haven’t already, please check out the <a href="README.html">readme</a> for general info about this project.</p>
+<ul>
+<li><a href="CONTRIBUTING.md#contributor-code-of-conduct">Contributor Code of Conduct</a></li>
+<li><a href="CONTRIBUTING.md#for-the-general-public">For the General Public</a></li>
+<li><a href="CONTRIBUTING.md#weecologists">Weecologists</a></li>
+<li><a href="CONTRIBUTING.md#documentation">Documentation</a></li>
+<li><a href="CONTRIBUTING.md#testing">Testing</a></li>
+<li><a href="CONTRIBUTING.md#building">Building</a></li>
+<li><a href="CONTRIBUTING.md#contributing-data">Contributing Data</a></li>
+</ul>
 </div>
 <div id="contributor-code-of-conduct" class="section level2">
 <h2 class="hasAnchor">
@@ -130,15 +142,16 @@
 <li><p>Create an issue – if you spot any typos, bugs, or have general suggestions, etc. You can also use this to participate in ongoing discussions. For more info, please check out this Github <a href="https://guides.github.com/features/issues/">guide</a>.</p></li>
 <li><p>Fork and create a pull request – if you have suggested bugfixes or changes. For more info, please check out this Github <a href="https://help.github.com/articles/about-pull-requests/">guide</a>. We ask that you follow our guidelines below on documentation and testing.</p></li>
 </ol>
-<div id="weecologists" class="section level3">
-<h3 class="hasAnchor">
-<a href="#weecologists" class="anchor"></a>Weecologists</h3>
+</div>
+<div id="weecologists" class="section level2">
+<h2 class="hasAnchor">
+<a href="#weecologists" class="anchor"></a>Weecologists</h2>
 <p>If you’re actively working on this repo, then you should have write access. For anything beyond a minor change to documentation or coding files, please create a branch for any new features or bugfixes and create a pull request when you’d like your work to be merged in.</p>
 <p>If you don’t have write access and you would like to, please contact @gmyenni for access.</p>
 </div>
-<div id="documentation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#documentation" class="anchor"></a>Documentation</h3>
+<div id="documentation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#documentation" class="anchor"></a>Documentation</h2>
 <p>If you are contributing code to this project, you generally don’t need any additional packages, since the documentation will be written as comments in the R scripts. If you are also building the package, see the <a href="#building">section below</a> for more details.</p>
 <p>In most cases, you’ll be creating a new function and then documenting it. You can check the existing functions for examples, but here’s a basic template:</p>
 <pre><code>#' @title {this is the heading for the help file}
@@ -154,9 +167,9 @@
 newfunc &lt;- function() ...</code></pre>
 <p>Note that you can also include links to other functions, math formatting, and more. For more details, see the <a href="http://r-pkgs.had.co.nz/man.html">chapter on documentation</a> in Hadley Wickham’s book for R packages.</p>
 </div>
-<div id="testing" class="section level3">
-<h3 class="hasAnchor">
-<a href="#testing" class="anchor"></a>Testing</h3>
+<div id="testing" class="section level2">
+<h2 class="hasAnchor">
+<a href="#testing" class="anchor"></a>Testing</h2>
 <p>If you are adding new functionality, please include automated tests to verify that some of the basic functionality is correct.</p>
 <p>Automated testing uses R scripts, that live in the <code>tests/testthat/</code> subfolder for the package. If you are adding a new file, please name it as <code>test-{concept}.R</code>.</p>
 <p>As a general rule, you don’t need to test all possible inputs and outputs for a function, but you should test some important aspects:</p>
@@ -166,9 +179,9 @@ newfunc &lt;- function() ...</code></pre>
 </ul>
 <p>You can see the existing tests as examples of how to organize your tests, but note that there are several different kinds of <code>expect_</code> functions that test for different things. For more details, see the <a href="http://r-pkgs.had.co.nz/tests.html">chapter on testing</a> in Hadley Wickham’s book for R packages.</p>
 </div>
-<div id="building" class="section level3">
-<h3 class="hasAnchor">
-<a href="#building" class="anchor"></a>Building</h3>
+<div id="building" class="section level2">
+<h2 class="hasAnchor">
+<a href="#building" class="anchor"></a>Building</h2>
 <p>To fully build the package, including documentation, running-tests, you will need the <code>roxygen2</code>, <code>testthat</code>, <code>devtools</code>, <code>pkgdown</code>, and <code>usethis</code> R packages.</p>
 <p>Specific operations are then done by calling the appropriate functions from within R, while your working directory is somewhere in the package folder.</p>
 <p>The suggested workflow is:</p>
@@ -187,6 +200,10 @@ newfunc &lt;- function() ...</code></pre>
 <p>If you are also prepping the package as a whole, then you will also want to run <code><a href="https://www.rdocumentation.org/packages/devtools/topics/check">devtools::check()</a></code> and/or <code><a href="https://www.rdocumentation.org/packages/devtools/topics/devtools-deprecated">devtools::check_cran()</a></code> to make sure that the package is complete.</p>
 <p>For more info, see the <a href="https://github.com/hadley/devtools">GitHub repo</a> for the <code>devtools</code> package.</p>
 </div>
+<div id="contributing-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#contributing-data" class="anchor"></a>Contributing Data</h2>
+<p>We use a specific data structure that handles community data and optional covariates. For more information, please see the related <a href="https://weecology.github.io/MATSS-pipeline/articles/data-formats.html">vignette</a>.</p>
 </div>
 
 

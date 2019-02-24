@@ -43,6 +43,9 @@
   </a>
 </li>
 <li>
+  <a href="articles/MATSS.html">Get started</a>
+</li>
+<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -89,12 +92,16 @@
 <li>build an analytical pipeline to conduct macroecological analyses on those datasets</li>
 <li>generate reports that collate results and summarize outputs</li>
 </ul>
-<p>For more information about the datasets or analyses, please check out the vignettes. For more information about contributing code, please check out the <a href="CONTRIBUTING.html">Contributing Guide</a>.</p>
+</div>
+<div id="contributing" class="section level2">
+<h2 class="hasAnchor">
+<a href="#contributing" class="anchor"></a>Contributing</h2>
+<p>For more information about contributing code, datasets, or analyses, please check out the <a href="CONTRIBUTING.html">Contributing Guide</a>.</p>
 </div>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install <code>MATSS</code> from github with:</p>
+<p>You can install the <code>MATSS</code> package from github with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"weecology/MATSS"</span>)</a></code></pre></div>
 </div>
@@ -103,11 +110,14 @@
 <a href="#examples" class="anchor"></a>Examples</h2>
 <p>{add examples of using the <code>MATSS</code> package to get data and/or use the analysis methods}</p>
 </div>
-<div id="using-the-pipeline" class="section level2">
+<div id="running-the-analyses" class="section level2">
 <h2 class="hasAnchor">
-<a href="#using-the-pipeline" class="anchor"></a>Using the pipeline</h2>
-<p>(to be removed at a later point)</p>
-<p>Having installed the package, clone or copy the repository and open <code>analysis/pipeline.R</code> in an instance of R to ammend or execute the pipeline code.</p>
+<a href="#running-the-analyses" class="anchor"></a>Running the Analyses</h2>
+<p>To run the analysis component of this project, you will want to clone or copy the repository, <em>in addition</em> to installing the package. (<em>note that you can also install the package locally from the files</em>)</p>
+<p>The file <code>analysis/pipeline.R</code> has a full script that generates the Drake plan for the analyses and then runs it. When the code is run, these steps occur in sequence:</p>
+<p>(1) R creates a list of objects that need to be created and their dependencies (whether certain outputs depend on other outputs)</p>
+<p>(2) R checks the list of objects and code against its database of objects (usually stored in the <code>.drake</code> hidden folder). If any objects are out of date (because they are missing or the code / dependencies have changed), then they are queued up to be re-created.</p>
+<p>(3) R makes any objects that it needs to, including final reports, such as <a href="lda_report.html">LDA report</a>.</p>
 </div>
 </div>
   </div>

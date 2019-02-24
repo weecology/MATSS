@@ -43,6 +43,9 @@
   </a>
 </li>
 <li>
+  <a href="../articles/MATSS.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -81,7 +84,7 @@
                         <h4 class="author">Ellen K. Bledsoe</h4>
                         <h4 class="author">Hao Ye</h4>
             
-            <h4 class="date">2019-02-21</h4>
+            <h4 class="date">2019-02-24</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/weecology/MATSS/blob/master/vignettes/data-formats.Rmd"><code>vignettes/data-formats.Rmd</code></a></small>
       <div class="hidden name"><code>data-formats.Rmd</code></div>
@@ -99,10 +102,11 @@
 <ul>
 <li>a data.frame or tibble, named <code>abundance</code> (required)</li>
 <li>a data.frame or tibble, named <code>covariates</code> (optional)</li>
+<li>a list, named <code>metadata</code> (optional)</li>
 </ul>
 </li>
 </ul>
-<p>If both elements are present in the list, then the two data.frames must have the same number of rows.</p>
+<p>If both <code>abundance</code> and <code>covariates</code> are present in the list, then the two data.frames must have the same number of rows.</p>
 <div id="abundance" class="section level3">
 <h3 class="hasAnchor">
 <a href="#abundance" class="anchor"></a>abundance</h3>
@@ -134,8 +138,8 @@
 #&gt;   ..$ Green.Striped.Dragon  : num [1:6] 6 0 4 1 9 7
 #&gt;   ..$ Blue.Eyes.White.Dragon: num [1:6] 0 0 0 1 0 0
 #&gt;  $ covariates:'data.frame':  6 obs. of  2 variables:
-#&gt;   ..$ date         : Date[1:6], format: "2014-02-21" ...
-#&gt;   ..$ precipitation: int [1:6] 11 17 12 12 10 12</code></pre>
+#&gt;   ..$ date         : Date[1:6], format: "2014-02-24" ...
+#&gt;   ..$ precipitation: int [1:6] 14 15 7 15 12 7</code></pre>
 <table class="table kable_wrapper"><tbody><tr>
 <td>
 <table class="table">
@@ -186,28 +190,28 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">2014-02-21</td>
-<td align="right">11</td>
+<td align="left">2014-02-24</td>
+<td align="right">14</td>
 </tr>
 <tr class="even">
-<td align="left">2015-02-21</td>
-<td align="right">17</td>
+<td align="left">2015-02-24</td>
+<td align="right">15</td>
 </tr>
 <tr class="odd">
-<td align="left">2016-02-21</td>
-<td align="right">12</td>
+<td align="left">2016-02-24</td>
+<td align="right">7</td>
 </tr>
 <tr class="even">
-<td align="left">2017-02-21</td>
-<td align="right">12</td>
+<td align="left">2017-02-24</td>
+<td align="right">15</td>
 </tr>
 <tr class="odd">
-<td align="left">2018-02-21</td>
-<td align="right">10</td>
+<td align="left">2018-02-24</td>
+<td align="right">12</td>
 </tr>
 <tr class="even">
-<td align="left">2019-02-21</td>
-<td align="right">12</td>
+<td align="left">2019-02-24</td>
+<td align="right">7</td>
 </tr>
 </tbody>
 </table>
