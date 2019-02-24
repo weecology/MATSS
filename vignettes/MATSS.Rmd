@@ -1,0 +1,156 @@
+---
+title: "MATSS: Getting Started"
+author: 
+- Hao Ye
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+%\VignetteIndexEntry{MATSS: Getting Started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  ---
+  
+  ```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+collapse = TRUE,
+comment = "#>"
+)
+```
+
+# Overview
+
+`MATSS` is a package for conducting Macroecological Analyses of Time Series Structure. In other words, we have designed it with researchers in mind, as a tool for getting started quickly.
+
+The goals of the package are to make it as easy as possible to:
+
+- obtain a hoard of ecological time series data, processed into a common [data format](data-formats.html)
+- build an analysis pipeline, using a mixture of functions from the `drake` package and functions that we provide which do some of the background lifting.
+
+## Installation
+
+You can install the `MATSS` package from github with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("weecology/MATSS")
+```
+
+And load the package in the typical fashion:
+
+```{r, message = FALSE}
+library(MATSS)
+```
+
+# Data
+
+## Packaged datasets
+
+Several datasets are included with this package - these can be loaded individually using specific functions.
+
+```{r, eval = FALSE}
+get_jornada_data()
+get_maizuru_data()
+get_sgs_data()
+```
+
+## Downloadable datasets
+
+Other datasets require downloading. To facilitate this, we include functions to help configure a specific location on disk. To check your current setting:
+
+```{r, eval = FALSE}
+get_default_data_path()
+```
+
+and to configure this setting:
+
+```{r, eval = FALSE}
+use_default_data_path("<path>")
+```
+
+# Working with Drake
+
+For the most part `MATSS` provides only a light wrapper for the functions in `drake`, so it can be helpful to know about how `drake` plans work if you are going to do analyses using `MATSS`. Note that using `drake` plans is not strictly necessary, as you can use the `MATSS` functions in whatever workflow system you desire.
+
+## Basic Workflow
+
+The basic workflow of using `drake` plans in R is:
+* run R code that produces `drake` plans
+* run R code that takes a `drake` plan and executes it
+
+### Example
+
+```{r, warning = FALSE}
+library(drake)
+library(dplyr)
+
+# define the plan
+plan <- drake_plan(data_1 = mtcars, 
+                   data_2 = iris, 
+                   my_model = lm(mpg ~ disp, data = data_1), 
+                   my_summary = data_2 %>%
+                       group_by(Species) %>%
+                       summarize_all(mean))
+
+# run the plan
+make(plan)
+
+# check resulting objects
+readd(my_model)
+readd(my_summary)
+```
+
+### Making Drake Plans
+
+A `drake` plan is essentially a `tibble` that defines targets and the commands to build those targets. We can view `drake` plans by printing them to the console:
+
+```{r}
+plan # made from the previous example
+```
+
+One thing to be aware of is that the function `drake_plan()` does not evaluate its arguments, but only makes the plan. Thus, if you want any evaluation to occur within the construction of the plan, you will need some NSE magic.
+
+In this example, the plan relies on `variable`, and so the result will change depending on the value of `variable` when the plan is run:
+
+```{r}
+variable <- "Species"
+plan <- drake_plan(num_levels = nlevels(iris[, variable]))
+
+## would compute nlevels on the "Sepal.Length" variable
+# variable <- "Sepal.Length"
+# make(plan)
+```
+
+Here, we ask that `variable` be evaluated when building the plan - this locks in the column setting as `"Species"`:
+
+```{r}
+variable <- "Species"
+drake_plan(num_levels = nlevels(iris[, !!variable]))
+
+## does not require variable to be in the current environment
+# rm(variable)
+# make(plan)
+```
+
+### Running Drake Plans
+
+Drake plans are run by calling `make()`. This does several things. First it checks the **cache** to see if any targets need to be re-built, and then it proceeds to build all the targets, in some order that accounts for the dependencies between targets. (e.g. an analysis target that depends on a dataset target to be processed)
+
+The manual has more information about how [Drake stores its cache](https://ropenscilabs.github.io/drake-manual/store.html#cache-formats) and how [Drake decides to rebuild targets](https://ropenscilabs.github.io/drake-manual/triggers.html).
+
+Note that if there are file inputs, it is important that they are declared explicitly using e.g. `file_in()`, `knitr_in()`, and `file_out()`. This enables Drake to check if those files are changed and to rebuild targets that depend on the files if needed. Otherwise Drake will treat them as fixed strings.
+
+```{r, eval = FALSE}
+plan <- drake_plan(data = read.csv("some_data.csv"))
+make(plan)
+
+# make some changes to `some_data.csv`
+make(plan) # will NOT rebuild the `data` target
+```
+
+```{r, eval = FALSE}
+plan <- drake_plan(data = read.csv(file_in("some_data.csv")))
+make(plan)
+
+# make some changes to `some_data.csv`
+make(plan) # will rebuild the `data` target
+```
