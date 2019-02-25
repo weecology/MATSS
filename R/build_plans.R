@@ -78,23 +78,23 @@ build_datasets_plan <- function(data_path = get_default_data_path(),
         jornada_data = get_jornada_data(),
         sgs_data = get_sgs_data()
     )
-    if(include_downloaded_data)
+    if (include_downloaded_data)
     {
-        datasets <- dplyr::bind_rows(datasets, 
-                                     drake::drake_plan(
-                                         portal_data = get_portal_rodents(),
-                                         bbs_data = get_bbs_data(region = 7, path = !!data_path),
-                                         sdl_data = get_sdl_data(path = !!data_path),
-                                         mtquad_data = get_mtquad_data(path = !!data_path)
-                                     )
-        )
+        datasets <- datasets %>%
+            dplyr::bind_rows(
+                drake::drake_plan(
+                    portal_data = get_portal_rodents(),
+                    bbs_data = get_bbs_data(region = 7, path = !!data_path),
+                    sdl_data = get_sdl_data(path = !!data_path),
+                    mtquad_data = get_mtquad_data(path = !!data_path)
+                )
+            )
     }
     return(datasets)
 }
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
