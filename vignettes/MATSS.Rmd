@@ -8,9 +8,9 @@ vignette: >
   %\VignetteIndexEntry{MATSS: Getting Started}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
-  ---
+---
   
-  ```{r setup, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
 collapse = TRUE,
 comment = "#>"
@@ -30,7 +30,7 @@ The goals of the package are to make it as easy as possible to:
 
 You can install the `MATSS` package from github with:
 
-``` r
+```{r, eval = FALSE}
 # install.packages("devtools")
 devtools::install_github("weecology/MATSS")
 ```
