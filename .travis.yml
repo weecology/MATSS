@@ -16,7 +16,7 @@ before_install:
   - sudo apt-get install libudunits2-dev
   - sudo apt-get install texlive-latex-base
   - sudo apt-get install python3
-  - pip install retriever
+  - pip3 install retriever
 
 matrix:
   include:
