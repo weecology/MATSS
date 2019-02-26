@@ -345,11 +345,11 @@ temp_autocor <- function(obs, times, interp_method = "na.interp", ...) {
 #'
 #' @export
 #'
-interpolate_obs <- function(obs, times, method = "na.interp", ...) {
+interpolate_obs <- function(obs, times, interp_method = "na.interp", ...) {
     check_obs_and_times(obs, times)
     
-    if (length(method) > 1 || !is.character(method)) {
-        stop("`method` is not a single character input")
+    if (length(interp_method) > 1 || !is.character(interp_method)) {
+        stop("`interp_method` is not a single character input")
     }
     time_diff <- diff(times)
     times_interp <- min(times):max(times)
@@ -361,7 +361,7 @@ interpolate_obs <- function(obs, times, method = "na.interp", ...) {
         time_match <- which(times_interp == times[i])
         out[time_match] <- obs[i]
     }
-    do.call(method, list(out), ...)
+    do.call(interp_method, list(out), ...)
 }
 
 #' @title Check if `obs` and `times` is properly formatted
