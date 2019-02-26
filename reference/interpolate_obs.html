@@ -127,14 +127,18 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>interpolate_obs</span>(<span class='no'>obs</span>, <span class='no'>times</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"na.interp"</span>)</pre>
+    <pre class="usage"><span class='fu'>interpolate_obs</span>(<span class='no'>obs</span>, <span class='no'>times</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"na.interp"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>obs</th>
-      <td><p><code>numeric</code> vector of observations.</p></td>
+      <td><p><code>ts_summary</code>: a 1- or 2-dimensional set of <code>numeric</code>
+observations (columns if 2-dimensional) across times (rows if 
+2-dimensional) as indexed by <code>times</code>. <br /> <br />
+<code>uni_ts_summary</code>: a 1-dimensional <code>numeric</code> set of observations
+across times as indexed by <code>times</code>.</p></td>
     </tr>
     <tr>
       <th>times</th>
@@ -142,9 +146,8 @@
 observations.</p></td>
     </tr>
     <tr>
-      <th>method</th>
-      <td><p><code>character</code> representing a function name used to 
-interpolate <code>obs</code>. Defaults to <code>"<a href='https://www.rdocumentation.org/packages/forecast/topics/na.interp'>na.interp</a>"</code>.</p></td>
+      <th>...</th>
+      <td><p>further arguments to be passed to the interpolation method</p></td>
     </tr>
     </table>
     
