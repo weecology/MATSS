@@ -190,7 +190,7 @@ summarize_obs <- function(obs, round_out = TRUE, digits = NULL) {
     if (!("logical" %in% class(round_out))) {
         stop("`round_out` must be logical")
     }
-    obs <- na.omit(obs)
+    obs <- na.omit(as.numeric(obs))
     out <- c(min = min(obs), max = max(obs), median = median(obs), 
              mean = mean(obs), sd = sd(obs), n = length(obs))
     if (round_out) {
@@ -207,10 +207,7 @@ summarize_obs <- function(obs, round_out = TRUE, digits = NULL) {
 #' @rdname summarize_obs
 #'
 #' @export
-#'
-summarise_obs <- function(obs, round_out = TRUE, digits = NULL) {
-    summarize_obs(obs = obs, round_out = round_out, digits = digits)
-}
+summarise_obs <- summarize_obs
 
 #' @rdname summarize_obs
 #'
@@ -245,11 +242,7 @@ summarize_times <- function(obs, times, round_out = TRUE, digits = NULL) {
 #' @rdname summarize_obs
 #'
 #' @export
-#'
-summarise_times <- function(obs, round_out = TRUE, digits = NULL) {
-    summarize_times(obs = obs, times = times, round_out = round_out, 
-                    digits = digits)
-}
+summarise_times <- summarize_times
 
 #' @rdname summarize_obs
 #'
@@ -260,14 +253,10 @@ summarise_times <- function(obs, round_out = TRUE, digits = NULL) {
 #'
 summarize_effort <- function(obs, effort, round_out = TRUE, digits = NULL) {
     if (is.null(effort)) {
-        return()
+        message("`effort` is `NULL`, assuming all effort = 1")
+        effort <- rep(1, NROW(obs))
     }
-    if (!is.numeric(effort)) {
-        stop("`effort` must be numeric")
-    }
-    if (!is.null(dim(effort))) {
-        stop("`effort` must be a single dimension")
-    }
+    check_effort(effort)
     check_obs(obs, single_dim_obs = FALSE)
     
     if (!("logical" %in% class(round_out))) {
@@ -293,11 +282,7 @@ summarize_effort <- function(obs, effort, round_out = TRUE, digits = NULL) {
 #' @rdname summarize_obs
 #'
 #' @export
-#'
-summarise_effort <- function(obs, round_out = TRUE, digits = NULL) {
-    summarize_effort(obs = obs, effort = effort, round_out = round_out, 
-                     digits = digits)
-}
+summarise_effort <- summarize_effort
 
 #' @title Count non-0 entries
 #'
