@@ -68,7 +68,7 @@ ts_summary <- function(obs, times = NULL, effort = NULL,
             effort <- rep(1, length(obs))
             effort_summary <- NULL
         }
-        if(nrow(obs) != length(effort)) {
+        if (nrow(obs) != length(effort)) {
             stop("`obs` and `effort` are not of same length")
         }
         obs <- obs / effort
