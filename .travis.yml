@@ -1,6 +1,7 @@
 language: r
 cache: packages
 sudo: required
+dist: "trusty"
 warnings_are_errors: false
 
 addons:
@@ -9,12 +10,16 @@ addons:
       - libgsl0-dbg
       - libgsl0-dev
       - libgsl0ldbl
+      - "python3"
+      - "python3-pip"
     update: true
 
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install libudunits2-dev
-  - sudo apt-get install texlive-latex-base
+  - sudo apt-get install python3
+  - sudo pip3 install --upgrade pip
+  - sudo pip3 install --user retriever
 
 matrix:
   include:

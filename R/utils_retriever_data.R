@@ -105,7 +105,8 @@ import_retriever_data <- function(dataset, path = get_default_data_path())
     names(tempdata) <- sub('.csv', '', files)
     for (j in seq_along(files))
     {
-        tempdata[[j]] <- utils::read.csv(file.path(folder_path, files[j]))
+        tempdata[[j]] <- read.csv(file.path(folder_path, files[j]), 
+                                  stringsAsFactors = FALSE)
     }
     return(tempdata)
 }

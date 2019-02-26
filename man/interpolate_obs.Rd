@@ -4,7 +4,7 @@
 \alias{interpolate_obs}
 \title{Interpolate observations}
 \usage{
-interpolate_obs(obs, times, method = "na.interp", ...)
+interpolate_obs(obs, times, interp_method = "na.interp", ...)
 }
 \arguments{
 \item{obs}{\code{ts_summary}: a 1- or 2-dimensional set of \code{numeric}
@@ -15,6 +15,9 @@ across times as indexed by \code{times}.}
 
 \item{times}{\code{numeric} or \code{Date} vector of timestamps of the 
 observations.}
+
+\item{interp_method}{\code{character} representing a function name used to 
+interpolate \code{obs}. Defaults to \code{"\link[forecast]{na.interp}"}.}
 
 \item{...}{further arguments to be passed to the interpolation method}
 }

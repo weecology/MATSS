@@ -21,24 +21,19 @@ run_LDA <- function(data,
                     max_topics = 6, nseeds = 200,
                     control = LDATS::LDA_controls_list())
 {
-   
-    if(!check_data_format(data)) {
+    if (!check_data_format(data))
+    {
         wrongFormat = simpleWarning("Incorrect data structure, see data-formats vignette")
         tryCatch(warning(wrongFormat), finally = return('Incorrect data structure'))
     } 
     
-    abundances <- data$abundance
-    
-    
-    topics_vector <- c(2:max_topics)
-    
     #### Run LDAs ####
+    abundances <- data$abundance
+    topics_vector <- seq(from = 2, to = max_topics, by = 1)
     LDA_models = LDATS::LDA_set(document_term_table = abundances, 
-                               topics = topics_vector,
-                               nseeds = nseeds, control = control)
+                                topics = topics_vector,
+                                nseeds = nseeds, control = control)
     
     #### Select the best LDA (AIC) ####
-    selected = LDATS::select_LDA(LDA_models = LDA_models, control = control)
-    
-    selected
+    LDATS::select_LDA(LDA_models = LDA_models, control = control)
 }
