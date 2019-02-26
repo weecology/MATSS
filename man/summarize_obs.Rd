@@ -15,11 +15,11 @@ summarise_obs(obs, round_out = TRUE, digits = NULL)
 
 summarize_times(obs, times, round_out = TRUE, digits = NULL)
 
-summarise_times(obs, round_out = TRUE, digits = NULL)
+summarise_times(obs, times, round_out = TRUE, digits = NULL)
 
 summarize_effort(obs, effort, round_out = TRUE, digits = NULL)
 
-summarise_effort(obs, round_out = TRUE, digits = NULL)
+summarise_effort(obs, effort, round_out = TRUE, digits = NULL)
 }
 \arguments{
 \item{obs}{\code{numeric} vector of observations.}

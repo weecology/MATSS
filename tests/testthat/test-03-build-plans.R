@@ -1,5 +1,14 @@
 context("Building Drake Plans")
 
+expect_plan <- function(plan)
+{
+    eval(bquote(expect_true(tibble::is_tibble(.(plan)))))
+    eval(bquote(expect_true("drake_plan" %in% class(.(plan)))))
+    eval(bquote(expect_true(all(c("target", "command") %in% names(.(plan))))))
+    eval(bquote(expect_equal(class(.(plan)$target), "character")))
+    eval(bquote(expect_equal(class(.(plan)$command), "list")))
+}
+
 test_that("collect_analyses helper works", {
     a <- runif(3)
     b <- LETTERS[5:10]
@@ -12,12 +21,14 @@ test_that("collect_analyses helper works", {
 
 test_that("build_datasets_plan works", {
     expect_error(datasets <- build_datasets_plan(), NA)
-    expect_true(tibble::is_tibble(datasets))
-    expect_true("drake_plan" %in% class(datasets))
-    expect_true(all(c("target", "command") %in% names(datasets)))
-    expect_equal(class(datasets$target), "character")
-    expect_equal(class(datasets$command), "list")
+    expect_plan(datasets)
     expect_true(all(grepl("_data$", datasets$target)))
+    expect_equal(dim(datasets), c(3, 2))
+    
+    expect_error(datasets <- build_datasets_plan(include_downloaded_data = TRUE), NA)
+    expect_plan(datasets)
+    expect_true(all(grepl("_data$", datasets$target)))
+    expect_equal(dim(datasets), c(7, 2))
 })
 
 test_that("build_analyses_plan works", {
