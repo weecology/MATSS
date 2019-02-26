@@ -376,6 +376,19 @@ check_obs_and_times <- function(obs, times, single_dim_obs = TRUE)
     }
 }
 
+#' @title Check if `effort` is properly formatted
+#'
+#' @noRd
+check_effort <- function(effort)
+{
+    if (!is.numeric(effort)) {
+        stop("`effort` must be numeric")
+    }
+    if (!is.null(dim(effort))) {
+        stop("`effort` must be a single dimension")
+    }
+}
+
 #' @title Check if `obs` is properly formatted
 #'
 #' @noRd
@@ -387,7 +400,6 @@ check_obs <- function(obs, single_dim_obs = TRUE)
     if (single_dim_obs && !is.null(dim(obs))) {
         stop("`obs` must be a single dimension")
     }
-    
 }
 
 #' @title Check if `times` is properly formatted

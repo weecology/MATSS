@@ -87,5 +87,5 @@ test_that("check_times works", {
 
 test_that("check_obs_and_times works", {
     expect_error(check_obs_and_times(rnorm(16), rnorm(15)))
-    expect_error(check_obs_and_times(sunspot.year, time(sunspot.year)))
+    expect_error(check_obs_and_times(sunspot.year, time(sunspot.year)), NA)
 })
