@@ -41,13 +41,15 @@ Imports:
     forecast,
     networkD3,
     here,
-    tibble
+    tibble,
+    rlang
 Suggests:
     testthat,
     knitr,
     rmarkdown, 
     pkgdown, 
-    covr
+    covr, 
+    reticulate
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 Remotes: 
