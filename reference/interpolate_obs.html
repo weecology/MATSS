@@ -127,7 +127,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>interpolate_obs</span>(<span class='no'>obs</span>, <span class='no'>times</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"na.interp"</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>interpolate_obs</span>(<span class='no'>obs</span>, <span class='no'>times</span>, <span class='kw'>interp_method</span> <span class='kw'>=</span> <span class='st'>"na.interp"</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -144,6 +144,11 @@ across times as indexed by <code>times</code>.</p></td>
       <th>times</th>
       <td><p><code>numeric</code> or <code>Date</code> vector of timestamps of the 
 observations.</p></td>
+    </tr>
+    <tr>
+      <th>interp_method</th>
+      <td><p><code>character</code> representing a function name used to 
+interpolate <code>obs</code>. Defaults to <code>"<a href='https://www.rdocumentation.org/packages/forecast/topics/na.interp'>na.interp</a>"</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
