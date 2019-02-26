@@ -119,7 +119,7 @@ uni_ts_summary <- function(obs, times = NULL, effort = NULL,
     }
     if (is.null(times)) {
         message("`time` is `NULL`, assuming evenly spaced data")
-        times <- 1:nrow(obs)
+        times <- seq_len(NROW(obs))
     }
     check_obs_and_times(obs, times)
     

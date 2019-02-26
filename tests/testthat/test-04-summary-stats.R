@@ -3,7 +3,19 @@ context("Time Series Summary Statistics")
 
 
 
+test_that("uni_ts_summary works", {
+    ts <- sunspot.year
+    ts[c(1, 5, 10:14)] <- NA
+    expect_message(uni_ts_summary(ts), "`time` is `NULL`, assuming evenly spaced data")
+    expect_message(uni_ts_summary(ts), "`effort` is `NULL`, assuming all effort = 1")
+    expect_error(output <- uni_ts_summary(ts), NA)
+    expect_equal(length(output), 4)
+    expect_true(all(c("observations", "times", "effort", "autocorrelation") %in% names(output)))
 
+    # regression check
+    expect_identical(digest::digest(output), 
+                     "1775f77efdb50a107394a6b5af1abcfc")
+})
 
 test_that("summarize_obs works", {
     ts <- sunspot.year
