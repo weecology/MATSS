@@ -23,12 +23,12 @@ test_that("temp_autocor works", {
     ts <- sunspot.year
     ts[c(1, 5, 10:14)] <- NA
     expect_error(output <- temp_autocor(ts, time(sunspot.year)), NA)
-    expect_identical(length(output), length(ts))
+    expect_equal(length(output), 25)
     expect_false(any(is.na(output)))
     
     # regression check
     expect_identical(digest::digest(output), 
-                     "0bd2cccc8efd598126314105fc5552ae")
+                     "5842a3ef0f6cf907b748c1ce335452bf")
 })
 
 test_that("interpolate_obs works", {
