@@ -15,7 +15,8 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install libudunits2-dev
   - sudo apt-get install python3
-  - pip3 install retriever
+  - pip install --upgrade pip
+  - pip install retriever
 
 matrix:
   include:
