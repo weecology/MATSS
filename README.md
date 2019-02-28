@@ -7,8 +7,9 @@ status](https://codecov.io/gh/weecology/MATSS/branch/master/graph/badge.svg)](ht
 ## Overview
 The *MATSS* package is intended to support Macroecological Analysis of Time Series Structure. We provide functions to :
 * gather ecological time series datasets
+* perform basic processing and summaries of those datasets
 * build an analytical pipeline to conduct macroecological analyses on those datasets
-* generate reports that collate results and summarize outputs
+* create template reports for collating results and produce syntheses
 
 ## Contributing
 
@@ -28,6 +29,8 @@ devtools::install_github("weecology/MATSS")
 {add examples of using the `MATSS` package to get data and/or use the analysis methods}
 
 ## Running the Analyses
+Note: This entire section is deprecated and will be moved over into https://github.com/weecology/MATSS-LDATS
+
 
 To run the analysis component of this project, you will want to clone or copy the repository, *in addition* to installing the package. (*note that you can also install the package locally from the files*)
 
