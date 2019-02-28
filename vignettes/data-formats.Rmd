@@ -47,9 +47,20 @@ In the `covariates` data.frame:
 
 The number of rows should match that of `abundance`, and rows of `covariates` should line up with `abundance` (either sampled simultaneously or concurrently). Common covariates are date and time, temperature, treatments, etc.
 
+### metadata
+
+In the `metadata` list:
+
+* any entries are allowed
+* if there is a `timename` entry, it refers to a column in the `covariates` data.frame that gives a time index for the data
+  - this column must be some form of numeric, integer, date, or date/time corresponding to the timing of the samples
+  - this column must be of a form that applying `tidyr::full_seq`, along with a "period" entry (using 1 if missing) will produce the appropriate equi-timed spacing
+* if there is a `period` entry, it must be compatible with `tidyr::full_seq` and the `timename` variable described above.
+* if there is a `species_table` entry, it must have an `id` column that includes all the column names in `abundances`. This is intended to provide more information about the different variables in `abundances`.
+
 ## Example Data
 
-Here is an example of a correctly formatted dataset with covariates:
+Here is an example of a correctly formatted dataset with covariates and metadata:
 
 ```{r example crosstab data, echo = FALSE}
 abundance <- data.frame("Red Spotted Dragon" = c(2,6,0,5,4,4),
@@ -61,10 +72,17 @@ num_rows <- NROW(abundance)
 covariates <- data.frame("date" = rev(seq.Date(from = Sys.Date(), by = "-1 year", length.out = num_rows)), 
                          "precipitation" = rpois(num_rows, lambda = 10))
 
-dat <- mget(c("abundance", "covariates"))
+metadata <- list(timename = "date", 
+                 authors = c(person("Ellen", "Bledsoe", role = c("aut"), 
+                                    comment = c(ORCID = "0000-0002-3629-7235")),
+                             person("Hao", "Ye", role = c("aut"), 
+                                    email = "hao.ye@weecology.org", 
+                                    comment = c(ORCID = "0000-0002-8630-1458"))))
+
+dat <- mget(c("abundance", "covariates", "metadata"))
 
 str(dat)
-knitr::kable(dat)
+knitr::kable(dat[c("abundance", "covariates")])
 ```
 
 ## Checking Data
