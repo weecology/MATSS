@@ -84,7 +84,7 @@
                         <h4 class="author">Ellen K. Bledsoe</h4>
                         <h4 class="author">Hao Ye</h4>
             
-            <h4 class="date">2019-02-28</h4>
+            <h4 class="date">2019-03-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/weecology/MATSS/blob/master/vignettes/data-formats.Rmd"><code>vignettes/data-formats.Rmd</code></a></small>
       <div class="hidden name"><code>data-formats.Rmd</code></div>
@@ -127,19 +127,55 @@
 </ul>
 <p>The number of rows should match that of <code>abundance</code>, and rows of <code>covariates</code> should line up with <code>abundance</code> (either sampled simultaneously or concurrently). Common covariates are date and time, temperature, treatments, etc.</p>
 </div>
+<div id="metadata" class="section level3">
+<h3 class="hasAnchor">
+<a href="#metadata" class="anchor"></a>metadata</h3>
+<p>In the <code>metadata</code> list:</p>
+<ul>
+<li>any entries are allowed</li>
+<li>if there is a <code>timename</code> entry, it refers to a column in the <code>covariates</code> data.frame that gives a time index for the data
+<ul>
+<li>this column must be some form of numeric, integer, date, or date/time corresponding to the timing of the samples</li>
+<li>this column must be of a form that applying <code><a href="https://tidyr.tidyverse.org/reference/full_seq.html">tidyr::full_seq</a></code>, along with a “period” entry (using 1 if missing) will produce the appropriate equi-timed spacing</li>
+</ul>
+</li>
+<li>if there is a <code>period</code> entry, it must be compatible with <code><a href="https://tidyr.tidyverse.org/reference/full_seq.html">tidyr::full_seq</a></code> and the <code>timename</code> variable described above.</li>
+<li>if there is a <code>species_table</code> entry, it must have an <code>id</code> column that includes all the column names in <code>abundances</code>. This is intended to provide more information about the different variables in <code>abundances</code>.</li>
+</ul>
+</div>
 </div>
 <div id="example-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-data" class="anchor"></a>Example Data</h2>
-<p>Here is an example of a correctly formatted dataset with covariates:</p>
-<pre><code>#&gt; List of 2
+<p>Here is an example of a correctly formatted dataset with covariates and metadata:</p>
+<pre><code>#&gt; List of 3
 #&gt;  $ abundance :'data.frame':  6 obs. of  3 variables:
 #&gt;   ..$ Red.Spotted.Dragon    : num [1:6] 2 6 0 5 4 4
 #&gt;   ..$ Green.Striped.Dragon  : num [1:6] 6 0 4 1 9 7
 #&gt;   ..$ Blue.Eyes.White.Dragon: num [1:6] 0 0 0 1 0 0
 #&gt;  $ covariates:'data.frame':  6 obs. of  2 variables:
-#&gt;   ..$ date         : Date[1:6], format: "2014-02-28" ...
-#&gt;   ..$ precipitation: int [1:6] 11 5 10 9 11 12</code></pre>
+#&gt;   ..$ date         : Date[1:6], format: "2014-03-01" ...
+#&gt;   ..$ precipitation: int [1:6] 3 5 6 11 17 17
+#&gt;  $ metadata  :List of 2
+#&gt;   ..$ timename: chr "date"
+#&gt;   ..$ authors :List of 2
+#&gt;   .. ..$ :Class 'person'  hidden list of 1
+#&gt;   .. .. ..$ :List of 5
+#&gt;   .. .. .. ..$ given  : chr "Ellen"
+#&gt;   .. .. .. ..$ family : chr "Bledsoe"
+#&gt;   .. .. .. ..$ role   : chr "aut"
+#&gt;   .. .. .. ..$ email  : NULL
+#&gt;   .. .. .. ..$ comment: Named chr "0000-0002-3629-7235"
+#&gt;   .. .. .. .. ..- attr(*, "names")= chr "ORCID"
+#&gt;   .. ..$ :Class 'person'  hidden list of 1
+#&gt;   .. .. ..$ :List of 5
+#&gt;   .. .. .. ..$ given  : chr "Hao"
+#&gt;   .. .. .. ..$ family : chr "Ye"
+#&gt;   .. .. .. ..$ role   : chr "aut"
+#&gt;   .. .. .. ..$ email  : chr "hao.ye@weecology.org"
+#&gt;   .. .. .. ..$ comment: Named chr "0000-0002-8630-1458"
+#&gt;   .. .. .. .. ..- attr(*, "names")= chr "ORCID"
+#&gt;   .. ..- attr(*, "class")= chr "person"</code></pre>
 <table class="table kable_wrapper"><tbody><tr>
 <td>
 <table class="table">
@@ -190,28 +226,28 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">2014-02-28</td>
-<td align="right">11</td>
+<td align="left">2014-03-01</td>
+<td align="right">3</td>
 </tr>
 <tr class="even">
-<td align="left">2015-02-28</td>
+<td align="left">2015-03-01</td>
 <td align="right">5</td>
 </tr>
 <tr class="odd">
-<td align="left">2016-02-28</td>
-<td align="right">10</td>
+<td align="left">2016-03-01</td>
+<td align="right">6</td>
 </tr>
 <tr class="even">
-<td align="left">2017-02-28</td>
-<td align="right">9</td>
-</tr>
-<tr class="odd">
-<td align="left">2018-02-28</td>
+<td align="left">2017-03-01</td>
 <td align="right">11</td>
 </tr>
+<tr class="odd">
+<td align="left">2018-03-01</td>
+<td align="right">17</td>
+</tr>
 <tr class="even">
-<td align="left">2019-02-28</td>
-<td align="right">12</td>
+<td align="left">2019-03-01</td>
+<td align="right">17</td>
 </tr>
 </tbody>
 </table>
