@@ -44,7 +44,7 @@ Imports:
     here,
     tibble,
     rlang,
-    usethis
+    usethis (>= 1.4.0.9000)
 Suggests:
     testthat,
     knitr,
