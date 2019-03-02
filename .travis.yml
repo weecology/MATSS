@@ -1,41 +1,37 @@
-language: r
 cache:
 - packages
 - pip
 sudo: required
 dist: "trusty"
 warnings_are_errors: false
-
-addons:
-  apt:
-    packages:
-      - libgsl0-dbg
-      - libgsl0-dev
-      - libgsl0ldbl
-      - "python3"
-      - "python3-pip"
-    update: true
+services:
+  - docker
 
 before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install libudunits2-dev
-  - sudo apt-get install python3
-  - sudo pip3 install --upgrade pip
-  - sudo pip3 install git+https://git@github.com/weecology/retriever.git --user
+# Set up environment and create required images
+# If no error don't print output
+-  docker build . -t matss  > /dev/null
+script:
+# Load packages and install the required packages
+# Install retriever from source and run tests 
+# -  docker run matss /bin/sh -c 'Rscript load_and_test.R'
 
-matrix:
-  include:
-  - r: devel
-  - r: release
-    after_success:
-    - R CMD INSTALL .
-    - Rscript -e 'pkgdown::build_site()'
-    - Rscript -e 'covr::codecov()'
-    deploy:
-      provider: pages
-      skip-cleanup: true
-      github-token: $GITHUB_PAT
-      keep-history: true
-      local-dir: docs
-      on:
-        branch: master
+-  docker run matss Rscript load_and_test.R
+
+
+# matrix:
+#   include:
+#   - r: devel
+#   - r: release
+#     after_success:
+#     - R CMD INSTALL .
+#     - Rscript -e 'pkgdown::build_site()'
+#     - Rscript -e 'covr::codecov()'
+#     deploy:
+#       provider: pages
+#       skip-cleanup: true
+#       github-token: $GITHUB_PAT
+#       keep-history: true
+#       local-dir: docs
+#       on:
+#         branch: master

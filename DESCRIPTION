@@ -37,22 +37,25 @@ Imports:
     dplyr,
     tidyr,
     rdataretriever,
+    reticulate,
     RSQLite,
     forecast,
     networkD3,
     here,
     tibble,
-    rlang
+    rlang,
+    usethis (>= 1.4.0.9000)
 Suggests:
     testthat,
     knitr,
-    rmarkdown, 
-    pkgdown, 
-    covr, 
-    reticulate
+    rmarkdown,
+    pkgdown,
+    covr
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
-Remotes: 
+Remotes:
     weecology/LDATS,
     weecology/portalr,
-    ropensci/drake
+    ropensci/drake,
+    ropensci/rdataretriever,
+    r-lib/usethis
