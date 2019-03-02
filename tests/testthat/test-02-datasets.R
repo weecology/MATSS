@@ -15,11 +15,11 @@ test_that("Jornada data is retrievable and works", {
 test_that("Shortgrass Steppe data is retrievable and works", {
     expect_error(sgs_data <- get_sgs_data(), NA)
     expect_true(check_data_format(sgs_data))
-    expect_known_hash(sgs_data, "ccbdc633c1")
+    expect_known_hash(sgs_data, "08c3041cd4")
 })
 
 test_that("Maizuru data is retrievable and works", {
     expect_error(maizuru_data <- get_maizuru_data(), NA)
     expect_true(check_data_format(maizuru_data))
-    expect_known_hash(maizuru_data, "c93bd061db")
+    expect_known_hash(maizuru_data, "ccbdc633c1")
 })

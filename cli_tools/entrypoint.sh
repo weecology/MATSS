@@ -1,8 +1,8 @@
-#!/bin/sh
-set -e
+# #!/bin/sh
+# set -e
 
-# Copy config files to $HOME
-cp -r /MATSS/cli_tools/.pgpass  ~/
-cp -r /MATSS/cli_tools/.my.cnf  ~/
+# # Copy config files to $HOME
+# cp -r /MATSS/cli_tools/.pgpass  ~/
+# cp -r /MATSS/cli_tools/.my.cnf  ~/
 
-exec "$@"
+# exec "$@"
