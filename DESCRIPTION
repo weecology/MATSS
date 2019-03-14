@@ -42,7 +42,9 @@ Imports:
     networkD3,
     here,
     tibble,
-    rlang
+    rlang,
+    future,
+    future.batchtools
 Suggests:
     testthat,
     knitr,
