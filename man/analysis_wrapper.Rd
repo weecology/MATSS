@@ -15,7 +15,7 @@ analysis_wrapper(fun, ...)
 \value{
 a function that takes in a single argument, `dataset`, and returns a 
   tibble with these columns:
-  \tabular{ll}{
+  \tabular{ ll}{
     \code{results} \tab a combined results data.frame\cr
     \code{metadata} \tab the metadata component of the original dataset\cr
     \code{dataset} \tab the name of the dataset\cr
@@ -24,10 +24,12 @@ a function that takes in a single argument, `dataset`, and returns a
   }
 }
 \description{
-This wrapper takes as input, an analysis function intended to be
-  applied to a single time series, and creates a function that will apply 
-  that analysis to all the time series as part of a dataset, returning a 
-  combined object with all of the results.
+This wrapper takes as input, some analysis function, `fun`, 
+  along with additional optional arguments, and returns a function that will 
+  run that analysis function on all the time series in a dataset. The return 
+  object from that function combined all the relevant output, and also 
+  information on the call, for post-processing that is suitable by itself, or 
+  as part of a Drake plan.
 }
 \examples{
 \dontrun{

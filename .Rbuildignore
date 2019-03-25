@@ -5,8 +5,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^.travis.yml$
-^analysis$
-^output$
-^.drake$
 ^README\.Rmd$
 ^README-.*\.png$
