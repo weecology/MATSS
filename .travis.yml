@@ -16,16 +16,13 @@ addons:
       - libgsl0-dbg
       - libgsl0-dev
       - libgsl0ldbl
-      - "python3"
-      - "python3-pip"
     update: true
 
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install libudunits2-dev
-  - sudo apt-get install python3
-  - sudo pip3 install --upgrade pip
-  - sudo pip3 install --upgrade git+https://git@github.com/weecology/retriever.git
+  - sudo pip install --upgrade pip
+  - sudo pip install --upgrade git+https://git@github.com/weecology/retriever.git
 
 matrix:
   include:
