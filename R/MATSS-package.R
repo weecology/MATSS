@@ -1,8 +1,4 @@
-#' @importFrom magrittr %>%
-#' @importFrom dplyr pull
-#' @importFrom forecast na.interp
 #' @importFrom graphics axis mtext par plot points rect text
-#' @importFrom lubridate is.Date
 #' @importFrom stats acf cor D median na.omit sd setNames
 #' @importFrom utils data read.csv
 
