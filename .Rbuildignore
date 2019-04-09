@@ -10,3 +10,5 @@
 ^.drake$
 ^README\.Rmd$
 ^README-.*\.png$
+^doc$
+^Meta$

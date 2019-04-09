@@ -24,7 +24,7 @@
 #' @examples
 #' \dontrun{
 #'   sgs_data <- MATSS::get_sgs_data()
-#'   summarize_dataset <- forecast_wrapper(ts_summary)
+#'   summarize_dataset <- analysis_wrapper(ts_summary)
 #'   summarize_dataset(sgs_data)
 #' }
 #' 
