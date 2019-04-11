@@ -131,7 +131,7 @@ uni_ts_summary <- function(obs, times = NULL, effort = NULL,
             message("`effort` is `NULL`, assuming all effort = 1")
             effort <- rep(1, length(obs))
         }
-        if(length(obs) != length(effort)) {
+        if (length(obs) != length(effort)) {
             stop("`obs` and `effort` are not of same length")
         }
         obs <- obs / effort
@@ -156,12 +156,12 @@ uni_ts_summary <- function(obs, times = NULL, effort = NULL,
 #'
 ts_summary_drake <- function(x) {
     if (!is.null(x$metadata$times)) {
-        times <- pull(x$covariates, x$metadata$times)
+        times <- dplyr::pull(x$covariates, x$metadata$times)
     } else{
         times <- NULL
     }  
     if (!is.null(x$metadata$effort)) {
-        effort <- pull(x$covariates, x$metadata$effort)
+        effort <- dplyr::pull(x$covariates, x$metadata$effort)
     } else{
         effort <- NULL
     }
@@ -408,7 +408,7 @@ check_obs <- function(obs, single_dim_obs = TRUE)
 check_times <- function(times)
 {
     if (!is.numeric(times)) {
-        if (!is.Date(times)) {
+        if (!lubridate::is.Date(times)) {
             stop("`times` must be numeric or a Date")
         }
         times <- as.numeric(difftime(times, min(times), units = "days")) + 1

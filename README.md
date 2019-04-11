@@ -24,6 +24,12 @@ You can install the `MATSS` package from github with:
 devtools::install_github("weecology/MATSS")
 ```
 
+This package relies on the development version of the `rdataretriever` package
+to install datasets. Installation of this package takes a few extra steps
+because it runs a Python package behind the scenes. Follow the installation
+instructions on the [`rdataretriever` README](https://github.com/ropensci/rdataretriever).
+
+
 ## Examples
 
 {add examples of using the `MATSS` package to get data and/or use the analysis methods}

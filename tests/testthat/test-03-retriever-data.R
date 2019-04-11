@@ -19,6 +19,7 @@ skip_if_no_retriever <- function() {
 
 test_that("retriever downloading and importing work", {
     skip_if_no_retriever()
+    skip_on_travis()
     Sys.setenv(MATSS_DATA_PATH = test_path)
     expect_equal(get_default_data_path(), test_path)
     

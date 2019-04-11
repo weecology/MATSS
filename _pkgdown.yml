@@ -4,6 +4,8 @@ reference:
     contents:
       - build_analyses_plan
       - build_datasets_plan
+      - analysis_wrapper
+      - collect_analyses
   - title: "Configure Data Path"
     desc: "Functions to configure the data path for storing downloaded datasets"
     contents:
@@ -33,14 +35,12 @@ reference:
       - richness
       - summarize_effort
       - summarize_obs
-      - summarize_temps
+      - summarize_times
       - ts_summary
+      - ts_summary_drake
+      - uni_ts_summary
       - interpolate_obs
       - temp_autocor
-  - title: "Plotting Functions"
-    desc: "Functions to plot outputs"
-    contents:
-      - plot_lda
   - title: "Miscellaneous"
     desc: "Other functions"
     contents:

@@ -33,16 +33,19 @@ Imports:
     lubridate,
     portalr (>= 0.2.4),
     LDATS (>= 0.1.0),
-    drake (>= 6.2.1.9003),
+    drake (>= 7.0.0),
     dplyr,
     tidyr,
-    rdataretriever,
+    purrr,
+    rdataretriever (>= 1.1.0),
     RSQLite,
     forecast,
     networkD3,
     here,
     tibble,
-    rlang
+    rlang,
+    future,
+    future.batchtools
 Suggests:
     testthat,
     knitr,
@@ -55,4 +58,4 @@ VignetteBuilder: knitr
 Remotes: 
     weecology/LDATS,
     weecology/portalr,
-    ropensci/drake
+    ropensci/rdataretriever

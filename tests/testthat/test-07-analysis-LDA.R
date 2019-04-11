@@ -1,6 +1,7 @@
 context("Check LDA analysis function")
 
 # create test data
+set.seed(42)
 n <- 100 # number of samples
 topics <- matrix(c(0.4, 0.4, 0.2, 0, 0, 0, 
                    0, 0, 0, 0, 0.5, 0.5), 
