@@ -34,10 +34,12 @@
 <meta property="og:title" content="Create a function that replicates an analysis for all time series in a
   dataset — analysis_wrapper" />
 
-<meta property="og:description" content="This wrapper takes as input, an analysis function intended to be
-  applied to a single time series, and creates a function that will apply 
-  that analysis to all the time series as part of a dataset, returning a 
-  combined object with all of the results." />
+<meta property="og:description" content="This wrapper takes as input, some analysis function, `fun`, 
+  along with additional optional arguments, and returns a function that will 
+  run that analysis function on all the time series in a dataset. The return 
+  object from that function combined all the relevant output, and also 
+  information on the call, for post-processing that is suitable by itself, or 
+  as part of a Drake plan." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -121,16 +123,18 @@
     <div class="page-header">
     <h1>Create a function that replicates an analysis for all time series in a
   dataset</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/analysis-wrapper.R'><code>R/analysis-wrapper.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/analysis_wrapper.R'><code>R/analysis_wrapper.R</code></a></small>
     <div class="hidden name"><code>analysis_wrapper.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This wrapper takes as input, an analysis function intended to be
-  applied to a single time series, and creates a function that will apply 
-  that analysis to all the time series as part of a dataset, returning a 
-  combined object with all of the results.</p>
+    <p>This wrapper takes as input, some analysis function, `fun`, 
+  along with additional optional arguments, and returns a function that will 
+  run that analysis function on all the time series in a dataset. The return 
+  object from that function combined all the relevant output, and also 
+  information on the call, for post-processing that is suitable by itself, or 
+  as part of a Drake plan.</p>
     
     </div>
 
@@ -153,20 +157,15 @@
 
     <p>a function that takes in a single argument, `dataset`, and returns a 
   tibble with these columns:</p><table class='table'>
-<tr><td></td><td></td></tr>
-<tr><td><code>results</code></td><td></td></tr>
-<tr><td>a combined results data.frame</td><td></td></tr>
-<tr><td></td><td><code>metadata</code></td></tr>
-<tr><td></td><td>the metadata component of the original dataset</td></tr>
-<tr><td></td><td></td></tr>
-<tr><td><code>dataset</code></td><td></td></tr>
-<tr><td>the name of the dataset</td><td></td></tr>
-<tr><td></td><td><code>method</code></td></tr>
-<tr><td></td><td>the name of the analysis function</td></tr>
-<tr><td></td><td></td></tr>
-<tr><td><code>args</code></td><td></td></tr>
-<tr><td>a list of optional args to `method`</td><td></td></tr>
-<tr><td></td><td></td></tr>
+<tr><td></td><td></td><td><code>results</code></td></tr>
+<tr><td></td><td>a combined results data.frame</td><td></td></tr>
+<tr><td></td><td><code>metadata</code></td><td></td></tr>
+<tr><td>the metadata component of the original dataset</td><td></td><td></td></tr>
+<tr><td><code>dataset</code></td><td></td><td>the name of the dataset</td></tr>
+<tr><td></td><td></td><td><code>method</code></td></tr>
+<tr><td></td><td>the name of the analysis function</td><td></td></tr>
+<tr><td></td><td><code>args</code></td><td></td></tr>
+<tr><td>a list of optional args to `method`</td><td></td><td></td></tr>
 </table>
 
 
@@ -175,7 +174,7 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
   <span class='no'>sgs_data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>MATSS</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/MATSS/topics/get_sgs_data'>get_sgs_data</a></span>()
-  <span class='no'>summarize_dataset</span> <span class='kw'>&lt;-</span> <span class='fu'>forecast_wrapper</span>(<span class='no'>ts_summary</span>)
+  <span class='no'>summarize_dataset</span> <span class='kw'>&lt;-</span> <span class='fu'>analysis_wrapper</span>(<span class='no'>ts_summary</span>)
   <span class='fu'>summarize_dataset</span>(<span class='no'>sgs_data</span>)
 <span class='co'># }</span><div class='input'>
 </div></pre>
