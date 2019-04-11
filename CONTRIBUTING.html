@@ -195,12 +195,12 @@ newfunc &lt;- function() ...</code></pre>
 <li>To add dependencies on external packages, use <code><a href="https://usethis.r-lib.org/reference/use_package.html">usethis::use_package("package name")</a></code>. This will modify the documentation on <em>this</em> package accordingly. If you are adding a dependency to a package that is <em>NOT</em> on CRAN, use <code><a href="https://usethis.r-lib.org/reference/use_package.html">usethis::use_dev_package("package name")</a></code> instead.</li>
 </ul>
 <ol>
-<li>Run <code><a href="https://www.rdocumentation.org/packages/devtools/topics/document">devtools::document()</a></code> to generate the documentation files and update the <code>NAMESPACE</code> file.</li>
-<li>Run <code><a href="https://www.rdocumentation.org/packages/devtools/topics/install">devtools::install()</a></code> to install the new version of the package.</li>
-<li>Run <code><a href="https://www.rdocumentation.org/packages/devtools/topics/test">devtools::test()</a></code> to run the test scripts on the new version of the package.</li>
+<li>Run <code>devtools::document()</code> to generate the documentation files and update the <code>NAMESPACE</code> file.</li>
+<li>Run <code>devtools::install()</code> to install the new version of the package.</li>
+<li>Run <code>devtools::test()</code> to run the test scripts on the new version of the package.</li>
 <li>Run <code><a href="https://pkgdown.r-lib.org/reference/build_site.html">pkgdown::build_site()</a></code> to update the pkgdown site built from the documentation.</li>
 </ol>
-<p>If you are also prepping the package as a whole, then you will also want to run <code><a href="https://www.rdocumentation.org/packages/devtools/topics/check">devtools::check()</a></code> and/or <code><a href="https://www.rdocumentation.org/packages/devtools/topics/devtools-deprecated">devtools::check_cran()</a></code> to make sure that the package is complete.</p>
+<p>If you are also prepping the package as a whole, then you will also want to run <code>devtools::check()</code> and/or <code>devtools::check_cran()</code> to make sure that the package is complete.</p>
 <p>For more info, see the <a href="https://github.com/hadley/devtools">GitHub repo</a> for the <code>devtools</code> package.</p>
 </div>
 <div id="contributing-data" class="section level2">

@@ -58,6 +58,9 @@
 <li>
       <a href="../articles/data-formats.html">Data Formats</a>
     </li>
+    <li>
+      <a href="../articles/hipergator-install.html">Installing MATSS on the HiPerGator</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -83,7 +86,7 @@
       <h1>MATSS: Getting Started</h1>
                         <h4 class="author">Hao Ye</h4>
             
-            <h4 class="date">2019-04-09</h4>
+            <h4 class="date">2019-04-11</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/weecology/MATSS/blob/master/vignettes/MATSS.Rmd"><code>vignettes/MATSS.Rmd</code></a></small>
       <div class="hidden name"><code>MATSS.Rmd</code></div>
@@ -107,7 +110,7 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the <code>MATSS</code> package from github with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"weecology/MATSS"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"weecology/MATSS"</span>)</a></code></pre></div>
 <p>And load the package in the typical fashion:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(MATSS)</a></code></pre></div>
 </div>
@@ -164,24 +167,27 @@
 <a class="sourceLine" id="cb6-19" data-line-number="19"></a>
 <a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co"># run the plan</span></a>
 <a class="sourceLine" id="cb6-21" data-line-number="21"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan)</a>
-<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co">#&gt; All targets are already up to date.</span></a>
-<a class="sourceLine" id="cb6-23" data-line-number="23"></a>
-<a class="sourceLine" id="cb6-24" data-line-number="24"><span class="co"># check resulting objects</span></a>
-<a class="sourceLine" id="cb6-25" data-line-number="25"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/readd">readd</a></span>(my_model)</a>
-<a class="sourceLine" id="cb6-26" data-line-number="26"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-27" data-line-number="27"><span class="co">#&gt; Call:</span></a>
-<a class="sourceLine" id="cb6-28" data-line-number="28"><span class="co">#&gt; lm(formula = mpg ~ disp, data = data_1)</span></a>
+<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co">#&gt; target data_1</span></a>
+<a class="sourceLine" id="cb6-23" data-line-number="23"><span class="co">#&gt; target data_2</span></a>
+<a class="sourceLine" id="cb6-24" data-line-number="24"><span class="co">#&gt; target my_model</span></a>
+<a class="sourceLine" id="cb6-25" data-line-number="25"><span class="co">#&gt; target my_summary</span></a>
+<a class="sourceLine" id="cb6-26" data-line-number="26"></a>
+<a class="sourceLine" id="cb6-27" data-line-number="27"><span class="co"># check resulting objects</span></a>
+<a class="sourceLine" id="cb6-28" data-line-number="28"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/readd">readd</a></span>(my_model)</a>
 <a class="sourceLine" id="cb6-29" data-line-number="29"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-30" data-line-number="30"><span class="co">#&gt; Coefficients:</span></a>
-<a class="sourceLine" id="cb6-31" data-line-number="31"><span class="co">#&gt; (Intercept)         disp  </span></a>
-<a class="sourceLine" id="cb6-32" data-line-number="32"><span class="co">#&gt;    29.59985     -0.04122</span></a>
-<a class="sourceLine" id="cb6-33" data-line-number="33"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/readd">readd</a></span>(my_summary)</a>
-<a class="sourceLine" id="cb6-34" data-line-number="34"><span class="co">#&gt; # A tibble: 3 x 5</span></a>
-<a class="sourceLine" id="cb6-35" data-line-number="35"><span class="co">#&gt;   Species    Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
-<a class="sourceLine" id="cb6-36" data-line-number="36"><span class="co">#&gt;   &lt;fct&gt;             &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb6-37" data-line-number="37"><span class="co">#&gt; 1 setosa             5.01        3.43         1.46       0.246</span></a>
-<a class="sourceLine" id="cb6-38" data-line-number="38"><span class="co">#&gt; 2 versicolor         5.94        2.77         4.26       1.33 </span></a>
-<a class="sourceLine" id="cb6-39" data-line-number="39"><span class="co">#&gt; 3 virginica          6.59        2.97         5.55       2.03</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-30" data-line-number="30"><span class="co">#&gt; Call:</span></a>
+<a class="sourceLine" id="cb6-31" data-line-number="31"><span class="co">#&gt; lm(formula = mpg ~ disp, data = data_1)</span></a>
+<a class="sourceLine" id="cb6-32" data-line-number="32"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb6-33" data-line-number="33"><span class="co">#&gt; Coefficients:</span></a>
+<a class="sourceLine" id="cb6-34" data-line-number="34"><span class="co">#&gt; (Intercept)         disp  </span></a>
+<a class="sourceLine" id="cb6-35" data-line-number="35"><span class="co">#&gt;    29.59985     -0.04122</span></a>
+<a class="sourceLine" id="cb6-36" data-line-number="36"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/readd">readd</a></span>(my_summary)</a>
+<a class="sourceLine" id="cb6-37" data-line-number="37"><span class="co">#&gt; # A tibble: 3 x 5</span></a>
+<a class="sourceLine" id="cb6-38" data-line-number="38"><span class="co">#&gt;   Species    Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
+<a class="sourceLine" id="cb6-39" data-line-number="39"><span class="co">#&gt;   &lt;fct&gt;             &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb6-40" data-line-number="40"><span class="co">#&gt; 1 setosa             5.01        3.43         1.46       0.246</span></a>
+<a class="sourceLine" id="cb6-41" data-line-number="41"><span class="co">#&gt; 2 versicolor         5.94        2.77         4.26       1.33 </span></a>
+<a class="sourceLine" id="cb6-42" data-line-number="42"><span class="co">#&gt; 3 virginica          6.59        2.97         5.55       2.03</span></a></code></pre></div>
 </div>
 <div id="making-drake-plans" class="section level3">
 <h3 class="hasAnchor">
@@ -200,7 +206,7 @@
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">variable &lt;-<span class="st"> "Species"</span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan</a></span>(<span class="dt">num_levels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nlevels">nlevels</a></span>(iris[, variable]))</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">## would compute nlevels on the "Sepal.Length" variable</span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4">## would compute nlevels on the "Sepal.Length" variable</a>
 <a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co"># variable &lt;- "Sepal.Length"</span></a>
 <a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co"># make(plan)</span></a></code></pre></div>
 <p>Here, we ask that <code>variable</code> be evaluated when building the plan - this locks in the column setting as <code>"Species"</code>:</p>
@@ -211,7 +217,7 @@
 <a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt;      &lt;expr&gt;                    </span></a>
 <a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; 1 num_levels nlevels(iris[, "Species"])</span></a>
 <a class="sourceLine" id="cb9-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">## does not require variable to be in the current environment</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8">## does not require variable to be in the current environment</a>
 <a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co"># rm(variable)</span></a>
 <a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co"># make(plan)</span></a></code></pre></div>
 </div>
