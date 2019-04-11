@@ -61,6 +61,14 @@ test_that("interpolate_obs works", {
     expect_known_hash(output, "0bd2cccc8e")
 })
 
+test_that("check_interp_method works", {
+    expect_error(check_interp_method(NULL))
+    expect_error(check_interp_method(NA))
+    expect_error(check_interp_method(mtcars))
+    expect_error(check_interp_method(mean, NA))
+    expect_error(check_interp_method(forecast::na.interp, NA))
+})
+
 test_that("check_obs works", {
     expect_error(check_obs(NULL))
     expect_error(check_obs(mtcars))
