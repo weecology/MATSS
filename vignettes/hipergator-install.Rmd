@@ -28,13 +28,15 @@ knitr::opts_chunk$set(
     echo '.libPaths(c("/home/USERNAME/R_libs", .libPaths()))' >> .Rprofile
     ```
 
-4. Load the R module (this loads R for use)
+4. Load and open the R module (this loads R for use)
 
     ```bash
     ml R
+    R
     ```
 
 5. In `R` install the core Python retriever (yes, this happens in `R`, which is kind of magical).
+
 
     ```{r, eval = FALSE}
     install.packages('reticulate')
@@ -48,7 +50,7 @@ knitr::opts_chunk$set(
 7. Install the `rdataretriever`
 
     ```{r, eval = FALSE}
-    install.packages('rdataretriever')
+    devtools::install_github('ropensci/rdataretriever')
     library(rdataretriever)
     ```
 
