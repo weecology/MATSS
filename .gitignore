@@ -3,7 +3,6 @@
 .Rhistory
 .RData
 .Ruserdata
-.DS_Store
 /.drake/
 /output/drake-cache.sqlite
 /analysis/*.html
