@@ -1,0 +1,17 @@
+ID	Common name	Species ID
+1	Blesbok	bl
+2	Black wildebeest	bw
+3	Eland	el
+4	Grey rhebok	gr
+5	Mountain reedbuck	mr
+6	Oribi	or
+7	Ostrich	os
+8	Red hartebeest	rh
+9	Springbok	sp
+10	Burchell's zebra	z
+11		
+12	Cattle	Cattle
+13	Donkeys	Donkeys
+14	Goats	Goats
+15	Horses	Horses
+16	Sheep	Sheep

@@ -27,8 +27,8 @@
 #' @param obs_per_effort \code{logical} indicator if \code{obs} should be 
 #'   corrected for \code{effort} before summaries are done.
 #'
-#' @param interp_method \code{character} representing a function name used to 
-#'   interpolate \code{obs}. Defaults to \code{"\link[forecast]{na.interp}"}.
+#' @param interp_method \code{character} a function used to interpolate 
+#'   \code{obs}. Defaults to \code{\link[forecast]{na.interp}}.
 #'
 #' @param x Three-element \code{list} (\code{abundance}, \code{covariates},
 #'   \code{metadata}) for data objects in the MATSS pipeline. 
@@ -49,10 +49,9 @@
 #'
 ts_summary <- function(obs, times = NULL, effort = NULL, 
                        obs_per_effort = FALSE, 
-                       interp_method = "na.interp") {
-    if (length(interp_method) > 1 || !is.character(interp_method)) {
-        stop("`interp_method` is not a single character input")
-    }
+                       interp_method = forecast::na.interp)
+{
+    check_interp_method(interp_method)
     if (is.null(times)) {
         message("`time` is `NULL`, assuming evenly spaced data")
         times <- seq_len(NROW(obs))
@@ -113,10 +112,10 @@ ts_summary <- function(obs, times = NULL, effort = NULL,
 #'
 uni_ts_summary <- function(obs, times = NULL, effort = NULL, 
                            obs_per_effort = FALSE, 
-                           interp_method = "na.interp") {
-    if (length(interp_method) > 1 || !is.character(interp_method)) {
-        stop("`interp_method` is not a single character input")
-    }
+                           interp_method = forecast::na.interp)
+{
+    check_interp_method(interp_method)
+    
     if (is.null(times)) {
         message("`time` is `NULL`, assuming evenly spaced data")
         times <- seq_len(NROW(obs))
@@ -131,7 +130,7 @@ uni_ts_summary <- function(obs, times = NULL, effort = NULL,
             message("`effort` is `NULL`, assuming all effort = 1")
             effort <- rep(1, length(obs))
         }
-        if(length(obs) != length(effort)) {
+        if (length(obs) != length(effort)) {
             stop("`obs` and `effort` are not of same length")
         }
         obs <- obs / effort
@@ -156,12 +155,12 @@ uni_ts_summary <- function(obs, times = NULL, effort = NULL,
 #'
 ts_summary_drake <- function(x) {
     if (!is.null(x$metadata$times)) {
-        times <- pull(x$covariates, x$metadata$times)
+        times <- dplyr::pull(x$covariates, x$metadata$times)
     } else{
         times <- NULL
     }  
     if (!is.null(x$metadata$effort)) {
-        effort <- pull(x$covariates, x$metadata$effort)
+        effort <- dplyr::pull(x$covariates, x$metadata$effort)
     } else{
         effort <- NULL
     }
@@ -320,12 +319,10 @@ richness <- function(x) {
 #'
 #' @export
 #'
-temp_autocor <- function(obs, times, interp_method = "na.interp", ...) {
+temp_autocor <- function(obs, times, interp_method = forecast::na.interp, ...) {
     check_obs_and_times(obs, times)
-
-    if (length(interp_method) > 1 || !is.character(interp_method)) {
-        stop("`interp_method` is not a single character input")
-    }
+    check_interp_method(interp_method)
+    
     obs_interp <- interpolate_obs(obs, times, interp_method)
     ac <- acf(obs_interp, plot = FALSE, ...)
     out <- round(ac$acf[ , , 1]  , 4)
@@ -345,12 +342,10 @@ temp_autocor <- function(obs, times, interp_method = "na.interp", ...) {
 #'
 #' @export
 #'
-interpolate_obs <- function(obs, times, interp_method = "na.interp", ...) {
+interpolate_obs <- function(obs, times, interp_method = forecast::na.interp, ...) {
     check_obs_and_times(obs, times)
+    check_interp_method(interp_method)
     
-    if (length(interp_method) > 1 || !is.character(interp_method)) {
-        stop("`interp_method` is not a single character input")
-    }
     time_diff <- diff(times)
     times_interp <- min(times):max(times)
     ntimes <- length(times_interp)
@@ -361,7 +356,17 @@ interpolate_obs <- function(obs, times, interp_method = "na.interp", ...) {
         time_match <- which(times_interp == times[i])
         out[time_match] <- obs[i]
     }
-    do.call(interp_method, list(out), ...)
+    interp_method(out, ...)
+}
+
+#' @title Check if `interp_method` is properly formatted
+#' 
+#' @noRd
+check_interp_method <- function(interp_method)
+{
+    if (length(interp_method) > 1 || !is.function(interp_method)) {
+        stop("`interp_method` is not a single function input")
+    }
 }
 
 #' @title Check if `obs` and `times` is properly formatted
@@ -408,7 +413,7 @@ check_obs <- function(obs, single_dim_obs = TRUE)
 check_times <- function(times)
 {
     if (!is.numeric(times)) {
-        if (!is.Date(times)) {
+        if (!lubridate::is.Date(times)) {
             stop("`times` must be numeric or a Date")
         }
         times <- as.numeric(difftime(times, min(times), units = "days")) + 1

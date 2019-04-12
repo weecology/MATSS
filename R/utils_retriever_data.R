@@ -66,8 +66,7 @@ install_retriever_data <- function(dataset, path = get_default_data_path(),
         dir.create(folder_path)
         
         # install the retriever data
-        rdataretriever::install(dataset, "csv", 
-                                data_dir = folder_path)
+        rdataretriever::install_csv(dataset, data_dir = folder_path)
     }
 }
 

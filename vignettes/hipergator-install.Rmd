@@ -1,0 +1,65 @@
+---
+title: "Installing MATSS on the HiPerGator"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{hipergator-install}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+1. Log onto HiPerGator
+
+    ```bash
+    ssh username@hpg2.rc.ufl.edu
+    ```
+
+2. Follow the [installation instructions for Python on HiPerGator](https://github.com/weecology/lab-wiki/wiki/Programming:-HiPerGator-Intro-Guide#installing-python-packages). No need to actually install packages yet.
+
+3. Create a file named .Rprofile to allow for local installs
+
+    ```bash
+    echo '.libPaths(c("/home/USERNAME/R_libs", .libPaths()))' >> .Rprofile
+    ```
+
+4. Load and open the R module (this loads R for use)
+
+    ```bash
+    ml R
+    R
+    ```
+
+5. In `R` install the core Python retriever (yes, this happens in `R`, which is kind of magical).
+
+
+    ```{r, eval = FALSE}
+    install.packages('reticulate')
+    library(reticulate)
+    conda_install('r-reticulate', 'retriever')
+    devtools::install_github('ropensci/rdataretriever')
+    ```
+
+6. Restart R
+
+7. Install the `rdataretriever`
+
+    ```{r, eval = FALSE}
+    devtools::install_github('ropensci/rdataretriever')
+    library(rdataretriever)
+    ```
+
+8. Install `MATSS`
+
+    ```{r, eval = FALSE}
+    devtools::install_github("weecology/MATSS")
+    ```
+
+9. To run a `MATSS` pipeline on HiPerGator you will need to setup `drake` to use
+slurm for parallel scheduling. See https://github.com/weecology/MATSS-LDATS/ for
+an example of how to do this.

@@ -7,10 +7,10 @@
 \title{Summarize a time series}
 \usage{
 ts_summary(obs, times = NULL, effort = NULL, obs_per_effort = FALSE,
-  interp_method = "na.interp")
+  interp_method = forecast::na.interp)
 
 uni_ts_summary(obs, times = NULL, effort = NULL,
-  obs_per_effort = FALSE, interp_method = "na.interp")
+  obs_per_effort = FALSE, interp_method = forecast::na.interp)
 
 ts_summary_drake(x)
 }
@@ -30,8 +30,8 @@ observations.}
 \item{obs_per_effort}{\code{logical} indicator if \code{obs} should be 
 corrected for \code{effort} before summaries are done.}
 
-\item{interp_method}{\code{character} representing a function name used to 
-interpolate \code{obs}. Defaults to \code{"\link[forecast]{na.interp}"}.}
+\item{interp_method}{\code{character} a function used to interpolate 
+\code{obs}. Defaults to \code{\link[forecast]{na.interp}}.}
 
 \item{x}{Three-element \code{list} (\code{abundance}, \code{covariates},
 \code{metadata}) for data objects in the MATSS pipeline.}

@@ -25,7 +25,7 @@ before_install:
   - sudo apt-get install libudunits2-dev
   - sudo apt-get install python3
   - sudo pip3 install --upgrade pip
-  - sudo pip3 install git+https://git@github.com/weecology/retriever.git --user
+  - sudo pip3 install --upgrade git+https://git@github.com/weecology/retriever.git
 
 matrix:
   include:
