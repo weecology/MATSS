@@ -28,5 +28,7 @@ if (getRversion() >= "2.15.1") utils::globalVariables(
     "recap", "route", "rpid", "runtype", "seedling", "SESSION", "site_id", 
     "surf.t", "target", "times", "V1", "VEG", "WEB", "x", "y", "Y", "year", "YEAR",
     "species", "species_id", "speciestotal", "spp", "SPP", "statenum", 
-    "stems"
-))
+    "stems", "Species", "total", "TOTAL", "South", "Central", "North", "FarNorth", 
+    "Common.name"
+  )
+)

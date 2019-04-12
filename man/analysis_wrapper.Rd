@@ -15,7 +15,7 @@ analysis_wrapper(fun, ...)
 \value{
 a function that takes in a single argument, `dataset`, and returns a 
   tibble with these columns:
-  \tabular{ ll}{
+  \tabular{ll}{
     \code{results} \tab a combined results data.frame\cr
     \code{metadata} \tab the metadata component of the original dataset\cr
     \code{dataset} \tab the name of the dataset\cr

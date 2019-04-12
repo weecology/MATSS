@@ -5,6 +5,7 @@
 #' @return list of two dataframes (one with abundance data, the other with
 #'   covariate data), and one list of metadata.
 #'
+#' @importFrom utils read.delim
 #' @export
 
 get_karoo_data <- function() {
