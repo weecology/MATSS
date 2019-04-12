@@ -32,7 +32,6 @@ Imports:
     ggplot2,
     lubridate,
     portalr (>= 0.2.4),
-    LDATS (>= 0.1.0),
     drake (>= 7.0.0),
     dplyr,
     tidyr,
@@ -56,6 +55,4 @@ Suggests:
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 Remotes: 
-    weecology/LDATS,
-    weecology/portalr,
-    ropensci/rdataretriever
+    weecology/portalr
