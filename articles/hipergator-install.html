@@ -113,17 +113,17 @@
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">'reticulate'</span>)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(reticulate)</a>
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/reticulate/topics/conda-tools">conda_install</a></span>(<span class="st">'r-reticulate'</span>, <span class="st">'retriever'</span>)</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">'ropensci/rdataretriever'</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb4-4" data-line-number="4">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">'ropensci/rdataretriever'</span>)</a></code></pre></div>
 </li>
 <li><p>Restart R</p></li>
 <li>
 <p>Install the <code>rdataretriever</code></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">'ropensci/rdataretriever'</span>)</a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">'ropensci/rdataretriever'</span>)</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rdataretriever)</a></code></pre></div>
 </li>
 <li>
 <p>Install <code>MATSS</code></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"weecology/MATSS"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"weecology/MATSS"</span>)</a></code></pre></div>
 </li>
 <li><p>To run a <code>MATSS</code> pipeline on HiPerGator you will need to setup <code>drake</code> to use slurm for parallel scheduling. See <a href="https://github.com/weecology/MATSS-LDATS/" class="uri">https://github.com/weecology/MATSS-LDATS/</a> for an example of how to do this.</p></li>
 </ol>
