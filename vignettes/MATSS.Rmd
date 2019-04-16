@@ -31,8 +31,8 @@ The goals of the package are to make it as easy as possible to:
 You can install the `MATSS` package from github with:
 
 ```{r, eval = FALSE}
-# install.packages("devtools")
-devtools::install_github("weecology/MATSS")
+# install.packages("remotes")
+remotes::install_github("weecology/MATSS")
 ```
 
 And load the package in the typical fashion:
