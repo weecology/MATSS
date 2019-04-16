@@ -16,49 +16,63 @@ knitr::opts_chunk$set(
 
 1. Log onto HiPerGator
 
-    ```bash
+```bash
     ssh username@hpg2.rc.ufl.edu
-    ```
+```
 
 2. Follow the [installation instructions for Python on HiPerGator](https://github.com/weecology/lab-wiki/wiki/Programming:-HiPerGator-Intro-Guide#installing-python-packages). No need to actually install packages yet.
 
-3. Create a file named .Rprofile to allow for local installs
+3. Create a file named .Rprofile to allow for local installs (substiting your 
+  username for <USERNAME>):
 
-    ```bash
-    echo '.libPaths(c("/home/USERNAME/R_libs", .libPaths()))' >> .Rprofile
-    ```
+```bash
+    echo '.libPaths(c("/home/<USERNAME>/R_libs", .libPaths()))' >> .Rprofile
+```
 
-4. Load and open the R module (this loads R for use)
+4. Make sure that you have the specified folder for storing R packages (substiting your 
+  username for <USERNAME>):
 
-    ```bash
+```bash
+   mkdir /home/<USERNAME>/R_libs
+```
+
+5. Load and open the R module (this loads R for use)
+
+```bash
     ml R
     R
-    ```
+```
 
-5. In `R` install the core Python retriever (yes, this happens in `R`, which is kind of magical).
+6. In `R`, install the core Python retriever (yes, this happens in `R`, which is kind of magical).
 
-
-    ```{r, eval = FALSE}
+```{r, eval = FALSE}
     install.packages('reticulate')
     library(reticulate)
     conda_install('r-reticulate', 'retriever')
-    devtools::install_github('ropensci/rdataretriever')
-    ```
+```
 
-6. Restart R
+If you get an error that the conda environment `'r-reticulate'` does not exist, you may need to create it first. Run the following lines and then retry the `conda_install('r-reticulate', 'retriever')` command:
 
-7. Install the `rdataretriever`
+```{r, eval = FALSE}
+    conda_create('r-reticulate')
+```
 
-    ```{r, eval = FALSE}
-    devtools::install_github('ropensci/rdataretriever')
+7. Restart R
+
+8. Install the `rdataretriever`
+
+```{r, eval = FALSE}
+    remotes::install_github('ropensci/rdataretriever')
     library(rdataretriever)
-    ```
+```
 
-8. Install `MATSS`
+If you get an error about "HTTP error 404" and "Rate limit remaing", you may need to setup a GITHUB_PAT key on HiPerGator - https://happygitwithr.com/github-pat.html
 
-    ```{r, eval = FALSE}
-    devtools::install_github("weecology/MATSS")
-    ```
+9. Install `MATSS`
+
+```{r, eval = FALSE}
+    remotes::install_github("weecology/MATSS")
+```
 
 9. To run a `MATSS` pipeline on HiPerGator you will need to setup `drake` to use
 slurm for parallel scheduling. See https://github.com/weecology/MATSS-LDATS/ for
