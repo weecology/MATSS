@@ -22,14 +22,14 @@ knitr::opts_chunk$set(
 
 2. Follow the [installation instructions for Python on HiPerGator](https://github.com/weecology/lab-wiki/wiki/Programming:-HiPerGator-Intro-Guide#installing-python-packages). No need to actually install packages yet.
 
-3. Create a file named .Rprofile to allow for local installs (substiting your 
+3. Create a file named .Rprofile to allow for local installs (substituting your 
   username for <USERNAME>):
 
 ```bash
     echo '.libPaths(c("/home/<USERNAME>/R_libs", .libPaths()))' >> .Rprofile
 ```
 
-4. Make sure that you have the specified folder for storing R packages (substiting your 
+4. Make sure that you have the specified folder for storing R packages (substituting your 
   username for <USERNAME>):
 
 ```bash
