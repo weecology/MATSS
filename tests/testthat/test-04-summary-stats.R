@@ -1,7 +1,5 @@
 context("Time Series Summary Statistics")
 
-
-
 test_that("uni_ts_summary works", {
     ts <- sunspot.year
     ts[c(1, 5, 10:14)] <- NA
@@ -52,6 +50,16 @@ test_that("temp_autocor works", {
     expect_known_hash(output, "5842a3ef0f")
 })
 
+test_that("richness works", {
+    expect_error(richness(NULL))
+    expect_error(richness(mtcars))
+    expect_error(richness(LETTERS[1:10]))
+    ts <- rnorm(30)
+    ts[c(1, 5, 10:14)] <- NA
+    expect_error(output <- richness(ts), NA)
+    expect_identical(output, 10L)
+})
+
 test_that("interpolate_obs works", {
     ts <- sunspot.year
     ts[c(1, 5, 10:14)] <- NA
@@ -77,9 +85,17 @@ test_that("check_obs works", {
     expect_error(check_obs(c(NA, rnorm(16))), NA)
 })
 
+test_that("check_effort works", {
+    expect_error(check_effort(NULL))
+    expect_error(check_effort(mtcars))
+    expect_error(check_effort(matrix(rnorm(16), nrow = 4)))
+    expect_error(check_effort(c(NA, rnorm(16))), NA)
+})
+
 test_that("check_times works", {
     expect_error(check_times(NULL))
     expect_error(check_times(mtcars))
+    expect_error(check_times(matrix(rnorm(100), ncol = 10)))
     expect_error(check_times(time(sunspot.year)), NA)
     expect_error(check_times(c(NA, time(sunspot.year))), NA)
     expect_error(check_times(rnorm(16)), NA)

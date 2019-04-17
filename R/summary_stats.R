@@ -416,7 +416,6 @@ check_times <- function(times)
         if (!lubridate::is.Date(times)) {
             stop("`times` must be numeric or a Date")
         }
-        times <- as.numeric(difftime(times, min(times), units = "days")) + 1
     }
     if (!is.null(dim(times))) {
         stop("`times` must be a single dimension")
