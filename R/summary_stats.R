@@ -252,7 +252,7 @@ summarize_vec <- function(obs, x, round_out = TRUE, digits = NULL)
     obs <- data.frame(obs)
     obs2 <- is.na(obs)
     allna <- apply(obs2, 1, sum) == ncol(obs)
-    effort <- effort[!allna]
+    x <- x[!allna]
     out <- c(min = min(x), max = max(x), median = median(x), 
              mean = mean(x), sd = sd(x), n = length(x))
     if (round_out) {

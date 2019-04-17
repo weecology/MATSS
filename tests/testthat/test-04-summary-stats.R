@@ -56,7 +56,8 @@ test_that("richness works", {
     expect_error(richness(NULL))
     expect_error(richness(mtcars))
     expect_error(richness(LETTERS[1:10]))
-    ts <- rpois(30, lambda = 2)
+    ts <- rpois(30, lambda = 2) + 1
+    ts[sample(30, 5)] <- 0
     expect_error(output <- richness(ts), NA)
     expect_identical(output, 25L)
 })
