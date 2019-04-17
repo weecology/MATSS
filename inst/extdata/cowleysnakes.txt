@@ -1,0 +1,16 @@
+Year	Site	Total	Agkistrodon_contortrix	Diadophis_punctatus	Elaphe_emoryi	Elaphe_obsoleta	Lampropeltis_calligaster	Lampropeltis_getula	Lampropeltis_triangulum	Masticophis_flagellum	Nerodia_sipedon	Pituophis_catenifer	Storeria_dekayi	Tantilla_gracilis	Thamnophis_proximus	Thamnophis_radix	Thamnophis_sirtalis	Tropidoclonion_lineatum
+1989	CowleyCounty	19	0	7	1	1	0	0	2	4	1	0	0	3	0	0	0	0
+1990	CowleyCounty	59	2	33	3	0	1	2	4	1	2	0	1	6	1	0	3	0
+1991	CowleyCounty	-99	-99	-99	-99	-99	-99	-99	-99	-99	-99	-99	-99	-99	-99	-99	-99	-99
+1992	CowleyCounty	29	0	7	2	0	0	0	1	0	0	0	0	18	0	0	1	0
+1993	CowleyCounty	64	0	29	1	0	0	1	0	0	0	1	0	30	0	0	0	2
+1994	CowleyCounty	45	0	31	1	0	0	0	0	0	0	0	0	11	0	0	1	1
+1995	CowleyCounty	75	1	47	3	0	1	2	1	2	0	0	0	14	0	0	4	0
+1996	CowleyCounty	28	0	10	2	0	0	2	1	0	0	0	0	9	0	0	4	0
+1997	CowleyCounty	61	0	41	5	0	0	1	1	0	0	1	0	9	1	0	2	0
+1998	CowleyCounty	76	0	44	0	0	1	1	0	0	2	0	0	18	1	2	5	2
+1999	CowleyCounty	56	0	22	5	0	0	2	0	0	1	0	0	18	0	2	4	2
+2000	CowleyCounty	59	0	12	1	0	1	4	0	1	0	0	0	28	7	0	3	2
+2001	CowleyCounty	43	0	14	1	0	0	2	0	0	1	0	0	18	2	0	5	0
+2002	CowleyCounty	52	0	12	0	0	1	3	1	0	0	0	0	32	0	0	3	0
+2003	CowleyCounty	56	0	29	0	0	0	0	2	1	0	0	0	17	1	0	5	1
