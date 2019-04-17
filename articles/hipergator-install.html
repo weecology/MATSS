@@ -93,39 +93,61 @@
 
     
     
-<ol style="list-style-type: decimal">
-<li>
-<p>Log onto HiPerGator</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="fu">ssh</span> username@hpg2.rc.ufl.edu</a></code></pre></div>
-</li>
+<ol start="0" style="list-style-type: decimal">
+<li><p>If you need a HiPerGator account, follow the instructions on the lab-wiki: <a href="https://github.com/weecology/lab-wiki/wiki/Programming:-HiPerGator-Intro-Guide" class="uri">https://github.com/weecology/lab-wiki/wiki/Programming:-HiPerGator-Intro-Guide</a></p></li>
+<li><p>Log onto HiPerGator (substituting your username for <username>).</username></p></li>
+</ol>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb1-1" data-line-number="1">    <span class="fu">ssh</span> <span class="op">&lt;</span>USERNAME<span class="op">&gt;</span>@hpg2.rc.ufl.edu</a></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
 <li><p>Follow the <a href="https://github.com/weecology/lab-wiki/wiki/Programming:-HiPerGator-Intro-Guide#installing-python-packages">installation instructions for Python on HiPerGator</a>. No need to actually install packages yet.</p></li>
-<li>
-<p>Create a file named .Rprofile to allow for local installs</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="bu">echo</span> <span class="st">'.libPaths(c("/home/USERNAME/R_libs", .libPaths()))'</span> <span class="op">&gt;&gt;</span> .Rprofile</a></code></pre></div>
+<li><p>Create a file named .Rprofile to allow for local installs (substituting your username for <username>):</username></p></li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" data-line-number="1">    <span class="bu">echo</span> <span class="st">'.libPaths(c("/home/&lt;USERNAME&gt;/R_libs", .libPaths()))'</span> <span class="op">&gt;&gt;</span> .Rprofile</a></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Make sure that you have the specified folder for storing R packages (substituting your username for <username>):</username>
 </li>
-<li>
-<p>Load and open the R module (this loads R for use)</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="ex">ml</span> R</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="ex">R</span></a></code></pre></div>
-</li>
-<li>
-<p>In <code>R</code> install the core Python retriever (yes, this happens in <code>R</code>, which is kind of magical).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">'reticulate'</span>)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(reticulate)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/reticulate/topics/conda-tools">conda_install</a></span>(<span class="st">'r-reticulate'</span>, <span class="st">'retriever'</span>)</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">'ropensci/rdataretriever'</span>)</a></code></pre></div>
-</li>
+</ol>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1">   <span class="fu">mkdir</span> /home/<span class="op">&lt;</span>USERNAME<span class="op">&gt;</span>/R_libs</a></code></pre></div>
+<ol start="5" style="list-style-type: decimal">
+<li>Load the R module (which makes R available in your HiPerGator session), and then open R:</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1">    <span class="ex">ml</span> R</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2">    <span class="ex">R</span></a></code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li>In <code>R</code>, install the core Python retriever (yes, this happens in <code>R</code>, which is kind of magical).</li>
+</ol>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">    <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">'reticulate'</span>)</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(reticulate)</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">    <span class="kw"><a href="https://www.rdocumentation.org/packages/reticulate/topics/conda-tools">conda_install</a></span>(<span class="st">'r-reticulate'</span>, <span class="st">'retriever'</span>)</a></code></pre></div>
+<p>If you get an error that the conda environment <code>'r-reticulate'</code> does not exist, you may need to create it first. Run the following lines and then retry the <code><a href="https://www.rdocumentation.org/packages/reticulate/topics/conda-tools">conda_install('r-reticulate', 'retriever')</a></code> command:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">    <span class="kw"><a href="https://www.rdocumentation.org/packages/reticulate/topics/conda-tools">conda_create</a></span>(<span class="st">'r-reticulate'</span>)</a></code></pre></div>
+<ol start="7" style="list-style-type: decimal">
 <li><p>Restart R</p></li>
-<li>
-<p>Install the <code>rdataretriever</code></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">'ropensci/rdataretriever'</span>)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rdataretriever)</a></code></pre></div>
+<li><p>Install the <code>rdataretriever</code></p></li>
+</ol>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">    remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">'ropensci/rdataretriever'</span>)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rdataretriever)</a></code></pre></div>
+<p>If you get an error about “HTTP error 404” and “Rate limit remaing”, you may need to setup a GITHUB_PAT key on HiPerGator - <a href="https://happygitwithr.com/github-pat.html" class="uri">https://happygitwithr.com/github-pat.html</a></p>
+<ol start="9" style="list-style-type: decimal">
+<li>Install <code>MATSS</code>
 </li>
-<li>
-<p>Install <code>MATSS</code></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"weecology/MATSS"</span>)</a></code></pre></div>
-</li>
-<li><p>To run a <code>MATSS</code> pipeline on HiPerGator you will need to setup <code>drake</code> to use slurm for parallel scheduling. See <a href="https://github.com/weecology/MATSS-LDATS/" class="uri">https://github.com/weecology/MATSS-LDATS/</a> for an example of how to do this.</p></li>
+</ol>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">    remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"weecology/MATSS"</span>)</a></code></pre></div>
+<ol start="10" style="list-style-type: decimal">
+<li>Try installing a dataset from retriever:</li>
+</ol>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">    MATSS<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/MATSS/topics/install_retriever_data">install_retriever_data</a></span>(<span class="st">"veg-plots-sdl"</span>, <span class="dt">force_install =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p>If you receive an error about the number of arguments, e.g.</p>
+<pre><code>    Error in py_call_impl(callable, dots$args, dots$keywords) : 
+      TypeError: install_csv() takes from 1 to 4 positional arguments but 5 were given</code></pre>
+<p>then you will need a newer version of retriever than was previously installed.</p>
+<p>Exit R to return to the command line, and then use the following commands to install retriever from github:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb11-1" data-line-number="1">    <span class="ex">conda</span> activate r-reticulate</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">    <span class="ex">conda</span> install git pip</a>
+<a class="sourceLine" id="cb11-3" data-line-number="3">    <span class="ex">pip</span> install git+git://github.com/weecology/retriever@master</a></code></pre></div>
+<p>Then, retry the command at the beginning of this step in R.</p>
+<ol start="11" style="list-style-type: decimal">
+<li>To run a <code>MATSS</code> pipeline on HiPerGator you will need to setup <code>drake</code> to use slurm for parallel scheduling. See <a href="https://github.com/weecology/MATSS-LDATS/" class="uri">https://github.com/weecology/MATSS-LDATS/</a> for an example of how to do this.</li>
 </ol>
 </div>
 
