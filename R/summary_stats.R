@@ -186,21 +186,8 @@ ts_summary_drake <- function(x) {
 #'
 summarize_obs <- function(obs, round_out = TRUE, digits = NULL) {
     check_obs(obs)
-    if (!("logical" %in% class(round_out))) {
-        stop("`round_out` must be logical")
-    }
-    obs <- na.omit(as.numeric(obs))
-    out <- c(min = min(obs), max = max(obs), median = median(obs), 
-             mean = mean(obs), sd = sd(obs), n = length(obs))
-    if (round_out) {
-        if (is.null(digits)) {
-            digits <- max(c(0, 2 + -floor(log10(min(obs[obs > 0])))))
-        } else if (digits %% 1 != 0) {
-            stop("`digits` must be an integer")
-        }
-        out <- round(out, digits)
-    }
-    out
+    
+    summarize_vec(obs, obs, round_out, digits)
 }
 
 #' @rdname summarize_obs
@@ -214,28 +201,11 @@ summarise_obs <- summarize_obs
 #'   observations.
 #'  
 #' @export
-#'
-summarize_times <- function(obs, times, round_out = TRUE, digits = NULL) {
+summarize_times <- function(obs, times, round_out = TRUE, digits = NULL)
+{
     check_obs_and_times(obs, times)
     
-    if (!("logical" %in% class(round_out))) {
-        stop("`round_out` must be logical")
-    }
-    obs <- data.frame(obs)
-    obs2 <- is.na(obs)
-    allna <- apply(obs2, 1, sum) == ncol(obs)
-    times <- times[!allna]
-    out <- c(min = min(times), max = max(times), median = median(times), 
-             mean = mean(times), sd = sd(times), n = length(times))
-    if (round_out) {
-        if (is.null(digits)) {
-            digits <- max(c(1, 2 + -floor(log10(min(times[times > 0])))))
-        } else if (digits %% 1 != 0) {
-            stop("`digits` must be an integer")
-        }
-        out <- round(out, digits)
-    }
-    out
+    summarize_vec(obs, times, round_out, digits)
 }
 
 #' @rdname summarize_obs
@@ -249,7 +219,6 @@ summarise_times <- summarize_times
 #'   observations.
 #'
 #' @export
-#'
 summarize_effort <- function(obs, effort, round_out = TRUE, digits = NULL) {
     if (is.null(effort)) {
         message("`effort` is `NULL`, assuming all effort = 1")
@@ -258,18 +227,37 @@ summarize_effort <- function(obs, effort, round_out = TRUE, digits = NULL) {
     check_effort(effort)
     check_obs(obs, single_dim_obs = FALSE)
     
+    summarize_vec(obs, effort, round_out, digits)
+}
+
+#' @rdname summarize_obs
+#'
+#' @export
+summarise_effort <- summarize_effort
+
+#' @title summarize_vec is a helper function that handles the work of 
+#'   \code{\link{summarize_obs}}, \code{\link{summarize_time}}, and 
+#'   \code{\link{summarize_effort}}
+#'
+#' @param x the vector to be summarized
+#' @inheritParams summarize_obs
+#'
+#' @noRD
+summarize_vec <- function(obs, x, round_out = TRUE, digits = NULL)
+{
     if (!("logical" %in% class(round_out))) {
         stop("`round_out` must be logical")
     }
+    
     obs <- data.frame(obs)
     obs2 <- is.na(obs)
     allna <- apply(obs2, 1, sum) == ncol(obs)
     effort <- effort[!allna]
-    out <- c(min = min(effort), max = max(effort), median = median(effort), 
-             mean = mean(effort), sd = sd(effort), n = length(effort))
+    out <- c(min = min(x), max = max(x), median = median(x), 
+             mean = mean(x), sd = sd(x), n = length(x))
     if (round_out) {
         if (is.null(digits)) {
-            digits <- max(c(1, 2 + -floor(log10(min(effort[effort > 0])))))
+            digits <- max(c(1, 2 + -floor(log10(min(x[x > 0])))))
         } else if (digits %% 1 != 0) {
             stop("`digits` must be an integer")
         }
@@ -277,11 +265,6 @@ summarize_effort <- function(obs, effort, round_out = TRUE, digits = NULL) {
     }
     out
 }
-
-#' @rdname summarize_obs
-#'
-#' @export
-summarise_effort <- summarize_effort
 
 #' @title Count non-0 entries
 #'

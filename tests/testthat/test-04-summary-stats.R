@@ -32,6 +32,8 @@ test_that("summarize_times works", {
 })
 
 test_that("summarize_effort works", {
+    expect_error(summarize_effort(ts, rep(1, NROW(ts)), round_out = 1))
+    expect_error(summarize_effort(ts, rep(1, NROW(ts)), digits = 2.3))
     ts <- sunspot.year
     ts[c(1, 5, 10:14)] <- NA
     expect_error(output <- summarize_effort(ts, rep(1, NROW(ts))), NA)
@@ -54,10 +56,9 @@ test_that("richness works", {
     expect_error(richness(NULL))
     expect_error(richness(mtcars))
     expect_error(richness(LETTERS[1:10]))
-    ts <- rnorm(30)
-    ts[c(1, 5, 10:14)] <- NA
+    ts <- rpois(30, lambda = 2)
     expect_error(output <- richness(ts), NA)
-    expect_identical(output, 10L)
+    expect_identical(output, 25L)
 })
 
 test_that("interpolate_obs works", {
