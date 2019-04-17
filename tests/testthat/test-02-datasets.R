@@ -23,3 +23,27 @@ test_that("Maizuru data is retrievable and works", {
     expect_true(check_data_format(maizuru_data))
     expect_known_hash(maizuru_data, "c93bd061db")
 })
+
+test_that("Karoo data is retrievable and works", {
+    expect_error(karoo_data <- get_karoo_data(), NA)
+    expect_true(check_data_format(karoo_data))
+    expect_known_hash(karoo_data, "d76b9dd7cf")
+})
+
+test_that("Cowley Lizards data is retrievable and works", {
+    expect_error(cowley_lizards_data <- get_cowley_lizards(), NA)
+    expect_true(check_data_format(cowley_lizards_data))
+    expect_known_hash(cowley_lizards_data, "32c1612a83")
+})
+
+test_that("Cowley Snakes data is retrievable and works", {
+    expect_error(cowley_snakes_data <- get_cowley_snakes(), NA)
+    expect_true(check_data_format(cowley_snakes_data))
+    expect_known_hash(cowley_snakes_data, "beb0aac9c9")
+})
+
+test_that("Kruger data is retrievable and works", {
+    expect_error(kruger_data <- get_kruger_data(), NA)
+    expect_true(check_data_format(kruger_data))
+    expect_known_hash(kruger_data, "697241f081")
+})
