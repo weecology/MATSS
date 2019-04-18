@@ -76,7 +76,7 @@ ts_summary <- function(obs, times = NULL, effort = NULL,
             corrected for effort")
     }
     
-    nspp <- ncol(obs)  
+    nspp <- ncol(obs)
     nobs <- nrow(obs)
     spp_richness <- apply(obs, 1, richness)
     spp_richness_summary <- uni_ts_summary(spp_richness, times, 
@@ -153,14 +153,18 @@ uni_ts_summary <- function(obs, times = NULL, effort = NULL,
 #'
 #' @export
 #'
-ts_summary_drake <- function(x) {
-    if (!is.null(x$metadata$times)) {
-        times <- dplyr::pull(x$covariates, x$metadata$times)
+ts_summary_drake <- function(x)
+{
+    time_var <- x$metadata$timename
+    if (!is.null(time_var)) {
+        times <- dplyr::pull(x$covariates, time_var)
     } else {
         times <- NULL
-    }  
-    if (!is.null(x$metadata$effort)) {
-        effort <- dplyr::pull(x$covariates, x$metadata$effort)
+    }
+    
+    effort_var <- x$metadata$effort
+    if (!is.null(effort_var)) {
+        effort <- dplyr::pull(x$covariates, effort_var)
     } else{
         effort <- NULL
     }
@@ -382,7 +386,13 @@ check_effort <- function(effort)
 #' @noRd
 check_obs <- function(obs, single_dim_obs = TRUE)
 {
-    if (!is.numeric(obs)) {
+    if (is.data.frame(obs))
+    {
+        if (!all(vapply(obs, is.numeric, TRUE)))
+        {
+            stop("`obs` must have only numeric columns")
+        }
+    } else if (!is.numeric(obs)) {
         stop("`obs` must be numeric")
     }
     if (single_dim_obs && !is.null(dim(obs))) {

@@ -71,6 +71,7 @@ test_that("check_interp_method works", {
 test_that("check_obs works", {
     expect_error(check_obs(NULL))
     expect_error(check_obs(mtcars))
+    expect_error(check_obs(ChickWeight))
     expect_error(check_obs(matrix(rnorm(16), nrow = 4)))
     expect_error(check_obs(matrix(rnorm(16), nrow = 4), single_dim_obs = FALSE), NA)
     expect_error(check_obs(c(NA, rnorm(16))), NA)
