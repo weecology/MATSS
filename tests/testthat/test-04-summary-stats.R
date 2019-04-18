@@ -19,17 +19,17 @@ test_that("summarize_vec works", {
 
 test_that("summarize_obs works", {
     expect_error(output <- summarize_obs(ts), NA)
-    expect_known_hash(output, "411990ec5b")
+    expect_known_hash(output, "fbe279ea08")
 })
 
 test_that("summarize_times works", {
     expect_error(output <- summarize_times(ts, time(ts)), NA)
-    expect_known_hash(output, "e4c2870ac1")
+    expect_known_hash(output, "5340150662")
 })
 
 test_that("summarize_effort works", {
     expect_error(output <- summarize_effort(ts, rep(1, NROW(ts))), NA)
-    expect_known_hash(output, "9904b7b022")
+    expect_known_hash(output, "9dd02f4cb5")
 })
 
 test_that("temp_autocor works", {
