@@ -156,7 +156,7 @@ uni_ts_summary <- function(obs, times = NULL, effort = NULL,
 ts_summary_drake <- function(x) {
     if (!is.null(x$metadata$times)) {
         times <- dplyr::pull(x$covariates, x$metadata$times)
-    } else{
+    } else {
         times <- NULL
     }  
     if (!is.null(x$metadata$effort)) {

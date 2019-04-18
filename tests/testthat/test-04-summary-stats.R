@@ -11,35 +11,24 @@ test_that("uni_ts_summary works", {
     expect_known_hash(output, "1775f77efd")
 })
 
+ts <- sunspot.year
+test_that("summarize_vec works", {
+    expect_error(summarize_vec(ts, NULL, round_out = 1))
+    expect_error(summarize_vec(ts, ts, digits = 2.3))
+})
+
 test_that("summarize_obs works", {
-    ts <- sunspot.year
-    ts[c(1, 5, 10:14)] <- NA
     expect_error(output <- summarize_obs(ts), NA)
-    expect_equal(length(output), 6)
-    expect_true(all(c("min", "max", "median", "mean", "sd", "n") %in% names(output)))
-    expect_false(any(is.na(output)))
     expect_known_hash(output, "411990ec5b")
 })
 
 test_that("summarize_times works", {
-    ts <- sunspot.year
-    ts[c(1, 5, 10:14)] <- NA
     expect_error(output <- summarize_times(ts, time(ts)), NA)
-    expect_equal(length(output), 6)
-    expect_true(all(c("min", "max", "median", "mean", "sd", "n") %in% names(output)))
-    expect_false(any(is.na(output)))
     expect_known_hash(output, "e4c2870ac1")
 })
 
 test_that("summarize_effort works", {
-    expect_error(summarize_effort(ts, rep(1, NROW(ts)), round_out = 1))
-    expect_error(summarize_effort(ts, rep(1, NROW(ts)), digits = 2.3))
-    ts <- sunspot.year
-    ts[c(1, 5, 10:14)] <- NA
     expect_error(output <- summarize_effort(ts, rep(1, NROW(ts))), NA)
-    expect_equal(length(output), 6)
-    expect_true(all(c("min", "max", "median", "mean", "sd", "n") %in% names(output)))
-    expect_false(any(is.na(output)))
     expect_known_hash(output, "9904b7b022")
 })
 
