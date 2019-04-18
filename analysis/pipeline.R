@@ -30,6 +30,9 @@ analyses <- build_analyses_plan(methods, datasets)
 reports <- drake_plan(
     lda_report = rmarkdown::render(
         knitr_in("analysis/lda_report.Rmd")
+    ),
+    summary_report = rmarkdown::render(
+        knitr_in("analysis/summary_report.Rmd")
     )
 )
 
