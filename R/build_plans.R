@@ -76,11 +76,11 @@ build_datasets_plan <- function(data_path = get_default_data_path(),
     datasets <- drake::drake_plan(
         maizuru_data = get_maizuru_data(),
         jornada_data = get_jornada_data(),
-        sgs_data = get_sgs_data()
-        cowley_lizards_data <- get_cowley_lizards(), 
-        cowley_snakes_data <- get_cowley_snakes(), 
-        karoo_data <- get_karoo_data(), 
-        kruger_data <- get_kruger_data()
+        sgs_data = get_sgs_data(), 
+        cowley_lizards_data = get_cowley_lizards(), 
+        cowley_snakes_data = get_cowley_snakes(), 
+        karoo_data = get_karoo_data(), 
+        kruger_data = get_kruger_data()
     )
     if (include_downloaded_data)
     {
@@ -96,9 +96,3 @@ build_datasets_plan <- function(data_path = get_default_data_path(),
     }
     return(datasets)
 }
-
-
-
-
-
-

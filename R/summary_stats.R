@@ -246,7 +246,7 @@ summarise_effort <- summarize_effort
 #' @param x the vector to be summarized
 #' @inheritParams summarize_obs
 #'
-#' @noRD
+#' @noRd
 summarize_vec <- function(obs, x, round_out = TRUE, digits = NULL)
 {
     if (!("logical" %in% class(round_out))) {

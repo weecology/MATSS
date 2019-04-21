@@ -23,12 +23,12 @@ test_that("build_datasets_plan works", {
     expect_error(datasets <- build_datasets_plan(), NA)
     expect_plan(datasets)
     expect_true(all(grepl("_data$", datasets$target)))
-    expect_equal(dim(datasets), c(3, 2))
+    expect_equal(dim(datasets), c(7, 2))
     
     expect_error(datasets <- build_datasets_plan(include_downloaded_data = TRUE), NA)
     expect_plan(datasets)
     expect_true(all(grepl("_data$", datasets$target)))
-    expect_equal(dim(datasets), c(7, 2))
+    expect_equal(dim(datasets), c(11, 2))
 })
 
 test_that("build_analyses_plan works", {
