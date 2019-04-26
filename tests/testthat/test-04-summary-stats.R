@@ -53,10 +53,13 @@ test_that("richness works", {
 
 test_that("interpolate_obs works", {
     ts <- sunspot.year
-    ts[c(1, 5, 10:14)] <- NA
+    missing_idx <- c(1, 5, 10:14)
+    ts[missing_idx] <- NA
     expect_error(output <- interpolate_obs(ts, time(sunspot.year)), NA)
     expect_identical(length(output), length(ts))
     expect_false(any(is.na(output)))
+    expect_true(all(output[missing_idx] >= min(ts, na.rm = TRUE)))
+    expect_true(all(output[missing_idx] <= max(ts, na.rm = TRUE)))
     expect_known_hash(output, "0bd2cccc8e")
 })
 

@@ -329,20 +329,19 @@ temp_autocor <- function(obs, times, interp_method = forecast::na.interp, ...) {
 #'
 #' @export
 #'
-interpolate_obs <- function(obs, times, interp_method = forecast::na.interp, ...) {
+interpolate_obs <- function(obs, times, interp_method = forecast::na.interp, ...)
+{
     check_obs_and_times(obs, times)
     check_interp_method(interp_method)
     
-    time_diff <- diff(times)
-    times_interp <- min(times):max(times)
-    ntimes <- length(times_interp)
-    nspp <- ncol(data)
-    out <- rep(NA, ntimes)
+    # get subset of observations at the value of times to be interpolated
+    times_interp <- seq(from = min(times), to = max(times))
+    out <- obs[match(times_interp, times)]
+    
+    # set column names of the output
     colnames(out) <- colnames(data)
-    for (i in 1:ntimes) {
-        time_match <- which(times_interp == times[i])
-        out[time_match] <- obs[i]
-    }
+    
+    # interpolate and return
     interp_method(out, ...)
 }
 
