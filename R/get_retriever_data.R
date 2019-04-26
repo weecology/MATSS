@@ -16,7 +16,7 @@
 #' 
 #' @examples
 #' \dontrun{
-#'   get_bbs_data(bbs_data_tables=retriever_data()$'breed-bird-survey',region=7)
+#'   get_bbs_data(region=7)
 #' }
 #' @export
 
@@ -31,26 +31,41 @@ get_bbs_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10, regio
                          by = c('statenum', 'route', 'rpid', 'year', 'routedataid', 'countrynum')) %>%
         dplyr::left_join(bbs_data_tables$breed_bird_survey_routes, 
                          by = c('statenum', 'route', 'countrynum')) %>%
-        dplyr::filter(statenum == region) %>%
-        dplyr::mutate(site_id = statenum*1000 + route) %>%
+        dplyr::filter(bcr == region) %>%
+        dplyr::mutate(site_id = statenum*1000 + route, 
+                      starttemp = dplyr::case_when(tempscale=='F' ~ c((starttemp - 32)*5/9),
+                                                   tempscale=='C' ~ as.double(starttemp)),
+                      endtemp = dplyr::case_when(tempscale=='F' ~ c((endtemp - 32)*5/9),
+                                                 tempscale=='C' ~ as.double(endtemp))) %>%
         dplyr::rename(lat = latitude,
                       long = longitude,
                       species_id = aou,
                       abundance = speciestotal) %>%
-        dplyr::mutate(species_id = paste('sp', species_id,sep='')) %>%
+        dplyr::mutate(species_id = paste('sp', species_id, sep=''),
+                      date = as.Date(paste(year, month, day, sep = "-"))) %>%
         filter_ts(start_yr, end_yr, min_num_yrs) %>%
-        dplyr::ungroup() %>%
-        dplyr::select(-rpid, -runtype, -count10, -count20, -count30, -count40, -count50) %>%
-        tidyr::spread(key = species_id, value = abundance, fill = 0)
+        dplyr::ungroup() 
     
     abundance <- bbs_data %>%
-        dplyr::select(dplyr::starts_with('sp'))
+        dplyr::group_by(year, species_id) %>%
+        dplyr::summarise(abundance = sum(abundance)) %>%
+        dplyr::ungroup() %>%
+        tidyr::spread(key = species_id, value = abundance, fill = 0) %>%
+        dplyr::arrange(year) %>%
+        dplyr::select(-year)
     
     covariates <- bbs_data %>%
-        dplyr::select(-dplyr::starts_with('sp'))
-    covariates$date <- as.Date(paste(covariates$year, covariates$month, covariates$day, sep = "-")   )
-    metadata <- list(timename = "date", effort = NULL)
-    return(list('abundance' = abundance, 'covariates' = covariates, "metadata" = metadata))
+        dplyr::group_by(year) %>%
+        dplyr::summarise(effort = dplyr::n_distinct(site_id),
+                         starttemp = mean(starttemp), endtemp = mean(endtemp),
+                         startwind = mean(startwind), endwind = mean(endwind),
+                         startsky = mean(startsky), endsky = mean(endsky),
+                         lat = mean(lat), long = mean(long), mean_date = mean(date)) %>%
+        dplyr::arrange(year)
+    
+    metadata <- list(timename = 'year', effort = 'effort')
+    
+    return(list('abundance' = abundance, 'covariates' = covariates, 'metadata' = metadata))
 }
 
 #' @title Filter BBS to specified time series period and number of samples

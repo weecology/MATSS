@@ -30,6 +30,6 @@ samples during that period.
 }
 \examples{
 \dontrun{
-  get_bbs_data(bbs_data_tables=retriever_data()$'breed-bird-survey',region=7)
+  get_bbs_data(region=7)
 }
 }
