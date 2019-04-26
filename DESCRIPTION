@@ -32,7 +32,7 @@ Imports:
     ggplot2,
     lubridate,
     portalr (>= 0.2.4),
-    drake (>= 7.0.0),
+    drake (>= 7.1.0),
     dplyr,
     tidyr,
     purrr,

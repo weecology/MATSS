@@ -111,17 +111,14 @@ ts_summary <- function(obs, times = NULL, effort = NULL,
 #' @export
 #'
 uni_ts_summary <- function(obs, times = NULL, effort = NULL, 
-                           obs_per_effort = FALSE, 
+                           obs_per_effort = !is.null(effort), 
                            interp_method = forecast::na.interp)
 {
-    check_interp_method(interp_method)
-    
     if (is.null(times)) {
         message("`time` is `NULL`, assuming evenly spaced data")
         times <- seq_len(NROW(obs))
     }
-    check_obs_and_times(obs, times)
-    
+
     if (!("logical" %in% class(obs_per_effort))) {
         stop("`obs_per_effort` must be logical")
     }  
@@ -134,9 +131,6 @@ uni_ts_summary <- function(obs, times = NULL, effort = NULL,
             stop("`obs` and `effort` are not of same length")
         }
         obs <- obs / effort
-    } else if (!is.null(effort)) {
-        warning("`effort` is included but `obs_per_effort` is FALSE, `obs` not
-            corrected for effort")
     }
     
     obs_summary <- summarize_obs(obs)
@@ -307,9 +301,6 @@ richness <- function(x) {
 #' @export
 #'
 temp_autocor <- function(obs, times, interp_method = forecast::na.interp, ...) {
-    check_obs_and_times(obs, times)
-    check_interp_method(interp_method)
-    
     obs_interp <- interpolate_obs(obs, times, interp_method)
     ac <- acf(obs_interp, plot = FALSE, ...)
     out <- round(ac$acf[ , , 1]  , 4)
