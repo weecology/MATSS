@@ -55,4 +55,5 @@ Suggests:
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 Remotes: 
-    weecology/portalr
+    weecology/portalr, 
+    ropensci/rdataretriever
