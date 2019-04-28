@@ -1,4 +1,4 @@
-context("Check Retriever interface functions")
+context("Check Retriever utility functions")
 
 test_path <- tempdir()
 
@@ -57,18 +57,4 @@ test_that("get_sdl_data formats data correctly", {
     expect_error(dat <- get_sdl_data(), NA)
     expect_true(check_data_format(dat))
     expect_known_hash(dat, "e61d747927")
-})
-
-test_that("get_bbs_data formats data correctly", {
-    data_path <- system.file("extdata", "subsampled",
-                             package = "MATSS", mustWork = TRUE)
-    Sys.setenv(MATSS_DATA_PATH = data_path)
-    expect_error(dat <- get_bbs_data(region = 4, min_num_yrs = 1), NA)
-    expect_true(check_data_format(dat))
-    expect_known_hash(dat$abundance, "0d083ef430")
-    expect_known_hash(which(is.na(dat$covariates)), "40f5faaa59")
-    dat$covariates[is.na(dat$covariates)] <- -999999
-    expect_known_hash(na.omit(dat$covariates), "6c2f809118")
-    expect_known_hash(dat$metadata, "b5adce4593")
-    expect_known_hash(dat, "72aa13aef2")
 })
