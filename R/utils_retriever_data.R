@@ -109,28 +109,3 @@ import_retriever_data <- function(dataset, path = get_default_data_path())
     }
     return(tempdata)
 }
-
-#' @title Load all retriever data
-#'
-#' @description Load all useable data from retriever
-#'
-#' @param names List of dataset names (from retriever) to load
-#' @return A list of lists, all datasets compiled and retaining their retriever names
-#' @examples
-#' \dontrun{
-#'   retriever_data(c("portal","veg-plots-sdl"))
-#' }
-#' 
-#' @noRd
-#'
-retriever_data <- function(names = c('breed-bird-survey',
-                                     'mapped-plant-quads-mt',
-                                     'fray-jorge-ecology',
-                                     'veg-plots-sdl'))
-{
-    
-    retriever <- sapply(names,rdataretriever::fetch, USE.NAMES = TRUE)
-    
-    return(retriever)
-    
-}
