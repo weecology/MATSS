@@ -17,12 +17,34 @@ skip_if_no_retriever <- function() {
         skip("retriever not available for testing")
 }
 
-test_that("retriever downloading and importing work", {
+test_that("retriever installing does error checking", {
     skip_if_no_retriever()
     Sys.setenv(MATSS_DATA_PATH = test_path)
     expect_equal(get_default_data_path(), test_path)
     
     expect_error(install_retriever_data("veg-plots-sdl"), NA)
+    m <- capture_messages(install_retriever_data("veg-plots-sdl"))
+    expect_match(m, "A folder already exists for \"veg-plots-sdl\"")
+    expect_match(m, "Use `force_install = TRUE` to overwrite it with a fresh install.")
+})
+
+test_that("retriever importing does error checking", {
+    Sys.setenv(MATSS_DATA_PATH = test_path)
+    expect_equal(get_default_data_path(), test_path)
+    unused_filename <- tempfile(tmpdir = "")
+    unused_filename <- substring(unused_filename, 2, nchar(unused_filename))
+    expect_false(file.exists(file.path(test_path, unused_filename)))
+    expect_error(w <- capture_warnings(dat <- import_retriever_data(unused_filename)), NA)
+    expect_true(is.null(dat))
+    expect_match(w, paste0("Didn't find any downloaded data in ", 
+                           file.path(test_path, unused_filename)))
+    expect_match(w, "Did you run get_retriever_data\\(\\) first?")
+})
+
+test_that("retriever importing works", {
+    Sys.setenv(MATSS_DATA_PATH = test_path)
+    expect_equal(get_default_data_path(), test_path)
+    
     expect_error(dat <- import_retriever_data("veg-plots-sdl"), NA)
     expect_known_hash(dat$veg_plots_sdl_Count1906, "4f6b34f60a")
 #    expect_known_hash(which(is.na(dat$veg_plots_sdl_Photo_info)), "44cc18c383")
