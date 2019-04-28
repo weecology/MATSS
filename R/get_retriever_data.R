@@ -27,7 +27,7 @@ get_bbs_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10, regio
     
     bbs_data <- bbs_data_tables$breed_bird_survey_weather %>%
         dplyr::filter(runtype == 1, rpid == 101) %>%
-        dplyr::left_join(bbs_data_tables$breed_bird_survey_counts, 
+        dplyr::left_join(bbs_data_tables$breed_bird_survey_counts,
                          by = c('statenum', 'route', 'rpid', 'year', 'routedataid', 'countrynum')) %>%
         dplyr::left_join(bbs_data_tables$breed_bird_survey_routes, 
                          by = c('statenum', 'route', 'countrynum')) %>%

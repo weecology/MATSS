@@ -1,0 +1,101 @@
+species_id,aou,english_common_name,french_common_name,spanish_common_name,sporder,family,genus,species
+6,1770,Black-bellied Whistling-Duck,Dendrocygne à ventre noir,Dendrocygna autumnalis,Anseriformes,Anatidae,Dendrocygna,autumnalis
+7,1780,Fulvous Whistling-Duck,Dendrocygne fauve,Dendrocygna bicolor,Anseriformes,Anatidae,Dendrocygna,bicolor
+8,1760,Emperor Goose,Oie empereur,Anser canagicus,Anseriformes,Anatidae,Anser,canagicus
+9,1690,Snow Goose,Oie des neiges,Anser caerulescens,Anseriformes,Anatidae,Anser,caerulescens
+10,1691,(Blue Goose) Snow Goose,Oie des neiges (forme bleue),Chen caerulescens (blue form),Anseriformes,Anatidae,Chen,caerulescens (blue form)
+11,1700,Ross's Goose,Oie de Ross,Anser rossii,Anseriformes,Anatidae,Anser,rossii
+13,1710,Greater White-fronted Goose,Oie rieuse,Anser albifrons,Anseriformes,Anatidae,Anser,albifrons
+18,1730,Brant,Bernache cravant,Branta bernicla,Anseriformes,Anatidae,Branta,bernicla
+19,1740,(Black Brant) Brant,Bernache cravant (groupe nigricans),Branta bernicla nigricans,Anseriformes,Anatidae,Branta,bernicla nigricans
+21,1725,Cackling Goose,Bernache de Hutchins,Branta hutchinsii,Anseriformes,Anatidae,Branta,hutchinsii
+22,1720,Canada Goose,Bernache du Canada,Branta canadensis,Anseriformes,Anatidae,Branta,canadensis
+23,1782,Mute Swan,Cygne tuberculé,Cygnus olor,Anseriformes,Anatidae,Cygnus,olor
+24,1810,Trumpeter Swan,Cygne trompette,Cygnus buccinator,Anseriformes,Anatidae,Cygnus,buccinator
+25,1800,Tundra Swan,Cygne siffleur,Cygnus columbianus,Anseriformes,Anatidae,Cygnus,columbianus
+28,10210,Muscovy Duck,Canard musqué,Cairina moschata,Anseriformes,Anatidae,Cairina,moschata
+29,1440,Wood Duck,Canard branchu,Aix sponsa,Anseriformes,Anatidae,Aix,sponsa
+32,1400,Blue-winged Teal,Sarcelle à ailes bleues,Spatula discors,Anseriformes,Anatidae,Spatula,discors
+33,1410,Cinnamon Teal,Sarcelle cannelle,Spatula cyanoptera,Anseriformes,Anatidae,Spatula,cyanoptera
+34,1420,Northern Shoveler,Canard souchet,Spatula clypeata,Anseriformes,Anatidae,Spatula,clypeata
+35,1350,Gadwall,Canard chipeau,Mareca strepera,Anseriformes,Anatidae,Mareca,strepera
+37,1360,Eurasian Wigeon,Canard siffleur,Mareca penelope,Anseriformes,Anatidae,Mareca,penelope
+38,1370,American Wigeon,Canard d'Amérique,Mareca americana,Anseriformes,Anatidae,Mareca,americana
+40,1320,Mallard,Canard colvert,Anas platyrhynchos,Anseriformes,Anatidae,Anas,platyrhynchos
+41,1331,(Mexican Duck) Mallard,Canard du Mexique,Anas platyrhynchos diazi,Anseriformes,Anatidae,Anas,platyrhynchos diazi
+42,1330,American Black Duck,Canard noir,Anas rubripes,Anseriformes,Anatidae,Anas,rubripes
+43,1340,Mottled Duck,Canard brun,Anas fulvigula,Anseriformes,Anatidae,Anas,fulvigula
+44,1326,hybrid Mallard x Black Duck or Mottled Duck,hybride Canard colvert x Canard noir,Anas platyrhynchos x rubripes or fulvigula,Anseriformes,Anatidae,Anas,platyrhynchos x rubripes or fulvigula
+46,1430,Northern Pintail,Canard pilet,Anas acuta,Anseriformes,Anatidae,Anas,acuta
+47,1390,Green-winged Teal,Sarcelle d'hiver,Anas crecca,Anseriformes,Anatidae,Anas,crecca
+48,1470,Canvasback,Fuligule à dos blanc,Aythya valisineria,Anseriformes,Anatidae,Aythya,valisineria
+49,1460,Redhead,Fuligule à tête rouge,Aythya americana,Anseriformes,Anatidae,Aythya,americana
+51,1500,Ring-necked Duck,Fuligule à collier,Aythya collaris,Anseriformes,Anatidae,Aythya,collaris
+52,1491,Tufted Duck,Fuligule morillon,Aythya fuligula,Anseriformes,Anatidae,Aythya,fuligula
+53,1480,Greater Scaup,Fuligule milouinan,Aythya marila,Anseriformes,Anatidae,Aythya,marila
+54,1490,Lesser Scaup,Petit Fuligule,Aythya affinis,Anseriformes,Anatidae,Aythya,affinis
+55,1489,unid. Greater Scaup / Lesser Scaup,unid Fuligule milouinan / Petit Fuligule,Aythya marila / affinis,Anseriformes,Anatidae,Aythya,marila / affinis
+58,1620,King Eider,Eider à tête grise,Somateria spectabilis,Anseriformes,Anatidae,Somateria,spectabilis
+59,1590,Common Eider,Eider à duvet,Somateria mollissima,Anseriformes,Anatidae,Somateria,mollissima
+60,1550,Harlequin Duck,Arlequin plongeur,Histrionicus histrionicus,Anseriformes,Anatidae,Histrionicus,histrionicus
+61,1660,Surf Scoter,Macreuse à front blanc,Melanitta perspicillata,Anseriformes,Anatidae,Melanitta,perspicillata
+62,1650,White-winged Scoter,Macreuse brune,Melanitta fusca,Anseriformes,Anatidae,Melanitta,fusca
+64,1630,Black Scoter,Macreuse à bec jaune,Melanitta americana,Anseriformes,Anatidae,Melanitta,americana
+65,1657,unid. scoter,unid macreuse sp.,Melanitta perspicillata / fusca / americana,Anseriformes,Anatidae,Melanitta,perspicillata / fusca / americana
+66,1540,Long-tailed Duck,Harelde kakawi,Clangula hyemalis,Anseriformes,Anatidae,Clangula,hyemalis
+67,1530,Bufflehead,Petit Garrot,Bucephala albeola,Anseriformes,Anatidae,Bucephala,albeola
+68,1510,Common Goldeneye,Garrot à oeil d'or,Bucephala clangula,Anseriformes,Anatidae,Bucephala,clangula
+69,1520,Barrow's Goldeneye,Garrot d'Islande,Bucephala islandica,Anseriformes,Anatidae,Bucephala,islandica
+70,1512,unid. Common Goldeneye / Barrow's Goldeneye,unid Garrot à oeil d'or / Garrot d'Islande,Bucephala clangula / islandica,Anseriformes,Anatidae,Bucephala,clangula / islandica
+72,1310,Hooded Merganser,Harle couronné,Lophodytes cucullatus,Anseriformes,Anatidae,Lophodytes,cucullatus
+73,1290,Common Merganser,Grand Harle,Mergus merganser,Anseriformes,Anatidae,Mergus,merganser
+74,1300,Red-breasted Merganser,Harle huppé,Mergus serrator,Anseriformes,Anatidae,Mergus,serrator
+76,1670,Ruddy Duck,Érismature rousse,Oxyura jamaicensis,Anseriformes,Anatidae,Oxyura,jamaicensis
+77,3110,Plain Chachalaca,Ortalide chacamel,Ortalis vetula,Galliformes,Cracidae,Ortalis,vetula
+85,2920,Mountain Quail,Colin des montagnes,Oreortyx pictus,Galliformes,Odontophoridae,Oreortyx,pictus
+90,2890,Northern Bobwhite,Colin de Virginie,Colinus virginianus,Galliformes,Odontophoridae,Colinus,virginianus
+92,2930,Scaled Quail,Colin écaillé,Callipepla squamata,Galliformes,Odontophoridae,Callipepla,squamata
+94,2940,California Quail,Colin de Californie,Callipepla californica,Galliformes,Odontophoridae,Callipepla,californica
+95,2950,Gambel's Quail,Colin de Gambel,Callipepla gambelii,Galliformes,Odontophoridae,Callipepla,gambelii
+96,2960,Montezuma Quail,Colin arlequin,Cyrtonyx montezumae,Galliformes,Odontophoridae,Cyrtonyx,montezumae
+100,2882,Chukar,Perdrix choukar,Alectoris chukar,Galliformes,Phasianidae,Alectoris,chukar
+103,2881,Gray Partridge,Perdrix grise,Perdix perdix,Galliformes,Phasianidae,Perdix,perdix
+104,3091,Ring-necked Pheasant,Faisan de Colchide,Phasianus colchicus,Galliformes,Phasianidae,Phasianus,colchicus
+105,3095,Indian Peafowl,Paon bleu,Pavo cristatus,Galliformes,Phasianidae,Pavo,cristatus
+106,3000,Ruffed Grouse,Gélinotte huppée,Bonasa umbellus,Galliformes,Phasianidae,Bonasa,umbellus
+107,3090,Greater Sage-Grouse,Tétras des armoises,Centrocercus urophasianus,Galliformes,Phasianidae,Centrocercus,urophasianus
+108,3089,Gunnison Sage-Grouse,Tétras du Gunnison,Centrocercus minimus,Galliformes,Phasianidae,Centrocercus,minimus
+109,2980,Spruce Grouse,Tétras du Canada,Falcipennis canadensis,Galliformes,Phasianidae,Falcipennis,canadensis
+110,3010,Willow Ptarmigan,Lagopède des saules,Lagopus lagopus,Galliformes,Phasianidae,Lagopus,lagopus
+111,3020,Rock Ptarmigan,Lagopède alpin,Lagopus muta,Galliformes,Phasianidae,Lagopus,muta
+112,3040,White-tailed Ptarmigan,Lagopède à queue blanche,Lagopus leucura,Galliformes,Phasianidae,Lagopus,leucura
+113,2970,Dusky Grouse,Tétras sombre,Dendragapus obscurus,Galliformes,Phasianidae,Dendragapus,obscurus
+114,2971,Sooty Grouse,Tétras fuligineux,Dendragapus fuliginosus,Galliformes,Phasianidae,Dendragapus,fuliginosus
+115,2973,unid. Dusky Grouse / Sooty Grouse,unid Tétras sombre / Tétras fuligineux,Dendragapus obscurus / fuliginosus,Galliformes,Phasianidae,Dendragapus,obscurus / fuliginosus
+116,3080,Sharp-tailed Grouse,Tétras à queue fine,Tympanuchus phasianellus,Galliformes,Phasianidae,Tympanuchus,phasianellus
+117,3050,Greater Prairie-Chicken,Tétras des prairies,Tympanuchus cupido,Galliformes,Phasianidae,Tympanuchus,cupido
+118,3070,Lesser Prairie-Chicken,Tétras pâle,Tympanuchus pallidicinctus,Galliformes,Phasianidae,Tympanuchus,pallidicinctus
+119,3100,Wild Turkey,Dindon sauvage,Meleagris gallopavo,Galliformes,Phasianidae,Meleagris,gallopavo
+122,50,Least Grebe,Grèbe minime,Tachybaptus dominicus,Podicipediformes,Podicipedidae,Tachybaptus,dominicus
+123,60,Pied-billed Grebe,Grèbe à bec bigarré,Podilymbus podiceps,Podicipediformes,Podicipedidae,Podilymbus,podiceps
+124,30,Horned Grebe,Grèbe esclavon,Podiceps auritus,Podicipediformes,Podicipedidae,Podiceps,auritus
+125,20,Red-necked Grebe,Grèbe jougris,Podiceps grisegena,Podicipediformes,Podicipedidae,Podiceps,grisegena
+126,40,Eared Grebe,Grèbe à cou noir,Podiceps nigricollis,Podicipediformes,Podicipedidae,Podiceps,nigricollis
+127,10,Western Grebe,Grèbe élégant,Aechmophorus occidentalis,Podicipediformes,Podicipedidae,Aechmophorus,occidentalis
+128,11,Clark's Grebe,Grèbe à face blanche,Aechmophorus clarkii,Podicipediformes,Podicipedidae,Aechmophorus,clarkii
+129,12,unid. Western Grebe / Clark's Grebe,unid Grèbe élégant / Grèbe à face blanche,Aechmophorus occidentalis / clarkii,Podicipediformes,Podicipedidae,Aechmophorus,occidentalis / clarkii
+130,3131,Rock Pigeon,Pigeon biset,Columba livia,Columbiformes,Columbidae,Columba,livia
+134,3140,White-crowned Pigeon,Pigeon à couronne blanche,Patagioenas leucocephala,Columbiformes,Columbidae,Patagioenas,leucocephala
+135,3130,Red-billed Pigeon,Pigeon à bec rouge,Patagioenas flavirostris,Columbiformes,Columbidae,Patagioenas,flavirostris
+136,3120,Band-tailed Pigeon,Pigeon à queue barrée,Patagioenas fasciata,Columbiformes,Columbidae,Patagioenas,fasciata
+139,3152,African Collared-Dove (a.k.a. Ringed Turtle-Dove),Tourterelle rieuse,Streptopelia roseogrisea,Columbiformes,Columbidae,Streptopelia,roseogrisea
+141,22860,Eurasian Collared-Dove,Tourterelle turque,Streptopelia decaocto,Columbiformes,Columbidae,Streptopelia,decaocto
+142,3151,Spotted Dove,Tourterelle tigrine,Streptopelia chinensis,Columbiformes,Columbidae,Streptopelia,chinensis
+143,3210,Inca Dove,Colombe inca,Columbina inca,Columbiformes,Columbidae,Columbina,inca
+144,3200,Common Ground-Dove,Colombe à queue noire,Columbina passerina,Columbiformes,Columbidae,Columbina,passerina
+146,3201,Ruddy Ground-Dove,Colombe rousse,Columbina talpacoti,Columbiformes,Columbidae,Columbina,talpacoti
+151,3180,White-tipped Dove,Colombe de Verreaux,Leptotila verreauxi,Columbiformes,Columbidae,Leptotila,verreauxi
+157,3190,White-winged Dove,Tourterelle à ailes blanches,Zenaida asiatica,Columbiformes,Columbidae,Zenaida,asiatica
+159,3160,Mourning Dove,Tourterelle triste,Zenaida macroura,Columbiformes,Columbidae,Zenaida,macroura
+165,3870,Yellow-billed Cuckoo,Coulicou à bec jaune,Coccyzus americanus,Cuculiformes,Cuculidae,Coccyzus,americanus
+166,3860,Mangrove Cuckoo,Coulicou manioc,Coccyzus minor,Cuculiformes,Cuculidae,Coccyzus,minor
