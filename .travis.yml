@@ -1,14 +1,12 @@
 language: r
 cache:
 - packages
-- pip
 sudo: required
 dist: "trusty"
 warnings_are_errors: false
 
 r_packages:
   - covr
-  - callr
 
 addons:
   apt:
@@ -23,11 +21,9 @@ addons:
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install libudunits2-dev
-  - sudo apt-get install python3
-  - sudo pip3 install --upgrade pip
+  - sudo pip3 install --upgrade setuptools
   - sudo pip3 install --upgrade git+https://git@github.com/weecology/retriever.git
-  - Rscript -e 'install.packages("remotes")'
-  - Rscript -e 'remotes::install_github("ropensci/rdataretriever")'
+  - python3 -c 'import retriever;retriever.check_for_updates()'
 
 matrix:
   include:
