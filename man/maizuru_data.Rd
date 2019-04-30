@@ -33,3 +33,6 @@ Time series of twice-monthly visual census data of the Maizuru
   stability of a natural fish community" (Ushio et al. 2018)
 Data are available from https://zenodo.org/record/1181937
 }
+\author{
+Reiji Masuda
+}
