@@ -9,6 +9,7 @@
 #' @param end_yr num last year of time-series
 #' @param min_num_yrs num minimum number of years of data between start_yr & end_yr
 #' @param region region code of data to return (currently uses state codes)
+#' @param this_route which route within that region
 #' @inheritParams get_mtquad_data
 #'
 #' @return list of two dataframes (one with abundance data, the other with covariate data) 
@@ -20,7 +21,7 @@
 #' }
 #' @export
 
-get_bbs_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10, region, 
+get_bbs_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10, region, this_route,
                          path = get_default_data_path())
 {
     bbs_data_tables <- import_retriever_data("breed-bird-survey", path = path)
@@ -31,7 +32,7 @@ get_bbs_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10, regio
                          by = c('statenum', 'route', 'rpid', 'year', 'routedataid', 'countrynum')) %>%
         dplyr::left_join(bbs_data_tables$breed_bird_survey_routes, 
                          by = c('statenum', 'route', 'countrynum')) %>%
-        dplyr::filter(bcr == region) %>%
+        dplyr::filter(bcr == region, route == this_route) %>%
         dplyr::mutate(site_id = statenum*1000 + route, 
                       starttemp = dplyr::case_when(tempscale=='F' ~ c((starttemp - 32)*5/9),
                                                    tempscale=='C' ~ as.double(starttemp)),
@@ -61,6 +62,7 @@ get_bbs_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10, regio
                          startwind = mean(startwind), endwind = mean(endwind),
                          startsky = mean(startsky), endsky = mean(endsky),
                          lat = mean(lat), long = mean(long), mean_date = mean(date)) %>%
+        dplyr::mutate(route = this_route, region = region) %>%
         dplyr::arrange(year)
     
     metadata <- list(timename = 'year', effort = 'effort')
