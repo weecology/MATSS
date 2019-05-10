@@ -42,6 +42,8 @@ get_bbs_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10, regio
                       long = longitude,
                       species_id = aou,
                       abundance = speciestotal) %>%
+        combine_subspecies(species_table = bbs_data_tables$breed_bird_survey_species) %>%
+        filter_bbs_species(species_table = bbs_data_tables$breed_bird_survey_species) %>%
         dplyr::mutate(species_id = paste('sp', species_id, sep=''),
                       date = as.Date(paste(year, month, day, sep = "-"))) %>%
         filter_ts(start_yr, end_yr, min_num_yrs) %>%

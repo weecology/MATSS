@@ -5,7 +5,7 @@
 \title{Create BBS population time-series data}
 \usage{
 get_bbs_data(start_yr = 1965, end_yr = 2017, min_num_yrs = 10,
-  region, path = get_default_data_path())
+  region, this_route, path = get_default_data_path())
 }
 \arguments{
 \item{start_yr}{num first year of time-series}
@@ -15,6 +15,8 @@ get_bbs_data(start_yr = 1965, end_yr = 2017, min_num_yrs = 10,
 \item{min_num_yrs}{num minimum number of years of data between start_yr & end_yr}
 
 \item{region}{region code of data to return (currently uses state codes)}
+
+\item{this_route}{which route within that region}
 
 \item{path}{where to load the raw data files from}
 }
