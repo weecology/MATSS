@@ -11,7 +11,7 @@
 #' @param df dataframe containing an species_id column
 #'
 #' @return dataframe, filtered version of initial dataframe
-#' @importFrom dplyr "%>%" inner_join do rowwise select filter group_by ungroup full_join n_distinct semi_join left_join
+
 filter_bbs_species <- function(df, species_table){
     
     is_unidentified = function(names) {
@@ -35,8 +35,6 @@ filter_bbs_species <- function(df, species_table){
 #' 
 #' Modified from https://github.com/weecology/bbs-forecasting/blob/master/R/forecast-bbs-core.R 
 #'
-#' @importFrom dplyr "%>%" filter slice group_by summarise ungroup pull
-#' @importFrom stringr word
 combine_subspecies = function(df, species_table){
     
     # Subspecies have two spaces separated by non-spaces
