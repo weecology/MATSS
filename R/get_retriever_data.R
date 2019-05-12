@@ -1,4 +1,4 @@
-#' @title Create BBS population time-series data
+#' @title Prepare BBS population time-series data
 #'
 #' @description Modified from https://github.com/weecology/bbs-forecasting
 #' and https://github.com/weecology/MATSS-community-change 
@@ -12,7 +12,7 @@
 #' @return list of three dataframes (one with bbs data filtered to time series that meet the criteria, one with the BBS species table, and one with the routes and regions represented in the first dataframe).
 #' @export
 
-get_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10,
+prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10,
                             path = get_default_data_path())
 {
     bbs_data_tables <- import_retriever_data("breed-bird-survey", path = path)
@@ -43,7 +43,11 @@ get_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10,
     
     bbs_ts_data = list(bbs_data = bbs_data, species_table = bbs_data_tables$breed_bird_survey_species, routes_and_regions = bbs_routes_regions)
     
-    return(bbs_ts_data)
+    if(!dir.exists(paste0(path, '/breed-bird-survey-prepped'))) {
+        dir.create(paste0(path, '/breed-bird-survey-prepped'))
+    }
+    
+    save(bbs_ts_data, file = paste0(path, '/breed-bird-survey-prepped/bbs_ts_data.Rds'))
 }
 
 

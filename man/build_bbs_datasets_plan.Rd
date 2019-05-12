@@ -4,10 +4,13 @@
 \alias{build_bbs_datasets_plan}
 \title{Generate a Drake Plan for BBS Datasets}
 \usage{
-build_bbs_datasets_plan(bbs_ts_data)
+build_bbs_datasets_plan(path = get_default_data_path(),
+  from_raw = FALSE)
 }
 \arguments{
-\item{data_path}{}
+\item{from_raw}{whether to re-prep BBS data}
+
+\item{data_path}{path}
 }
 \value{
 a drake plan (i.e. a tibble) specifying the targets and commands 
