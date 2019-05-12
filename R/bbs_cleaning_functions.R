@@ -35,6 +35,7 @@ filter_bbs_species <- function(df, species_table){
 #' 
 #' Modified from https://github.com/weecology/bbs-forecasting/blob/master/R/forecast-bbs-core.R 
 #'
+#' @export
 combine_subspecies = function(df, species_table){
     
     # Subspecies have two spaces separated by non-spaces

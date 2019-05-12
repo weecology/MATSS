@@ -64,6 +64,7 @@ build_analyses_plan <- function(methods, datasets, ...)
 #' 
 #' @param data_path where to get the downloaded retriever datasets
 #' @param include_downloaded_data whether to also include downloadable datasets
+#' @param include_bbs_data whether to include BBS data
 #' 
 #' @return a drake plan (i.e. a tibble) specifying the targets and commands 
 #'   for gathering datasets
@@ -71,7 +72,8 @@ build_analyses_plan <- function(methods, datasets, ...)
 #' @export
 #' 
 build_datasets_plan <- function(data_path = get_default_data_path(), 
-                                include_downloaded_data = FALSE)
+                                include_downloaded_data = FALSE,
+                                include_bbs_data = FALSE)
 {
     datasets <- drake::drake_plan(
         maizuru_data = get_maizuru_data(),
@@ -88,11 +90,39 @@ build_datasets_plan <- function(data_path = get_default_data_path(),
             dplyr::bind_rows(
                 drake::drake_plan(
                     portal_data = get_portal_rodents(),
-                    bbs_data = get_bbs_data(region = 7, path = !!data_path),
                     sdl_data = get_sdl_data(path = !!data_path),
                     mtquad_data = get_mtquad_data(path = !!data_path)
                 )
             )
     }
+    
+    if (include_bbs_data) {
+        bbs_ts_data = get_bbs_ts_data()
+        bbs_datasets = build_bbs_datasets_plan(bbs_ts_data)
+        datasets <- datasets %>%
+            dplyr::bind_rows(bbs_datasets)
+    }
+    
     return(datasets)
+}
+
+#' @title Generate a Drake Plan for BBS Datasets
+#' 
+#' @param data_path
+#' 
+#' @return a drake plan (i.e. a tibble) specifying the targets and commands 
+#'   for gathering BBS datasets
+#' 
+#' @export
+#' 
+build_bbs_datasets_plan <- function(bbs_ts_data)
+{
+  bbs_datasets <- drake::drake_plan(
+        bbs_data_rtrg = target(get_bbs_route_region_data(route, region, bbs_ts_data),
+                                 transform = map(route = !!rlang::syms(bbs_ts_data$routes_and_regions$route),
+                                                 region = !!rlang::syms(bbs_ts_data$routes_and_regions$bcr)
+                                 )
+        )
+    )
+        return(bbs_datasets)
 }

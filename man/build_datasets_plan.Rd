@@ -5,12 +5,14 @@
 \title{Generate a Drake Plan for Datasets}
 \usage{
 build_datasets_plan(data_path = get_default_data_path(),
-  include_downloaded_data = FALSE)
+  include_downloaded_data = FALSE, include_bbs_data = FALSE)
 }
 \arguments{
 \item{data_path}{where to get the downloaded retriever datasets}
 
 \item{include_downloaded_data}{whether to also include downloadable datasets}
+
+\item{include_bbs_data}{whether to include BBS data}
 }
 \value{
 a drake plan (i.e. a tibble) specifying the targets and commands 
