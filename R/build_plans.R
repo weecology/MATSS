@@ -118,10 +118,12 @@ build_datasets_plan <- function(data_path = get_default_data_path(),
 #' 
 build_bbs_datasets_plan <- function(path = get_default_data_path(), from_raw = FALSE)
 {
-    if(from_raw) {
-        prepare_bbs_ts_data()
-    } 
-    load(paste0(path, '/breed-bird-survey-prepped/bbs_ts_data.Rds'))
+    # if(from_raw) {
+    #     prepare_bbs_ts_data()
+    # } 
+    # load(paste0(path, '/breed-bird-survey-prepped/bbs_ts_data.Rds'))
+    # 
+    bbs_ts_data = prepare_bbs_ts_data()
     
     bbs_datasets <- drake::drake_plan(
         bbs_data_rtrg = target(get_bbs_route_region_data(route, region, bbs_ts_data),

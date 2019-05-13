@@ -43,11 +43,13 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
     
     bbs_ts_data = list(bbs_data = bbs_data, species_table = bbs_data_tables$breed_bird_survey_species, routes_and_regions = bbs_routes_regions)
     
-    if(!dir.exists(paste0(path, '/breed-bird-survey-prepped'))) {
-        dir.create(paste0(path, '/breed-bird-survey-prepped'))
-    }
+    # if(!dir.exists(paste0(path, '/breed-bird-survey-prepped'))) {
+    #     dir.create(paste0(path, '/breed-bird-survey-prepped'))
+    # }
     
-    save(bbs_ts_data, file = paste0(path, '/breed-bird-survey-prepped/bbs_ts_data.Rds'))
+   # save(bbs_ts_data, file = paste0(path, '/breed-bird-survey-prepped/bbs_ts_data.Rds'))
+    
+    return(bbs_ts_data)
 }
 
 
