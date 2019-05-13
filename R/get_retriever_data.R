@@ -92,7 +92,7 @@ get_bbs_route_region_data <- function(route, region, path = get_default_data_pat
                          lat = mean(lat), long = mean(long), mean_date = mean(date)) %>%
         dplyr::arrange(year)
     
-    metadata <- list(timename = 'year', effort = 'effort', route = this_route, region = this_bcr)
+    metadata <- list(timename = 'year', effort = 'effort', route = route, region = region)
     
     return(list('abundance' = abundance, 'covariates' = covariates, 'metadata' = metadata))
     
