@@ -119,7 +119,7 @@ build_datasets_plan <- function(data_path = get_default_data_path(),
 build_bbs_datasets_plan <- function(path = get_default_data_path(), from_raw = FALSE)
 {
     if(from_raw) {
-        bbs_ts_data = prepare_bbs_ts_data()
+       prepare_bbs_ts_data()
     } else {
         load(paste0(path, '/breed-bird-survey-prepped/bbs_ts_data.Rds'))
     }

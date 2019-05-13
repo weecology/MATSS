@@ -32,7 +32,7 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
                       long = longitude,
                       species_id = aou,
                       abundance = speciestotal) %>%
-        filter_ts(start_yr, end_yr, min_num_yrs)
+        MATSS::filter_ts(start_yr, end_yr, min_num_yrs)
     
     
     bbs_routes_regions <- bbs_data %>%
