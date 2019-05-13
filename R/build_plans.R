@@ -116,7 +116,7 @@ build_datasets_plan <- function(data_path = get_default_data_path(),
 #' 
 #' @export
 #' 
-build_bbs_datasets_plan <- function(path = get_default_data_path(), from_raw = FALSE)
+build_bbs_datasets_plan <- function(path = get_default_data_path())
 {
     # if(from_raw) {
     #     prepare_bbs_ts_data()
@@ -126,6 +126,7 @@ build_bbs_datasets_plan <- function(path = get_default_data_path(), from_raw = F
     bbs_ts_data = prepare_bbs_ts_data()
     
     bbs_datasets <- drake::drake_plan(
+        bbs_ts_data = target(prepare_bbs_ts_data()),
         bbs_data_rtrg = target(get_bbs_route_region_data(route, region, bbs_ts_data),
                                transform = map(route = !!rlang::syms(bbs_ts_data$routes_and_regions$route),
                                                region = !!rlang::syms(bbs_ts_data$routes_and_regions$bcr)
