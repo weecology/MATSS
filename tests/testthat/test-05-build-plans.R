@@ -28,7 +28,7 @@ test_that("build_datasets_plan works", {
     expect_error(datasets <- build_datasets_plan(include_downloaded_data = TRUE), NA)
     expect_plan(datasets)
     expect_true(all(grepl("_data$", datasets$target)))
-    expect_equal(dim(datasets), c(11, 2))
+    expect_equal(dim(datasets), c(10, 2))
 })
 
 test_that("build_analyses_plan works", {
@@ -65,3 +65,44 @@ test_that("build_analyses_plan works", {
     expect_true(all(grepl("^list\\(", vapply(fun_calls, dplyr::last, ""))))
 })
 
+test_that("build_bbs_datasets_plan works", {
+    expect_error(datasets <- build_datasets_plan(include_bbs_data = T), NA)
+    
+    datasets <- build_datasets_plan(include_bbs_data = T)
+    
+    expect_plan(datasets)
+   # expect_true(all(grepl("_data$", datasets$target)))
+    expect_equal(dim(datasets), c(2594, 2))
+    
+    methods <- drake::drake_plan(
+        abs = abs, 
+        mean = mean
+    )
+    N <- NROW(datasets)
+    M <- NROW(methods)
+    
+    expect_error(analyses <- build_analyses_plan(methods, datasets), NA)
+    expect_equal(NROW(analyses), N * M + M)
+    
+    expect_error(analyses <- build_analyses_plan(methods, datasets, trace = TRUE), NA)
+    expect_equal(NROW(analyses), N * M + M)
+    
+    subplan_abs <- dplyr::filter(analyses, grepl("^analysis_abs_", target))
+    expect_equal(NROW(subplan_abs), N)
+    expect_true(all(subplan_abs$fun == "abs"))
+    expect_identical(subplan_abs$data, datasets$target)
+    
+    subplan_mean <- dplyr::filter(analyses, grepl("^analysis_mean_", target))
+    expect_equal(NROW(subplan_mean), N)
+    expect_true(all(subplan_mean$fun == "mean"))
+    expect_identical(subplan_mean$data, datasets$target)
+    
+    subplan_results <- dplyr::filter(analyses, grepl("^results_", target))
+    expect_equal(NROW(subplan_results), M)
+    expect_identical(subplan_results$fun, methods$target)
+    
+    fun_calls <- lapply(subplan_results$command, as.character)
+    expect_true(all(vapply(fun_calls, dplyr::first, "") == "MATSS::collect_analyses"))
+    expect_true(all(grepl("^list\\(", vapply(fun_calls, dplyr::last, ""))))
+    
+})
