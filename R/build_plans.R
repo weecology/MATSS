@@ -125,7 +125,8 @@ build_bbs_datasets_plan <- function(path = get_default_data_path())
     bbs_ts_data = prepare_bbs_ts_data()
     
     bbs_datasets <- drake::drake_plan(
-        bbs_data_rtrg = target(get_bbs_route_region_data(route, region, bbs_ts_data),
+        bbs_data_rtrg = target(get_bbs_route_region_data(route, region, bbs_ts_data = prepare_bbs_ts_data()
+),
                                transform = map(route = !!rlang::syms(bbs_ts_data$routes_and_regions$route),
                                                region = !!rlang::syms(bbs_ts_data$routes_and_regions$bcr)
                                )
