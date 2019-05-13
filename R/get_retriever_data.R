@@ -57,7 +57,7 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
 #'
 #' @param route route
 #' @param region region
-#' @param bbs_ts_data list of three dataframes (output of get_bbs_ts_data)
+#' @param bbs_ts_data list of three dataframes (output of prepare_bbs_ts_data)
 #' @return list of two dataframes (one with abundance data, the other with covariate data) 
 #'   and one list of metadata.
 #' @export

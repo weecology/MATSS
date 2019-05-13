@@ -11,7 +11,7 @@ get_bbs_route_region_data(route, region, bbs_ts_data)
 
 \item{region}{region}
 
-\item{bbs_ts_data}{list of three dataframes (output of get_bbs_ts_data)}
+\item{bbs_ts_data}{list of three dataframes (output of prepare_bbs_ts_data)}
 }
 \value{
 list of two dataframes (one with abundance data, the other with covariate data) 
