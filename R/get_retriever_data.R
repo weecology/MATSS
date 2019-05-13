@@ -107,6 +107,7 @@ get_bbs_route_region_data <- function(route, region, bbs_ts_data) {
 #' @param min_num_yrs num minimum number of years of data between start_yr & end_yr
 #'
 #' @return dataframe with original data and associated environmental data
+#' @export
 filter_ts <- function(bbs_data, start_yr, end_yr, min_num_yrs) {
     sites_to_keep = bbs_data %>%
         dplyr::filter(year >= start_yr, year <= end_yr) %>%

@@ -11,6 +11,7 @@
 #' @param df dataframe containing an species_id column
 #'
 #' @return dataframe, filtered version of initial dataframe
+#' @export
 
 filter_bbs_species <- function(df, species_table){
     
