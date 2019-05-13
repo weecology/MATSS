@@ -1,7 +1,3 @@
-#' @importFrom graphics axis mtext par plot points rect text
-#' @importFrom stats acf cor D median na.omit sd setNames
-#' @importFrom utils data read.csv
-
 #' @title Macroecological Analayses of Time Series Structure
 #'
 #' @description Functions for obtaining and processing ecological time series 
@@ -29,6 +25,6 @@ if (getRversion() >= "2.15.1") utils::globalVariables(
     "surf.t", "target", "times", "V1", "VEG", "WEB", "x", "y", "Y", "year", "YEAR",
     "species", "species_id", "speciestotal", "spp", "SPP", "statenum", 
     "stems", "Species", "total", "TOTAL", "South", "Central", "North", "FarNorth", 
-    "Common.name"
+    "Common.name", "Year", "Site", "Total"
   )
 )

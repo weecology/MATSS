@@ -1,14 +1,38 @@
 context("Time Series Summary Statistics")
 
-test_that("uni_ts_summary works", {
+
+
+
+test_that("uni_ts_summary error checking works", {
     ts <- sunspot.year
     ts[c(1, 5, 10:14)] <- NA
-    expect_message(uni_ts_summary(ts), "`time` is `NULL`, assuming evenly spaced data")
+    expect_error(uni_ts_summary(ts, obs_per_effort = 2), "`obs_per_effort` must be logical")
+    expect_message(uni_ts_summary(ts, obs_per_effort = TRUE), "`effort` is `NULL`, assuming all effort = 1")
+    expect_error(uni_ts_summary(ts, effort = 1:5), "`obs` and `effort` are not of same length")
+})
+
+test_that("uni_ts_summary works with just a time series", {
+    ts <- sunspot.year
+    ts[c(1, 5, 10:14)] <- NA
     expect_message(uni_ts_summary(ts), "`effort` is `NULL`, assuming all effort = 1")
-    expect_error(output <- uni_ts_summary(ts), NA)
+    expect_error(m <- capture_messages(output <- uni_ts_summary(ts)), NA)
+    expect_match(m, "`time` is `NULL`, assuming evenly spaced data", all = FALSE)
+    expect_match(m, "`effort` is `NULL`, assuming all effort = 1", all = FALSE)
     expect_equal(length(output), 4)
     expect_true(all(c("observations", "times", "effort", "autocorrelation") %in% names(output)))
     expect_known_hash(output, "1775f77efd")
+})
+
+test_that("uni_ts_summary works with full obs, times, effort", {
+    set.seed(42)
+    ts <- sunspot.year
+    ts[c(1, 5, 10:14)] <- NA
+    times <- as.numeric(time(sunspot.year))
+    effort <- sample(10:12, length(times), replace = TRUE)
+    expect_error(output <- uni_ts_summary(obs = ts, times = times, effort = effort), NA)
+    expect_equal(length(output), 4)
+    expect_true(all(c("observations", "times", "effort", "autocorrelation") %in% names(output)))
+    expect_known_hash(output, "bc427ef6a9")
 })
 
 ts <- sunspot.year
@@ -53,10 +77,13 @@ test_that("richness works", {
 
 test_that("interpolate_obs works", {
     ts <- sunspot.year
-    ts[c(1, 5, 10:14)] <- NA
+    missing_idx <- c(1, 5, 10:14)
+    ts[missing_idx] <- NA
     expect_error(output <- interpolate_obs(ts, time(sunspot.year)), NA)
     expect_identical(length(output), length(ts))
     expect_false(any(is.na(output)))
+    expect_true(all(output[missing_idx] >= min(ts, na.rm = TRUE)))
+    expect_true(all(output[missing_idx] <= max(ts, na.rm = TRUE)))
     expect_known_hash(output, "0bd2cccc8e")
 })
 
