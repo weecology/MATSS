@@ -38,38 +38,39 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
     bbs_routes_regions <- bbs_data %>%
         dplyr::select(bcr, route) %>%
         dplyr::distinct() %>%
-        dplyr::mutate(bcr = as.character(bcr), route = as.character(route)) %>%
         dplyr::mutate(name = paste0("bbs_bcr", bcr, "_route", route))
     
-    bbs_ts_data = list(bbs_data = bbs_data, species_table = bbs_data_tables$breed_bird_survey_species, routes_and_regions = bbs_routes_regions)
+    if(!dir.exists(paste0(path, '/breed-bird-survey-prepped'))) {
+        dir.create(paste0(path, '/breed-bird-survey-prepped'))
+    }
     
-    # if(!dir.exists(paste0(path, '/breed-bird-survey-prepped'))) {
-    #     dir.create(paste0(path, '/breed-bird-survey-prepped'))
-    # }
+    write.csv(bbs_data, paste0(path, '/breed-bird-survey-prepped/bbs_data.csv'), row.names = F)
+    write.csv(bbs_data_tables$breed_bird_survey_species, paste0(path, '/breed-bird-survey-prepped/species_table.csv'), row.names = F)
+    write.csv(bbs_routes_regions, paste0(path, '/breed-bird-survey-prepped/routes_and_regions_table.csv'), row.names = F)
     
-   # save(bbs_ts_data, file = paste0(path, '/breed-bird-survey-prepped/bbs_ts_data.Rds'))
-    
-    return(bbs_ts_data)
-}
+    }
 
 
 #' Get BBS data by route and reigon
 #'
 #' @param route route
 #' @param region region
-#' @param bbs_ts_data list of three dataframes (output of prepare_bbs_ts_data)
+#' @param path path
 #' @return list of two dataframes (one with abundance data, the other with covariate data) 
 #'   and one list of metadata.
 #' @export
-get_bbs_route_region_data <- function(route, region, bbs_ts_data) {
+get_bbs_route_region_data <- function(route, region, path = get_default_data_path()) {
 
     route = as.numeric(route)
     region = as.numeric(region)
     
-    this_bbs_data <- bbs_ts_data$bbs_data %>%
+    bbs_data <- read.csv(paste0(path, '/breed-bird-survey-prepped/bbs_data.csv'), stringsAsFactors = F)
+    species_table <- read.csv(paste0(path, '/breed-bird-survey-prepped/species_table.csv'), stringsAsFactors = F)
+    
+    this_bbs_data <- bbs_data %>%
         dplyr::filter(bcr == region, route == route) %>%
-        combine_subspecies(species_table = bbs_ts_data$species_table) %>%
-        filter_bbs_species(species_table = bbs_ts_data$species_table) %>%
+        combine_subspecies(species_table = species_table) %>%
+        filter_bbs_species(species_table = species_table) %>%
         dplyr::mutate(species_id = paste('sp', species_id, sep=''),
                       date = as.Date(paste(year, month, day, sep = "-"))) %>%
         dplyr::ungroup() 

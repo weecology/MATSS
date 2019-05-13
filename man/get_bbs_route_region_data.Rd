@@ -4,14 +4,14 @@
 \alias{get_bbs_route_region_data}
 \title{Get BBS data by route and reigon}
 \usage{
-get_bbs_route_region_data(route, region, bbs_ts_data)
+get_bbs_route_region_data(route, region, path = get_default_data_path())
 }
 \arguments{
 \item{route}{route}
 
 \item{region}{region}
 
-\item{bbs_ts_data}{list of three dataframes (output of prepare_bbs_ts_data)}
+\item{path}{path}
 }
 \value{
 list of two dataframes (one with abundance data, the other with covariate data) 
