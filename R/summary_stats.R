@@ -48,7 +48,7 @@
 #' @export
 #'
 ts_summary <- function(obs, times = NULL, effort = NULL, 
-                       obs_per_effort = FALSE, 
+                       obs_per_effort = !is.null(effort), 
                        interp_method = forecast::na.interp)
 {
     check_interp_method(interp_method)
@@ -58,23 +58,7 @@ ts_summary <- function(obs, times = NULL, effort = NULL,
     }
     check_obs_and_times(obs, times, single_dim_obs = FALSE)
     obs <- data.frame(obs)
-    if (!("logical" %in% class(obs_per_effort))) {
-        stop("`obs_per_effort` must be logical")
-    }    
-    if (obs_per_effort) {
-        if (is.null(effort)) {
-            message("`effort` is `NULL`, assuming all effort = 1")
-            effort <- rep(1, length(obs))
-            effort_summary <- NULL
-        }
-        if (nrow(obs) != length(effort)) {
-            stop("`obs` and `effort` are not of same length")
-        }
-        obs <- obs / effort
-    } else if (!is.null(effort)) {
-        warning("`effort` is included but `obs_per_effort` is FALSE, `obs` not
-            corrected for effort")
-    }
+    obs <- normalize_obs(obs, effort, obs_per_effort)
     
     nspp <- ncol(obs)
     nobs <- nrow(obs)
@@ -302,7 +286,7 @@ richness <- function(x) {
 #'
 temp_autocor <- function(obs, times, interp_method = forecast::na.interp, ...) {
     obs_interp <- interpolate_obs(obs, times, interp_method)
-    ac <- acf(obs_interp, plot = FALSE, ...)
+    ac <- stats::acf(obs_interp, plot = FALSE, ...)
     out <- round(ac$acf[ , , 1]  , 4)
     names(out) <- ac$lag[ , , 1]
     out
@@ -334,6 +318,32 @@ interpolate_obs <- function(obs, times, interp_method = forecast::na.interp, ...
     
     # interpolate and return
     interp_method(out, ...)
+}
+
+#' @title Normalize obs to effort
+#' 
+#' @export
+normalize_obs <- function(obs, effort = NULL, 
+                          obs_per_effort = !is.null(effort))
+{
+    if (!("logical" %in% class(obs_per_effort))) {
+        stop("`obs_per_effort` must be logical")
+    }
+    
+    if (obs_per_effort) {
+        if (is.null(effort)) {
+            message("`effort` is `NULL`, assuming all effort = 1")
+            effort <- rep(1, length(obs))
+        }
+        if (nrow(obs) != length(effort)) {
+            stop("`obs` and `effort` are not of same length")
+        }
+        obs <- obs / effort
+    } else if (!is.null(effort)) {
+        warning("`effort` is included but `obs_per_effort` is FALSE, `obs` not
+                corrected for effort")
+    }
+    return(obs)
 }
 
 #' @title Check if `interp_method` is properly formatted

@@ -6,7 +6,8 @@
 \alias{ts_summary_drake}
 \title{Summarize a time series}
 \usage{
-ts_summary(obs, times = NULL, effort = NULL, obs_per_effort = FALSE,
+ts_summary(obs, times = NULL, effort = NULL,
+  obs_per_effort = !is.null(effort),
   interp_method = forecast::na.interp)
 
 uni_ts_summary(obs, times = NULL, effort = NULL,
