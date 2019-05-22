@@ -6,6 +6,13 @@
 \usage{
 normalize_obs(obs, effort = NULL, obs_per_effort = !is.null(effort))
 }
+\arguments{
+\item{obs}{obseved data}
+
+\item{effort}{effort data}
+
+\item{obs_per_effort}{whether to scale observation by effort}
+}
 \description{
 Normalize obs to effort
 }

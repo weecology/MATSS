@@ -322,6 +322,10 @@ interpolate_obs <- function(obs, times, interp_method = forecast::na.interp, ...
 
 #' @title Normalize obs to effort
 #' 
+#' @param obs obseved data
+#' @param effort effort data
+#' @param obs_per_effort whether to scale observation by effort
+#' 
 #' @export
 normalize_obs <- function(obs, effort = NULL, 
                           obs_per_effort = !is.null(effort))
