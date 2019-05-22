@@ -49,7 +49,7 @@ get_maizuru_data <- function()
 {
     data_path <- system.file("extdata", "Maizuru_dominant_sp.csv",
                              package = "MATSS", mustWork = TRUE)
-    raw_data <- read.csv(data_path)
+    raw_data <- utils::read.csv(data_path)
     raw_data$Date <- dplyr::select(raw_data, Y, M, D) %>%
         apply(1, paste, collapse = "-") %>%
         as.Date()

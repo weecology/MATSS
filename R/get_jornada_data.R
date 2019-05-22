@@ -12,7 +12,7 @@ get_jornada_data <- function()
     # read in Jornada rodent data
     data_path <- system.file("extdata", "jornada_rodents.csv", 
                              package = "MATSS", mustWork = TRUE)
-    jornada <- read.csv(data_path)
+    jornada <- utils::read.csv(data_path)
     
     # select key columns 
     # filter out unknown species and recaptures
@@ -39,7 +39,7 @@ get_jornada_data <- function()
     abundance <- jornada_abundance_table[,-which(colnames(jornada_abundance_table) %in% c("year", "season", "samples", "time"))]
     metadata <- list(timename = "time", effort = NULL)
     jornada_raw <- list(abundance, covariates, metadata)
-    jornada_raw <- setNames(jornada_raw, c("abundance", "covariates", "metadata"))
+    jornada_raw <- stats::setNames(jornada_raw, c("abundance", "covariates", "metadata"))
     return(jornada_raw)
 }
 

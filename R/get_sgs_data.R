@@ -12,7 +12,7 @@ get_sgs_data <- function()
     # read in Shortgrass Steppe rodent data
     data_path <- system.file("extdata", "shortgrass_steppe_rodents.csv", 
                              package = "MATSS", mustWork = TRUE)
-    sgs_data <- read.csv(data_path)
+    sgs_data <- utils::read.csv(data_path)
     
     # select key columns 
     # filter out unknown species and recaptures

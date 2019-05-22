@@ -32,7 +32,7 @@
 #' 
 analysis_wrapper <- function(fun, ...)
 {
-    # Get the forecast method
+    # Get the analysis method
     method_name <- all.vars(match.call()$fun)
     
     function(dataset)
@@ -40,7 +40,7 @@ analysis_wrapper <- function(fun, ...)
         # Get the name of the dataset 
         dataset_name <- all.vars(match.call()$dataset)
 
-        # Make the forecasts
+        # apply the analysis to each abundance time series
         results <- purrr::map_dfr(dataset$abundance, fun, .id = "id", ...)
         
         # Extract the metadata from the original dataset

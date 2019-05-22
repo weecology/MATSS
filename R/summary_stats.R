@@ -100,7 +100,7 @@ ts_summary <- function(obs, times = NULL, effort = NULL,
          n_obs = nobs,
          spp_richness = spp_richness_summary,
          total_obs = tot_obs_summary,
-         among_spp_correlations = round(cor(obs), 3),
+         among_spp_correlations = round(stats::cor(obs), 3),
          species_obs = sp_level_summaries,
          times = times_summary,
          effort = effort_summary)
@@ -251,8 +251,8 @@ summarize_vec <- function(obs, x, round_out = TRUE, digits = NULL)
     obs2 <- is.na(obs)
     allna <- apply(obs2, 1, sum) == ncol(obs)
     x <- x[!allna]
-    out <- c(min = min(x), max = max(x), median = median(x), 
-             mean = mean(x), sd = sd(x), n = length(x))
+    out <- c(min = min(x), max = max(x), median = stats::median(x), 
+             mean = mean(x), sd = stats::sd(x), n = length(x))
     if (round_out) {
         if (is.null(digits)) {
             digits <- max(c(1, 2 + -floor(log10(min(x[x > 0])))))
@@ -282,7 +282,7 @@ richness <- function(x) {
     if (!is.vector(x)) {
         stop("`x` must be a vector")
     }
-    x <- na.omit(x)
+    x <- stats::na.omit(x)
     length(x[x > 0])
 }
 
