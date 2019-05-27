@@ -4,7 +4,7 @@
 \alias{build_bbs_datasets_plan}
 \title{Generate a Drake Plan for BBS Datasets}
 \usage{
-build_bbs_datasets_plan(path = get_default_data_path())
+build_bbs_datasets_plan(data_path = get_default_data_path())
 }
 \arguments{
 \item{path}{path}

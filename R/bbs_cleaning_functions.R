@@ -53,7 +53,15 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
         bbs_routes_regions_list = bbs_routes_regions_list[selected_set]
     }
     
-    lapply(bbs_routes_regions_list, FUN = subset_bbs_route_region_data, bbs_data_table = bbs_data, species_table = bbs_data_tables$breed_bird_survey_species, path = path)
+ #   lapply(bbs_routes_regions_list, FUN = subset_bbs_route_region_data, bbs_data_table = bbs_data, species_table = bbs_data_tables$breed_bird_survey_species, path = path)
+    
+    for(i in 1:length(bbs_routes_regions_list)) {
+        this_bbs_subset = bbs_data %>%
+            dplyr::filter(bcr == bbs_routes_regions_list[[i]]$region,
+                          route == bbs_routes_regions_list[[i]]$route)
+        
+        subset_bbs_route_region_data(route_region = bbs_routes_regions_list[[i]], bbs_data_table = this_bbs_subset, species_table = bbs_data_tables$breed_bird_survey_species, path = path)
+    }
     
 }
 
