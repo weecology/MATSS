@@ -12,7 +12,8 @@ get_cowley_lizards <- function()
     data_path <- system.file("extdata", "cowleylizards.txt",
                              package = "MATSS", mustWork = TRUE)
     raw_data <- read.delim(data_path) %>%
-        dplyr::mutate_if(is.numeric,list(~dplyr::na_if(., -99)))
+        dplyr::mutate_if(is.numeric,list(~dplyr::na_if(., -99))) %>%
+        dplyr::filter(!is.na(Cnemnidophorous_sexlineatus))
     
     list(abundance = dplyr::select(raw_data, -c(Year,Site,Total)), 
          covariates = dplyr::select(raw_data, Year),
@@ -40,7 +41,8 @@ get_cowley_snakes <- function()
     data_path <- system.file("extdata", "cowleysnakes.txt",
                              package = "MATSS", mustWork = TRUE)
     raw_data <- read.delim(data_path) %>%
-        dplyr::mutate_if(is.numeric,list(~dplyr::na_if(., -99)))
+        dplyr::mutate_if(is.numeric,list(~dplyr::na_if(., -99))) %>%
+        dplyr::filter(!is.na(Agkistrodon_contortrix))
     
     list(abundance = dplyr::select(raw_data, -c(Year,Site,Total)), 
          covariates = dplyr::select(raw_data, Year),
