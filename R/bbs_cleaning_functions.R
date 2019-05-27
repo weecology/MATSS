@@ -6,12 +6,13 @@
 #' @param start_yr num first year of time-series
 #' @param end_yr num last year of time-series
 #' @param min_num_yrs num minimum number of years of data between start_yr & end_yr
+#' @param selected_set optional, a subset of the BBS communities to use (to speed up development). As c(1:X)
 #' @inheritParams get_mtquad_data
 #' @return NULL
 #' @export
 
 prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10,
-                                path = get_default_data_path()){
+                                path = get_default_data_path(), selected_set = NULL){
     bbs_data_tables <- import_retriever_data("breed-bird-survey", path = path)
     
     bbs_data <- bbs_data_tables$breed_bird_survey_weather %>%
@@ -47,6 +48,10 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
         return(list(route = as.numeric(bbs_line[2]), region = as.numeric(bbs_line[1])))
     }
     bbs_routes_regions_list = apply(bbs_routes_regions, MARGIN = 1, FUN = make_list)
+    
+    if(!is.null(selected_set)) {
+        bbs_routes_regions_list = bbs_routes_regions_list[selected_set]
+    }
     
     lapply(bbs_routes_regions_list, FUN = subset_bbs_route_region_data, bbs_data_table = bbs_data, species_table = bbs_data_tables$breed_bird_survey_species, path = path)
     
@@ -104,8 +109,6 @@ subset_bbs_route_region_data <- function(route_region, bbs_data_table, species_t
     this_bbs_result = list('abundance' = abundance, 'covariates' = covariates, 'metadata' = metadata)
     
     saveRDS(this_bbs_result, file = file.path(storage_path, paste0("route", route, "region", region, ".Rds")) )
-    
-    return()
     
 }
 

@@ -7,7 +7,7 @@
 build_bbs_datasets_plan(path = get_default_data_path())
 }
 \arguments{
-\item{data_path}{path}
+\item{path}{path}
 
 \item{from_raw}{whether to re-prep BBS data}
 }
