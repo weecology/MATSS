@@ -10,7 +10,8 @@ ts_summary(obs, times = NULL, effort = NULL, obs_per_effort = FALSE,
   interp_method = forecast::na.interp)
 
 uni_ts_summary(obs, times = NULL, effort = NULL,
-  obs_per_effort = FALSE, interp_method = forecast::na.interp)
+  obs_per_effort = !is.null(effort),
+  interp_method = forecast::na.interp)
 
 ts_summary_drake(x)
 }

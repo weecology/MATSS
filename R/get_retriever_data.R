@@ -1,128 +1,19 @@
-#' @title Prepare BBS population time-series data
-#'
-#' @description Modified from https://github.com/weecology/bbs-forecasting
-#' and https://github.com/weecology/MATSS-community-change 
-#' Selects sites with data spanning start_yr through end_yr containing at least min_num_yrs of data
-#' samples during that period.
-#' @param start_yr num first year of time-series
-#' @param end_yr num last year of time-series
-#' @param min_num_yrs num minimum number of years of data between start_yr & end_yr
-#' @inheritParams get_mtquad_data
-#'
-#' @return list of three dataframes (one with bbs data filtered to time series that meet the criteria, one with the BBS species table, and one with the routes and regions represented in the first dataframe).
+#' Get cleaned BBS data
+#' @description Gets prepped BBS data (as a list of abundance, covariates, and metadata) for a specified route and region. First run `prepare_bbs_data` to create these files from the raw BBS data tables
+#' @param route Route number
+#' @param region Region number
+#' @param path Data storage path
+#' @return list of abundance, covariates, and metadata
 #' @export
-
-prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10,
-                            path = get_default_data_path())
-{
-    bbs_data_tables <- import_retriever_data("breed-bird-survey", path = path)
-    
-    bbs_data <- bbs_data_tables$breed_bird_survey_weather %>%
-        dplyr::filter(runtype == 1, rpid == 101) %>%
-        dplyr::left_join(bbs_data_tables$breed_bird_survey_counts,
-                         by = c('statenum', 'route', 'rpid', 'year', 'routedataid', 'countrynum')) %>%
-        dplyr::left_join(bbs_data_tables$breed_bird_survey_routes, 
-                         by = c('statenum', 'route', 'countrynum')) %>%
-        dplyr::mutate(site_id = statenum*1000 + route, 
-                      starttemp = dplyr::case_when(tempscale=='F' ~ c((starttemp - 32)*5/9),
-                                                   tempscale=='C' ~ as.double(starttemp)),
-                      endtemp = dplyr::case_when(tempscale=='F' ~ c((endtemp - 32)*5/9),
-                                                 tempscale=='C' ~ as.double(endtemp))) %>%
-        dplyr::rename(lat = latitude,
-                      long = longitude,
-                      species_id = aou,
-                      abundance = speciestotal) %>%
-        MATSS::filter_ts(start_yr, end_yr, min_num_yrs)
-    
-    
-    bbs_routes_regions <- bbs_data %>%
-        dplyr::select(bcr, route) %>%
-        dplyr::distinct() %>%
-        dplyr::mutate(name = paste0("bbs_bcr", bcr, "_route", route))
-    
-    if(!dir.exists(paste0(path, '/breed-bird-survey-prepped'))) {
-        dir.create(paste0(path, '/breed-bird-survey-prepped'))
+get_bbs_route_region_data = function(route, region, path = get_default_data_path()) {
+    this_path = file.path(path, "breed-bird-survey-prepped", paste0("route", route, "region", region, ".Rds"))
+    if(file.exists(this_path)) {
+    return(readRDS(this_path)) 
+    } else {
+        return(NULL)
     }
-    
-    write.csv(bbs_data, paste0(path, '/breed-bird-survey-prepped/bbs_data.csv'), row.names = F)
-    write.csv(bbs_data_tables$breed_bird_survey_species, paste0(path, '/breed-bird-survey-prepped/species_table.csv'), row.names = F)
-    write.csv(bbs_routes_regions, paste0(path, '/breed-bird-survey-prepped/routes_and_regions_table.csv'), row.names = F)
-    
-    }
-
-
-#' Get BBS data by route and reigon
-#'
-#' @param route route
-#' @param region region
-#' @param path path
-#' @return list of two dataframes (one with abundance data, the other with covariate data) 
-#'   and one list of metadata.
-#' @export
-get_bbs_route_region_data <- function(route, region, path = get_default_data_path()) {
-
-    route = as.numeric(route)
-    region = as.numeric(region)
-    
-    bbs_data <- read.csv(paste0(path, '/breed-bird-survey-prepped/bbs_data.csv'), stringsAsFactors = F)
-    species_table <- read.csv(paste0(path, '/breed-bird-survey-prepped/species_table.csv'), stringsAsFactors = F)
-    
-    this_bbs_data <- bbs_data %>%
-        dplyr::filter(bcr == region, route == route) %>%
-        combine_subspecies(species_table = species_table) %>%
-        filter_bbs_species(species_table = species_table) %>%
-        dplyr::mutate(species_id = paste('sp', species_id, sep=''),
-                      date = as.Date(paste(year, month, day, sep = "-"))) %>%
-        dplyr::ungroup() 
-    
-    abundance <- this_bbs_data %>%
-        dplyr::group_by(year, species_id) %>%
-        dplyr::summarise(abundance = sum(abundance)) %>%
-        dplyr::ungroup() %>%
-        tidyr::spread(key = species_id, value = abundance, fill = 0) %>%
-        dplyr::arrange(year) %>%
-        dplyr::select(-year)
-    
-    covariates <- this_bbs_data %>%
-        dplyr::group_by(year) %>%
-        dplyr::summarise(effort = dplyr::n_distinct(site_id),
-                         starttemp = mean(starttemp), endtemp = mean(endtemp),
-                         startwind = mean(startwind), endwind = mean(endwind),
-                         startsky = mean(startsky), endsky = mean(endsky),
-                         lat = mean(lat), long = mean(long), mean_date = mean(date)) %>%
-        dplyr::arrange(year)
-    
-    metadata <- list(timename = 'year', effort = 'effort', route = route, region = region)
-    
-    return(list('abundance' = abundance, 'covariates' = covariates, 'metadata' = metadata))
-    
 }
 
-
-#' @title Filter BBS to specified time series period and number of samples
-#'
-#' @description Modified from https://github.com/weecology/bbs-forecasting 
-#' and https://github.com/weecology/MATSS-community-change
-#'
-#' @param bbs_data dataframe that contains BBS site_id and year columns
-#' @param start_yr num first year of time-series
-#' @param end_yr num last year of time-series
-#' @param min_num_yrs num minimum number of years of data between start_yr & end_yr
-#'
-#' @return dataframe with original data and associated environmental data
-#' @export
-filter_ts <- function(bbs_data, start_yr, end_yr, min_num_yrs) {
-    sites_to_keep = bbs_data %>%
-        dplyr::filter(year >= start_yr, year <= end_yr) %>%
-        dplyr::group_by(site_id) %>%
-        dplyr::summarise(num_years = length(unique(year))) %>%
-        dplyr::ungroup() %>%
-        dplyr::filter(num_years >= min_num_yrs)
-    
-    filtered_data <- bbs_data %>%
-        dplyr::filter(year >= start_yr, year <= end_yr) %>%
-        dplyr::filter(site_id %in% sites_to_keep$site_id)
-}
 
 #' @title Create Sonoran desert lab time-series data
 #'

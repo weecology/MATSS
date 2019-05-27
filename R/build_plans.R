@@ -117,11 +117,11 @@ build_datasets_plan <- function(data_path = get_default_data_path(),
 #' 
 build_bbs_datasets_plan <- function(path = get_default_data_path())
 {
-    if(!file.exists(paste0(path, '/breed-bird-survey-prepped/bbs_data.csv'))) {
+    if(!file.exists(file.path(path, "breed-bird-survey-prepped", "routes_and_regions_table.csv"))) {
         prepare_bbs_ts_data()
     }
 
-    routes_and_regions = read.csv(paste0(path, '/breed-bird-survey-prepped/routes_and_regions_table.csv'), stringsAsFactors = F)
+    routes_and_regions = read.csv(file.path(path, "breed-bird-survey-prepped", "routes_and_regions_table.csv"), stringsAsFactors = F)
     
     routes_and_regions = routes_and_regions %>%
     dplyr::mutate(bcr = as.character(bcr), route = as.character(route))
