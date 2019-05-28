@@ -5,7 +5,7 @@
 \title{Prepare BBS population time-series data}
 \usage{
 prepare_bbs_ts_data(start_yr = 1965, end_yr = 2017, min_num_yrs = 10,
-  path = get_default_data_path(), selected_set = NULL)
+  path = get_default_data_path(), bbs_subset = NULL)
 }
 \arguments{
 \item{start_yr}{num first year of time-series}
@@ -16,11 +16,14 @@ prepare_bbs_ts_data(start_yr = 1965, end_yr = 2017, min_num_yrs = 10,
 
 \item{path}{where to load the raw data files from}
 
-\item{selected_set}{optional, a subset of the BBS communities to use (to speed up development). As c(1:X)}
+\item{bbs_subset}{optional, a subset of the BBS communities to use 
+(to speed up development). As c(1:X)}
 }
 \description{
 Modified from https://github.com/weecology/bbs-forecasting
-and https://github.com/weecology/MATSS-community-change 
-Selects sites with data spanning start_yr through end_yr containing at least min_num_yrs of data
-samples during that period. Cleans data tables and stores each individual route as a .Rds file. Saves a data table of the route + region pairs.
+  and https://github.com/weecology/MATSS-community-change 
+  Selects sites with data spanning start_yr through end_yr containing at 
+  least min_num_yrs of data samples during that period. Cleans data tables 
+  and stores each individual route as a .Rds file. Saves a data table of the 
+  route + region pairs.
 }

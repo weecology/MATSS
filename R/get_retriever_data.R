@@ -7,8 +7,8 @@
 #' @export
 get_bbs_route_region_data = function(route, region, path = get_default_data_path()) {
     this_path = file.path(path, "breed-bird-survey-prepped", paste0("route", route, "region", region, ".Rds"))
-    if(file.exists(this_path)) {
-    return(readRDS(this_path)) 
+    if (file.exists(this_path)) {
+        return(readRDS(this_path)) 
     } else {
         return(NULL)
     }
