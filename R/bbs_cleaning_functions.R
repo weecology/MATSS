@@ -69,7 +69,7 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
 #' @description Correct and otherwise filter BBS species data (see 
 #'   \code{\link{combine_subspecies}} and \code{\link{filter_bbs_species}} for 
 #'   more info). Generate the abundance, covariate, and metadata tables and 
-#'   write the output into an .Rds file to be re-read via readRDS. 
+#'   return the combined object.
 #' @param bbs_data_table main bbs data table
 #' @param species_table table of species for BBS
 #' @return the processed BBS data

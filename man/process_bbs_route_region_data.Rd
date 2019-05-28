@@ -18,5 +18,5 @@ the processed BBS data
 Correct and otherwise filter BBS species data (see 
   \code{\link{combine_subspecies}} and \code{\link{filter_bbs_species}} for 
   more info). Generate the abundance, covariate, and metadata tables and 
-  write the output into an .Rds file to be re-read via readRDS.
+  return the combined object.
 }
