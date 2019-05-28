@@ -66,22 +66,28 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
 }
 
 
-#' Subset BBS data by route and reigon
-#' Writes each route & region data object (a list of abundance, metadata, and covariates) as an .Rds file to be re-read via readRDS. 
+#' @title Process the BBS data for an individual route and region
+#' @description Correct and otherwise filter BBS species data (see 
+#'   \code{\link{combine_subspecies}} and \code{\link{filter_bbs_species}} for 
+#'   more info). Generate the abundance, covariate, and metadata tables and 
+#'   write the output into an .Rds file to be re-read via readRDS. 
 #' @param route_region named list of route and region to subset to
 #' @param bbs_data_table main bbs data table
 #' @param species_table table of species for BBS
 #' @param path path
 #' @return nothing
 #' @export
-subset_bbs_route_region_data <- function(route_region, bbs_data_table, species_table,
-                                         path = get_default_data_path()) {
+process_bbs_route_region_data <- function(bbs_data_table, species_table,
+                                          path = get_default_data_path())
+{
+    # check that exactly one route and one region are represented in the data
+    route <- unique(bbs_data_table$route)
+    region <- unique(bbs_data_table$bcr)
+    stopifnot(length(route) == 1 && 
+                  length(region == 1))
     
-    route = as.numeric(route_region$route)
-    region = as.numeric(route_region$region)
-    
+    # process species IDs
     this_bbs_data <- bbs_data_table %>%
-        dplyr::filter(bcr == region, route == route) %>%
         combine_subspecies(species_table = species_table) %>%
         filter_bbs_species(species_table = species_table) %>%
         dplyr::mutate(species_id = paste('sp', species_id, sep=''),
@@ -107,7 +113,6 @@ subset_bbs_route_region_data <- function(route_region, bbs_data_table, species_t
     
     metadata <- list(timename = 'year', effort = 'effort', route = route, region = region)
     
-    
     if(!dir.exists(file.path(path, 'breed-bird-survey-prepped'))) {
         dir.create(file.path(path, 'breed-bird-survey-prepped'))
     }
@@ -117,7 +122,6 @@ subset_bbs_route_region_data <- function(route_region, bbs_data_table, species_t
     this_bbs_result = list('abundance' = abundance, 'covariates' = covariates, 'metadata' = metadata)
     
     saveRDS(this_bbs_result, file = file.path(storage_path, paste0("route", route, "region", region, ".Rds")) )
-    
 }
 
 
