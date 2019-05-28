@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Summarize a time series — ts_summary • MATSS</title>
+<title>Generate a Drake Plan for BBS Datasets — build_bbs_datasets_plan • MATSS</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,19 +30,9 @@
 
 
 
-<meta property="og:title" content="Summarize a time series — ts_summary" />
+<meta property="og:title" content="Generate a Drake Plan for BBS Datasets — build_bbs_datasets_plan" />
 
-<meta property="og:description" content="ts_summary: summarize a potentially multivariate set of
-  time series observations.  
-  uni_ts_summary: summarize a univariate set of time series 
-  observations.
-  Summaries occur based on times, with effort-based correction (if
-  requested via obs_per_effort) and interpretation of missing 
-  values for autocorrelation calcuations (if needed) via 
-  interp_method.  
-  ts_summary_drake: operates ts_summary but on a list 
-  data structure used in the MATSS pipeline with abundance, 
-  covariates and metadata elements." />
+<meta property="og:description" content="Generate a Drake Plan for BBS Datasets" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -127,87 +117,38 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Summarize a time series</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/summary_stats.R'><code>R/summary_stats.R</code></a></small>
-    <div class="hidden name"><code>ts_summary.Rd</code></div>
+    <h1>Generate a Drake Plan for BBS Datasets</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/build_plans.R'><code>R/build_plans.R</code></a></small>
+    <div class="hidden name"><code>build_bbs_datasets_plan.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>ts_summary</code>: summarize a potentially multivariate set of
-  time series observations. <br /> <br />
-  <code>uni_ts_summary</code>: summarize a univariate set of time series 
-  observations.
-  Summaries occur based on <code>times</code>, with effort-based correction (if
-  requested via <code>obs_per_effort</code>) and interpretation of missing 
-  values for autocorrelation calcuations (if needed) via 
-  <code>interp_method</code>. <br /> <br />
-  <code>ts_summary_drake</code>: operates <code>ts_summary</code> but on a <code>list</code> 
-  data structure used in the MATSS pipeline with <code>abundance</code>, 
-  <code>covariates</code> and <code>metadata</code> elements.</p>
+    <p>Generate a Drake Plan for BBS Datasets</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ts_summary</span>(<span class='no'>obs</span>, <span class='kw'>times</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>effort</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>obs_per_effort</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>interp_method</span> <span class='kw'>=</span> <span class='kw pkg'>forecast</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/forecast/topics/na.interp'>na.interp</a></span>)
-
-<span class='fu'>uni_ts_summary</span>(<span class='no'>obs</span>, <span class='kw'>times</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>effort</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>obs_per_effort</span> <span class='kw'>=</span> !<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/NULL'>is.null</a></span>(<span class='no'>effort</span>),
-  <span class='kw'>interp_method</span> <span class='kw'>=</span> <span class='kw pkg'>forecast</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/forecast/topics/na.interp'>na.interp</a></span>)
-
-<span class='fu'>ts_summary_drake</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>build_bbs_datasets_plan</span>(<span class='kw'>data_path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(),
+  <span class='kw'>bbs_subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>obs</th>
-      <td><p><code>ts_summary</code>: a 1- or 2-dimensional set of <code>numeric</code>
-observations (columns if 2-dimensional) across times (rows if 
-2-dimensional) as indexed by <code>times</code>. <br /> <br />
-<code>uni_ts_summary</code>: a 1-dimensional <code>numeric</code> set of observations
-across times as indexed by <code>times</code>.</p></td>
+      <th>data_path</th>
+      <td><p>where to get the downloaded retriever datasets</p></td>
     </tr>
     <tr>
-      <th>times</th>
-      <td><p><code>numeric</code> or <code>Date</code> vector of timestamps of the 
-observations.</p></td>
-    </tr>
-    <tr>
-      <th>effort</th>
-      <td><p><code>numeric</code> vector of effort associated with the 
-observations.</p></td>
-    </tr>
-    <tr>
-      <th>obs_per_effort</th>
-      <td><p><code>logical</code> indicator if <code>obs</code> should be 
-corrected for <code>effort</code> before summaries are done.</p></td>
-    </tr>
-    <tr>
-      <th>interp_method</th>
-      <td><p><code>character</code> a function used to interpolate 
-<code>obs</code>. Defaults to <code><a href='https://www.rdocumentation.org/packages/forecast/topics/na.interp'>na.interp</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>x</th>
-      <td><p>Three-element <code>list</code> (<code>abundance</code>, <code>covariates</code>,
-<code>metadata</code>) for data objects in the MATSS pipeline.</p></td>
+      <th>bbs_subset</th>
+      <td><p>optional, a subset of the BBS communities to use 
+(to speed up development). As c(1:X)</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>ts_summary</code>: <code>list</code> of number of species, number of
-  observations, species richness summary, total observation summary, 
-  among-species correlation, species-by-species summary, times summary, 
-  and effort summary.
-  <br /> <br />
-  <code>uni_ts_summary</code>: <code>list</code> of observation summary, times summary,
-  effort summary, and autocorrelation.
-  <br /> <br />
-  <code>ts_summary_drake</code>: <code>list</code> as with <code>ts_summary</code> but based
-  on the <code>list</code> data structure used in the MATSS pipeline with 
-  <code>abundance</code>, <code>covariates</code> and <code>metadata</code> elements.</p>
+    <p>a drake plan (i.e. a tibble) specifying the targets and commands 
+  for gathering BBS datasets</p>
     
 
   </div>
