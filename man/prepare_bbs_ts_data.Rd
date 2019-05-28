@@ -5,7 +5,7 @@
 \title{Prepare BBS population time-series data}
 \usage{
 prepare_bbs_ts_data(start_yr = 1965, end_yr = 2017, min_num_yrs = 10,
-  path = get_default_data_path(), selected_set = NULL)
+  path = get_default_data_path(), bbs_subset = NULL)
 }
 \arguments{
 \item{start_yr}{num first year of time-series}
@@ -16,7 +16,7 @@ prepare_bbs_ts_data(start_yr = 1965, end_yr = 2017, min_num_yrs = 10,
 
 \item{path}{where to load the raw data files from}
 
-\item{selected_set}{optional, a subset of the BBS communities to use 
+\item{bbs_subset}{optional, a subset of the BBS communities to use 
 (to speed up development). As c(1:X)}
 }
 \description{

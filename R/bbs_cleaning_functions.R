@@ -8,14 +8,14 @@
 #' @param start_yr num first year of time-series
 #' @param end_yr num last year of time-series
 #' @param min_num_yrs num minimum number of years of data between start_yr & end_yr
-#' @param selected_set optional, a subset of the BBS communities to use 
+#' @param bbs_subset optional, a subset of the BBS communities to use 
 #'   (to speed up development). As c(1:X)
 #' @inheritParams get_mtquad_data
 #' @return NULL
 #' @export
 
 prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10,
-                                path = get_default_data_path(), selected_set = NULL) 
+                                path = get_default_data_path(), bbs_subset = NULL) 
 {
     bbs_data_tables <- import_retriever_data("breed-bird-survey", path = path)
     
@@ -34,7 +34,7 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
                       long = longitude,
                       species_id = aou,
                       abundance = speciestotal) %>%
-        MATSS::filter_ts(start_yr, end_yr, min_num_yrs)
+        filter_bbs_ts(start_yr, end_yr, min_num_yrs)
     
     # prepare and write out route and region metadata
     bbs_routes_regions <- bbs_data %>%
@@ -50,8 +50,8 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
     write.csv(bbs_routes_regions, file.path(storage_path, "routes_and_regions_table.csv"), row.names = F)
     
     # filter and process selected route and region combinations
-    if (!is.null(selected_set)) {
-        bbs_routes_regions <- bbs_routes_regions[selected_set, ]
+    if (!is.null(bbs_subset)) {
+        bbs_routes_regions <- bbs_routes_regions[bbs_subset, ]
     }
     
     bbs_routes_regions %>%
@@ -84,7 +84,7 @@ process_bbs_route_region_data <- function(bbs_data_table, species_table)
     
     # process species IDs
     this_bbs_data <- bbs_data_table %>%
-        combine_subspecies(species_table = species_table) %>%
+        combine_bbs_subspecies(species_table = species_table) %>%
         filter_bbs_species(species_table = species_table) %>%
         dplyr::mutate(species_id = paste('sp', species_id, sep=''),
                       date = as.Date(paste(year, month, day, sep = "-"))) %>%
@@ -125,7 +125,7 @@ process_bbs_route_region_data <- function(bbs_data_table, species_table)
 #'
 #' @return dataframe with original data and associated environmental data
 #' @export
-filter_ts <- function(bbs_data, start_yr, end_yr, min_num_yrs) {
+filter_bbs_ts <- function(bbs_data, start_yr, end_yr, min_num_yrs) {
     sites_to_keep = bbs_data %>%
         dplyr::filter(year >= start_yr, year <= end_yr) %>%
         dplyr::group_by(site_id) %>%
@@ -158,7 +158,7 @@ filter_bbs_species <- function(df, species_table){
     
     is_unidentified = function(names) {
         #Before filtering, account for this one hybrid of 2 subspecies so it's kept
-        names[names=='auratus auratus x auratus cafer']='auratus auratus'
+        names[names == 'auratus auratus x auratus cafer'] = 'auratus auratus'
         grepl('sp\\.| x |\\/', names)
     }
     
@@ -178,7 +178,7 @@ filter_bbs_species <- function(df, species_table){
 #' Modified from https://github.com/weecology/bbs-forecasting/blob/master/R/forecast-bbs-core.R 
 #'
 #' @export
-combine_subspecies = function(df, species_table){
+combine_bbs_subspecies = function(df, species_table){
     
     # Subspecies have two spaces separated by non-spaces
     subspecies_names = species_table %>%
