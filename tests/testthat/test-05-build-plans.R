@@ -31,6 +31,23 @@ test_that("build_datasets_plan works", {
     expect_equal(dim(datasets), c(10, 2))
 })
 
+test_that("build_bbs_datasets_plan works", {
+    data_path <- system.file("extdata", "subsampled",
+                             package = "MATSS", mustWork = TRUE)
+    Sys.setenv(MATSS_DATA_PATH = data_path)
+    expect_error(datasets <- build_bbs_datasets_plan(), NA)
+    expect_plan(datasets)
+    expect_true(all(grepl("bbs_data_rtrg_[0-9]+_[0-9]+$", datasets$target)))
+    expect_equal(dim(datasets), c(3, 2))
+    
+    expect_error(datasets <- build_datasets_plan(include_retriever_data = TRUE, 
+                                                 include_bbs_data = TRUE), NA)
+    expect_plan(datasets)
+    expect_equal(sum(grepl("_data$", datasets$target)), 10)
+    expect_equal(sum(grepl("bbs_data_rtrg_[0-9]+_[0-9]+$", datasets$target)), 3)
+    expect_equal(dim(datasets), c(13, 2))
+})
+
 test_that("build_analyses_plan works", {
     datasets <- build_datasets_plan()
     methods <- drake::drake_plan(

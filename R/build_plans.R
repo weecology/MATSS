@@ -100,7 +100,8 @@ build_datasets_plan <- function(data_path = get_default_data_path(),
     }
     
     if (include_bbs_data) {
-        bbs_datasets = build_bbs_datasets_plan(data_path = data_path, bbs_subset = bbs_subset)
+        bbs_datasets = build_bbs_datasets_plan(data_path = !!data_path, 
+                                               bbs_subset = !!bbs_subset)
         
         datasets <- datasets %>%
             dplyr::bind_rows(bbs_datasets)
