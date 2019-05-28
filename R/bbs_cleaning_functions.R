@@ -60,25 +60,21 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
             bbs_data %>%
                 dplyr::filter(bcr == !!bcr,
                               route == !!route) %>%
-                process_bbs_route_region_data(species_table = bbs_data_tables$breed_bird_survey_species, 
-                                              path = path)
+                process_bbs_route_region_data(species_table = bbs_data_tables$breed_bird_survey_species) %>%
+                saveRDS(file = file.path(storage_path, paste0("route", route, "region", bcr, ".Rds")) )
         })
 }
-
 
 #' @title Process the BBS data for an individual route and region
 #' @description Correct and otherwise filter BBS species data (see 
 #'   \code{\link{combine_subspecies}} and \code{\link{filter_bbs_species}} for 
 #'   more info). Generate the abundance, covariate, and metadata tables and 
 #'   write the output into an .Rds file to be re-read via readRDS. 
-#' @param route_region named list of route and region to subset to
 #' @param bbs_data_table main bbs data table
 #' @param species_table table of species for BBS
-#' @param path path
-#' @return nothing
+#' @return the processed BBS data
 #' @export
-process_bbs_route_region_data <- function(bbs_data_table, species_table,
-                                          path = get_default_data_path())
+process_bbs_route_region_data <- function(bbs_data_table, species_table)
 {
     # check that exactly one route and one region are represented in the data
     route <- unique(bbs_data_table$route)
@@ -112,16 +108,8 @@ process_bbs_route_region_data <- function(bbs_data_table, species_table,
         dplyr::arrange(year)
     
     metadata <- list(timename = 'year', effort = 'effort', route = route, region = region)
-    
-    storage_path <- file.path(path, 'breed-bird-survey-prepped')
 
-    if (!dir.exists(storage_path)) {
-        dir.create(storage_path)
-    }
-    
-    this_bbs_result = list('abundance' = abundance, 'covariates' = covariates, 'metadata' = metadata)
-    
-    saveRDS(this_bbs_result, file = file.path(storage_path, paste0("route", route, "region", region, ".Rds")) )
+    return(list('abundance' = abundance, 'covariates' = covariates, 'metadata' = metadata))
 }
 
 

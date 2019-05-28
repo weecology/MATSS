@@ -4,20 +4,15 @@
 \alias{process_bbs_route_region_data}
 \title{Process the BBS data for an individual route and region}
 \usage{
-process_bbs_route_region_data(bbs_data_table, species_table,
-  path = get_default_data_path())
+process_bbs_route_region_data(bbs_data_table, species_table)
 }
 \arguments{
 \item{bbs_data_table}{main bbs data table}
 
 \item{species_table}{table of species for BBS}
-
-\item{path}{path}
-
-\item{route_region}{named list of route and region to subset to}
 }
 \value{
-nothing
+the processed BBS data
 }
 \description{
 Correct and otherwise filter BBS species data (see 
