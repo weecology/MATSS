@@ -20,9 +20,9 @@ skip_if_no_retriever <- function() {
 
 test_that("retriever installing does error checking", {
     skip_if_no_retriever()
-    expect_error(install_retriever_data("veg-plots-sdl"), NA)
-    m <- capture_messages(install_retriever_data("veg-plots-sdl"))
-    expect_match(m, "A folder already exists for \"veg-plots-sdl\"")
+    expect_error(install_retriever_data("iris"), NA)
+    m <- capture_messages(install_retriever_data("iris"))
+    expect_match(m, "A folder already exists for \"iris\"")
     expect_match(m, "Use `force_install = TRUE` to overwrite it with a fresh install.")
 })
 
@@ -39,22 +39,6 @@ test_that("retriever importing does error checking", {
 
 test_that("retriever importing works", {
     skip_if_no_retriever()
-    expect_error(dat <- import_retriever_data("veg-plots-sdl"), NA)
-    expect_known_hash(dat$veg_plots_sdl_Count1906, "4f6b34f60a")
-    expect_known_hash(which(is.na(dat$veg_plots_sdl_Photo_info)), "834776a184")
-    expect_known_hash(na.omit(dat$veg_plots_sdl_Photo_info), "3f10e7e726")
-    expect_known_hash(dat$veg_plots_sdl_Plot_corners, "53e7e72ee9")
-    expect_known_hash(dat$veg_plots_sdl_Plots, "b0c6ec4b6e")
-    expect_known_hash(dat$veg_plots_sdl_Seedling_counts, "dd0d14c55a")
-    expect_known_hash(dat$veg_plots_sdl_SMCover, "6b03c46cbf")
-    expect_known_hash(dat$veg_plots_sdl_SMDensity, "1a5673f8ff")
-    expect_known_hash(dat$veg_plots_sdl_Stake_info, "6e7608632d")
-    expect_known_hash(dat$veg_plots_sdl_Species, "e4276e9361")
-})
-
-test_that("get_sdl_data formats data correctly", {
-    skip_if_no_retriever()
-    expect_error(dat <- get_sdl_data(), NA)
-    expect_true(check_data_format(dat))
-    expect_known_hash(dat, "e61d747927")
+    expect_error(dat <- import_retriever_data("iris"), NA)
+    expect_known_hash(dat$iris_Iris, "e8f8676f3c")
 })

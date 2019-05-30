@@ -1,32 +1,13 @@
 context("Check Retriever datasets")
 
-test_that("process_bbs_ts_data formats data correctly", {
-    data_path <- system.file("extdata", "subsampled",
-                             package = "MATSS", mustWork = TRUE)
-    Sys.setenv(MATSS_DATA_PATH = data_path)
-    expect_error(prepare_bbs_ts_data(), NA)
-    expect_error(dat <- get_bbs_route_region_data(route = 1, region = 11), NA)
-    expect_true(check_data_format(dat))
-    expect_known_hash(dat$abundance, "3fe07b68b9")
-    expect_known_hash(dat$covariates, "3854304cf6")
-    expect_known_hash(dat$metadata, "f50efbadbf")
-    expect_known_hash(dat, "05adc99ddf")
+test_that("veg-plots-sdl data retrieval works correctly", {
+    skip_if_no_retriever()
     
-    expect_error(dat <- get_bbs_route_region_data(route = 2, region = 11), NA)
-    expect_true(check_data_format(dat))
-    expect_error(dat <- get_bbs_route_region_data(route = 3, region = 11), NA)
-    expect_true(check_data_format(dat))
+    expect_error(install_retriever_data("veg-plots-sdl"), NA)
+    expect_error(dat <- import_retriever_data("veg-plots-sdl"), NA)
+    expect_false(is.null(dat))
+    
+    expect_error(sdl_data <- get_sdl_data(), NA)
+    expect_true(check_data_format(sdl_data))
+    expect_known_hash(sdl_data, "e61d747927")
 })
-
-test_that("get_mtquad_data formats data correctly", {
-    data_path <- system.file("extdata", "subsampled",
-                             package = "MATSS", mustWork = TRUE)
-    Sys.setenv(MATSS_DATA_PATH = data_path)
-    expect_error(dat <- get_mtquad_data(), NA)
-    expect_true(check_data_format(dat))
-    expect_known_hash(dat$abundance, "c4a22592f9")
-    expect_known_hash(dat$covariates, "f9debd76c0")
-    expect_known_hash(dat$metadata, "3a6bbbf578")
-    expect_known_hash(dat, "c410abab6a")
-})
-
