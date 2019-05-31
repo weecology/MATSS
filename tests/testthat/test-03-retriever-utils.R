@@ -11,13 +11,6 @@ test_that("data_path functions work", {
     expect_true(check_default_data_path())
 })
 
-# check if `retriever` is installed
-skip_if_no_retriever <- function() {
-    have_retriever <- reticulate::py_module_available("retriever")
-    if (!have_retriever)
-        skip("retriever not available for testing")
-}
-
 test_that("retriever installing does error checking", {
     skip_if_no_retriever()
     expect_error(install_retriever_data("iris"), NA)
