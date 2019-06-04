@@ -38,13 +38,13 @@ test_that("Karoo data is retrievable and works", {
 test_that("Cowley Lizards data is retrievable and works", {
     expect_error(cowley_lizards_data <- get_cowley_lizards(), NA)
     expect_true(check_data_format(cowley_lizards_data))
-    expect_known_hash(cowley_lizards_data, "32c1612a83")
+    expect_known_hash(cowley_lizards_data, "790a7d013b")
 })
 
 test_that("Cowley Snakes data is retrievable and works", {
     expect_error(cowley_snakes_data <- get_cowley_snakes(), NA)
     expect_true(check_data_format(cowley_snakes_data))
-    expect_known_hash(cowley_snakes_data, "beb0aac9c9")
+    expect_known_hash(cowley_snakes_data, "1605432bba")
 })
 
 test_that("Kruger data is retrievable and works", {
