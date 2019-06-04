@@ -34,7 +34,8 @@ get_portal_rodents <- function(time_or_plots = "plots",
                               level = "plot", type = type, 
                               plots = plots, 
                               unknowns = FALSE, shape = 'flat',
-                              time = "all", effort = TRUE)
+                              time = "all", effort = TRUE, 
+                              min_plots = 0)
     
     # filter according to treatment
     if (treatment == 'exclosure')
