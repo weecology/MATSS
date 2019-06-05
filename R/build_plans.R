@@ -129,6 +129,10 @@ build_bbs_datasets_plan <- function(data_path = get_default_data_path(), bbs_sub
     }
 
     routes_and_regions <- read.csv(routes_and_regions_file, colClasses = "character")
+    
+    if(!is.null(bbs_subset)) {
+        routes_and_regions <- routes_and_regions[bbs_subset, ]
+    }
    
     bbs_datasets <- drake::drake_plan(
         bbs_data_rtrg = target(get_bbs_route_region_data(route, region, path = !!data_path),
