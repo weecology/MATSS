@@ -58,9 +58,9 @@ to_numeric_vector <- function(x)
 {
     if (is.data.frame(x))
     {
-        x <- as.numeric(x[[1]])
+        x <- x[[1]]
     } else if (is.matrix(x)) {
-        x <- as.numeric(x[, 1])
+        x <- x[, 1]
     }
-    return(x)
+    return(as.numeric(x))
 }

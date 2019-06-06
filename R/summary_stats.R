@@ -56,9 +56,11 @@ ts_summary <- function(obs, times = NULL, effort = NULL,
     effort <- normalize_effort(obs, effort)
     obs <- normalize_obs(obs, effort, obs_per_effort)
     
-    # compute richness
-    nspp <- NCOL(obs)
-    nobs <- NROW(obs)
+    # compute community properties
+    num_spp <- NCOL(obs)
+    num_obs <- NROW(obs)
+    
+    # compute richness stats
     spp_richness <- apply(obs, 1, richness)
     spp_richness_summary <- uni_ts_summary(spp_richness, times, 
                                            interp_method = interp_method)
@@ -74,11 +76,8 @@ ts_summary <- function(obs, times = NULL, effort = NULL,
     }
     names(sp_level_summaries) <- colnames(obs)
     
-    effort_summary <- summarize_effort(obs, effort)
-    times_summary <- summarize_times(obs, times)
-    
-    list(n_spp = nspp,
-         n_obs = nobs,
+    list(num_spp = nspp,
+         num_obs = nobs,
          spp_richness = spp_richness_summary,
          total_obs = tot_obs_summary,
          among_spp_correlations = round(stats::cor(obs), 3),
@@ -121,28 +120,19 @@ uni_ts_summary <- function(obs, times = NULL, effort = NULL,
     times <- normalize_times(obs, times)
     effort <- normalize_effort(obs, effort)
     obs <- normalize_obs(obs, effort, obs_per_effort)
-
-    # generate output
-    out <- list(summarize_obs(obs), 
-                summarize_times(obs, times), 
-                summarize_effort(obs, effort), 
-                temp_autocor(obs, times, interp_method)
-    )
-
-    # generate names for output
-    obs_names <- names(obs)
-    if (is.null(obs_names))
-    {
-        obs_names <- "observations"
-    }
-    out_names <- c(obs_names, "times", "effort", "autocorrelation")
-    names(out) <- out_names
+    
+    # generate summary and autocorrelation
+    out <- data.frame(obs, times, effort) %>%
+        purrr::map_dfr(summarize_vec, .id = "variable") %>%
+        dplyr::mutate(autocorrelation = purrr::map(df, ~temp_autocor(., times, interp_method))) %>%
+        tibble::as_tibble()
+    
     return(out)
 }
 
-#' @title Summarize univariate observations, times, or efforts
+#' @title Summarize a univariate vector
 #'
-#' @param obs \code{numeric} vector of observations.
+#' @param x the vector to be summarized
 #'
 #' @param round_out \code{logical} indicator if rounding should happen.
 #'
@@ -151,69 +141,19 @@ uni_ts_summary <- function(obs, times = NULL, effort = NULL,
 #'   be two order of magnitude lower than the smallest value in the vector
 #'   being summarized. 
 #'
-#' @return \code{list} with entries corresponding to the mininum, maximum,
+#' @return \code{vector} with entries corresponding to the mininum, maximum,
 #'   median, mean, standard deviation, and count of the observations, times,
 #'   or effort, rounded based on \code{round_out} and \code{digits}.
 #' 
 #' @export
-#'
-summarize_obs <- function(obs, round_out = TRUE, digits = NULL)
-{
-    summarize_vec(obs, obs, round_out, digits)
-}
-#' @rdname summarize_obs
-#' @export
-summarise_obs <- summarize_obs
-
-#' @rdname summarize_obs
-#'
-#' @param times \code{numeric} or \code{Date} vector of timestamps of the 
-#'   observations.
-#'  
-#' @export
-summarize_times <- function(obs, times, round_out = TRUE, digits = NULL)
-{
-    summarize_vec(obs, times, round_out, digits)
-}
-#' @rdname summarize_obs
-#' @export
-summarise_times <- summarize_times
-
-#' @rdname summarize_obs
-#'
-#' @param effort \code{numeric} vector of effort associated with the 
-#'   observations.
-#'
-#' @export
-summarize_effort <- function(obs, effort = rep(1, NROW(obs)), 
-                             round_out = TRUE, digits = NULL)
-{
-    summarize_vec(obs, effort, round_out, digits)
-}
-#' @rdname summarize_obs
-#' @export
-summarise_effort <- summarize_effort
-
-#' @title summarize_vec is a helper function that handles the work of 
-#'   \code{\link{summarize_obs}}, \code{\link{summarize_time}}, and 
-#'   \code{\link{summarize_effort}}
-#'
-#' @param x the vector to be summarized
-#' @inheritParams summarize_obs
-#'
-#' @noRd
-summarize_vec <- function(obs, x, round_out = TRUE, digits = NULL)
+summarize_vec <- function(x, round_out = TRUE, digits = NULL)
 {
     if (!("logical" %in% class(round_out))) {
         stop("`round_out` must be logical")
     }
-    x <- to_numeric_vector(x)
-    obs <- data.frame(obs)
-    obs2 <- is.na(obs)
-    allna <- apply(obs2, 1, sum) == ncol(obs)
-    x <- x[!allna]
-    out <- c(min = min(x), max = max(x), median = stats::median(x), 
-             mean = mean(x), sd = stats::sd(x), n = length(x))
+    x <- na.omit(to_numeric_vector(x))
+    out <- data.frame(min = min(x), max = max(x), median = stats::median(x), 
+                      mean = mean(x), sd = stats::sd(x), n = length(x))
     if (round_out) {
         if (is.null(digits)) {
             digits <- max(c(1, 2 + -floor(log10(min(x[x > 0])))))
@@ -224,6 +164,9 @@ summarize_vec <- function(obs, x, round_out = TRUE, digits = NULL)
     }
     out
 }
+#' @rdname summarize_vec
+#' @export
+summarise_vec <- summarize_vec
 
 #' @title Count non-0 entries
 #'

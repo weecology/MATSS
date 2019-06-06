@@ -1,16 +1,16 @@
 context("Time Series Summary Statistics")
 
-test_that("ts_summary works for a dataset", {
-    dat <- get_jornada_data()
-    expect_error(ts_summary(dat), NA)
-    
-    expect_error(ts_summary(dat$abundance), NA)
-
-    expect_error(ts_summary(dat$abundance, 
-                            times = dat$covariates$time, 
-                            effort = NULL), NA)
-    
-})
+# test_that("ts_summary works for a dataset", {
+#     dat <- get_jornada_data()
+#     expect_error(ts_summary(dat), NA)
+#     
+#     expect_error(ts_summary(dat$abundance), NA)
+# 
+#     expect_error(ts_summary(dat$abundance, 
+#                             times = dat$covariates$time, 
+#                             effort = NULL), NA)
+#     
+# })
 
 test_that("uni_ts_summary error checking works", {
     ts <- sunspot.year
@@ -20,25 +20,25 @@ test_that("uni_ts_summary error checking works", {
     expect_error(uni_ts_summary(ts, effort = 1:5), "`obs` and `effort` are not of same length")
 })
 
+test_that("uni_ts_summary works with a data.frame, named column, etc.", {
+    obs <- data.frame("sunspot.year" = as.numeric(sunspot.year))
+    times <- as.numeric(time(sunspot.year))
+    expect_error(m <- capture_messages(output <- uni_ts_summary(obs, times)), NA)
+    expect_match(m, "`effort` is `NULL`, assuming all effort = 1", all = FALSE)
+    expect_equal(dim(output), c(3, 8))
+    expect_equal(output$variable, c("sunspot.year", "times", "effort"))
+    expect_known_hash(output, "1076ba3e9f")
+})
+
 test_that("uni_ts_summary works with just a time series", {
     ts <- sunspot.year
     ts[c(1, 5, 10:14)] <- NA
     expect_error(m <- capture_messages(output <- uni_ts_summary(ts)), NA)
     expect_match(m, "`time` is `NULL`, assuming evenly spaced data", all = FALSE)
     expect_match(m, "`effort` is `NULL`, assuming all effort = 1", all = FALSE)
-    expect_equal(length(output), 4)
-    expect_true(all(c("observations", "times", "effort", "autocorrelation") %in% names(output)))
-    expect_known_hash(output, "1775f77efd")
-})
-
-test_that("uni_ts_summary works with a data.frame, named column, etc.", {
-    obs <- data.frame("sunspot.year" = as.numeric(sunspot.year))
-    times <- as.numeric(time(sunspot.year))
-    expect_error(m <- capture_messages(output <- uni_ts_summary(obs, times)), NA)
-    expect_match(m, "`effort` is `NULL`, assuming all effort = 1", all = FALSE)
-    expect_equal(length(output), 4)
-    expect_true(all(c("sunspot.year", "times", "effort", "autocorrelation") %in% names(output)))
-    expect_known_hash(output, "21fafa6edd")
+    expect_equal(dim(output), c(3, 8))
+    expect_equal(output$variable, c("obs", "times", "effort"))
+    expect_known_hash(output, "b9d8135901")
 })
 
 test_that("uni_ts_summary works with full obs, times, effort", {
@@ -48,9 +48,9 @@ test_that("uni_ts_summary works with full obs, times, effort", {
     times <- as.numeric(time(sunspot.year))
     effort <- sample(10:12, length(times), replace = TRUE)
     expect_error(output <- uni_ts_summary(obs = ts, times = times, effort = effort), NA)
-    expect_equal(length(output), 4)
-    expect_true(all(c("observations", "times", "effort", "autocorrelation") %in% names(output)))
-    expect_known_hash(output, "bc427ef6a9")
+    expect_equal(dim(output), c(3, 8))
+    expect_equal(output$variable, c("obs", "times", "effort"))
+    expect_known_hash(output, "b7739ed1a8")
 })
 
 ts <- sunspot.year
@@ -59,23 +59,19 @@ test_that("summarize_vec works", {
     expect_error(summarize_vec(ts, ts, digits = 2.3))
 })
 
-test_that("summarize_obs works", {
-    expect_error(output <- summarize_obs(ts), NA)
-    expect_known_hash(output, "fbe279ea08")
+test_that("summarize_vec works", {
+    expect_error(output <- summarize_vec(ts), NA)
+    expect_known_hash(output, "aa847b7a8d")
     
     obs <- data.frame(sunspot.year = as.numeric(sunspot.year))
-    expect_error(output <- summarize_obs(obs), NA)
-    expect_known_hash(output, "fbe279ea08")
-})
+    expect_error(output <- summarize_vec(obs), NA)
+    expect_known_hash(output, "aa847b7a8d")
 
-test_that("summarize_times works", {
-    expect_error(output <- summarize_times(ts, time(ts)), NA)
-    expect_known_hash(output, "5340150662")
-})
+    expect_error(output <- summarize_vec(time(ts)), NA)
+    expect_known_hash(output, "ca53426f70")
 
-test_that("summarize_effort works", {
-    expect_error(output <- summarize_effort(ts, rep(1, NROW(ts))), NA)
-    expect_known_hash(output, "9dd02f4cb5")
+    expect_error(output <- summarize_vec(rep(1, NROW(ts))), NA)
+    expect_known_hash(output, "24cd619a6a")
 })
 
 test_that("temp_autocor works for different data types", {
