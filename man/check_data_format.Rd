@@ -13,6 +13,6 @@ check_data_format(data)
 TRUE or FALSE
 }
 \description{
-Check whether its input matches the specified data format in 
-  the `data-formats.Rmd` vignette
+Check whether its input matches the specified data format in
+the \code{data-formats.Rmd} vignette
 }

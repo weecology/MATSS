@@ -13,6 +13,6 @@ richness(x)
 \code{numeric} value of the number of non-0 entries in \code{x}.
 }
 \description{
-Calculate the richness (number of non-0 entries) of a given 
-  sample.
+Calculate the richness (number of non-0 entries) of a given
+sample.
 }

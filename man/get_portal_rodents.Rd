@@ -4,7 +4,7 @@
 \alias{get_portal_rodents}
 \title{get portal rodent data
 
-Import Portal rodent data using portalr functions. 
+Import Portal rodent data using portalr functions.
 Currently returns rodent data formatted appropriately for
 LDA analysis.}
 \usage{
@@ -12,8 +12,8 @@ get_portal_rodents(time_or_plots = "plots", treatment = "control",
   type = "Rodents")
 }
 \arguments{
-\item{time_or_plots}{select whether to: (1) "time" == get the data for the 
-entire timespan of the experiment, or (2) "plots" == just the time period 
+\item{time_or_plots}{select whether to: (1) "time" == get the data for the
+entire timespan of the experiment, or (2) "plots" == just the time period
 with consistent treatments}
 
 \item{treatment}{"control" or "exclosure" treatments}
@@ -21,13 +21,13 @@ with consistent treatments}
 \item{type}{type of animals to get: "Rodents" or restrict to "Granivores"}
 }
 \value{
-list of two dataframes (one with abundance data, the other with covariate data) 
-  and one list of metadata.
+list of two dataframes (one with abundance data, the other with covariate data)
+and one list of metadata.
 }
 \description{
 get portal rodent data
 
-Import Portal rodent data using portalr functions. 
+Import Portal rodent data using portalr functions.
 Currently returns rodent data formatted appropriately for
 LDA analysis.
 }

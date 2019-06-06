@@ -17,5 +17,5 @@ get_bbs_route_region_data(route, region, path = get_default_data_path())
 list of abundance, covariates, and metadata
 }
 \description{
-Gets prepped BBS data (as a list of abundance, covariates, and metadata) for a specified route and region. First run `prepare_bbs_data` to create these files from the raw BBS data tables
+Gets prepped BBS data (as a list of abundance, covariates, and metadata) for a specified route and region. First run \code{prepare_bbs_data} to create these files from the raw BBS data tables
 }

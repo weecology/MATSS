@@ -17,9 +17,11 @@ summarize_times(obs, times, round_out = TRUE, digits = NULL)
 
 summarise_times(obs, times, round_out = TRUE, digits = NULL)
 
-summarize_effort(obs, effort, round_out = TRUE, digits = NULL)
+summarize_effort(obs, effort = rep(1, NROW(obs)), round_out = TRUE,
+  digits = NULL)
 
-summarise_effort(obs, effort, round_out = TRUE, digits = NULL)
+summarise_effort(obs, effort = rep(1, NROW(obs)), round_out = TRUE,
+  digits = NULL)
 }
 \arguments{
 \item{obs}{\code{numeric} vector of observations.}
@@ -31,16 +33,16 @@ of digits for rounding. If \code{NULL}, \code{digits} is calculated to
 be two order of magnitude lower than the smallest value in the vector
 being summarized.}
 
-\item{times}{\code{numeric} or \code{Date} vector of timestamps of the 
+\item{times}{\code{numeric} or \code{Date} vector of timestamps of the
 observations.}
 
-\item{effort}{\code{numeric} vector of effort associated with the 
+\item{effort}{\code{numeric} vector of effort associated with the
 observations.}
 }
 \value{
 \code{list} with entries corresponding to the mininum, maximum,
-  median, mean, standard deviation, and count of the observations, times,
-  or effort, rounded based on \code{round_out} and \code{digits}.
+median, mean, standard deviation, and count of the observations, times,
+or effort, rounded based on \code{round_out} and \code{digits}.
 }
 \description{
 Summarize univariate observations, times, or efforts

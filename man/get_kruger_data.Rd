@@ -10,7 +10,7 @@ get_kruger_data()
 }
 \value{
 list of two dataframes (one with abundance data, the other with
-  covariate data), and one list of metadata.
+covariate data), and one list of metadata.
 }
 \description{
 get Kruger National Park ungulate data

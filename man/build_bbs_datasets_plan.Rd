@@ -10,12 +10,12 @@ build_bbs_datasets_plan(data_path = get_default_data_path(),
 \arguments{
 \item{data_path}{where to get the downloaded retriever datasets}
 
-\item{bbs_subset}{optional, a subset of the BBS communities to use 
+\item{bbs_subset}{optional, a subset of the BBS communities to use
 (to speed up development). As c(1:X)}
 }
 \value{
-a drake plan (i.e. a tibble) specifying the targets and commands 
-  for gathering BBS datasets
+a drake plan (i.e. a tibble) specifying the targets and commands
+for gathering BBS datasets
 }
 \description{
 Generate a Drake Plan for BBS Datasets

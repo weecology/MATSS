@@ -1,7 +1,16 @@
 context("Time Series Summary Statistics")
 
+test_that("ts_summary works for a dataset", {
+    dat <- get_jornada_data()
+    expect_error(ts_summary(dat), NA)
+    
+    expect_error(ts_summary(dat$abundance), NA)
 
-
+    expect_error(ts_summary(dat$abundance, 
+                            times = dat$covariates$time, 
+                            effort = NULL), NA)
+    
+})
 
 test_that("uni_ts_summary error checking works", {
     ts <- sunspot.year
@@ -14,13 +23,22 @@ test_that("uni_ts_summary error checking works", {
 test_that("uni_ts_summary works with just a time series", {
     ts <- sunspot.year
     ts[c(1, 5, 10:14)] <- NA
-    expect_message(uni_ts_summary(ts), "`effort` is `NULL`, assuming all effort = 1")
     expect_error(m <- capture_messages(output <- uni_ts_summary(ts)), NA)
     expect_match(m, "`time` is `NULL`, assuming evenly spaced data", all = FALSE)
     expect_match(m, "`effort` is `NULL`, assuming all effort = 1", all = FALSE)
     expect_equal(length(output), 4)
     expect_true(all(c("observations", "times", "effort", "autocorrelation") %in% names(output)))
     expect_known_hash(output, "1775f77efd")
+})
+
+test_that("uni_ts_summary works with a data.frame, named column, etc.", {
+    obs <- data.frame("sunspot.year" = as.numeric(sunspot.year))
+    times <- as.numeric(time(sunspot.year))
+    expect_error(m <- capture_messages(output <- uni_ts_summary(obs, times)), NA)
+    expect_match(m, "`effort` is `NULL`, assuming all effort = 1", all = FALSE)
+    expect_equal(length(output), 4)
+    expect_true(all(c("sunspot.year", "times", "effort", "autocorrelation") %in% names(output)))
+    expect_known_hash(output, "21fafa6edd")
 })
 
 test_that("uni_ts_summary works with full obs, times, effort", {
@@ -44,6 +62,10 @@ test_that("summarize_vec works", {
 test_that("summarize_obs works", {
     expect_error(output <- summarize_obs(ts), NA)
     expect_known_hash(output, "fbe279ea08")
+    
+    obs <- data.frame(sunspot.year = as.numeric(sunspot.year))
+    expect_error(output <- summarize_obs(obs), NA)
+    expect_known_hash(output, "fbe279ea08")
 })
 
 test_that("summarize_times works", {
@@ -56,17 +78,30 @@ test_that("summarize_effort works", {
     expect_known_hash(output, "9dd02f4cb5")
 })
 
-test_that("temp_autocor works", {
+test_that("temp_autocor works for different data types", {
     ts <- sunspot.year
     ts[c(1, 5, 10:14)] <- NA
     expect_error(output <- temp_autocor(ts, time(sunspot.year)), NA)
     expect_equal(length(output), 25)
     expect_false(any(is.na(output)))
     expect_known_hash(output, "5842a3ef0f")
+    
+    expect_error(output <- temp_autocor(as.numeric(ts), time(sunspot.year)), NA)
+    expect_known_hash(output, "5842a3ef0f")
+    
+    expect_error(output <- temp_autocor(matrix(ts), time(sunspot.year)), NA)
+    expect_known_hash(output, "5842a3ef0f")
+    
+    expect_error(output <- temp_autocor(data.frame(x = ts), time(sunspot.year)), NA)
+    expect_known_hash(output, "5842a3ef0f")
+    
+    expect_error(output <- temp_autocor(tibble::tibble(x = ts), time(sunspot.year)), NA)
+    expect_known_hash(output, "5842a3ef0f")
 })
 
 test_that("richness works", {
     expect_error(richness(NULL))
+    expect_error(richness(array(rnorm(12), dim = c(3, 4))))
     expect_error(richness(mtcars))
     expect_error(richness(LETTERS[1:10]))
     ts <- rpois(30, lambda = 2) + 1
@@ -91,16 +126,15 @@ test_that("check_interp_method works", {
     expect_error(check_interp_method(NULL))
     expect_error(check_interp_method(NA))
     expect_error(check_interp_method(mtcars))
-    expect_error(check_interp_method(mean, NA))
-    expect_error(check_interp_method(forecast::na.interp, NA))
+    expect_error(check_interp_method(mean), NA)
+    expect_error(check_interp_method(forecast::na.interp), NA)
 })
 
 test_that("check_obs works", {
     expect_error(check_obs(NULL))
-    expect_error(check_obs(mtcars))
     expect_error(check_obs(ChickWeight))
-    expect_error(check_obs(matrix(rnorm(16), nrow = 4)))
-    expect_error(check_obs(matrix(rnorm(16), nrow = 4), single_dim_obs = FALSE), NA)
+    expect_error(check_obs(mtcars), NA)
+    expect_error(check_obs(matrix(rnorm(16), nrow = 4)), NA)
     expect_error(check_obs(c(NA, rnorm(16))), NA)
 })
 
