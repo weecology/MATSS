@@ -33,6 +33,11 @@ fish community (only the 15 species that had total observation count >
 stability of a natural fish community" (Ushio et al. 2018)
 Data are available from https://zenodo.org/record/1181937
 }
+\section{Maizuru_dominant_sp.csv}{
+
+This data is imported using \code{\link{get_maizuru_data}}
+}
+
 \author{
 Reiji Masuda
 }

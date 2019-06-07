@@ -1,23 +1,6 @@
 context("Time Series Summary Statistics")
 
-test_that("ts_summary works for a dataset", {
-    skip("")
-    dat <- get_jornada_data()
-    uni_ts_summary(dat$abundance,
-                   times = dat$covariates$time,
-                   effort = NULL)
-    
-    expect_error(ts_summary(dat), NA)
-
-    expect_error(ts_summary(dat$abundance), NA)
-
-    expect_error(output <- ts_summary(dat$abundance,
-                                      times = dat$covariates$time,
-                                      effort = NULL), NA)
-    
-})
-
-test_that("uni_ts_summary error checking works", {
+test_that("ts_summary error checking works", {
     ts <- sunspot.year
     ts[c(1, 5, 10:14)] <- NA
     expect_error(ts_summary(ts, obs_per_effort = 2), "`obs_per_effort` must be logical")
@@ -25,25 +8,46 @@ test_that("uni_ts_summary error checking works", {
     expect_error(ts_summary(ts, effort = 1:5), "`obs` and `effort` are not of same length")
 })
 
-test_that("uni_ts_summary works with a data.frame, named column, etc.", {
-    obs <- data.frame("sunspot.year" = as.numeric(sunspot.year))
-    times <- as.numeric(time(sunspot.year))
-    expect_error(m <- capture_messages(output <- uni_ts_summary(obs, times)), NA)
-    expect_match(m, "`effort` is `NULL`, assuming all effort = 1", all = FALSE)
-    expect_equal(dim(output), c(3, 8))
-    expect_equal(output$variable, c("sunspot.year", "times", "effort"))
-    expect_known_hash(output, "1076ba3e9f")
-})
-
-test_that("uni_ts_summary works with just a time series", {
-    ts <- sunspot.year
-    ts[c(1, 5, 10:14)] <- NA
-    expect_error(m <- capture_messages(output <- uni_ts_summary(ts)), NA)
+test_that("ts_summary works", {
+    dat <- get_jornada_data()
+    obs <- dat$abundance
+    n <- NCOL(obs)
+    var_names <- names(obs)
+    
+    # check message output
+    expect_error(m <- capture_messages(output <- ts_summary(obs)), NA)
     expect_match(m, "`time` is `NULL`, assuming evenly spaced data", all = FALSE)
     expect_match(m, "`effort` is `NULL`, assuming all effort = 1", all = FALSE)
-    expect_equal(dim(output), c(3, 8))
-    expect_equal(output$variable, c("obs", "times", "effort"))
-    expect_known_hash(output, "2541f53b94")
+
+    # check basic output structure
+    expect_true(all(c("num_spp", "num_obs", "stats", "spp_correlations") %in% names(output)))
+    expect_equal(output$num_spp, n)
+    expect_equal(output$num_obs, NROW(obs))
+    
+    # check output stats
+    expect_equal(dim(output$stats), c(n + 4, 8))
+    expect_true(all(c("variable", "min", "max", "median", "mean", "sd", "n", "autocorrelation") 
+                    %in% names(output$stats)))
+    expect_equal(vapply(output$stats$autocorrelation, length, 0, USE.NAMES = FALSE), 
+                 rep.int(14, n + 4))
+    expect_true(all(c(var_names, "times", "effort", "richness", "tot_obs")
+                    %in% output$stats$variable))
+    expect_known_hash(output$stats, "6e8e178b2e")
+    
+    # check output spp correlations
+    expect_equal(dim(output$spp_correlations), c(n, n))
+    expect_equal(var_names, rownames(output$spp_correlations))
+    expect_equal(var_names, colnames(output$spp_correlations))
+    expect_known_hash(output$spp_correlations, "c52fce46d7")
+})
+
+test_that("ts_summary works with just a time series", {
+    ts <- sunspot.year
+    ts[c(1, 5, 10:14)] <- NA
+    expect_error(m <- capture_messages(output <- ts_summary(ts)), NA)
+    expect_match(m, "`time` is `NULL`, assuming evenly spaced data", all = FALSE)
+    expect_match(m, "`effort` is `NULL`, assuming all effort = 1", all = FALSE)
+    expect_known_hash(output, "2a499d80f9")
 })
 
 test_that("uni_ts_summary works with full obs, times, effort", {
@@ -52,10 +56,8 @@ test_that("uni_ts_summary works with full obs, times, effort", {
     ts[c(1, 5, 10:14)] <- NA
     times <- as.numeric(time(sunspot.year))
     effort <- sample(10:12, length(times), replace = TRUE)
-    expect_error(output <- uni_ts_summary(obs = ts, times = times, effort = effort), NA)
-    expect_equal(dim(output), c(3, 8))
-    expect_equal(output$variable, c("obs", "times", "effort"))
-    expect_known_hash(output, "d162dac4b2")
+    expect_error(output <- ts_summary(obs = ts, times = times, effort = effort), NA)
+    expect_known_hash(output, "49ae975ae0")
 })
 
 test_that("summarize_df works", {

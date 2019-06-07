@@ -3,18 +3,13 @@
 \name{ts_summary}
 \alias{ts_summary}
 \alias{ts_summary_drake}
-\alias{uni_ts_summary}
 \title{Summarize a time series}
 \usage{
 ts_summary(obs, times = NULL, effort = NULL,
   obs_per_effort = !is.null(effort),
-  interp_method = forecast::na.interp)
+  interp_method = forecast::na.interp, ...)
 
 ts_summary_drake(x)
-
-uni_ts_summary(obs, times = NULL, effort = NULL,
-  obs_per_effort = !is.null(effort),
-  interp_method = forecast::na.interp)
 }
 \arguments{
 \item{obs}{a vector, matrix, or data.frame of \code{numeric} observations
@@ -34,12 +29,8 @@ corrected for \code{effort} before summaries are done.}
 }
 \value{
 \code{ts_summary}: \code{list} of number of species, number of
-observations, species richness summary, total observation summary,
-among-species correlation, species-by-species summary, times summary,
-and effort summary.
-\cr \cr
-\code{uni_ts_summary}: \code{list} of observation summary, times summary,
-effort summary, and autocorrelation.
+observations, summaries of the variables, the times, the effort, the
+species richness, total observation, and the among-species correlation.
 \cr \cr
 \code{ts_summary_drake}: \code{list} as with \code{ts_summary} but based
 on the \code{list} data structure used in the MATSS pipeline with
@@ -54,8 +45,6 @@ community.
 
 \code{ts_summary_drake} is the same as \code{ts_summary}, but operates on
 the default data structure used in MATSS, as described in
-
-\code{uni_ts_summary} creates a summary of a single population time series.
 
 Some aspects of the summaries depend on \code{times}, which should be a
 vector of the time index associated with the time series; and

@@ -33,7 +33,7 @@
 #'   \item{\code{D}}{day}
 #' }
 #' 
-#' @section Maizuru_dominant_sp.csv
+#' @section Maizuru_dominant_sp.csv:
 #' This data is imported using \code{\link{get_maizuru_data}}
 NULL
 
