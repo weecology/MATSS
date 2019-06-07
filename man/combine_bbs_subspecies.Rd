@@ -4,7 +4,12 @@
 \alias{combine_bbs_subspecies}
 \title{Combine subspecies into their common species}
 \usage{
-combine_bbs_subspecies(df, species_table)
+combine_bbs_subspecies(bbs_data_table, species_table)
+}
+\arguments{
+\item{bbs_data_table}{main bbs data table}
+
+\item{species_table}{table of species for BBS}
 }
 \description{
 Modified from https://github.com/weecology/bbs-forecasting/blob/master/R/forecast-bbs-core.R

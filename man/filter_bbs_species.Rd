@@ -4,10 +4,12 @@
 \alias{filter_bbs_species}
 \title{Filter poorly sampled BBS species}
 \usage{
-filter_bbs_species(df, species_table)
+filter_bbs_species(bbs_data_table, species_table)
 }
 \arguments{
-\item{df}{dataframe containing an species_id column}
+\item{bbs_data_table}{main bbs data table}
+
+\item{species_table}{table of species for BBS}
 }
 \value{
 dataframe, filtered version of initial dataframe

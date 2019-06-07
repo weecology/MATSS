@@ -31,6 +31,8 @@
 #'
 #' @param interp_method \code{character} a function used to interpolate 
 #'   \code{obs}. Defaults to \code{\link[forecast]{na.interp}}.
+#'   
+#' @param ... additional arguments to be passed to \code{\link{temp_autocor}}
 #'
 #' @return \code{ts_summary}: \code{list} of number of species, number of
 #'   observations, summaries of the variables, the times, the effort, the 
@@ -129,7 +131,7 @@ summarize_vec <- function(x, round_out = TRUE, digits = NULL)
     if (!("logical" %in% class(round_out))) {
         stop("`round_out` must be logical")
     }
-    x <- na.omit(to_numeric_vector(x))
+    x <- stats::na.omit(to_numeric_vector(x))
     out <- data.frame(min = min(x), max = max(x), median = stats::median(x), 
                       mean = mean(x), sd = stats::sd(x), n = length(x))
     if (round_out) {

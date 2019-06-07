@@ -128,9 +128,9 @@ build_bbs_datasets_plan <- function(data_path = get_default_data_path(), bbs_sub
         prepare_bbs_ts_data(path = data_path, bbs_subset = bbs_subset)
     }
 
-    routes_and_regions <- read.csv(routes_and_regions_file, colClasses = "character")
+    routes_and_regions <- utils::read.csv(routes_and_regions_file, colClasses = "character")
     
-    if(!is.null(bbs_subset)) {
+    if (!is.null(bbs_subset)) {
         routes_and_regions <- routes_and_regions[bbs_subset, ]
     }
    

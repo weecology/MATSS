@@ -42,7 +42,8 @@ Imports:
     tibble,
     rlang,
     future,
-    future.batchtools
+    future.batchtools,
+    stringr
 Suggests:
     testthat,
     knitr,

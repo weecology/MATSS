@@ -23,6 +23,8 @@ corrected for \code{effort} before summaries are done.}
 
 \item{interp_method}{\code{character} a function used to interpolate
 \code{obs}. Defaults to \code{\link[forecast]{na.interp}}.}
+
+\item{...}{additional arguments to be passed to \code{\link{temp_autocor}}}
 }
 \value{
 \code{ts_summary}: \code{list} of number of species, number of
