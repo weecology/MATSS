@@ -44,6 +44,7 @@ test_that("ts_summary works", {
 test_that("ts_summary works for formatted data", {
     dat <- get_jornada_data()
     n <- NCOL(dat$abundance)
+    var_names <- names(dat$abundance)
 
     # check message output
     expect_error(m <- capture_messages(output <- ts_summary(dat)), NA)
