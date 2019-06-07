@@ -41,6 +41,36 @@ test_that("ts_summary works", {
     expect_known_hash(output$spp_correlations, "c52fce46d7")
 })
 
+test_that("ts_summary works for formatted data", {
+    dat <- get_jornada_data()
+    n <- NCOL(obs)
+
+    # check message output
+    expect_error(m <- capture_messages(output <- ts_summary(dat)), NA)
+    expect_match(m, "`effort` is `NULL`, assuming all effort = 1", all = FALSE)
+    
+    # check basic output structure
+    expect_true(all(c("num_spp", "num_obs", "stats", "spp_correlations") %in% names(output)))
+    expect_equal(output$num_spp, n)
+    expect_equal(output$num_obs, NROW(obs))
+    
+    # check output stats
+    expect_equal(dim(output$stats), c(n + 4, 8))
+    expect_true(all(c("variable", "min", "max", "median", "mean", "sd", "n", "autocorrelation") 
+                    %in% names(output$stats)))
+    expect_equal(vapply(output$stats$autocorrelation, length, 0, USE.NAMES = FALSE), 
+                 rep.int(12, n + 4))
+    expect_true(all(c(var_names, "times", "effort", "richness", "tot_obs")
+                    %in% output$stats$variable))
+    expect_known_hash(output$stats, "9ec672111c")
+    
+    # check output spp correlations
+    expect_equal(dim(output$spp_correlations), c(n, n))
+    expect_equal(var_names, rownames(output$spp_correlations))
+    expect_equal(var_names, colnames(output$spp_correlations))
+    expect_known_hash(output$spp_correlations, "c52fce46d7")
+})
+
 test_that("ts_summary works with just a time series", {
     ts <- sunspot.year
     ts[c(1, 5, 10:14)] <- NA

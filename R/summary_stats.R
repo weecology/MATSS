@@ -47,12 +47,12 @@ ts_summary <- function(data, times = NULL, effort = NULL,
                        interp_method = forecast::na.interp, 
                        ...)
 {
-    suppressMessages(is_data_format <- check_data_format(data))
-    if (is_data_format)
+    suppressMessages(is_data_formatted <- check_data_format(data))
+    if (is_data_formatted)
     {
         obs <- data$abundance
-        times <- get_time(data)
-        effort <- get_effort(data)
+        times <- get_times_from_data(data)
+        effort <- get_effort_from_data(data)
     } else {
         obs <- data
     }

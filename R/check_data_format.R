@@ -67,3 +67,44 @@ check_data_format <- function(data)
     
     return(TRUE)
 }
+
+#' @title extract the times from a formatted data structure
+#' 
+#' @param data a formatted data structure
+#' 
+#' @return a \code{numeric} or \code{Date} vector containing the times
+#' 
+#' @export
+get_times_from_data <- function(data)
+{
+    get_covariate_from_data(data, "timename")
+}
+
+#' @title extract the effort from a formatted data structure
+#' 
+#' @param data a formatted data structure
+#' 
+#' @return a \code{numeric} vector containing the effort
+#' 
+#' @export
+get_effort_from_data <- function(data)
+{
+    get_covariate_from_data(data, "effort")
+}
+
+#' @noRd
+get_covariate_from_data <- function(data, covariate_name)
+{
+    if ("metadata" %in% names(data) && 
+        covariate_name %in% names(data$metadata) && 
+        "covariates" %in% names(data) && 
+        !is.null(data$metadata[[covariate_name]][1]) && 
+        data$metadata[[covariate_name]][1] %in% names(data$covariates))
+    {
+        var_name <- data$metadata[[covariate_name]][1]
+        covariate <- dplyr::pull(data$covariates, var_name)
+    } else {
+        covariate <- NULL
+    }
+    return(covariate)
+}
