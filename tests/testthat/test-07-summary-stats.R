@@ -52,7 +52,7 @@ test_that("ts_summary works for formatted data", {
     # check basic output structure
     expect_true(all(c("num_spp", "num_obs", "stats", "spp_correlations") %in% names(output)))
     expect_equal(output$num_spp, n)
-    expect_equal(output$num_obs, NROW(obs))
+    expect_equal(output$num_obs, NROW(dat$abundance))
     
     # check output stats
     expect_equal(dim(output$stats), c(n + 4, 8))
