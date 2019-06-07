@@ -56,7 +56,7 @@ test_that("uni_ts_summary works with full obs, times, effort", {
     ts[c(1, 5, 10:14)] <- NA
     times <- as.numeric(time(sunspot.year))
     effort <- sample(10:12, length(times), replace = TRUE)
-    expect_error(output <- ts_summary(obs = ts, times = times, effort = effort), NA)
+    expect_error(output <- ts_summary(data = ts, times = times, effort = effort), NA)
     expect_known_hash(output, "49ae975ae0")
 })
 

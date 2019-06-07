@@ -10,6 +10,7 @@
 #'   \code{normalize_times} will generate a default times vector if it is 
 #'   not provided, (times = `seq(length(obs))`)
 #' 
+#' @param obs the time series of \code{numeric} observations
 #' @inheritParams ts_summary
 #' 
 #' @export

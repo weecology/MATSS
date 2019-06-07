@@ -2,17 +2,14 @@
 % Please edit documentation in R/summary_stats.R
 \name{ts_summary}
 \alias{ts_summary}
-\alias{ts_summary_drake}
 \title{Summarize a time series}
 \usage{
-ts_summary(obs, times = NULL, effort = NULL,
+ts_summary(data, times = NULL, effort = NULL,
   obs_per_effort = !is.null(effort),
   interp_method = forecast::na.interp, ...)
-
-ts_summary_drake(x)
 }
 \arguments{
-\item{obs}{a vector, matrix, or data.frame of \code{numeric} observations
+\item{data}{a vector, matrix, or data.frame of \code{numeric} observations
 (within columns) across times (within rows).}
 
 \item{times}{\code{numeric} or \code{Date} vector of timestamps of the

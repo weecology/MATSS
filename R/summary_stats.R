@@ -17,7 +17,7 @@
 #'   Interpolation of missing values for autocorrelation calcuations (if 
 #'   needed) is done via \code{interp_method}
 #'   
-#' @param obs a vector, matrix, or data.frame of \code{numeric} observations 
+#' @param data a vector, matrix, or data.frame of \code{numeric} observations 
 #'   (within columns) across times (within rows). 
 #'   
 #' @param times \code{numeric} or \code{Date} vector of timestamps of the 
@@ -42,11 +42,21 @@
 #'
 #' @export
 #'
-ts_summary <- function(obs, times = NULL, effort = NULL, 
+ts_summary <- function(data, times = NULL, effort = NULL, 
                        obs_per_effort = !is.null(effort), 
                        interp_method = forecast::na.interp, 
                        ...)
 {
+    suppressMessages(is_data_format <- check_data_format(data))
+    if (is_data_format)
+    {
+        obs <- data$abundance
+        times <- get_time(data)
+        effort <- get_effort(data)
+    } else {
+        obs <- data
+    }
+    
     # normalize obs, times, effort
     times <- normalize_times(obs, times)
     effort <- normalize_effort(obs, effort)
@@ -74,29 +84,6 @@ ts_summary <- function(obs, times = NULL, effort = NULL,
          num_obs = num_obs,
          stats = summarize_df(df, times, interp_method, ...), 
          spp_correlations = round(stats::cor(obs), 4))
-}
-
-
-#' @rdname ts_summary
-#'
-#' @export
-#'
-ts_summary_drake <- function(x)
-{
-    time_var <- x$metadata$timename
-    if (!is.null(time_var)) {
-        times <- dplyr::pull(x$covariates, time_var)
-    } else {
-        times <- NULL
-    }
-    
-    effort_var <- x$metadata$effort
-    if (!is.null(effort_var)) {
-        effort <- dplyr::pull(x$covariates, effort_var)
-    } else{
-        effort <- NULL
-    }
-    ts_summary(x$abundance, times = times, effort = effort)
 }
 
 #' @title Compute summaries and autocorrelation for each variable
@@ -189,6 +176,7 @@ richness <- function(x)
 #'   necessary.
 #'
 #' @inheritParams ts_summary
+#' @param obs the time series of \code{numeric} observations
 #' @param ... further arguments to be passed to acf
 #'
 #' @return Autocorrelation of the observation vector.
@@ -211,6 +199,7 @@ temp_autocor <- function(obs, times, interp_method = forecast::na.interp, ...)
 #'   method.
 #' 
 #' @inheritParams ts_summary
+#' @param obs the time series of \code{numeric} observations
 #' @param ... further arguments to be passed to the interpolation method
 #'
 #' @return Interpolated observation vector.

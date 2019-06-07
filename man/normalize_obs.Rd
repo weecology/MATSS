@@ -14,8 +14,7 @@ normalize_times(obs, times = NULL)
 normalize_effort(obs, effort = NULL)
 }
 \arguments{
-\item{obs}{a vector, matrix, or data.frame of \code{numeric} observations
-(within columns) across times (within rows).}
+\item{obs}{the time series of \code{numeric} observations}
 
 \item{effort}{\code{numeric} vector of effort associated with the
 observations.}

@@ -7,8 +7,7 @@
 interpolate_obs(obs, times, interp_method = forecast::na.interp, ...)
 }
 \arguments{
-\item{obs}{a vector, matrix, or data.frame of \code{numeric} observations
-(within columns) across times (within rows).}
+\item{obs}{the time series of \code{numeric} observations}
 
 \item{times}{\code{numeric} or \code{Date} vector of timestamps of the
 observations.}
