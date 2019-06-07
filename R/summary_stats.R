@@ -50,8 +50,10 @@
 #'
 ts_summary <- function(obs, times = NULL, effort = NULL, 
                        obs_per_effort = !is.null(effort), 
-                       interp_method = forecast::na.interp)
+                       interp_method = forecast::na.interp, 
+                       ...)
 {
+    # normalize obs, times, effort
     times <- normalize_times(obs, times)
     effort <- normalize_effort(obs, effort)
     obs <- normalize_obs(obs, effort, obs_per_effort)
@@ -59,31 +61,25 @@ ts_summary <- function(obs, times = NULL, effort = NULL,
     # compute community properties
     num_spp <- NCOL(obs)
     num_obs <- NROW(obs)
-    
-    # compute richness stats
-    spp_richness <- apply(obs, 1, richness)
-    spp_richness_summary <- uni_ts_summary(spp_richness, times, 
-                                           interp_method = interp_method)
-    
-    tot_obs <- apply(obs, 1, sum, na.rm = TRUE)
-    tot_obs_summary <- uni_ts_summary(tot_obs, times, 
-                                      interp_method = interp_method)
-    
-    sp_level_summaries <- vector("list", length = nspp)
-    for (i in 1:nspp) {
-        sp_level_summaries[[i]] <- uni_ts_summary(obs[ ,i], times, 
-                                                  interp_method = interp_method)
+    if (is.null(dim(obs))) # NOT a data.frame or matrix
+    {
+        obs <- data.frame(obs)
     }
-    names(sp_level_summaries) <- colnames(obs)
+    spp_richness <- apply(obs, 1, richness)
+    tot_obs <- apply(obs, 1, sum, na.rm = TRUE)
     
-    list(num_spp = nspp,
-         num_obs = nobs,
-         spp_richness = spp_richness_summary,
-         total_obs = tot_obs_summary,
-         among_spp_correlations = round(stats::cor(obs), 3),
-         species_obs = sp_level_summaries,
-         times = times_summary,
-         effort = effort_summary)
+    # assemble data.frame of variables
+    df <- data.frame(obs, 
+                     times = times, 
+                     effort = effort, 
+                     richness = spp_richness, 
+                     tot_obs = tot_obs)
+    
+    # compute summaries and assemble output
+    list(num_spp = num_spp,
+         num_obs = num_obs,
+         stats = summarize_df(df, times, interp_method, ...), 
+         spp_correlations = round(stats::cor(obs), 4))
 }
 
 
@@ -115,23 +111,42 @@ ts_summary_drake <- function(x)
 #'
 uni_ts_summary <- function(obs, times = NULL, effort = NULL, 
                            obs_per_effort = !is.null(effort), 
-                           interp_method = forecast::na.interp)
+                           interp_method = forecast::na.interp, 
+                           ...)
 {
     times <- normalize_times(obs, times)
     effort <- normalize_effort(obs, effort)
     obs <- normalize_obs(obs, effort, obs_per_effort)
     
     # generate summary and autocorrelation
-    out <- data.frame(obs, times, effort) %>%
-        purrr::map_dfr(summarize_vec, .id = "variable") %>%
-        dplyr::mutate(autocorrelation = purrr::map(df, ~temp_autocor(., times, interp_method))) %>%
-        tibble::as_tibble()
-    
-    return(out)
+    data.frame(obs, times, effort) %>%
+        summarize_df(times, interp_method, ...)
 }
 
-#' @title Summarize a univariate vector
+#' @title Compute summaries and autocorrelation for each variable
+#' @aliases summarise_df
+#' 
+#' @param df the data.frame of variables to summarize
+#' @param times the time indices associated with the rows of `df`
+#' @inheritParams temp_autocor
 #'
+#' @export
+summarize_df <- function(df, times = seq_len(NROW(df)), 
+                         interp_method = forecast::na.interp, ...)
+{
+    autocorr <- function(v) { temp_autocor(v, times, interp_method, ...) }
+    df %>%
+        purrr::map_dfr(summarize_vec, .id = "variable") %>%
+        dplyr::mutate(autocorrelation = purrr::map(df, autocorr)) %>%
+        tibble::as_tibble()
+}
+#' @rdname summarize_df
+#' @export
+summarise_df <- summarize_df
+
+#' @title Summarize a univariate vector
+#' @aliases summarise_vec
+#' 
 #' @param x the vector to be summarized
 #'
 #' @param round_out \code{logical} indicator if rounding should happen.

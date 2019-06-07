@@ -1,23 +1,28 @@
 context("Time Series Summary Statistics")
 
-# test_that("ts_summary works for a dataset", {
-#     dat <- get_jornada_data()
-#     expect_error(ts_summary(dat), NA)
-#     
-#     expect_error(ts_summary(dat$abundance), NA)
-# 
-#     expect_error(ts_summary(dat$abundance, 
-#                             times = dat$covariates$time, 
-#                             effort = NULL), NA)
-#     
-# })
+test_that("ts_summary works for a dataset", {
+    skip("")
+    dat <- get_jornada_data()
+    uni_ts_summary(dat$abundance,
+                   times = dat$covariates$time,
+                   effort = NULL)
+    
+    expect_error(ts_summary(dat), NA)
+
+    expect_error(ts_summary(dat$abundance), NA)
+
+    expect_error(output <- ts_summary(dat$abundance,
+                                      times = dat$covariates$time,
+                                      effort = NULL), NA)
+    
+})
 
 test_that("uni_ts_summary error checking works", {
     ts <- sunspot.year
     ts[c(1, 5, 10:14)] <- NA
-    expect_error(uni_ts_summary(ts, obs_per_effort = 2), "`obs_per_effort` must be logical")
-    expect_message(uni_ts_summary(ts, obs_per_effort = TRUE), "`effort` is `NULL`, assuming all effort = 1")
-    expect_error(uni_ts_summary(ts, effort = 1:5), "`obs` and `effort` are not of same length")
+    expect_error(ts_summary(ts, obs_per_effort = 2), "`obs_per_effort` must be logical")
+    expect_message(ts_summary(ts, obs_per_effort = TRUE), "`effort` is `NULL`, assuming all effort = 1")
+    expect_error(ts_summary(ts, effort = 1:5), "`obs` and `effort` are not of same length")
 })
 
 test_that("uni_ts_summary works with a data.frame, named column, etc.", {
@@ -38,7 +43,7 @@ test_that("uni_ts_summary works with just a time series", {
     expect_match(m, "`effort` is `NULL`, assuming all effort = 1", all = FALSE)
     expect_equal(dim(output), c(3, 8))
     expect_equal(output$variable, c("obs", "times", "effort"))
-    expect_known_hash(output, "b9d8135901")
+    expect_known_hash(output, "2541f53b94")
 })
 
 test_that("uni_ts_summary works with full obs, times, effort", {
@@ -50,7 +55,15 @@ test_that("uni_ts_summary works with full obs, times, effort", {
     expect_error(output <- uni_ts_summary(obs = ts, times = times, effort = effort), NA)
     expect_equal(dim(output), c(3, 8))
     expect_equal(output$variable, c("obs", "times", "effort"))
-    expect_known_hash(output, "b7739ed1a8")
+    expect_known_hash(output, "d162dac4b2")
+})
+
+test_that("summarize_df works", {
+    expect_known_hash(summarize_df(iris[, 1:4]), "727949b43d")
+    expect_error(output <- summarize_df(iris[, 1:4], lag.max = 7), NA)
+    expect_equal(vapply(output$autocorrelation, length, 1, USE.NAMES = FALSE), 
+                 rep.int(8, 4))
+    expect_known_hash(output, "ee2776fcb2")
 })
 
 ts <- sunspot.year
