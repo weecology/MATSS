@@ -9,8 +9,8 @@ Import cowley snake data from data files}
 get_cowley_snakes()
 }
 \value{
-list of two dataframes (one with abundance data, the other with 
-  covariate data) and one list of metadata.
+list of two dataframes (one with abundance data, the other with
+covariate data) and one list of metadata.
 }
 \description{
 Read in the cowley snake community data from a txt file

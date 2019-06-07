@@ -15,8 +15,8 @@ process_bbs_route_region_data(bbs_data_table, species_table)
 the processed BBS data
 }
 \description{
-Correct and otherwise filter BBS species data (see 
-  \code{\link{combine_subspecies}} and \code{\link{filter_bbs_species}} for 
-  more info). Generate the abundance, covariate, and metadata tables and 
-  return the combined object.
+Correct and otherwise filter BBS species data (see
+\code{\link{combine_subspecies}} and \code{\link{filter_bbs_species}} for
+more info). Generate the abundance, covariate, and metadata tables and
+return the combined object.
 }

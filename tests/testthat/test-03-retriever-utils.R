@@ -1,5 +1,13 @@
 context("Check Retriever utility functions")
 
+# check if `retriever` is installed
+skip_if_no_retriever <- function()
+{
+    have_retriever <- reticulate::py_module_available("retriever")
+    if (!have_retriever)
+        skip("retriever not available for testing")
+}
+
 test_path <- tempdir()
 
 test_that("data_path functions work", {

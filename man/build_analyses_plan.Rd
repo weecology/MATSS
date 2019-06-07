@@ -7,7 +7,7 @@
 build_analyses_plan(methods, datasets, ...)
 }
 \arguments{
-\item{methods}{a drake plan listing the methods to be applied (it is 
+\item{methods}{a drake plan listing the methods to be applied (it is
 expected that each method is a function that takes in a dataset object)}
 
 \item{datasets}{a drake plan listing the datasets to be analyzed}
@@ -15,13 +15,13 @@ expected that each method is a function that takes in a dataset object)}
 \item{...}{arguments to be passed to \code{drake::\link[drake]{drake_plan}}}
 }
 \value{
-a drake plan (i.e. a tibble) specifying the targets and commands 
-  for all the analyses and the collected results (grouping the outputs from 
-  each method into a single list)
+a drake plan (i.e. a tibble) specifying the targets and commands
+for all the analyses and the collected results (grouping the outputs from
+each method into a single list)
 }
 \description{
-Given M methods to be applied to N datasets, make a drake plan 
-  that contains an `analysis` targets corresponding to each M x N 
-  combination, as well as M `results` targets corresponding to a list of 
-  the `analysis` outputs for each of the M methods.
+Given M methods to be applied to N datasets, make a drake plan
+that contains an \code{analysis} targets corresponding to each M x N
+combination, as well as M \code{results} targets corresponding to a list of
+the \code{analysis} outputs for each of the M methods.
 }

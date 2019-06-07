@@ -13,8 +13,8 @@ get_sdl_data(plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17),
 \item{path}{where to load the raw data files from}
 }
 \value{
-list of two dataframes (one with abundance data, the other with covariate data) 
-  and one list of metadata.
+list of two dataframes (one with abundance data, the other with covariate data)
+and one list of metadata.
 }
 \description{
 Original data found here http://www.eebweb.arizona.edu/faculty/venable/LTREB/LTREB%20data.htm

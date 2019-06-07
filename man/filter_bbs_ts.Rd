@@ -19,6 +19,6 @@ filter_bbs_ts(bbs_data, start_yr, end_yr, min_num_yrs)
 dataframe with original data and associated environmental data
 }
 \description{
-Modified from https://github.com/weecology/bbs-forecasting 
+Modified from https://github.com/weecology/bbs-forecasting
 and https://github.com/weecology/MATSS-community-change
 }

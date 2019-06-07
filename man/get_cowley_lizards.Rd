@@ -9,8 +9,8 @@ Import cowley lizard data from data files}
 get_cowley_lizards()
 }
 \value{
-list of two dataframes (one with abundance data, the other with 
-  covariate data) and one list of metadata.
+list of two dataframes (one with abundance data, the other with
+covariate data) and one list of metadata.
 }
 \description{
 Read in the cowley lizard community data from a txt file
