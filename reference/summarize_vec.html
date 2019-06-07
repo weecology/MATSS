@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create Sonoran desert lab time-series data — get_sdl_data • MATSS</title>
+<title>Summarize a univariate vector — summarize_vec • MATSS</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Create Sonoran desert lab time-series data — get_sdl_data" />
+<meta property="og:title" content="Summarize a univariate vector — summarize_vec" />
 
-<meta property="og:description" content="Original data found here http://www.eebweb.arizona.edu/faculty/venable/LTREB/LTREB" />
+<meta property="og:description" content="Summarize a univariate vector" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,43 +117,48 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create Sonoran desert lab time-series data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_retriever_data.R'><code>R/get_retriever_data.R</code></a></small>
-    <div class="hidden name"><code>get_sdl_data.Rd</code></div>
+    <h1>Summarize a univariate vector</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/summary_stats.R'><code>R/summary_stats.R</code></a></small>
+    <div class="hidden name"><code>summarize_vec.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Original data found here http://www.eebweb.arizona.edu/faculty/venable/LTREB/LTREB<!-- %20data.htm --></p>
+    <p>Summarize a univariate vector</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_sdl_data</span>(<span class='kw'>plots</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>7</span>, <span class='fl'>8</span>, <span class='fl'>9</span>, <span class='fl'>10</span>, <span class='fl'>11</span>, <span class='fl'>12</span>, <span class='fl'>14</span>, <span class='fl'>15</span>, <span class='fl'>16</span>, <span class='fl'>17</span>),
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>())</pre>
+    <pre class="usage"><span class='fu'>summarize_vec</span>(<span class='no'>x</span>, <span class='kw'>round_out</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>summarise_vec</span>(<span class='no'>x</span>, <span class='kw'>round_out</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>plots</th>
-      <td><p>vector of plots to keep</p></td>
+      <th>x</th>
+      <td><p>the vector to be summarized</p></td>
     </tr>
     <tr>
-      <th>path</th>
-      <td><p>where to load the raw data files from</p></td>
+      <th>round_out</th>
+      <td><p><code>logical</code> indicator if rounding should happen.</p></td>
+    </tr>
+    <tr>
+      <th>digits</th>
+      <td><p><code>NULL</code> (default) or <code>integer</code> value of the number
+of digits for rounding. If <code>NULL</code>, <code>digits</code> is calculated to
+be two order of magnitude lower than the smallest value in the vector
+being summarized.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list of two dataframes (one with abundance data, the other with covariate data)
-and one list of metadata.</p>
+    <p><code>vector</code> with entries corresponding to the mininum, maximum,
+median, mean, standard deviation, and count of the observations, times,
+or effort, rounded based on <code>round_out</code> and <code>digits</code>.</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-  <span class='fu'>get_sdl_data</span>(<span class='kw'>sdl_data_tables</span><span class='kw'>=</span><span class='fu'>retriever_data</span>()$<span class='st'>'veg-plots-sdl'</span>)
-<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -161,9 +166,7 @@ and one list of metadata.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

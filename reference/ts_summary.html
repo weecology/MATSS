@@ -32,17 +32,20 @@
 
 <meta property="og:title" content="Summarize a time series — ts_summary" />
 
-<meta property="og:description" content="ts_summary: summarize a potentially multivariate set of
-  time series observations.  
-  uni_ts_summary: summarize a univariate set of time series 
-  observations.
-  Summaries occur based on times, with effort-based correction (if
-  requested via obs_per_effort) and interpretation of missing 
-  values for autocorrelation calcuations (if needed) via 
-  interp_method.  
-  ts_summary_drake: operates ts_summary but on a list 
-  data structure used in the MATSS pipeline with abundance, 
-  covariates and metadata elements." />
+<meta property="og:description" content="ts_summary creates a summary of a community time series
+dataset. The summary contains community-level statistics, including total
+number of observations, species richness, cross-correlations; as well as
+summary statistics on the individual populations that make up the
+community.
+ts_summary_drake is the same as ts_summary, but operates on
+the default data structure used in MATSS, as described in
+Some aspects of the summaries depend on times, which should be a
+vector of the time index associated with the time series; and
+effort, which should be a vector of the sampling effort.
+obs_per_effort is an optional argument for correcting abundance
+based on effort; by default, it checks if effort is NULL.
+Interpolation of missing values for autocorrelation calcuations (if
+needed) is done via interp_method" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -134,80 +137,66 @@
 
     <div class="ref-description">
     
-    <p><code>ts_summary</code>: summarize a potentially multivariate set of
-  time series observations. <br /> <br />
-  <code>uni_ts_summary</code>: summarize a univariate set of time series 
-  observations.
-  Summaries occur based on <code>times</code>, with effort-based correction (if
-  requested via <code>obs_per_effort</code>) and interpretation of missing 
-  values for autocorrelation calcuations (if needed) via 
-  <code>interp_method</code>. <br /> <br />
-  <code>ts_summary_drake</code>: operates <code>ts_summary</code> but on a <code>list</code> 
-  data structure used in the MATSS pipeline with <code>abundance</code>, 
-  <code>covariates</code> and <code>metadata</code> elements.</p>
+    <p><code>ts_summary</code> creates a summary of a community time series
+dataset. The summary contains community-level statistics, including total
+number of observations, species richness, cross-correlations; as well as
+summary statistics on the individual populations that make up the
+community.</p>
+<p><code>ts_summary_drake</code> is the same as <code>ts_summary</code>, but operates on
+the default data structure used in MATSS, as described in</p>
+<p>Some aspects of the summaries depend on <code>times</code>, which should be a
+vector of the time index associated with the time series; and
+<code>effort</code>, which should be a vector of the sampling effort.
+<code>obs_per_effort</code> is an optional argument for correcting abundance
+based on effort; by default, it checks if <code>effort</code> is NULL.
+Interpolation of missing values for autocorrelation calcuations (if
+needed) is done via <code>interp_method</code></p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>ts_summary</span>(<span class='no'>obs</span>, <span class='kw'>times</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>effort</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>obs_per_effort</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>interp_method</span> <span class='kw'>=</span> <span class='kw pkg'>forecast</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/forecast/topics/na.interp'>na.interp</a></span>)
-
-<span class='fu'>uni_ts_summary</span>(<span class='no'>obs</span>, <span class='kw'>times</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>effort</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>ts_summary</span>(<span class='no'>data</span>, <span class='kw'>times</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>effort</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>obs_per_effort</span> <span class='kw'>=</span> !<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/NULL'>is.null</a></span>(<span class='no'>effort</span>),
-  <span class='kw'>interp_method</span> <span class='kw'>=</span> <span class='kw pkg'>forecast</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/forecast/topics/na.interp'>na.interp</a></span>)
-
-<span class='fu'>ts_summary_drake</span>(<span class='no'>x</span>)</pre>
+  <span class='kw'>interp_method</span> <span class='kw'>=</span> <span class='kw pkg'>forecast</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/forecast/topics/na.interp'>na.interp</a></span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>obs</th>
-      <td><p><code>ts_summary</code>: a 1- or 2-dimensional set of <code>numeric</code>
-observations (columns if 2-dimensional) across times (rows if 
-2-dimensional) as indexed by <code>times</code>. <br /> <br />
-<code>uni_ts_summary</code>: a 1-dimensional <code>numeric</code> set of observations
-across times as indexed by <code>times</code>.</p></td>
+      <th>data</th>
+      <td><p>a vector, matrix, or data.frame of <code>numeric</code> observations
+(within columns) across times (within rows).</p></td>
     </tr>
     <tr>
       <th>times</th>
-      <td><p><code>numeric</code> or <code>Date</code> vector of timestamps of the 
+      <td><p><code>numeric</code> or <code>Date</code> vector of timestamps of the
 observations.</p></td>
     </tr>
     <tr>
       <th>effort</th>
-      <td><p><code>numeric</code> vector of effort associated with the 
+      <td><p><code>numeric</code> vector of effort associated with the
 observations.</p></td>
     </tr>
     <tr>
       <th>obs_per_effort</th>
-      <td><p><code>logical</code> indicator if <code>obs</code> should be 
+      <td><p><code>logical</code> indicator if <code>obs</code> should be
 corrected for <code>effort</code> before summaries are done.</p></td>
     </tr>
     <tr>
       <th>interp_method</th>
-      <td><p><code>character</code> a function used to interpolate 
+      <td><p><code>character</code> a function used to interpolate
 <code>obs</code>. Defaults to <code><a href='https://www.rdocumentation.org/packages/forecast/topics/na.interp'>na.interp</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>x</th>
-      <td><p>Three-element <code>list</code> (<code>abundance</code>, <code>covariates</code>,
-<code>metadata</code>) for data objects in the MATSS pipeline.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>ts_summary</code>: <code>list</code> of number of species, number of
-  observations, species richness summary, total observation summary, 
-  among-species correlation, species-by-species summary, times summary, 
-  and effort summary.
-  <br /> <br />
-  <code>uni_ts_summary</code>: <code>list</code> of observation summary, times summary,
-  effort summary, and autocorrelation.
-  <br /> <br />
-  <code>ts_summary_drake</code>: <code>list</code> as with <code>ts_summary</code> but based
-  on the <code>list</code> data structure used in the MATSS pipeline with 
-  <code>abundance</code>, <code>covariates</code> and <code>metadata</code> elements.</p>
+observations, summaries of the variables, the times, the effort, the
+species richness, total observation, and the among-species correlation.
+<br /> <br />
+<code>ts_summary_drake</code>: <code>list</code> as with <code>ts_summary</code> but based
+on the <code>list</code> data structure used in the MATSS pipeline with
+<code>abundance</code>, <code>covariates</code> and <code>metadata</code> elements.</p>
     
 
   </div>

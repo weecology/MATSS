@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Summarize univariate observations, times, or efforts — summarize_obs • MATSS</title>
+<title>Compute summaries and autocorrelation for each variable — summarize_df • MATSS</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Summarize univariate observations, times, or efforts — summarize_obs" />
+<meta property="og:title" content="Compute summaries and autocorrelation for each variable — summarize_df" />
 
-<meta property="og:description" content="Summarize univariate observations, times, or efforts" />
+<meta property="og:description" content="Compute summaries and autocorrelation for each variable" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,64 +117,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Summarize univariate observations, times, or efforts</h1>
+    <h1>Compute summaries and autocorrelation for each variable</h1>
     <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/summary_stats.R'><code>R/summary_stats.R</code></a></small>
-    <div class="hidden name"><code>summarize_obs.Rd</code></div>
+    <div class="hidden name"><code>summarize_df.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Summarize univariate observations, times, or efforts</p>
+    <p>Compute summaries and autocorrelation for each variable</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>summarize_obs</span>(<span class='no'>obs</span>, <span class='kw'>round_out</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>summarize_df</span>(<span class='no'>df</span>, <span class='kw'>times</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq_len</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/nrow'>NROW</a></span>(<span class='no'>df</span>)),
+  <span class='kw'>interp_method</span> <span class='kw'>=</span> <span class='kw pkg'>forecast</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/forecast/topics/na.interp'>na.interp</a></span>, <span class='no'>...</span>)
 
-<span class='fu'>summarise_obs</span>(<span class='no'>obs</span>, <span class='kw'>round_out</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
-
-<span class='fu'>summarize_times</span>(<span class='no'>obs</span>, <span class='no'>times</span>, <span class='kw'>round_out</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
-
-<span class='fu'>summarise_times</span>(<span class='no'>obs</span>, <span class='no'>times</span>, <span class='kw'>round_out</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
-
-<span class='fu'>summarize_effort</span>(<span class='no'>obs</span>, <span class='no'>effort</span>, <span class='kw'>round_out</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
-
-<span class='fu'>summarise_effort</span>(<span class='no'>obs</span>, <span class='no'>effort</span>, <span class='kw'>round_out</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'>summarise_df</span>(<span class='no'>df</span>, <span class='kw'>times</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq_len</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/nrow'>NROW</a></span>(<span class='no'>df</span>)),
+  <span class='kw'>interp_method</span> <span class='kw'>=</span> <span class='kw pkg'>forecast</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/forecast/topics/na.interp'>na.interp</a></span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>obs</th>
-      <td><p><code>numeric</code> vector of observations.</p></td>
-    </tr>
-    <tr>
-      <th>round_out</th>
-      <td><p><code>logical</code> indicator if rounding should happen.</p></td>
-    </tr>
-    <tr>
-      <th>digits</th>
-      <td><p><code>NULL</code> (default) or <code>integer</code> value of the number
-of digits for rounding. If <code>NULL</code>, <code>digits</code> is calculated to
-be two order of magnitude lower than the smallest value in the vector
-being summarized.</p></td>
+      <th>df</th>
+      <td><p>the data.frame of variables to summarize</p></td>
     </tr>
     <tr>
       <th>times</th>
-      <td><p><code>numeric</code> or <code>Date</code> vector of timestamps of the 
-observations.</p></td>
+      <td><p>the time indices associated with the rows of <code>df</code></p></td>
     </tr>
     <tr>
-      <th>effort</th>
-      <td><p><code>numeric</code> vector of effort associated with the 
-observations.</p></td>
+      <th>interp_method</th>
+      <td><p><code>character</code> a function used to interpolate
+<code>obs</code>. Defaults to <code><a href='https://www.rdocumentation.org/packages/forecast/topics/na.interp'>na.interp</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>further arguments to be passed to acf</p></td>
     </tr>
     </table>
-    
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p><code>list</code> with entries corresponding to the mininum, maximum,
-  median, mean, standard deviation, and count of the observations, times,
-  or effort, rounded based on <code>round_out</code> and <code>digits</code>.</p>
     
 
   </div>
@@ -182,9 +162,7 @@ observations.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-          </ul>
+                </ul>
 
   </div>
 </div>

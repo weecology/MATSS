@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create Sonoran desert lab time-series data — get_sdl_data • MATSS</title>
+<title>Normalize observations, effort, or times — normalize_obs • MATSS</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,14 @@
 
 
 
-<meta property="og:title" content="Create Sonoran desert lab time-series data — get_sdl_data" />
+<meta property="og:title" content="Normalize observations, effort, or times — normalize_obs" />
 
-<meta property="og:description" content="Original data found here http://www.eebweb.arizona.edu/faculty/venable/LTREB/LTREB" />
+<meta property="og:description" content="normalize_obs will normalize the observations to the
+provided effort vector, if obs_per_effort is TRUE.
+normalize_effort will generate a default effort vector if it is
+not provided, (effort = 1 over the provided obs time series)
+normalize_times will generate a default times vector if it is
+not provided, (times = seq(length(obs)))" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,53 +122,59 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create Sonoran desert lab time-series data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_retriever_data.R'><code>R/get_retriever_data.R</code></a></small>
-    <div class="hidden name"><code>get_sdl_data.Rd</code></div>
+    <h1>Normalize observations, effort, or times</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/utils-summary-stats-conversions.R'><code>R/utils-summary-stats-conversions.R</code></a></small>
+    <div class="hidden name"><code>normalize_obs.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Original data found here http://www.eebweb.arizona.edu/faculty/venable/LTREB/LTREB<!-- %20data.htm --></p>
+    <p><code>normalize_obs</code> will normalize the observations to the
+provided effort vector, if <code>obs_per_effort</code> is TRUE.</p>
+<p><code>normalize_effort</code> will generate a default effort vector if it is
+not provided, (effort = 1 over the provided <code>obs</code> time series)</p>
+<p><code>normalize_times</code> will generate a default times vector if it is
+not provided, (times = <code><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq(length(obs))</a></code>)</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_sdl_data</span>(<span class='kw'>plots</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>7</span>, <span class='fl'>8</span>, <span class='fl'>9</span>, <span class='fl'>10</span>, <span class='fl'>11</span>, <span class='fl'>12</span>, <span class='fl'>14</span>, <span class='fl'>15</span>, <span class='fl'>16</span>, <span class='fl'>17</span>),
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>())</pre>
+    <pre class="usage"><span class='fu'>normalize_obs</span>(<span class='no'>obs</span>, <span class='no'>effort</span>, <span class='kw'>obs_per_effort</span> <span class='kw'>=</span> !<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/NULL'>is.null</a></span>(<span class='no'>effort</span>))
+
+<span class='fu'>normalize_times</span>(<span class='no'>obs</span>, <span class='kw'>times</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='fu'>normalize_effort</span>(<span class='no'>obs</span>, <span class='kw'>effort</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>plots</th>
-      <td><p>vector of plots to keep</p></td>
+      <th>obs</th>
+      <td><p>the time series of <code>numeric</code> observations</p></td>
     </tr>
     <tr>
-      <th>path</th>
-      <td><p>where to load the raw data files from</p></td>
+      <th>effort</th>
+      <td><p><code>numeric</code> vector of effort associated with the
+observations.</p></td>
+    </tr>
+    <tr>
+      <th>obs_per_effort</th>
+      <td><p><code>logical</code> indicator if <code>obs</code> should be
+corrected for <code>effort</code> before summaries are done.</p></td>
+    </tr>
+    <tr>
+      <th>times</th>
+      <td><p><code>numeric</code> or <code>Date</code> vector of timestamps of the
+observations.</p></td>
     </tr>
     </table>
     
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list of two dataframes (one with abundance data, the other with covariate data)
-and one list of metadata.</p>
-    
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'># NOT RUN {</span>
-  <span class='fu'>get_sdl_data</span>(<span class='kw'>sdl_data_tables</span><span class='kw'>=</span><span class='fu'>retriever_data</span>()$<span class='st'>'veg-plots-sdl'</span>)
-<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>

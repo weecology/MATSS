@@ -32,8 +32,8 @@
 
 <meta property="og:title" content="Interpolate observations — interpolate_obs" />
 
-<meta property="og:description" content="Interpolate observations based on their timestamps and a 
-  method." />
+<meta property="og:description" content="Interpolate observations based on their timestamps and a
+method." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -125,8 +125,8 @@
 
     <div class="ref-description">
     
-    <p>Interpolate observations based on their timestamps and a 
-  method.</p>
+    <p>Interpolate observations based on their timestamps and a
+method.</p>
     
     </div>
 
@@ -137,20 +137,16 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>obs</th>
-      <td><p><code>ts_summary</code>: a 1- or 2-dimensional set of <code>numeric</code>
-observations (columns if 2-dimensional) across times (rows if 
-2-dimensional) as indexed by <code>times</code>. <br /> <br />
-<code>uni_ts_summary</code>: a 1-dimensional <code>numeric</code> set of observations
-across times as indexed by <code>times</code>.</p></td>
+      <td><p>the time series of <code>numeric</code> observations</p></td>
     </tr>
     <tr>
       <th>times</th>
-      <td><p><code>numeric</code> or <code>Date</code> vector of timestamps of the 
+      <td><p><code>numeric</code> or <code>Date</code> vector of timestamps of the
 observations.</p></td>
     </tr>
     <tr>
       <th>interp_method</th>
-      <td><p><code>character</code> a function used to interpolate 
+      <td><p><code>character</code> a function used to interpolate
 <code>obs</code>. Defaults to <code><a href='https://www.rdocumentation.org/packages/forecast/topics/na.interp'>na.interp</a></code>.</p></td>
     </tr>
     <tr>

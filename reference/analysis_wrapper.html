@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Create a function that replicates an analysis for all time series in a
-  dataset — analysis_wrapper • MATSS</title>
+dataset — analysis_wrapper • MATSS</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -32,14 +32,14 @@
 
 
 <meta property="og:title" content="Create a function that replicates an analysis for all time series in a
-  dataset — analysis_wrapper" />
+dataset — analysis_wrapper" />
 
-<meta property="og:description" content="This wrapper takes as input, some analysis function, `fun`, 
-  along with additional optional arguments, and returns a function that will 
-  run that analysis function on all the time series in a dataset. The return 
-  object from that function combined all the relevant output, and also 
-  information on the call, for post-processing that is suitable by itself, or 
-  as part of a Drake plan." />
+<meta property="og:description" content="This wrapper takes as input, some analysis function, fun,
+along with additional optional arguments, and returns a function that will
+run that analysis function on all the time series in a dataset. The return
+object from that function combined all the relevant output, and also
+information on the call, for post-processing that is suitable by itself, or
+as part of a Drake plan." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -125,19 +125,19 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create a function that replicates an analysis for all time series in a
-  dataset</h1>
+dataset</h1>
     <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/analysis_wrapper.R'><code>R/analysis_wrapper.R</code></a></small>
     <div class="hidden name"><code>analysis_wrapper.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This wrapper takes as input, some analysis function, `fun`, 
-  along with additional optional arguments, and returns a function that will 
-  run that analysis function on all the time series in a dataset. The return 
-  object from that function combined all the relevant output, and also 
-  information on the call, for post-processing that is suitable by itself, or 
-  as part of a Drake plan.</p>
+    <p>This wrapper takes as input, some analysis function, <code>fun</code>,
+along with additional optional arguments, and returns a function that will
+run that analysis function on all the time series in a dataset. The return
+object from that function combined all the relevant output, and also
+information on the call, for post-processing that is suitable by itself, or
+as part of a Drake plan.</p>
     
     </div>
 
@@ -158,21 +158,19 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a function that takes in a single argument, `dataset`, and returns a 
-  tibble with these columns:</p><table class='table'>
-<tr><td></td><td></td></tr>
-<tr><td><code>results</code></td><td></td></tr>
-<tr><td>a combined results data.frame</td><td></td></tr>
+    <p>a function that takes in a single argument, <code>dataset</code>, and returns a
+tibble with these columns:</p><table class='table'>
+<tr><td></td><td><code>results</code></td></tr>
+<tr><td></td><td>a combined results data.frame</td></tr>
 <tr><td></td><td><code>metadata</code></td></tr>
 <tr><td></td><td>the metadata component of the original dataset</td></tr>
-<tr><td></td><td></td></tr>
-<tr><td><code>dataset</code></td><td></td></tr>
-<tr><td>the name of the dataset</td><td></td></tr>
+<tr><td></td><td><code>dataset</code></td></tr>
+<tr><td></td><td>the name of the dataset</td></tr>
 <tr><td></td><td><code>method</code></td></tr>
 <tr><td></td><td>the name of the analysis function</td></tr>
-<tr><td></td><td></td></tr>
-<tr><td><code>args</code></td><td></td></tr>
-<tr><td>a list of optional args to `method`</td><td></td></tr>
+<tr><td></td><td><code>args</code></td></tr>
+<tr><td></td><td>a list of optional args to</td></tr>
+<tr><td><code>method</code></td><td></td></tr>
 <tr><td></td><td></td></tr>
 </table>
 
