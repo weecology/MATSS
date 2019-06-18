@@ -37,8 +37,6 @@ dataset. The summary contains community-level statistics, including total
 number of observations, species richness, cross-correlations; as well as
 summary statistics on the individual populations that make up the
 community.
-ts_summary_drake is the same as ts_summary, but operates on
-the default data structure used in MATSS, as described in
 Some aspects of the summaries depend on times, which should be a
 vector of the time index associated with the time series; and
 effort, which should be a vector of the sampling effort.
@@ -142,8 +140,6 @@ dataset. The summary contains community-level statistics, including total
 number of observations, species richness, cross-correlations; as well as
 summary statistics on the individual populations that make up the
 community.</p>
-<p><code>ts_summary_drake</code> is the same as <code>ts_summary</code>, but operates on
-the default data structure used in MATSS, as described in</p>
 <p>Some aspects of the summaries depend on <code>times</code>, which should be a
 vector of the time index associated with the time series; and
 <code>effort</code>, which should be a vector of the sampling effort.
@@ -156,7 +152,8 @@ needed) is done via <code>interp_method</code></p>
 
     <pre class="usage"><span class='fu'>ts_summary</span>(<span class='no'>data</span>, <span class='kw'>times</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>effort</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>obs_per_effort</span> <span class='kw'>=</span> !<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/NULL'>is.null</a></span>(<span class='no'>effort</span>),
-  <span class='kw'>interp_method</span> <span class='kw'>=</span> <span class='kw pkg'>forecast</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/forecast/topics/na.interp'>na.interp</a></span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>interp_method</span> <span class='kw'>=</span> <span class='kw pkg'>forecast</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/forecast/topics/na.interp'>na.interp</a></span>, <span class='kw'>include_spp_correlations</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -187,6 +184,11 @@ corrected for <code>effort</code> before summaries are done.</p></td>
 <code>obs</code>. Defaults to <code><a href='https://www.rdocumentation.org/packages/forecast/topics/na.interp'>na.interp</a></code>.</p></td>
     </tr>
     <tr>
+      <th>include_spp_correlations</th>
+      <td><p>whether to include the calculations of
+between-species correlations</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>additional arguments to be passed to <code><a href='temp_autocor.html'>temp_autocor</a></code></p></td>
     </tr>
@@ -196,11 +198,7 @@ corrected for <code>effort</code> before summaries are done.</p></td>
 
     <p><code>ts_summary</code>: <code>list</code> of number of species, number of
 observations, summaries of the variables, the times, the effort, the
-species richness, total observation, and the among-species correlation.
-<br /> <br />
-<code>ts_summary_drake</code>: <code>list</code> as with <code>ts_summary</code> but based
-on the <code>list</code> data structure used in the MATSS pipeline with
-<code>abundance</code>, <code>covariates</code> and <code>metadata</code> elements.</p>
+species richness, total observation, and the among-species correlation.</p>
     
 
   </div>
