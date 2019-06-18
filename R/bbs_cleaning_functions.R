@@ -1,8 +1,9 @@
 #' @title Prepare BBS population time-series data
-#' @description Modified from https://github.com/weecology/bbs-forecasting
-#'   and https://github.com/weecology/MATSS-community-change 
-#'   Selects sites with data spanning start_yr through end_yr containing at 
-#'   least min_num_yrs of data samples during that period. Cleans data tables 
+#' @description Modified from \url{https://github.com/weecology/bbs-forecasting}
+#'   and \url{https://github.com/weecology/MATSS-community-change}. 
+#' 
+#' Selects sites with data spanning `start_yr` through `end_yr` containing at 
+#'   least `min_num_yrs` of data samples during that period. Cleans data tables 
 #'   and stores each individual route as a .Rds file. Saves a data table of the 
 #'   route + region pairs. 
 #' @param start_yr num first year of time-series
@@ -117,8 +118,8 @@ process_bbs_route_region_data <- function(bbs_data_table, species_table)
 
 #' @title Filter BBS to specified time series period and number of samples
 #'
-#' @description Modified from https://github.com/weecology/bbs-forecasting 
-#' and https://github.com/weecology/MATSS-community-change
+#' @description Modified from \url{https://github.com/weecology/bbs-forecasting} 
+#' and \url{https://github.com/weecology/MATSS-community-change}
 #'
 #' @param bbs_data dataframe that contains BBS site_id and year columns
 #' @param start_yr num first year of time-series
@@ -141,9 +142,9 @@ filter_bbs_ts <- function(bbs_data, start_yr, end_yr, min_num_yrs) {
 }
 
 
-#' Filter poorly sampled BBS species
+#' @title Filter poorly sampled BBS species
 #' 
-#' Modified from https://github.com/weecology/bbs-forecasting/blob/master/R/forecast-bbs-core.R
+#' @description Modified from \url{https://github.com/weecology/bbs-forecasting}
 #'
 #' Removes waterbirds, shorebirds, owls, kingfishers, knightjars,
 #' dippers. These species are poorly sampled due to their aquatic or
@@ -177,7 +178,7 @@ filter_bbs_species <- function(bbs_data_table, species_table)
 
 #' @title Combine subspecies into their common species
 #' 
-#' @description Modified from https://github.com/weecology/bbs-forecasting/blob/master/R/forecast-bbs-core.R 
+#' @description Modified from \url{https://github.com/weecology/bbs-forecasting}
 #' 
 #' @inheritParams process_bbs_route_region_data
 #' 

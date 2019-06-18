@@ -15,9 +15,8 @@ filter_bbs_species(bbs_data_table, species_table)
 dataframe, filtered version of initial dataframe
 }
 \description{
-Modified from https://github.com/weecology/bbs-forecasting/blob/master/R/forecast-bbs-core.R
-}
-\details{
+Modified from \url{https://github.com/weecology/bbs-forecasting}
+
 Removes waterbirds, shorebirds, owls, kingfishers, knightjars,
 dippers. These species are poorly sampled due to their aquatic or
 noctural nature. Also removes taxa that were either partially unidentified
