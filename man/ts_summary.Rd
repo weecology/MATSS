@@ -6,7 +6,8 @@
 \usage{
 ts_summary(data, times = NULL, effort = NULL,
   obs_per_effort = !is.null(effort),
-  interp_method = forecast::na.interp, ...)
+  interp_method = forecast::na.interp, include_spp_correlations = TRUE,
+  ...)
 }
 \arguments{
 \item{data}{a vector, matrix, or data.frame of \code{numeric} observations
@@ -24,16 +25,15 @@ corrected for \code{effort} before summaries are done.}
 \item{interp_method}{\code{character} a function used to interpolate
 \code{obs}. Defaults to \code{\link[forecast]{na.interp}}.}
 
+\item{include_spp_correlations}{whether to include the calculations of
+between-species correlations}
+
 \item{...}{additional arguments to be passed to \code{\link{temp_autocor}}}
 }
 \value{
 \code{ts_summary}: \code{list} of number of species, number of
 observations, summaries of the variables, the times, the effort, the
 species richness, total observation, and the among-species correlation.
-\cr \cr
-\code{ts_summary_drake}: \code{list} as with \code{ts_summary} but based
-on the \code{list} data structure used in the MATSS pipeline with
-\code{abundance}, \code{covariates} and \code{metadata} elements.
 }
 \description{
 \code{ts_summary} creates a summary of a community time series
@@ -41,9 +41,6 @@ dataset. The summary contains community-level statistics, including total
 number of observations, species richness, cross-correlations; as well as
 summary statistics on the individual populations that make up the
 community.
-
-\code{ts_summary_drake} is the same as \code{ts_summary}, but operates on
-the default data structure used in MATSS, as described in
 
 Some aspects of the summaries depend on \code{times}, which should be a
 vector of the time index associated with the time series; and

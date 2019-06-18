@@ -20,10 +20,10 @@ prepare_bbs_ts_data(start_yr = 1965, end_yr = 2017, min_num_yrs = 10,
 (to speed up development). As c(1:X)}
 }
 \description{
-Modified from https://github.com/weecology/bbs-forecasting
-and https://github.com/weecology/MATSS-community-change
-Selects sites with data spanning start_yr through end_yr containing at
-least min_num_yrs of data samples during that period. Cleans data tables
+Modified from \url{https://github.com/weecology/bbs-forecasting}
+and \url{https://github.com/weecology/MATSS-community-change}.
+
+Selects sites with data spanning \code{start_yr`` through}end_yr\code{containing at least `min_num_yrs} of data samples during that period. Cleans data tables
 and stores each individual route as a .Rds file. Saves a data table of the
 route + region pairs.
 }

@@ -12,5 +12,5 @@ combine_bbs_subspecies(bbs_data_table, species_table)
 \item{species_table}{table of species for BBS}
 }
 \description{
-Modified from https://github.com/weecology/bbs-forecasting/blob/master/R/forecast-bbs-core.R
+Modified from \url{https://github.com/weecology/bbs-forecasting}
 }
