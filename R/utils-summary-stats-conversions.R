@@ -22,7 +22,7 @@ normalize_obs <- function(obs, effort,
     }
     check_obs(obs)
     if (obs_per_effort) {
-        if (NROW(obs) != length(effort)) {
+        if (NROW(obs) != NROW(effort)) {
             stop("`obs` and `effort` are not of same length")
         }
         obs <- obs / effort
@@ -36,6 +36,9 @@ normalize_times <- function(obs, times = NULL)
 {
     if (is.null(times)) {
         message("`time` is `NULL`, assuming evenly spaced data")
+        times <- seq_len(NROW(obs))
+    } else if (!is.numeric(times)) {
+        message("`time` is not numeric, assuming evenly spaced data")
         times <- seq_len(NROW(obs))
     }
     check_obs_and_times(obs, times)
@@ -55,6 +58,7 @@ normalize_effort <- function(obs, effort = NULL)
 }
 
 #' @noRd
+#' @export
 to_numeric_vector <- function(x)
 {
     if (is.data.frame(x))
