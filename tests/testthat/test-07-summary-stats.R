@@ -10,65 +10,69 @@ test_that("ts_summary works", {
     expect_error(m <- capture_messages(output <- ts_summary(obs)), NA)
     expect_match(m, "`time` is `NULL`, assuming evenly spaced data", all = FALSE)
     expect_match(m, "`effort` is `NULL`, assuming all effort = 1", all = FALSE)
-
+    
     # check basic output structure
     expect_true(all(c("num_spp", "num_obs", "stats", "spp_correlations") %in% names(output)))
-    expect_equal(output$num_spp, n)
-    expect_equal(output$num_obs, NROW(obs))
+    expect_equal(output$num_spp[1], n)
+    expect_equal(output$num_obs[1], NROW(obs))
     
     # check output stats
-    expect_equal(dim(output$stats), c(n + 4, 8))
+    stats <- output$stats[[1]]
+    expect_equal(dim(stats), c(n + 4, 8))
     expect_true(all(c("variable", "min", "max", "median", "mean", "sd", "n", "autocorrelation") 
-                    %in% names(output$stats)))
-    expect_equal(vapply(output$stats$autocorrelation, length, 0, USE.NAMES = FALSE), 
+                    %in% names(stats)))
+    expect_equal(vapply(stats$autocorrelation, length, 0, USE.NAMES = FALSE), 
                  rep.int(14, n + 4))
     expect_true(all(c(var_names, "times", "effort", "richness", "tot_obs")
-                    %in% output$stats$variable))
-    expect_known_hash(output$stats, "6e8e178b2e")
+                    %in% stats$variable))
+    expect_known_hash(stats, "6e8e178b2e")
     
     # check output spp correlations
-    expect_equal(dim(output$spp_correlations), c(n, n))
-    expect_equal(var_names, rownames(output$spp_correlations))
-    expect_equal(var_names, colnames(output$spp_correlations))
-    expect_known_hash(output$spp_correlations, "c52fce46d7")
+    cor_matrix <- output$spp_correlations[[1]]
+    expect_equal(dim(cor_matrix), c(n, n))
+    expect_equal(var_names, rownames(cor_matrix))
+    expect_equal(var_names, colnames(cor_matrix))
+    expect_known_hash(cor_matrix, "c52fce46d7")
 })
 
 test_that("ts_summary works for formatted data", {
     dat <- get_maizuru_data()
     n <- NCOL(dat$abundance)
     var_names <- names(dat$abundance)
-
+    
     # check message output
     expect_error(m <- capture_messages(output <- ts_summary(dat)), NA)
     expect_match(m, "`effort` is `NULL`, assuming all effort = 1", all = FALSE)
     
     # check basic output structure
     expect_true(all(c("num_spp", "num_obs", "stats", "spp_correlations") %in% names(output)))
-    expect_equal(output$num_spp, n)
-    expect_equal(output$num_obs, NROW(dat$abundance))
+    expect_equal(output$num_spp[1], n)
+    expect_equal(output$num_obs[1], NROW(dat$abundance))
     
     # check output stats
-    expect_equal(dim(output$stats), c(n + 4, 8))
+    stats <- output$stats[[1]]
+    expect_equal(dim(stats), c(n + 4, 8))
     expect_true(all(c("variable", "min", "max", "median", "mean", "sd", "n", "autocorrelation") 
-                    %in% names(output$stats)))
-    expect_equal(vapply(output$stats$autocorrelation, length, 0, USE.NAMES = FALSE), 
+                    %in% names(stats)))
+    expect_equal(vapply(stats$autocorrelation, length, 0, USE.NAMES = FALSE), 
                  rep.int(25, n + 4))
     expect_true(all(c(var_names, "times", "effort", "richness", "tot_obs")
-                    %in% output$stats$variable))
-    expect_known_hash(output$stats, "2cf0923682")
+                    %in% stats$variable))
+    expect_known_hash(stats, "2cf0923682")
     
     # check output spp correlations
-    expect_equal(dim(output$spp_correlations), c(n, n))
-    expect_equal(var_names, rownames(output$spp_correlations))
-    expect_equal(var_names, colnames(output$spp_correlations))
-    expect_known_hash(output$spp_correlations, "0b23b64d65")
+    cor_matrix <- output$spp_correlations[[1]]
+    expect_equal(dim(cor_matrix), c(n, n))
+    expect_equal(var_names, rownames(cor_matrix))
+    expect_equal(var_names, colnames(cor_matrix))
+    expect_known_hash(cor_matrix, "0b23b64d65")
 })
 
 test_that("ts_summary works with just a time series", {
     ts <- sunspot.year
     ts[c(1, 5, 10:14)] <- NA
     expect_error(m <- capture_messages(output <- ts_summary(ts)), NA)
-    expect_known_hash(output, "2a499d80f9")
+    expect_known_hash(output, "a38b9118f0")
 })
 
 test_that("ts_summary works with full obs, times, effort", {
@@ -78,7 +82,7 @@ test_that("ts_summary works with full obs, times, effort", {
     times <- as.numeric(time(sunspot.year))
     effort <- sample(10:12, length(times), replace = TRUE)
     expect_error(output <- ts_summary(data = ts, times = times, effort = effort), NA)
-    expect_known_hash(output, "49ae975ae0")
+    expect_known_hash(output, "728394cff5")
 })
 
 test_that("summarize_df works", {
