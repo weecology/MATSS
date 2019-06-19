@@ -9,7 +9,9 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 
 library(MATSS)
-library(tidyverse)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
 library(drake)
 ```
 
@@ -54,7 +56,7 @@ What we want to plot are the summary statistics for each variable, faceted by th
 ```{r}
 to_plot <- results_ts_summary %>%
     bind_rows(.id = "dataset") %>%
-    mutate(dataset = str_match(dataset, "analysis_ts_summary_(.+)")[,2]) %>%
+    mutate(dataset = sub("analysis_ts_summary_(.+)", "\\1", dataset)) %>%
     select(dataset, stats) %>%
     unnest() %>%
     filter(!(variable %in% c("times", "effort", "richness", "tot_obs"))) %>%

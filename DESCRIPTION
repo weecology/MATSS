@@ -43,14 +43,14 @@ Imports:
     rlang,
     future,
     future.batchtools,
-    stringr, 
+    stringr,
     usethis
 Suggests:
     testthat,
     knitr,
     rmarkdown, 
-    pkgdown, 
-    covr, 
+    pkgdown,
+    covr,
     reticulate
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)

@@ -33,8 +33,8 @@ analyses <- drake::drake_plan(
 ## a Drake plan for the Rmarkdown report
 #  - we use `knitr_in()` 
 reports <- drake_plan(
-    autoarima_report = rmarkdown::render(
-        knitr_in("analysis/template-report.Rmd")
+    report = rmarkdown::render(
+        knitr_in("analysis/report.Rmd")
     )
 )
 
