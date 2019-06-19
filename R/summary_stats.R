@@ -73,12 +73,12 @@ ts_summary <- function(data, times = NULL, effort = NULL,
                      tot_obs = tot_obs)
     
     # compute summaries and assemble output
-    out <- list(num_spp = num_spp,
-                num_obs = num_obs,
-                stats = summarize_df(df, times, interp_method, ...))
+    out <- tibble::tibble(num_spp = num_spp,
+                          num_obs = num_obs,
+                          stats = list(summarize_df(df, times, interp_method, ...)))
     if (include_spp_correlations)
     {
-        out$spp_correlations <- round(stats::cor(obs), 4)
+        out$spp_correlations <- list(round(stats::cor(obs), 4))
     }
     return(out)
 }
