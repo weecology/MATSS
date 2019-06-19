@@ -1,0 +1,58 @@
+library(MATSS)
+library(drake)
+
+## include the functions in packages as dependencies
+#  - this is to help Drake recognize that targets need to be rebuilt if the 
+#    functions have changed
+expose_imports(MATSS)
+# expose_imports(my_pkg)
+
+## a Drake plan for creating the datasets
+datasets <- build_datasets_plan(include_retriever_data = FALSE, 
+                                include_bbs_data = FALSE)
+
+## a Drake plan that defines the methods
+methods <- drake::drake_plan(
+    has_covariates = function(dataset) {"covariates" %in% names(dataset)}, 
+    ts_summary = ts_summary
+)
+
+## a Drake plan for the analyses (each combination of method x dataset)
+analyses <- drake::drake_plan(
+    # make each individual analysis 
+    analysis = target(fun(data),
+                      transform = cross(fun = !!rlang::syms(methods$target),
+                                        data = !!rlang::syms(datasets$target))
+    ),
+    
+    # make a `results_***` object that combines the output of each individual method
+    results = target(collect_analyses(list(analysis)),
+                     transform = combine(analysis, .by = fun))
+)
+
+## a Drake plan for the Rmarkdown report
+#  - we use `knitr_in()` 
+reports <- drake_plan(
+    autoarima_report = rmarkdown::render(
+        knitr_in("analysis/template-report.Rmd")
+    )
+)
+
+## The full workflow
+workflow <- rbind(
+    datasets,
+    methods,
+    analyses,
+    reports
+)
+
+## Visualize how the targets depend on one another
+if (interactive())
+{
+    config <- drake_config(workflow)
+    sankey_drake_graph(config, build_times = "none", targets_only = TRUE)  # requires "networkD3" package
+    vis_drake_graph(config, build_times = "none", targets_only = TRUE)     # requires "visNetwork" package
+}
+
+## Run the workflow
+make(workflow)

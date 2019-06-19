@@ -43,7 +43,8 @@ Imports:
     rlang,
     future,
     future.batchtools,
-    stringr
+    stringr, 
+    usethis
 Suggests:
     testthat,
     knitr,
