@@ -86,8 +86,20 @@ test_that("get_mtquad_data formats data correctly", {
 test_that("get_gpdd_data formats data correctly", {
     expect_error(dat <- get_gpdd_data(location_id = 83, timeperiod_id = 408), NA)
     expect_true(check_data_format(dat))
-    expect_known_hash(dat$abundance, "660347d2004fb397373273fb14262507")
-    expect_known_hash(dat$covariates, "4ce77740e6c522b4a3a328646540454e")
-    expect_known_hash(dat$metadata, "205634668eb66c347c5370a69b456944")
-    expect_known_hash(dat, "733966e19441e95b26022ca5cd956ac3")
+    expect_known_hash(dat$abundance, "660347d200")
+    expect_known_hash(dat$covariates, "4ce77740e6")
+    expect_known_hash(dat$metadata, "205634668e")
+    expect_known_hash(dat, "733966e194")
+})
+
+test_that("get_biotime_data formats data correctly", {
+    data_path <- system.file("extdata", "subsampled",
+                             package = "MATSS", mustWork = TRUE)
+    Sys.setenv(MATSS_DATA_PATH = data_path)
+    expect_error(dat <- get_biotime_data(dataset=321), NA)
+    expect_true(check_data_format(dat))
+    expect_known_hash(dat$abundance, "7c2207ad5f")
+    expect_known_hash(dat$covariates, "d6e95c4e5e")
+    expect_known_hash(dat$metadata, "ff95e3e4a6")
+    expect_known_hash(dat, "e3ecffa357")
 })

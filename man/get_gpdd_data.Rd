@@ -4,15 +4,15 @@
 \alias{get_gpdd_data}
 \title{Create GPDD population time-series data}
 \usage{
-get_gpdd_data(min_num_yrs = 10, location_id, timeperiod_id)
+get_gpdd_data(location_id, timeperiod_id, min_num_yrs = 10)
 }
 \arguments{
-\item{min_num_yrs}{minimum number of years of data}
-
 \item{location_id}{Location code of data to return}
 
 \item{timeperiod_id}{Sampling timescale code of data to return
 (some datasets provide at more than one scale)}
+
+\item{min_num_yrs}{minimum number of years of data}
 }
 \value{
 list of two dataframes (one with abundance data, the other with covariate data)

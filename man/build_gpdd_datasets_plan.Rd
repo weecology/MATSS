@@ -4,10 +4,7 @@
 \alias{build_gpdd_datasets_plan}
 \title{Generate a Drake Plan for GPDD Datasets}
 \usage{
-build_gpdd_datasets_plan(data_path = get_default_data_path())
-}
-\arguments{
-\item{data_path}{where to get the downloaded retriever datasets}
+build_gpdd_datasets_plan()
 }
 \value{
 a drake plan (i.e. a tibble) specifying the targets and commands

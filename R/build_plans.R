@@ -66,6 +66,7 @@ build_analyses_plan <- function(methods, datasets, ...)
 #' @param include_retriever_data whether to include retriever-downloaded data
 #' @param include_bbs_data whether to include BBS data
 #' @param include_gpdd_data whether to include gpdd data
+#' @param include_biotime_data whether to include biotime data
 #' @inheritParams build_bbs_datasets_plan
 #' 
 #' @return a drake plan (i.e. a tibble) specifying the targets and commands 
@@ -77,7 +78,8 @@ build_datasets_plan <- function(data_path = get_default_data_path(),
                                 include_retriever_data = FALSE,
                                 include_bbs_data = FALSE,
                                 bbs_subset = NULL,
-                                include_gpdd_data = FALSE)
+                                include_gpdd_data = FALSE, 
+                                include_biotime_data = FALSE)
 {
     datasets <- drake::drake_plan(
         maizuru_data = get_maizuru_data(),
@@ -115,6 +117,12 @@ build_datasets_plan <- function(data_path = get_default_data_path(),
         datasets <- datasets %>%
             dplyr::bind_rows(gpdd_datasets)
     }
+    if (include_biotime_data) {
+        biotime_datasets = build_biotime_datasets_plan(data_path = data_path)
+        
+        datasets <- datasets %>%
+            dplyr::bind_rows(biotime_datasets)
+    }
     
     return(datasets)
 }
@@ -136,13 +144,13 @@ build_bbs_datasets_plan <- function(data_path = get_default_data_path(), bbs_sub
     if (!file.exists(routes_and_regions_file)) {
         prepare_bbs_ts_data(path = data_path, bbs_subset = bbs_subset)
     }
-
+    
     routes_and_regions <- utils::read.csv(routes_and_regions_file, colClasses = "character")
     
     if (!is.null(bbs_subset)) {
         routes_and_regions <- routes_and_regions[bbs_subset, ]
     }
-   
+    
     bbs_datasets <- drake::drake_plan(
         bbs_data_rtrg = target(get_bbs_route_region_data(route, region, path = !!data_path),
                                transform = map(route = !!rlang::syms(routes_and_regions$route),
@@ -172,10 +180,33 @@ build_gpdd_datasets_plan <- function()
     
     gpdd_datasets <- drake::drake_plan(
         gpdd_data_rtrg = target(get_gpdd_data(location_id = location_id, timeperiod_id = timeperiod_id),
-                               transform = map(location_id = !!rlang::syms(locations$LocationID),
-                                               timeperiod_id = !!rlang::syms(locations$TimePeriodID)
-                               )
+                                transform = map(location_id = !!rlang::syms(locations$LocationID),
+                                                timeperiod_id = !!rlang::syms(locations$TimePeriodID)
+                                )
         )
     )
     return(gpdd_datasets)
+}
+
+#' @title Generate a Drake Plan for Biotime Datasets
+#' 
+#' @inheritParams build_datasets_plan
+#' @inheritParams get_biotime_data
+#' 
+#' @return a drake plan (i.e. a tibble) specifying the targets and commands 
+#'   for gathering Biotime datasets
+#' 
+#' @export
+#' 
+build_biotime_datasets_plan <- function(data_path = get_default_data_path())
+{
+    dataset_file <- file.path(data_path, "biotimesql","citation1.csv")
+    dataset_list <- utils::read.csv(dataset_file, colClasses = "character")
+    
+    biotime_datasets <- drake::drake_plan(
+        biotime_data_rtrg = target(get_biotime_data(dataset, path = !!data_path),
+                                   transform = map(dataset = !!rlang::syms(dataset_list$study_id))
+        )
+    )
+    return(biotime_datasets)
 }
