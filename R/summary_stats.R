@@ -1,176 +1,113 @@
 #' @title Summarize a time series
 #'
-#' @description \code{ts_summary}: summarize a potentially multivariate set of
-#'   time series observations. \cr \cr
-#'   \code{uni_ts_summary}: summarize a univariate set of time series 
-#'   observations.
-#'   Summaries occur based on \code{times}, with effort-based correction (if
-#'   requested via \code{obs_per_effort}) and interpretation of missing 
-#'   values for autocorrelation calcuations (if needed) via 
-#'   \code{interp_method}. \cr \cr
-#'   \code{ts_summary_drake}: operates \code{ts_summary} but on a \code{list} 
-#'   data structure used in the MATSS pipeline with \code{abundance}, 
-#'   \code{covariates} and \code{metadata} elements.
-#'
-#' @param obs \code{ts_summary}: a 1- or 2-dimensional set of \code{numeric}
-#'   observations (columns if 2-dimensional) across times (rows if 
-#'   2-dimensional) as indexed by \code{times}. \cr \cr
-#'   \code{uni_ts_summary}: a 1-dimensional \code{numeric} set of observations
-#'   across times as indexed by \code{times}.   
-#'
+#' @description \code{ts_summary} creates a summary of a community time series 
+#'   dataset. The summary contains community-level statistics, including total 
+#'   number of observations, species richness, cross-correlations; as well as 
+#'   summary statistics on the individual populations that make up the 
+#'   community.
+#' 
+#'   Some aspects of the summaries depend on \code{times}, which should be a 
+#'   vector of the time index associated with the time series; and 
+#'   \code{effort}, which should be a vector of the sampling effort. 
+#'   \code{obs_per_effort} is an optional argument for correcting abundance 
+#'   based on effort; by default, it checks if \code{effort} is NULL.
+#'   Interpolation of missing values for autocorrelation calcuations (if 
+#'   needed) is done via \code{interp_method}
+#'   
+#' @param data a vector, matrix, or data.frame of \code{numeric} observations 
+#'   (within columns) across times (within rows). 
 #' @param times \code{numeric} or \code{Date} vector of timestamps of the 
 #'   observations.
-#'
 #' @param effort \code{numeric} vector of effort associated with the 
 #'   observations.
-#'
 #' @param obs_per_effort \code{logical} indicator if \code{obs} should be 
 #'   corrected for \code{effort} before summaries are done.
-#'
-#' @param interp_method \code{character} representing a function name used to 
-#'   interpolate \code{obs}. Defaults to \code{"\link[forecast]{na.interp}"}.
-#'
-#' @param x Three-element \code{list} (\code{abundance}, \code{covariates},
-#'   \code{metadata}) for data objects in the MATSS pipeline. 
+#' @param interp_method \code{character} a function used to interpolate 
+#'   \code{obs}. Defaults to \code{\link[forecast]{na.interp}}.
+#' @param include_spp_correlations whether to include the calculations of 
+#'   between-species correlations
+#' @param ... additional arguments to be passed to \code{\link{temp_autocor}}
 #'
 #' @return \code{ts_summary}: \code{list} of number of species, number of
-#'   observations, species richness summary, total observation summary, 
-#'   among-species correlation, species-by-species summary, times summary, 
-#'   and effort summary.
-#'   \cr \cr
-#'   \code{uni_ts_summary}: \code{list} of observation summary, times summary,
-#'   effort summary, and autocorrelation.
-#'   \cr \cr
-#'   \code{ts_summary_drake}: \code{list} as with \code{ts_summary} but based
-#'   on the \code{list} data structure used in the MATSS pipeline with 
-#'   \code{abundance}, \code{covariates} and \code{metadata} elements.
+#'   observations, summaries of the variables, the times, the effort, the 
+#'   species richness, total observation, and the among-species correlation.
 #'
 #' @export
 #'
-ts_summary <- function(obs, times = NULL, effort = NULL, 
-                       obs_per_effort = FALSE, 
-                       interp_method = "na.interp") {
-    if (length(interp_method) > 1 || !is.character(interp_method)) {
-        stop("`interp_method` is not a single character input")
-    }
-    if (is.null(times)) {
-        message("`time` is `NULL`, assuming evenly spaced data")
-        times <- seq_len(NROW(obs))
-    }
-    check_obs_and_times(obs, times, single_dim_obs = FALSE)
-    obs <- data.frame(obs)
-    if (!("logical" %in% class(obs_per_effort))) {
-        stop("`obs_per_effort` must be logical")
-    }    
-    if (obs_per_effort) {
-        if (is.null(effort)) {
-            message("`effort` is `NULL`, assuming all effort = 1")
-            effort <- rep(1, length(obs))
-            effort_summary <- NULL
-        }
-        if (nrow(obs) != length(effort)) {
-            stop("`obs` and `effort` are not of same length")
-        }
-        obs <- obs / effort
-    } else if (!is.null(effort)) {
-        warning("`effort` is included but `obs_per_effort` is FALSE, `obs` not
-            corrected for effort")
+ts_summary <- function(data, times = NULL, effort = NULL, 
+                       obs_per_effort = !is.null(effort), 
+                       interp_method = forecast::na.interp, 
+                       include_spp_correlations = TRUE, 
+                       ...)
+{
+    suppressMessages(is_data_formatted <- check_data_format(data))
+    if (is_data_formatted)
+    {
+        obs <- data$abundance
+        times <- get_times_from_data(data)
+        effort <- get_effort_from_data(data)
+    } else {
+        obs <- data
     }
     
-    nspp <- ncol(obs)  
-    nobs <- nrow(obs)
+    # normalize obs, times, effort
+    times <- normalize_times(obs, times)
+    effort <- normalize_effort(obs, effort)
+    obs <- normalize_obs(obs, effort, obs_per_effort)
+    
+    # compute community properties
+    num_spp <- NCOL(obs)
+    num_obs <- NROW(obs)
+    if (is.null(dim(obs))) # NOT a data.frame or matrix
+    {
+        obs <- data.frame(obs)
+    }
     spp_richness <- apply(obs, 1, richness)
-    spp_richness_summary <- uni_ts_summary(spp_richness, times, 
-                                           interp_method = interp_method)
-    
     tot_obs <- apply(obs, 1, sum, na.rm = TRUE)
-    tot_obs_summary <- uni_ts_summary(tot_obs, times, 
-                                      interp_method = interp_method)
     
-    sp_level_summaries <- vector("list", length = nspp)
-    for (i in 1:nspp) {
-        sp_level_summaries[[i]] <- uni_ts_summary(obs[ ,i], times, 
-                                                  interp_method = interp_method)
+    # assemble data.frame of variables
+    df <- data.frame(obs, 
+                     times = times, 
+                     effort = effort, 
+                     richness = spp_richness, 
+                     tot_obs = tot_obs)
+    
+    # compute summaries and assemble output
+    out <- tibble::tibble(num_spp = num_spp,
+                          num_obs = num_obs,
+                          stats = list(summarize_df(df, times, interp_method, ...)))
+    if (include_spp_correlations)
+    {
+        out$spp_correlations <- list(round(stats::cor(obs), 4))
     }
-    names(sp_level_summaries) <- colnames(obs)
-    
-    effort_summary <- summarize_effort(obs, effort)
-    times_summary <- summarize_times(obs, times)
-    
-    list(n_spp = nspp,
-         n_obs = nobs,
-         spp_richness = spp_richness_summary,
-         total_obs = tot_obs_summary,
-         among_spp_correlations = round(cor(obs), 3),
-         species_obs = sp_level_summaries,
-         times = times_summary,
-         effort = effort_summary)
+    return(out)
 }
 
-#' @rdname ts_summary
+#' @title Compute summaries and autocorrelation for each variable
+#' @aliases summarise_df
+#' 
+#' @param df the data.frame of variables to summarize
+#' @param times the time indices associated with the rows of `df`
+#' @inheritParams temp_autocor
 #'
 #' @export
-#'
-uni_ts_summary <- function(obs, times = NULL, effort = NULL, 
-                           obs_per_effort = FALSE, 
-                           interp_method = "na.interp") {
-    if (length(interp_method) > 1 || !is.character(interp_method)) {
-        stop("`interp_method` is not a single character input")
-    }
-    if (is.null(times)) {
-        message("`time` is `NULL`, assuming evenly spaced data")
-        times <- seq_len(NROW(obs))
-    }
-    check_obs_and_times(obs, times)
-    
-    if (!("logical" %in% class(obs_per_effort))) {
-        stop("`obs_per_effort` must be logical")
-    }  
-    if (obs_per_effort) {
-        if (is.null(effort)) {
-            message("`effort` is `NULL`, assuming all effort = 1")
-            effort <- rep(1, length(obs))
-        }
-        if (length(obs) != length(effort)) {
-            stop("`obs` and `effort` are not of same length")
-        }
-        obs <- obs / effort
-    } else if (!is.null(effort)) {
-        warning("`effort` is included but `obs_per_effort` is FALSE, `obs` not
-            corrected for effort")
-    }
-    
-    obs_summary <- summarize_obs(obs)
-    times_summary <- summarize_times(obs, times)
-    effort_summary <- summarize_effort(obs, effort)
-    auto_cor <- temp_autocor(obs, times, interp_method)
-    list(observations = obs_summary, 
-         times = times_summary, 
-         effort = effort_summary,
-         autocorrelation = auto_cor)
+summarize_df <- function(df, times = seq_len(NROW(df)), 
+                         interp_method = forecast::na.interp, ...)
+{
+    autocorr <- function(v) { temp_autocor(v, times, interp_method, ...) }
+    df %>%
+        purrr::map_dfr(summarize_vec, .id = "variable") %>%
+        dplyr::mutate(autocorrelation = purrr::map(df, autocorr)) %>%
+        tibble::as_tibble()
 }
-
-#' @rdname ts_summary
-#'
+#' @rdname summarize_df
 #' @export
-#'
-ts_summary_drake <- function(x) {
-    if (!is.null(x$metadata$times)) {
-        times <- dplyr::pull(x$covariates, x$metadata$times)
-    } else{
-        times <- NULL
-    }  
-    if (!is.null(x$metadata$effort)) {
-        effort <- dplyr::pull(x$covariates, x$metadata$effort)
-    } else{
-        effort <- NULL
-    }
-    ts_summary(x$abundance, times = times, effort = effort)
-}
+summarise_df <- summarize_df
 
-#' @title Summarize univariate observations, times, or efforts
-#'
-#' @param obs \code{numeric} vector of observations.
+#' @title Summarize a univariate vector
+#' @aliases summarise_vec
+#' 
+#' @param x the vector to be summarized
 #'
 #' @param round_out \code{logical} indicator if rounding should happen.
 #'
@@ -179,23 +116,22 @@ ts_summary_drake <- function(x) {
 #'   be two order of magnitude lower than the smallest value in the vector
 #'   being summarized. 
 #'
-#' @return \code{list} with entries corresponding to the mininum, maximum,
+#' @return \code{vector} with entries corresponding to the mininum, maximum,
 #'   median, mean, standard deviation, and count of the observations, times,
 #'   or effort, rounded based on \code{round_out} and \code{digits}.
 #' 
 #' @export
-#'
-summarize_obs <- function(obs, round_out = TRUE, digits = NULL) {
-    check_obs(obs)
+summarize_vec <- function(x, round_out = TRUE, digits = NULL)
+{
     if (!("logical" %in% class(round_out))) {
         stop("`round_out` must be logical")
     }
-    obs <- na.omit(as.numeric(obs))
-    out <- c(min = min(obs), max = max(obs), median = median(obs), 
-             mean = mean(obs), sd = sd(obs), n = length(obs))
+    x <- stats::na.omit(to_numeric_vector(x))
+    out <- data.frame(min = min(x), max = max(x), median = stats::median(x), 
+                      mean = mean(x), sd = stats::sd(x), n = length(x))
     if (round_out) {
         if (is.null(digits)) {
-            digits <- max(c(0, 2 + -floor(log10(min(obs[obs > 0])))))
+            digits <- max(c(1, 2 + -floor(log10(min(x[x > 0])))))
         } else if (digits %% 1 != 0) {
             stop("`digits` must be an integer")
         }
@@ -203,86 +139,9 @@ summarize_obs <- function(obs, round_out = TRUE, digits = NULL) {
     }
     out
 }
-
-#' @rdname summarize_obs
-#'
+#' @rdname summarize_vec
 #' @export
-summarise_obs <- summarize_obs
-
-#' @rdname summarize_obs
-#'
-#' @param times \code{numeric} or \code{Date} vector of timestamps of the 
-#'   observations.
-#'  
-#' @export
-#'
-summarize_times <- function(obs, times, round_out = TRUE, digits = NULL) {
-    check_obs_and_times(obs, times)
-    
-    if (!("logical" %in% class(round_out))) {
-        stop("`round_out` must be logical")
-    }
-    obs <- data.frame(obs)
-    obs2 <- is.na(obs)
-    allna <- apply(obs2, 1, sum) == ncol(obs)
-    times <- times[!allna]
-    out <- c(min = min(times), max = max(times), median = median(times), 
-             mean = mean(times), sd = sd(times), n = length(times))
-    if (round_out) {
-        if (is.null(digits)) {
-            digits <- max(c(1, 2 + -floor(log10(min(times[times > 0])))))
-        } else if (digits %% 1 != 0) {
-            stop("`digits` must be an integer")
-        }
-        out <- round(out, digits)
-    }
-    out
-}
-
-#' @rdname summarize_obs
-#'
-#' @export
-summarise_times <- summarize_times
-
-#' @rdname summarize_obs
-#'
-#' @param effort \code{numeric} vector of effort associated with the 
-#'   observations.
-#'
-#' @export
-#'
-summarize_effort <- function(obs, effort, round_out = TRUE, digits = NULL) {
-    if (is.null(effort)) {
-        message("`effort` is `NULL`, assuming all effort = 1")
-        effort <- rep(1, NROW(obs))
-    }
-    check_effort(effort)
-    check_obs(obs, single_dim_obs = FALSE)
-    
-    if (!("logical" %in% class(round_out))) {
-        stop("`round_out` must be logical")
-    }
-    obs <- data.frame(obs)
-    obs2 <- is.na(obs)
-    allna <- apply(obs2, 1, sum) == ncol(obs)
-    effort <- effort[!allna]
-    out <- c(min = min(effort), max = max(effort), median = median(effort), 
-             mean = mean(effort), sd = sd(effort), n = length(effort))
-    if (round_out) {
-        if (is.null(digits)) {
-            digits <- max(c(1, 2 + -floor(log10(min(effort[effort > 0])))))
-        } else if (digits %% 1 != 0) {
-            stop("`digits` must be an integer")
-        }
-        out <- round(out, digits)
-    }
-    out
-}
-
-#' @rdname summarize_obs
-#'
-#' @export
-summarise_effort <- summarize_effort
+summarise_vec <- summarize_vec
 
 #' @title Count non-0 entries
 #'
@@ -295,17 +154,17 @@ summarise_effort <- summarize_effort
 #'
 #' @export
 #'
-richness <- function(x) {
+richness <- function(x)
+{
     if (!is.numeric(x)) {
         stop("`x` must be numeric")
     }
     if (!is.vector(x)) {
         stop("`x` must be a vector")
     }
-    x <- na.omit(x)
+    x <- stats::na.omit(x)
     length(x[x > 0])
 }
-
 
 #' @title Interpolate observations
 #'
@@ -314,20 +173,18 @@ richness <- function(x) {
 #'   necessary.
 #'
 #' @inheritParams ts_summary
+#' @param obs the time series of \code{numeric} observations
 #' @param ... further arguments to be passed to acf
 #'
 #' @return Autocorrelation of the observation vector.
 #'
 #' @export
 #'
-temp_autocor <- function(obs, times, interp_method = "na.interp", ...) {
-    check_obs_and_times(obs, times)
-
-    if (length(interp_method) > 1 || !is.character(interp_method)) {
-        stop("`interp_method` is not a single character input")
-    }
+temp_autocor <- function(obs, times, interp_method = forecast::na.interp, ...)
+{
+    obs <- to_numeric_vector(obs)
     obs_interp <- interpolate_obs(obs, times, interp_method)
-    ac <- acf(obs_interp, plot = FALSE, ...)
+    ac <- stats::acf(obs_interp, plot = FALSE, ...)
     out <- round(ac$acf[ , , 1]  , 4)
     names(out) <- ac$lag[ , , 1]
     out
@@ -339,81 +196,24 @@ temp_autocor <- function(obs, times, interp_method = "na.interp", ...) {
 #'   method.
 #' 
 #' @inheritParams ts_summary
+#' @param obs the time series of \code{numeric} observations
 #' @param ... further arguments to be passed to the interpolation method
 #'
 #' @return Interpolated observation vector.
 #'
 #' @export
 #'
-interpolate_obs <- function(obs, times, interp_method = "na.interp", ...) {
-    check_obs_and_times(obs, times)
+interpolate_obs <- function(obs, times, interp_method = forecast::na.interp, ...)
+{
+    check_interp_method(interp_method)
     
-    if (length(interp_method) > 1 || !is.character(interp_method)) {
-        stop("`interp_method` is not a single character input")
-    }
-    time_diff <- diff(times)
-    times_interp <- min(times):max(times)
-    ntimes <- length(times_interp)
-    nspp <- ncol(data)
-    out <- rep(NA, ntimes)
-    colnames(out) <- colnames(data)
-    for (i in 1:ntimes) {
-        time_match <- which(times_interp == times[i])
-        out[time_match] <- obs[i]
-    }
-    do.call(interp_method, list(out), ...)
-}
-
-#' @title Check if `obs` and `times` is properly formatted
-#'
-#' @noRd
-check_obs_and_times <- function(obs, times, single_dim_obs = TRUE)
-{
-    check_obs(obs, single_dim_obs = single_dim_obs)
-    check_times(times)
-    if (length(times) != NROW(obs)) {
-        stop("`obs` and `times` are not of same length")
-    }
-}
-
-#' @title Check if `effort` is properly formatted
-#'
-#' @noRd
-check_effort <- function(effort)
-{
-    if (!is.numeric(effort)) {
-        stop("`effort` must be numeric")
-    }
-    if (!is.null(dim(effort))) {
-        stop("`effort` must be a single dimension")
-    }
-}
-
-#' @title Check if `obs` is properly formatted
-#'
-#' @noRd
-check_obs <- function(obs, single_dim_obs = TRUE)
-{
-    if (!is.numeric(obs)) {
-        stop("`obs` must be numeric")
-    }
-    if (single_dim_obs && !is.null(dim(obs))) {
-        stop("`obs` must be a single dimension")
-    }
-}
-
-#' @title Check if `times` is properly formatted
-#'
-#' @noRd
-check_times <- function(times)
-{
-    if (!is.numeric(times)) {
-        if (!lubridate::is.Date(times)) {
-            stop("`times` must be numeric or a Date")
-        }
-        times <- as.numeric(difftime(times, min(times), units = "days")) + 1
-    }
-    if (!is.null(dim(times))) {
-        stop("`times` must be a single dimension")
-    }
+    # get subset of observations at the value of times to be interpolated
+    times_interp <- seq(from = min(times), to = max(times))
+    out <- obs[match(times_interp, times)]
+    
+    # set column names of the output
+    colnames(out) <- colnames(obs)
+    
+    # interpolate and return
+    interp_method(out, ...)
 }

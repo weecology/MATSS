@@ -63,7 +63,9 @@ build_analyses_plan <- function(methods, datasets, ...)
 #' @title Generate a Drake Plan for Datasets
 #' 
 #' @param data_path where to get the downloaded retriever datasets
-#' @param include_downloaded_data whether to also include downloadable datasets
+#' @param include_retriever_data whether to include retriever-downloaded data
+#' @param include_bbs_data whether to include BBS data
+#' @inheritParams build_bbs_datasets_plan
 #' 
 #' @return a drake plan (i.e. a tibble) specifying the targets and commands 
 #'   for gathering datasets
@@ -71,30 +73,73 @@ build_analyses_plan <- function(methods, datasets, ...)
 #' @export
 #' 
 build_datasets_plan <- function(data_path = get_default_data_path(), 
-                                include_downloaded_data = FALSE)
+                                include_retriever_data = FALSE,
+                                include_bbs_data = FALSE,
+                                bbs_subset = NULL)
 {
     datasets <- drake::drake_plan(
         maizuru_data = get_maizuru_data(),
         jornada_data = get_jornada_data(),
-        sgs_data = get_sgs_data()
+        sgs_data = get_sgs_data(), 
+        cowley_lizards_data = get_cowley_lizards(), 
+        cowley_snakes_data = get_cowley_snakes(), 
+        karoo_data = get_karoo_data(), 
+        kruger_data = get_kruger_data()
     )
-    if (include_downloaded_data)
+    
+    if (include_retriever_data)
     {
         datasets <- datasets %>%
             dplyr::bind_rows(
                 drake::drake_plan(
                     portal_data = get_portal_rodents(),
-                    bbs_data = get_bbs_data(region = 7, path = !!data_path),
                     sdl_data = get_sdl_data(path = !!data_path),
                     mtquad_data = get_mtquad_data(path = !!data_path)
                 )
             )
     }
+    
+    if (include_bbs_data) {
+        bbs_datasets = build_bbs_datasets_plan(data_path = data_path, 
+                                               bbs_subset = bbs_subset)
+        
+        datasets <- datasets %>%
+            dplyr::bind_rows(bbs_datasets)
+    }
+    
     return(datasets)
 }
 
+#' @title Generate a Drake Plan for BBS Datasets
+#' 
+#' @inheritParams build_datasets_plan
+#' @inheritParams prepare_bbs_ts_data
+#' 
+#' @return a drake plan (i.e. a tibble) specifying the targets and commands 
+#'   for gathering BBS datasets
+#' 
+#' @export
+#' 
+build_bbs_datasets_plan <- function(data_path = get_default_data_path(), bbs_subset = NULL)
+{
+    routes_and_regions_file <- file.path(data_path, "breed-bird-survey-prepped", "routes_and_regions_table.csv")
+    
+    if (!file.exists(routes_and_regions_file)) {
+        prepare_bbs_ts_data(path = data_path, bbs_subset = bbs_subset)
+    }
 
-
-
-
-
+    routes_and_regions <- utils::read.csv(routes_and_regions_file, colClasses = "character")
+    
+    if (!is.null(bbs_subset)) {
+        routes_and_regions <- routes_and_regions[bbs_subset, ]
+    }
+   
+    bbs_datasets <- drake::drake_plan(
+        bbs_data_rtrg = target(get_bbs_route_region_data(route, region, path = !!data_path),
+                               transform = map(route = !!rlang::syms(routes_and_regions$route),
+                                               region = !!rlang::syms(routes_and_regions$bcr)
+                               )
+        )
+    )
+    return(bbs_datasets)
+}

@@ -10,56 +10,95 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>", 
+  eval = FALSE
 )
 ```
 
-1. Log onto HiPerGator
+0. If you need a HiPerGator account, follow the instructions on the lab-wiki: https://github.com/weecology/lab-wiki/wiki/Programming:-HiPerGator-Intro-Guide
 
-    ```bash
-    ssh username@hpg2.rc.ufl.edu
-    ```
+1. Log onto HiPerGator (substituting your username for <USERNAME>).
+
+```{bash}
+    ssh <USERNAME>@hpg2.rc.ufl.edu
+```
 
 2. Follow the [installation instructions for Python on HiPerGator](https://github.com/weecology/lab-wiki/wiki/Programming:-HiPerGator-Intro-Guide#installing-python-packages). No need to actually install packages yet.
 
-3. Create a file named .Rprofile to allow for local installs
+3. Create a file named .Rprofile to allow for local installs (substituting your 
+  username for <USERNAME>):
 
-    ```bash
-    echo '.libPaths(c("/home/USERNAME/R_libs", .libPaths()))' >> .Rprofile
-    ```
+```{bash}
+    echo '.libPaths(c("/home/<USERNAME>/R_libs", .libPaths()))' >> .Rprofile
+```
 
-4. Load and open the R module (this loads R for use)
+4. Make sure that you have the specified folder for storing R packages (substituting your 
+  username for <USERNAME>):
 
-    ```bash
+```{bash}
+   mkdir /home/<USERNAME>/R_libs
+```
+
+5. Load the R module (which makes R available in your HiPerGator session), and then open R:
+
+```{bash}
     ml R
     R
-    ```
+```
 
-5. In `R` install the core Python retriever (yes, this happens in `R`, which is kind of magical).
+6. In `R`, install the core Python retriever (yes, this happens in `R`, which is kind of magical).
 
-
-    ```{r, eval = FALSE}
+```{r}
     install.packages('reticulate')
     library(reticulate)
     conda_install('r-reticulate', 'retriever')
-    devtools::install_github('ropensci/rdataretriever')
-    ```
+```
 
-6. Restart R
+If you get an error that the conda environment `'r-reticulate'` does not exist, you may need to create it first. Run the following lines and then retry the `conda_install('r-reticulate', 'retriever')` command:
 
-7. Install the `rdataretriever`
+```{r}
+    conda_create('r-reticulate')
+```
 
-    ```{r, eval = FALSE}
-    devtools::install_github('ropensci/rdataretriever')
+7. Restart R
+
+8. Install the `rdataretriever`
+
+```{r}
+    remotes::install_github('ropensci/rdataretriever')
     library(rdataretriever)
-    ```
+```
 
-8. Install `MATSS`
+If you get an error about "HTTP error 404" and "Rate limit remaing", you may need to setup a GITHUB_PAT key on HiPerGator - https://happygitwithr.com/github-pat.html
 
-    ```{r, eval = FALSE}
-    devtools::install_github("weecology/MATSS")
-    ```
+9. Install `MATSS`
 
-9. To run a `MATSS` pipeline on HiPerGator you will need to setup `drake` to use
+```{r}
+    remotes::install_github("weecology/MATSS")
+```
+
+10. Try installing a dataset from retriever:
+```{r}
+    MATSS::install_retriever_data("veg-plots-sdl", force_install = TRUE)
+```
+    
+If you receive an error about the number of arguments, e.g.
+```
+    Error in py_call_impl(callable, dots$args, dots$keywords) : 
+      TypeError: install_csv() takes from 1 to 4 positional arguments but 5 were given
+```
+then you will need a newer version of retriever than was previously installed.
+
+Exit R to return to the command line, and then use the following commands to install retriever from github:
+
+```{bash}
+    conda activate r-reticulate
+    conda install git pip
+    pip install git+git://github.com/weecology/retriever@master
+```
+
+Then, retry the command at the beginning of this step in R.
+
+11. To run a `MATSS` pipeline on HiPerGator you will need to setup `drake` to use
 slurm for parallel scheduling. See https://github.com/weecology/MATSS-LDATS/ for
 an example of how to do this.

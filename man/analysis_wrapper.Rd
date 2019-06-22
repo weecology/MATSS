@@ -3,7 +3,7 @@
 \name{analysis_wrapper}
 \alias{analysis_wrapper}
 \title{Create a function that replicates an analysis for all time series in a
-  dataset}
+dataset}
 \usage{
 analysis_wrapper(fun, ...)
 }
@@ -13,23 +13,23 @@ analysis_wrapper(fun, ...)
 \item{...}{extra params to be passed to the analysis function}
 }
 \value{
-a function that takes in a single argument, `dataset`, and returns a 
-  tibble with these columns:
-  \tabular{ ll}{
-    \code{results} \tab a combined results data.frame\cr
-    \code{metadata} \tab the metadata component of the original dataset\cr
-    \code{dataset} \tab the name of the dataset\cr
-    \code{method} \tab the name of the analysis function\cr
-    \code{args} \tab a list of optional args to `method`\cr
-  }
+a function that takes in a single argument, \code{dataset}, and returns a
+tibble with these columns:
+\tabular{ll}{
+\code{results} \tab a combined results data.frame\cr
+\code{metadata} \tab the metadata component of the original dataset\cr
+\code{dataset} \tab the name of the dataset\cr
+\code{method} \tab the name of the analysis function\cr
+\code{args} \tab a list of optional args to \code{method}\cr
+}
 }
 \description{
-This wrapper takes as input, some analysis function, `fun`, 
-  along with additional optional arguments, and returns a function that will 
-  run that analysis function on all the time series in a dataset. The return 
-  object from that function combined all the relevant output, and also 
-  information on the call, for post-processing that is suitable by itself, or 
-  as part of a Drake plan.
+This wrapper takes as input, some analysis function, \code{fun},
+along with additional optional arguments, and returns a function that will
+run that analysis function on all the time series in a dataset. The return
+object from that function combined all the relevant output, and also
+information on the call, for post-processing that is suitable by itself, or
+as part of a Drake plan.
 }
 \examples{
 \dontrun{

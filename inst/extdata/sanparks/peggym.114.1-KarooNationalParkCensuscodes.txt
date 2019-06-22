@@ -1,0 +1,30 @@
+Common name	Species
+Aardwolf	aard
+Buffalo	b
+Baboon	bab
+Black breasted snake eagle	bbse
+Black eagle	be
+Bat eared fox	bef
+Ben	ben
+Booted eagle	bte
+Cow	cow
+Duiker	d
+Eland	el
+Fd	fd
+Gemsbok	g
+Goat	goat
+Grey rhebok	gr
+Jackal	j
+Jackal buzzard	jb
+Kudu	k
+Kori burstard	kb
+Klipspringer	kp
+Martial eagle	me
+Mountain reedbuck	mr
+Mountain zebra	mz
+Ostrich	o
+Porcupine	porc
+Red hartebeest	rh
+Springbok	sp
+Steenbok	st
+"Plain zebra, Quagga"	z

@@ -10,8 +10,8 @@ get_mtquad_data(path = get_default_data_path())
 \item{path}{where to load the raw data files from}
 }
 \value{
-list of two dataframes (one with abundance data, the other with covariate data) 
-  and one list of metadata.
+list of two dataframes (one with abundance data, the other with covariate data)
+and one list of metadata.
 }
 \description{
 Original data found here

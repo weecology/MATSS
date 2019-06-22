@@ -20,8 +20,8 @@ For more information about contributing code, datasets, or analyses, please chec
 You can install the `MATSS` package from github with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("weecology/MATSS")
+# install.packages("remotes")
+remotes::install_github("weecology/MATSS")
 ```
 
 This package relies on the development version of the `rdataretriever` package

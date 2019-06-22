@@ -1,7 +1,7 @@
 Package: MATSS
 Type: Package
 Title: Macroecological Analyses of Time Series Structure
-Version: 0.0.2
+Version: 0.0.3
 Authors@R: c(
     person("Hao", "Ye", role = c("aut", "cre"), 
     	   email = "hao.ye@weecology.org", 
@@ -32,30 +32,29 @@ Imports:
     ggplot2,
     lubridate,
     portalr (>= 0.2.4),
-    LDATS (>= 0.1.0),
-    drake (>= 7.0.0),
+    drake (>= 7.1.0),
     dplyr,
     tidyr,
     purrr,
     rdataretriever (>= 1.1.0),
     RSQLite,
     forecast,
-    networkD3,
-    here,
     tibble,
     rlang,
     future,
-    future.batchtools
+    future.batchtools,
+    stringr,
+    usethis
 Suggests:
     testthat,
     knitr,
     rmarkdown, 
-    pkgdown, 
-    covr, 
+    pkgdown,
+    covr,
     reticulate
 RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
 Remotes: 
-    weecology/LDATS,
-    weecology/portalr,
+    weecology/portalr, 
     ropensci/rdataretriever

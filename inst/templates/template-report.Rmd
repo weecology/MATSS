@@ -1,0 +1,75 @@
+---
+title: "Summary Report"
+author: "Author"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(MATSS)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(drake)
+```
+
+## Read in the results
+
+As a result of running the Drake pipeline, we should have objects for each of the "targets" in the Drake cache. First, let's examine what the names of those targets are:
+
+```{r}
+cached()
+```
+
+Note that we have two sets of results, one for running the `ts_summary()` function on each dataset, and one for running the newly created `has_covariates()` function on each dataset.
+
+We can use `loadd()` to load specific targets (or all of them) into the R environment or use `readd()` to assign names.
+
+First, let's look at the `has_covariates()` results:
+```{r}
+results_has_covariates <- readd("results_has_covariates")
+results_has_covariates
+```
+
+The object is a list with the output from the `has_covariates()` function, and names that correspond to the function and the dataset.
+
+Now, let's look at the `ts_summary()` results:
+
+```{r}
+results_ts_summary <- readd("results_ts_summary")
+results_ts_summary
+```
+
+Again, the object is a list with the output from the `ts_summary()` function, and names for each dataset.
+
+## Prepare for plotting
+
+What we want to plot are the summary statistics for each variable, faceted by the dataset. This suggests the following post-processing of the results:
+1) aggregate the results list together, keeping track of the dataset
+2) cleaning the dataset names
+3) extracting just the `stats` data.frame from each result and expanding out
+4) dropping the `times`, `effort`, `richness`, and `tot_obs` rows
+5) dropping the `autocorrelation` column
+
+```{r}
+to_plot <- results_ts_summary %>%
+    bind_rows(.id = "dataset") %>%
+    mutate(dataset = sub("analysis_ts_summary_(.+)", "\\1", dataset)) %>%
+    select(dataset, stats) %>%
+    unnest() %>%
+    filter(!(variable %in% c("times", "effort", "richness", "tot_obs"))) %>%
+    select(-autocorrelation)
+```
+
+## Plot
+
+```{r, fig.height=8}
+ggplot(to_plot, aes(x = variable, y = mean)) + 
+    geom_crossbar(aes(ymin = mean - sd, ymax = mean + sd)) + 
+    facet_wrap(~dataset, scales = "free") + 
+    theme_bw() + 
+    labs(x = "species", y = "abundance") + 
+    theme(axis.text.x = element_text(angle = 60, hjust = 1))
+```

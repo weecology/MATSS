@@ -13,7 +13,7 @@
 #' 
 #' @return a function that takes in a single argument, `dataset`, and returns a 
 #'   tibble with these columns:
-#'   \tabular{ ll}{
+#'   \tabular{ll}{
 #'     \code{results} \tab a combined results data.frame\cr
 #'     \code{metadata} \tab the metadata component of the original dataset\cr
 #'     \code{dataset} \tab the name of the dataset\cr
@@ -32,7 +32,7 @@
 #' 
 analysis_wrapper <- function(fun, ...)
 {
-    # Get the forecast method
+    # Get the analysis method
     method_name <- all.vars(match.call()$fun)
     
     function(dataset)
@@ -40,7 +40,7 @@ analysis_wrapper <- function(fun, ...)
         # Get the name of the dataset 
         dataset_name <- all.vars(match.call()$dataset)
 
-        # Make the forecasts
+        # apply the analysis to each abundance time series
         results <- purrr::map_dfr(dataset$abundance, fun, .id = "id", ...)
         
         # Extract the metadata from the original dataset

@@ -10,13 +10,13 @@ collect_analyses(list_of_results)
 \item{list_of_results}{the list of objects}
 }
 \value{
-a drake plan (i.e. a tibble) specifying the targets and commands 
-  for all the analyses and the collected results (grouping the outputs from 
-  each method into a single list)
+a drake plan (i.e. a tibble) specifying the targets and commands
+for all the analyses and the collected results (grouping the outputs from
+each method into a single list)
 }
 \description{
-This is a helper function that enables the NSE evaluation in 
-  \code{\link{plan_analyses}}. For example, `collect_analyses(list(a, b))` 
-  will return a list of two named elements, `a` and `b` corresponding to the 
-  objects `a` and `b`.
+This is a helper function that enables the NSE evaluation in
+\code{\link{plan_analyses}}. For example, \code{collect_analyses(list(a, b))}
+will return a list of two named elements, \code{a} and \code{b} corresponding to the
+objects \code{a} and \code{b}.
 }

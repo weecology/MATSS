@@ -4,20 +4,16 @@
 \alias{temp_autocor}
 \title{Interpolate observations}
 \usage{
-temp_autocor(obs, times, interp_method = "na.interp", ...)
+temp_autocor(obs, times, interp_method = forecast::na.interp, ...)
 }
 \arguments{
-\item{obs}{\code{ts_summary}: a 1- or 2-dimensional set of \code{numeric}
-observations (columns if 2-dimensional) across times (rows if 
-2-dimensional) as indexed by \code{times}. \cr \cr
-\code{uni_ts_summary}: a 1-dimensional \code{numeric} set of observations
-across times as indexed by \code{times}.}
+\item{obs}{the time series of \code{numeric} observations}
 
-\item{times}{\code{numeric} or \code{Date} vector of timestamps of the 
+\item{times}{\code{numeric} or \code{Date} vector of timestamps of the
 observations.}
 
-\item{interp_method}{\code{character} representing a function name used to 
-interpolate \code{obs}. Defaults to \code{"\link[forecast]{na.interp}"}.}
+\item{interp_method}{\code{character} a function used to interpolate
+\code{obs}. Defaults to \code{\link[forecast]{na.interp}}.}
 
 \item{...}{further arguments to be passed to acf}
 }
@@ -25,7 +21,7 @@ interpolate \code{obs}. Defaults to \code{"\link[forecast]{na.interp}"}.}
 Autocorrelation of the observation vector.
 }
 \description{
-Calculate the autocorrelation of the observations based on 
-  their timestamps, with interpolation (based on a specified method) if 
-  necessary.
+Calculate the autocorrelation of the observations based on
+their timestamps, with interpolation (based on a specified method) if
+necessary.
 }

@@ -4,20 +4,16 @@
 \alias{interpolate_obs}
 \title{Interpolate observations}
 \usage{
-interpolate_obs(obs, times, interp_method = "na.interp", ...)
+interpolate_obs(obs, times, interp_method = forecast::na.interp, ...)
 }
 \arguments{
-\item{obs}{\code{ts_summary}: a 1- or 2-dimensional set of \code{numeric}
-observations (columns if 2-dimensional) across times (rows if 
-2-dimensional) as indexed by \code{times}. \cr \cr
-\code{uni_ts_summary}: a 1-dimensional \code{numeric} set of observations
-across times as indexed by \code{times}.}
+\item{obs}{the time series of \code{numeric} observations}
 
-\item{times}{\code{numeric} or \code{Date} vector of timestamps of the 
+\item{times}{\code{numeric} or \code{Date} vector of timestamps of the
 observations.}
 
-\item{interp_method}{\code{character} representing a function name used to 
-interpolate \code{obs}. Defaults to \code{"\link[forecast]{na.interp}"}.}
+\item{interp_method}{\code{character} a function used to interpolate
+\code{obs}. Defaults to \code{\link[forecast]{na.interp}}.}
 
 \item{...}{further arguments to be passed to the interpolation method}
 }
@@ -25,6 +21,6 @@ interpolate \code{obs}. Defaults to \code{"\link[forecast]{na.interp}"}.}
 Interpolated observation vector.
 }
 \description{
-Interpolate observations based on their timestamps and a 
-  method.
+Interpolate observations based on their timestamps and a
+method.
 }

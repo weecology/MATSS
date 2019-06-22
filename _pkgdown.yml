@@ -17,6 +17,8 @@ reference:
     contents:
       - get_bbs_data
       - get_jornada_data
+      - get_karoo_data
+      - get_kruger_data
       - get_maizuru_data
       - get_mtquad_data
       - get_portal_rodents
@@ -31,7 +33,6 @@ reference:
   - title: "Analysis Methods"
     desc: "Functions to compute analyses"
     contents:
-      - run_LDA
       - richness
       - summarize_effort
       - summarize_obs

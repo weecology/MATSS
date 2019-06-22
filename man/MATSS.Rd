@@ -6,7 +6,7 @@
 \alias{MATSS-package}
 \title{Macroecological Analayses of Time Series Structure}
 \description{
-Functions for obtaining and processing ecological time series 
-  datasets, and for running different analyses.
+Functions for obtaining and processing ecological time series
+datasets, and for running different analyses.
 }
 \keyword{package}
