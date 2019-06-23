@@ -65,6 +65,7 @@ build_analyses_plan <- function(methods, datasets, ...)
 #' @param data_path where to get the downloaded retriever datasets
 #' @param include_retriever_data whether to include retriever-downloaded data
 #' @param include_bbs_data whether to include BBS data
+#' @param include_gpdd_data whether to include gpdd data
 #' @inheritParams build_bbs_datasets_plan
 #' 
 #' @return a drake plan (i.e. a tibble) specifying the targets and commands 
@@ -75,7 +76,8 @@ build_analyses_plan <- function(methods, datasets, ...)
 build_datasets_plan <- function(data_path = get_default_data_path(), 
                                 include_retriever_data = FALSE,
                                 include_bbs_data = FALSE,
-                                bbs_subset = NULL)
+                                bbs_subset = NULL,
+                                include_gpdd_data = FALSE)
 {
     datasets <- drake::drake_plan(
         maizuru_data = get_maizuru_data(),
@@ -105,6 +107,13 @@ build_datasets_plan <- function(data_path = get_default_data_path(),
         
         datasets <- datasets %>%
             dplyr::bind_rows(bbs_datasets)
+    }
+    
+    if (include_gpdd_data) {
+        gpdd_datasets = build_gpdd_datasets_plan(data_path = data_path)
+        
+        datasets <- datasets %>%
+            dplyr::bind_rows(gpdd_datasets)
     }
     
     return(datasets)
@@ -142,4 +151,30 @@ build_bbs_datasets_plan <- function(data_path = get_default_data_path(), bbs_sub
         )
     )
     return(bbs_datasets)
+}
+
+#' @title Generate a Drake Plan for GPDD Datasets
+#' 
+#' @inheritParams build_datasets_plan
+#' @inheritParams get_gpdd_data
+#' 
+#' @return a drake plan (i.e. a tibble) specifying the targets and commands 
+#'   for gathering GPDD datasets
+#' 
+#' @export
+#' 
+build_gpdd_datasets_plan <- function(data_path = get_default_data_path())
+{
+    locations_file <- file.path(data_path, "gpdd", "locations.csv")
+
+    locations <- utils::read.csv(locations_file, colClasses = "character")
+    
+    gpdd_datasets <- drake::drake_plan(
+        gpdd_data_rtrg = target(get_gpdd_data(location_id, timeperiod_id),
+                               transform = map(location_id = !!rlang::syms(locations$location_id),
+                                               timeperiod_id = !!rlang::syms(locations$timeperiod_id)
+                               )
+        )
+    )
+    return(gpdd_datasets)
 }
