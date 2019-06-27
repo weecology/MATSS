@@ -61,6 +61,21 @@ test_that("build_gpdd_datasets_plan works", {
     expect_equal(dim(datasets), c(127, 2))
 })
 
+test_that("build_biotime_datasets_plan works", {
+    data_path <- system.file("extdata", "subsampled",
+                             package = "MATSS", mustWork = TRUE)
+    Sys.setenv(MATSS_DATA_PATH = data_path)
+    expect_error(datasets <- build_biotime_datasets_plan(), NA)
+    expect_plan(datasets)
+    expect_true(all(grepl("biotime_data_rtrg_[0-9]+$", datasets$target)))
+    expect_equal(dim(datasets), c(361, 2))
+    
+    expect_error(datasets <- build_datasets_plan(include_biotime_data = TRUE), NA)
+    expect_plan(datasets)
+    expect_equal(sum(grepl("_data$", datasets$target)), 7)
+    expect_equal(sum(grepl("biotime_data_rtrg_[0-9]+$", datasets$target)), 361)
+    expect_equal(dim(datasets), c(368, 2))
+})
 
 test_that("build_analyses_plan works", {
     datasets <- build_datasets_plan()

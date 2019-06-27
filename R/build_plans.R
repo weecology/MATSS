@@ -200,12 +200,12 @@ build_gpdd_datasets_plan <- function()
 #' 
 build_biotime_datasets_plan <- function(data_path = get_default_data_path())
 {
-    dataset_file <- file.path(data_path, "biotimesql","citation1.csv")
+    dataset_file <- file.path(data_path, "biotimesql", "biotimesql_citation1.csv")
     dataset_list <- utils::read.csv(dataset_file, colClasses = "character")
     
     biotime_datasets <- drake::drake_plan(
-        biotime_data_rtrg = target(get_biotime_data(dataset, path = !!data_path),
-                                   transform = map(dataset = !!rlang::syms(dataset_list$study_id))
+        biotime_data_rtrg = target(get_biotime_data(dataset = dataset, path = !!data_path),
+                                   transform = map(dataset = !!rlang::syms(unique(dataset_list$study_id)))
         )
     )
     return(biotime_datasets)
