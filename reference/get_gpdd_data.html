@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Generate a Drake Plan for Datasets — build_datasets_plan • MATSS</title>
+<title>Create GPDD population time-series data — get_gpdd_data • MATSS</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,10 @@
 
 
 
-<meta property="og:title" content="Generate a Drake Plan for Datasets — build_datasets_plan" />
+<meta property="og:title" content="Create GPDD population time-series data — get_gpdd_data" />
 
-<meta property="og:description" content="Generate a Drake Plan for Datasets" />
+<meta property="og:description" content="Selects sites containing at
+least min_num_yrs of data samples during that period." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,53 +118,48 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Generate a Drake Plan for Datasets</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/build_plans.R'><code>R/build_plans.R</code></a></small>
-    <div class="hidden name"><code>build_datasets_plan.Rd</code></div>
+    <h1>Create GPDD population time-series data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_gpdd_data.R'><code>R/get_gpdd_data.R</code></a></small>
+    <div class="hidden name"><code>get_gpdd_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Generate a Drake Plan for Datasets</p>
+    <p>Selects sites containing at
+least min_num_yrs of data samples during that period.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>build_datasets_plan</span>(<span class='kw'>data_path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(),
-  <span class='kw'>include_retriever_data</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>include_bbs_data</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>bbs_subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>include_gpdd_data</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>get_gpdd_data</span>(<span class='kw'>min_num_yrs</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='no'>location_id</span>, <span class='no'>timeperiod_id</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data_path</th>
-      <td><p>where to get the downloaded retriever datasets</p></td>
+      <th>min_num_yrs</th>
+      <td><p>minimum number of years of data</p></td>
     </tr>
     <tr>
-      <th>include_retriever_data</th>
-      <td><p>whether to include retriever-downloaded data</p></td>
+      <th>location_id</th>
+      <td><p>Location code of data to return</p></td>
     </tr>
     <tr>
-      <th>include_bbs_data</th>
-      <td><p>whether to include BBS data</p></td>
-    </tr>
-    <tr>
-      <th>bbs_subset</th>
-      <td><p>optional, a subset of the BBS communities to use
-(to speed up development). As c(1:X)</p></td>
-    </tr>
-    <tr>
-      <th>include_gpdd_data</th>
-      <td><p>whether to include gpdd data</p></td>
+      <th>timeperiod_id</th>
+      <td><p>Sampling timescale code of data to return
+(some datasets provide at more than one scale)</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a drake plan (i.e. a tibble) specifying the targets and commands
-for gathering datasets</p>
+    <p>list of two dataframes (one with abundance data, the other with covariate data)
+and one list of metadata.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+  <span class='fu'>get_gpdd_data</span>(<span class='kw'>location_id</span><span class='kw'>=</span><span class='fl'>83</span>, <span class='kw'>timeperiod_id</span><span class='kw'>=</span><span class='fl'>408</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -171,7 +167,9 @@ for gathering datasets</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
