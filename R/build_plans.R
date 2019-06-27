@@ -110,7 +110,7 @@ build_datasets_plan <- function(data_path = get_default_data_path(),
     }
     
     if (include_gpdd_data) {
-        gpdd_datasets = build_gpdd_datasets_plan(data_path = data_path)
+        gpdd_datasets = build_gpdd_datasets_plan()
         
         datasets <- datasets %>%
             dplyr::bind_rows(gpdd_datasets)
@@ -163,16 +163,17 @@ build_bbs_datasets_plan <- function(data_path = get_default_data_path(), bbs_sub
 #' 
 #' @export
 #' 
-build_gpdd_datasets_plan <- function(data_path = get_default_data_path())
+build_gpdd_datasets_plan <- function()
 {
-    locations_file <- file.path(data_path, "gpdd", "locations.csv")
-
+    locations_file <- system.file("extdata", "gpdd_locations.csv", 
+                                  package = "MATSS", mustWork = TRUE)
+    
     locations <- utils::read.csv(locations_file, colClasses = "character")
     
     gpdd_datasets <- drake::drake_plan(
-        gpdd_data_rtrg = target(get_gpdd_data(location_id, timeperiod_id),
-                               transform = map(location_id = !!rlang::syms(locations$location_id),
-                                               timeperiod_id = !!rlang::syms(locations$timeperiod_id)
+        gpdd_data_rtrg = target(get_gpdd_data(location_id = location_id, timeperiod_id = timeperiod_id),
+                               transform = map(location_id = !!rlang::syms(locations$LocationID),
+                                               timeperiod_id = !!rlang::syms(locations$TimePeriodID)
                                )
         )
     )

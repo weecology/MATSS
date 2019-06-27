@@ -17,7 +17,7 @@
 #' }
 #' @export
 
-get_gpdd_data <- function(min_num_yrs = 10, location_id, timeperiod_id)
+get_gpdd_data <- function(location_id, timeperiod_id, min_num_yrs = 10)
 {
     
 gpdd_data <- rgpdd::gpdd_data %>% 
