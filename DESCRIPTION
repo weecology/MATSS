@@ -44,7 +44,8 @@ Imports:
     future,
     future.batchtools,
     stringr,
-    usethis
+    usethis,
+    rgpdd (>= 0.1)
 Suggests:
     testthat,
     knitr,
@@ -55,6 +56,7 @@ Suggests:
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
-Remotes: 
-    weecology/portalr, 
-    ropensci/rdataretriever
+Remotes:  
+    weecology/portalr,
+    ropensci/rdataretriever,
+    ropensci/rgpdd

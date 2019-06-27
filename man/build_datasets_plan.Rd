@@ -6,7 +6,7 @@
 \usage{
 build_datasets_plan(data_path = get_default_data_path(),
   include_retriever_data = FALSE, include_bbs_data = FALSE,
-  bbs_subset = NULL)
+  bbs_subset = NULL, include_gpdd_data = FALSE)
 }
 \arguments{
 \item{data_path}{where to get the downloaded retriever datasets}
@@ -17,6 +17,8 @@ build_datasets_plan(data_path = get_default_data_path(),
 
 \item{bbs_subset}{optional, a subset of the BBS communities to use
 (to speed up development). As c(1:X)}
+
+\item{include_gpdd_data}{whether to include gpdd data}
 }
 \value{
 a drake plan (i.e. a tibble) specifying the targets and commands

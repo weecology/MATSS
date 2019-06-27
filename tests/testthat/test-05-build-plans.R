@@ -48,6 +48,20 @@ test_that("build_bbs_datasets_plan works", {
     expect_equal(dim(datasets), c(13, 2))
 })
 
+test_that("build_gpdd_datasets_plan works", {
+    expect_error(datasets <- build_gpdd_datasets_plan(), NA)
+    expect_plan(datasets)
+    expect_true(all(grepl("gpdd_data_rtrg_[0-9]+_[0-9\\.]+$", datasets$target)))
+    expect_equal(dim(datasets), c(120, 2))
+    
+    expect_error(datasets <- build_datasets_plan(include_gpdd_data = TRUE), NA)
+    expect_plan(datasets)
+    expect_equal(sum(grepl("_data$", datasets$target)), 7)
+    expect_equal(sum(grepl("gpdd_data_rtrg_[0-9]+_[0-9\\.]+$", datasets$target)), 120)
+    expect_equal(dim(datasets), c(127, 2))
+})
+
+
 test_that("build_analyses_plan works", {
     datasets <- build_datasets_plan()
     methods <- drake::drake_plan(
