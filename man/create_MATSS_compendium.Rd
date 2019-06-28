@@ -7,6 +7,28 @@
 create_MATSS_compendium(path, fields = NULL,
   rstudio = rstudioapi::isAvailable(), open = interactive())
 }
+\arguments{
+\item{path}{A path. If it exists, it is used. If it does not exist, it is
+created, provided that the parent path exists.}
+
+\item{fields}{A named list of fields to add to \code{DESCRIPTION}, potentially
+overriding default values. See \code{\link[=use_description]{use_description()}} for how you can set
+personalized defaults using package options}
+
+\item{rstudio}{If \code{TRUE}, calls \code{\link[=use_rstudio]{use_rstudio()}} to make the new package or
+project into an \href{{https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects}{RStudio Project}}.
+If \code{FALSE} and a non-package project, a sentinel \code{.here} file is placed so
+that the directory can be recognized as a project by the
+\href{{https://here.r-lib.org}{here}} or
+\href{{https://rprojroot.r-lib.org}{rprojroot}} packages.}
+
+\item{open}{If \code{TRUE}, \link[=proj_activate]{activates} the new project:
+\itemize{
+\item If RStudio desktop, the package is opened in a new session.
+\item If on RStudio server, the current RStudio project is activated.
+\item Otherwise, the working directory and active project is changed.
+}}
+}
 \value{
 Path to the newly created package, invisibly.
 }

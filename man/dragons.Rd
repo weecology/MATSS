@@ -3,7 +3,7 @@
 \docType{data}
 \name{dragons}
 \alias{dragons}
-\title{Example dataset}
+\title{dragons dataset}
 \format{A list with 3 elements:
 \describe{
 \item{abundance}{a data.frame with abundances for 3 dragons}

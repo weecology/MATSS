@@ -5,7 +5,7 @@
 #'   - add various package dependencies, including "MATSS"
 #'   - add template analysis and pipeline files
 #' 
-#' @inheritParams usethis::use_package
+#' @inheritParams usethis::create_package
 #' 
 #' @return Path to the newly created package, invisibly.
 #' 
@@ -49,7 +49,7 @@ create_MATSS_compendium <- function(path,
     if (open) {
         if (usethis::proj_activate(path)) {
             # Working directory/active project changed; so don't undo on exit
-            usethis::on.exit()
+            on.exit()
         }
     }
     

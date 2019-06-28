@@ -142,6 +142,7 @@ build_bbs_datasets_plan <- function(data_path = get_default_data_path(), bbs_sub
     routes_and_regions_file <- file.path(data_path, "breed-bird-survey-prepped", "routes_and_regions_table.csv")
     
     if (!file.exists(routes_and_regions_file)) {
+        message("preprocessing bbs timeseries data")
         prepare_bbs_ts_data(path = data_path, bbs_subset = bbs_subset)
     }
     

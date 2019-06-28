@@ -22,18 +22,19 @@ get_biotime_data <- function(dataset, path = get_default_data_path())
     
     biotime_data <- biotime_data_tables$biotimesql_allrawdata %>%
         dplyr::filter(study_id == dataset) %>%
-        dplyr::select(-c(day, sample_desc, biomass, id_all_raw_data, depth, study_id)) %>%
-        dplyr::arrange(year,month)
+        dplyr::select(-dplyr::one_of(c("day", "sample_desc", "biomass", 
+                                       "id_all_raw_data", "depth", "study_id"))) %>%
+        dplyr::arrange(.data$year, .data$month)
     
     abundance <- biotime_data %>%
-        dplyr::group_by(year, month, id_species) %>%
-        dplyr::summarise(abundance = sum(abundance)) %>%
-        tidyr::spread(key = id_species, value = abundance, fill = 0) %>%
+        dplyr::group_by(.data$year, .data$month, .data$id_species) %>%
+        dplyr::summarise(abundance = sum(.data$abundance)) %>%
+        tidyr::spread(key = .data$id_species, value = .data$abundance, fill = 0) %>%
         dplyr::ungroup() %>%
-        dplyr::select(-c(month, year))
+        dplyr::select(-c(.data$month, .data$year))
     
     covariates <- biotime_data %>%
-        dplyr::group_by(year, month) %>%
+        dplyr::group_by(.data$year, .data$month) %>%
         dplyr::summarise(effort = length(unique(plot)),
                          latitude = mean(latitude, na.rm = TRUE),
                          longitude = mean(longitude, na.rm = TRUE)) %>%

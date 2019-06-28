@@ -21,16 +21,16 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
     bbs_data_tables <- import_retriever_data("breed-bird-survey", path = path)
     
     bbs_data <- bbs_data_tables$breed_bird_survey_weather %>%
-        dplyr::filter(runtype == 1, rpid == 101) %>%
+        dplyr::filter(.data$runtype == 1, .data$rpid == 101) %>%
         dplyr::left_join(bbs_data_tables$breed_bird_survey_counts,
                          by = c('statenum', 'route', 'rpid', 'year', 'routedataid', 'countrynum')) %>%
         dplyr::left_join(bbs_data_tables$breed_bird_survey_routes, 
                          by = c('statenum', 'route', 'countrynum')) %>%
         dplyr::mutate(site_id = statenum*1000 + route, 
-                      starttemp = dplyr::case_when(tempscale=='F' ~ c((starttemp - 32)*5/9),
-                                                   tempscale=='C' ~ as.double(starttemp)),
-                      endtemp = dplyr::case_when(tempscale=='F' ~ c((endtemp - 32)*5/9),
-                                                 tempscale=='C' ~ as.double(endtemp))) %>%
+                      starttemp = dplyr::case_when(.data$tempscale=='F' ~ c((.data$starttemp - 32)*5/9),
+                                                   .data$tempscale=='C' ~ as.double(.data$starttemp)),
+                      endtemp = dplyr::case_when(.data$tempscale=='F' ~ c((.data$endtemp - 32)*5/9),
+                                                 .data$tempscale=='C' ~ as.double(.data$endtemp))) %>%
         dplyr::rename(lat = latitude,
                       long = longitude,
                       species_id = aou,
@@ -39,7 +39,7 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
     
     # prepare and write out route and region metadata
     bbs_routes_regions <- bbs_data %>%
-        dplyr::select(bcr, route) %>%
+        dplyr::select(.data$bcr, .data$route) %>%
         dplyr::distinct() %>%
         dplyr::mutate(name = paste0("bbs_bcr", bcr, "_route", route))
     
@@ -203,9 +203,10 @@ combine_bbs_subspecies <- function(bbs_data_table, species_table)
         dplyr::pull(aou)
     
     # replace the full subspecies names with species-level names
-    for (i in seq_along(subspecies_ids))
+    if (length(new_subspecies_ids) > 0)
     {
-        df$species_id[df$species_id == subspecies_ids[i]] = new_subspecies_ids[i]
+        names(new_subspecies_ids) <- subspecies_ids
+        bbs_data_table$species_id <- dplyr::recode(bbs_data_table$species_id, !!!new_subspecies_ids)
     }
     
     df_grouped <- bbs_data_table %>%

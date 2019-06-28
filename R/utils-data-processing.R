@@ -57,7 +57,10 @@ normalize_effort <- function(obs, effort = NULL)
     return(effort)
 }
 
-#' @noRd
+#' @title Extract a numeric vector
+#' @description Extract a numeric vector from a data.frame or a matrix (taking 
+#'   the first column).
+#' @param x the input data
 #' @export
 to_numeric_vector <- function(x)
 {
