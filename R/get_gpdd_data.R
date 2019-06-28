@@ -42,12 +42,12 @@ get_gpdd_data <- function(location_id, timeperiod_id, min_num_yrs = 10)
     covariates <- gpdd_data %>% 
         dplyr::select(date, SampleYear, DecimalYearBegin,
                       DecimalYearEnd, TaxonID, PopulationUntransformed) %>%
-        dplyr::mutate_at(data, as.Date) %>% 
         dplyr::group_by(date, TaxonID) %>%
         dplyr::summarise(total = sum(PopulationUntransformed), SampleYear = mean(SampleYear), 
                          DecimalYearBegin = min(DecimalYearBegin), DecimalYearEnd = max(DecimalYearEnd)) %>%
         tidyr::spread(key = TaxonID, value = total, fill = 0) %>%
         dplyr::ungroup() %>%
+        dplyr::mutate_at(dplyr::vars(date), as.Date) %>% 
         dplyr::select(-dplyr::starts_with('sp'))
     
     location = gpdd_data %>% 

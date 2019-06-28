@@ -90,9 +90,9 @@ test_that("get_gpdd_data formats data correctly", {
     expect_error(dat <- get_gpdd_data(location_id = 83, timeperiod_id = 408), NA)
     expect_true(check_data_format(dat))
     expect_known_hash(dat$abundance, "660347d200")
-    expect_known_hash(dat$covariates, "4ce77740e6")
+    expect_known_hash(dat$covariates, "808aa40baf")
     expect_known_hash(dat$metadata, "205634668e")
-    expect_known_hash(dat, "733966e194")
+    expect_known_hash(dat, "b1890b0735")
 })
 
 test_that("get_biotime_data formats data correctly", {
