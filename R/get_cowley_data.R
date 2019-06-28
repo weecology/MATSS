@@ -12,11 +12,11 @@ get_cowley_lizards <- function()
     data_path <- system.file("extdata", "cowleylizards.txt",
                              package = "MATSS", mustWork = TRUE)
     raw_data <- read.delim(data_path) %>%
-        dplyr::mutate_if(is.numeric,list(~dplyr::na_if(., -99))) %>%
-        dplyr::filter(!is.na(Cnemnidophorous_sexlineatus))
+        dplyr::mutate_if(is.numeric, list(~dplyr::na_if(., -99))) %>%
+        dplyr::filter(!is.na(.data$Cnemnidophorous_sexlineatus))
     
-    list(abundance = dplyr::select(raw_data, -c(Year,Site,Total)), 
-         covariates = dplyr::select(raw_data, Year),
+    list(abundance = dplyr::select(raw_data, -dplyr::one_of(c("Year", "Site", "Total"))), 
+         covariates = dplyr::select(raw_data, dplyr::one_of("Year")),
          metadata = list(timename = "Year", effort = NULL, site = "CowleyCounty",
                          source = "Wilgers, DJ, Horne, EA, Sandercock, BK, Volkmann, AW, 2006.
                             EFFECTS OF RANGELAND MANAGEMENT ON COMMUNITY DYNAMICS OF THE 
@@ -42,10 +42,10 @@ get_cowley_snakes <- function()
                              package = "MATSS", mustWork = TRUE)
     raw_data <- read.delim(data_path) %>%
         dplyr::mutate_if(is.numeric,list(~dplyr::na_if(., -99))) %>%
-        dplyr::filter(!is.na(Agkistrodon_contortrix))
+        dplyr::filter(!is.na(.data$Agkistrodon_contortrix))
     
-    list(abundance = dplyr::select(raw_data, -c(Year,Site,Total)), 
-         covariates = dplyr::select(raw_data, Year),
+    list(abundance = dplyr::select(raw_data, -dplyr::one_of(c("Year", "Site", "Total"))), 
+         covariates = dplyr::select(raw_data, dplyr::one_of("Year")),
          metadata = list(timename = "Year", effort = NULL, site = "CowleyCounty",
                          source = "Wilgers, DJ, Horne, EA, Sandercock, BK, Volkmann, AW, 2006.
                             EFFECTS OF RANGELAND MANAGEMENT ON COMMUNITY DYNAMICS OF THE 

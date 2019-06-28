@@ -14,13 +14,13 @@ test_that("Portal data is retrievable and works", {
 test_that("Jornada data is retrievable and works", {
     expect_error(jornada_data <- get_jornada_data(), NA)
     expect_true(check_data_format(jornada_data))
-    expect_known_hash(jornada_data, "70ce3c4502")
+    expect_known_hash(jornada_data, "ac97408fcd")
 })
 
 test_that("Shortgrass Steppe data is retrievable and works", {
     expect_error(sgs_data <- get_sgs_data(), NA)
     expect_true(check_data_format(sgs_data))
-    expect_known_hash(sgs_data, "ccbdc633c1")
+    expect_known_hash(sgs_data, "014b440328")
 })
 
 test_that("Maizuru data is retrievable and works", {

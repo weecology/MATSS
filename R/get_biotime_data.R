@@ -28,19 +28,19 @@ get_biotime_data <- function(dataset, path = get_default_data_path())
     
     abundance <- biotime_data %>%
         dplyr::group_by(.data$year, .data$month, .data$id_species) %>%
-        dplyr::summarise(abundance = sum(.data$abundance)) %>%
+        dplyr::summarize(abundance = sum(.data$abundance)) %>%
         tidyr::spread(key = .data$id_species, value = .data$abundance, fill = 0) %>%
         dplyr::ungroup() %>%
         dplyr::select(-c(.data$month, .data$year))
     
     covariates <- biotime_data %>%
         dplyr::group_by(.data$year, .data$month) %>%
-        dplyr::summarise(effort = length(unique(plot)),
-                         latitude = mean(latitude, na.rm = TRUE),
-                         longitude = mean(longitude, na.rm = TRUE)) %>%
+        dplyr::summarize(effort = length(unique(.data$plot)),
+                         latitude = mean(.data$latitude, na.rm = TRUE),
+                         longitude = mean(.data$longitude, na.rm = TRUE)) %>%
         dplyr::ungroup() %>%
-        dplyr::mutate(month=tidyr::replace_na(month, 1),
-                      date=lubridate::as_date(paste(year, month, 1)))
+        dplyr::mutate(month = tidyr::replace_na(.data$month, 1),
+                      date = lubridate::as_date(paste(.data$year, .data$month, 1)))
     
     metadata <- list(timename = "date", effort = "effort", 
                      source = biotime_citations$citation_line)

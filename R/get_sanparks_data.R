@@ -23,12 +23,12 @@ get_karoo_data <- function() {
     data_path <- system.file("extdata", "sanparks/peggym.116.1-KRNPTotals.txt",
                              package = "MATSS", mustWork = TRUE)
     karoo1 = read.delim(data_path) %>%
-        dplyr::mutate(Date = as.Date(Date)) %>%
-        dplyr::mutate(Common.name = gsub("\\s+","",Common.name)) %>% 
+        dplyr::mutate(Date = as.Date(.data$Date)) %>%
+        dplyr::mutate(Common.name = gsub("\\s+","", .data$Common.name)) %>% 
         dplyr::left_join(species, by = c("Common.name" = "Common.name")) %>%
         dplyr::mutate(Latitude = NA, Longitude = NA) %>%
         dplyr::rename(total = "SumOfTotal.number") %>%
-        dplyr::select(-Species)
+        dplyr::select(-.data$Species)
     
     data_path2 <- system.file("extdata", "sanparks/peggym.1050.1-Karoo2006.txt",
                              package = "MATSS", mustWork = TRUE)
@@ -37,7 +37,7 @@ get_karoo_data <- function() {
         dplyr::mutate(Species = replace(as.character(Species), Species == "kl","kp"),
                       Species = replace(as.character(Species), Species == "?","gr")) %>%
         dplyr::left_join(species, by = c("Species" = "Species")) %>%
-        dplyr::rename(Latitude = "Lat", Longitude = "Long",total = "Total") %>%
+        dplyr::rename(Latitude = "Lat", Longitude = "Long", total = "Total") %>%
         dplyr::select(c("Date","Common.name","total","target","Latitude","Longitude"))
     
     data_path3 <- system.file("extdata", "sanparks/peggym.1049.1-karoo2008.txt",
@@ -47,11 +47,11 @@ get_karoo_data <- function() {
         dplyr::rename(Common.name = "CONTROL", total = "TOTAL") %>%
         dplyr::mutate(Common.name = gsub("\\s+","",Common.name)) %>%
         dplyr::mutate(Common.name = replace(as.character(Common.name), 
-                                            Common.name == "RedHartebeest","Redhartebeest"),
+                                            Common.name == "RedHartebeest", "Redhartebeest"),
                       Common.name = replace(as.character(Common.name), 
-                                            Common.name == "Mtnzebra","Mountainzebra"),
+                                            Common.name == "Mtnzebra", "Mountainzebra"),
                       Common.name = replace(as.character(Common.name), 
-                                            Common.name == "MtReedbuck","Mountainreedbuck")) %>%
+                                            Common.name == "MtReedbuck", "Mountainreedbuck")) %>%
         dplyr::left_join(species, by = c("Common.name" = "Common.name")) %>%
         dplyr::select(c("Date","Common.name","total","target","Latitude","Longitude"))
     
@@ -71,17 +71,17 @@ get_karoo_data <- function() {
         dplyr::select(c("Date","Common.name","total","target","Latitude","Longitude"))
     
     #Combine cleaned tables and do more cleaning
-    karoo_raw <- rbind(karoo1,karoo2,karoo3,karoo4) %>%
-        dplyr::filter(target==1) %>%
-        dplyr::mutate(year = lubridate::year(Date))
+    karoo_raw <- rbind(karoo1, karoo2, karoo3, karoo4) %>%
+        dplyr::filter(target == 1) %>%
+        dplyr::mutate(year = lubridate::year(.data$Date))
         
     covariates <- karoo_raw %>%
-        dplyr::group_by(year) %>%
-        dplyr::summarize(effort = dplyr::n_distinct(Date))
+        dplyr::group_by(.data$year) %>%
+        dplyr::summarize(effort = dplyr::n_distinct(.data$Date))
     
     abundance <- karoo_raw %>%
-        dplyr::group_by(year, Common.name) %>%
-        dplyr::summarize(total = sum(total)) %>%
+        dplyr::group_by(.data$year, .data$Common.name) %>%
+        dplyr::summarize(total = sum(.data$total)) %>%
         tidyr::spread(Common.name, total, fill = 0) %>%
         dplyr::ungroup() %>%
         dplyr::select(-year)

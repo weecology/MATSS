@@ -40,24 +40,24 @@ get_portal_rodents <- function(time_or_plots = "plots",
     # filter according to treatment
     if (treatment == 'exclosure')
     {
-        dat <- dplyr::filter(dat, treatment == "exclosure")
+        dat <- dplyr::filter(dat, .data$treatment == "exclosure")
     } else if (treatment == "control") {
-        dat <- dplyr::filter(dat, plot %in% c(2, 4, 8, 11, 12, 14, 17, 22))
+        dat <- dplyr::filter(dat, .data$plot %in% c(2, 4, 8, 11, 12, 14, 17, 22))
     }
     
     # summarize by period, computing weighted abundance by effort
     dat2 <- dat %>%
-        dplyr::filter(period %in% start_period:436, 
-                      ntraps >= 1) %>%
-        dplyr::select(-period, -ntraps) %>%
-        dplyr::group_by(censusdate, species, newmoonnumber) %>%
-        dplyr::summarize(abundance = round(standard_effort * mean(abundance, na.rm = TRUE) + 1e-10)) %>%
+        dplyr::filter(.data$period %in% start_period:436, 
+                      .data$ntraps >= 1) %>%
+        dplyr::select(-.data$period, -.data$ntraps) %>%
+        dplyr::group_by(.data$censusdate, .data$species, .data$newmoonnumber) %>%
+        dplyr::summarize(abundance = round(standard_effort * mean(.data$abundance, na.rm = TRUE) + 1e-10)) %>%
         dplyr::ungroup() %>%
-        tidyr::spread(species, abundance)
+        tidyr::spread(.data$species, .data$abundance)
     
 
-  list(abundance = dplyr::select(dat2, -newmoonnumber, -censusdate), 
-       covariates = dplyr::select(dat2, newmoonnumber, censusdate),
+  list(abundance = dplyr::select(dat2, -.data$newmoonnumber, -.data$censusdate), 
+       covariates = dplyr::select(dat2, .data$newmoonnumber, .data$censusdate),
        metadata = list(timename = "newmoonnumber", effort = NULL))
 
 }

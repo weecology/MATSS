@@ -6,7 +6,8 @@
 #' @return list of abundance, covariates, and metadata
 #' @export
 get_bbs_route_region_data = function(route, region, path = get_default_data_path()) {
-    this_path = file.path(path, "breed-bird-survey-prepped", paste0("route", route, "region", region, ".Rds"))
+    this_path = file.path(path, "breed-bird-survey-prepped", 
+                          paste0("route", route, "region", region, ".Rds"))
     if (file.exists(this_path)) {
         return(readRDS(this_path)) 
     } else {
@@ -37,21 +38,18 @@ get_sdl_data <- function(plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17),
     sdl_data_tables <- import_retriever_data("veg-plots-sdl", path = path)
     
     sdl_data <- sdl_data_tables$veg_plots_sdl_SMDensity %>%
-        dplyr::select(-countns) %>%
-        dplyr::filter(plot %in% plots) %>%
-        dplyr::group_by(year,code) %>%
-        dplyr::summarise(count = sum(count)) %>%
-        tidyr::spread(key = code, value = count, fill = 0) %>%
-        dplyr::rename(UNKN=V1) %>%
+        dplyr::select(-.data$countns) %>%
+        dplyr::filter(.data$plot %in% plots) %>%
+        dplyr::group_by(.data$year, .data$code) %>%
+        dplyr::summarize(count = sum(.data$count)) %>%
+        tidyr::spread(key = .data$code, value = .data$count, fill = 0) %>%
+        dplyr::rename(UNKN = .data$V1) %>%
         dplyr::ungroup()
     
-    abundance <- sdl_data %>%
-        dplyr::select(-year)
-    
-    covariates <- sdl_data %>%
-        dplyr::select(year)
-    
+    abundance <- dplyr::select(sdl_data, -.data$year)
+    covariates <- dplyr::select(sdl_data, .data$year)
     metadata <- list(timename = "year", effort = NULL)
+    
     return(list('abundance' = abundance, 'covariates' = covariates, 
                 "metadata" = metadata))
 }
@@ -76,19 +74,17 @@ get_mtquad_data <- function(path = get_default_data_path())
     mtquad_data_tables <- import_retriever_data('mapped-plant-quads-mt', path = path)
     
     mtquad_data <- mtquad_data_tables$mapped_plant_quads_mt_allrecords_density %>%
-        dplyr::select(-objectid,-seedling,-x,-y) %>%
-        dplyr::group_by(year,species,quad) %>%
-        dplyr::summarise(abundance = sum(stems)) %>%
-        dplyr::group_by(year,species) %>%
-        dplyr::summarise(abundance = sum(abundance)) %>%
-        tidyr::spread(key = species, value = abundance, fill = 0) %>%
+        dplyr::select(-.data$objectid, -.data$seedling, -.data$x, -.data$y) %>%
+        dplyr::group_by(.data$year, .data$species, .data$quad) %>%
+        dplyr::summarize(abundance = sum(.data$stems)) %>%
+        dplyr::group_by(.data$year, .data$species) %>%
+        dplyr::summarize(abundance = sum(.data$abundance)) %>%
+        tidyr::spread(key = .data$species, value = .data$abundance, fill = 0) %>%
         dplyr::ungroup()
     
-    abundance <- mtquad_data %>%
-        dplyr::select(-year)
+    abundance <- dplyr::select(mtquad_data, -.data$year)
     
-    covariates <- mtquad_data %>%
-        dplyr::select(year)
+    covariates <- dplyr::select(mtquad_data, .data$year)
     
     metadata <- list(timename = "year", effort = NULL)
     return(list('abundance' = abundance, 'covariates' = covariates, 

@@ -6,7 +6,6 @@
 .drake/
 /output/drake-cache.sqlite
 /analysis/*.html
-/data/
 doc
 Meta
 /inst/extdata/subsampled/breed-bird-survey-prepped

@@ -8,7 +8,6 @@
 #' @export
 get_sgs_data <- function()
 {
-    
     # read in Shortgrass Steppe rodent data
     data_path <- system.file("extdata", "shortgrass_steppe_rodents.csv", 
                              package = "MATSS", mustWork = TRUE)
@@ -16,27 +15,28 @@ get_sgs_data <- function()
     
     # select key columns 
     # filter out unknown species and recaptures
-    sgs_data <- dplyr::select(sgs_data, SESSION, YEAR, VEG, WEB, SPP) %>% 
-        dplyr::filter(SPP != 'NA')
+    sgs_data <- sgs_data %>% 
+        dplyr::select(dplyr::one_of(c("SESSION", "YEAR", "VEG", "WEB", "SPP"))) %>% 
+        dplyr::filter(.data$SPP != 'NA')
     
     # get data into wide format
     # summarize counts for each species in each period
     sgs_abundances <- sgs_data %>%
-        dplyr::group_by(YEAR, SESSION, SPP) %>%
-        dplyr::summarize(count = n())
+        dplyr::group_by(.data$YEAR, .data$SESSION, .data$SPP) %>%
+        dplyr::summarize(count = dplyr::n())
     
     # put data in wide format
     sgs_abundance_table <- sgs_abundances %>%
-        tidyr::spread(SPP, count, fill = 0)
+        tidyr::spread(.data$SPP, .data$count, fill = 0)
 
     season <- rep(0, nrow(sgs_abundance_table))
     season[grepl("Sep", sgs_abundance_table$SESSION)] <- 0.5
     sgs_abundance_table$samples <- sgs_abundance_table$YEAR + season
     
     # split into two dataframes and save
-    covariates <- sgs_abundance_table[,c("YEAR", "SESSION", "samples")]
-    abundance <- sgs_abundance_table[,-which(colnames(sgs_abundance_table) %in% c("YEAR", "SESSION", "samples"))]
+    covariates <- sgs_abundance_table[, c("YEAR", "SESSION", "samples")]
+    abundance <- sgs_abundance_table[, -which(colnames(sgs_abundance_table) %in% c("YEAR", "SESSION", "samples"))]
 
-    metadata <- list(timename = "samples", effort = NULL)
+    metadata <- list(timename = "samples", effort = NULL, period = 0.5)
     return(mget(c("abundance", "covariates", "metadata")))
 }
