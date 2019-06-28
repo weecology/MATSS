@@ -62,27 +62,16 @@ In the `metadata` list:
 
 Here is an example of a correctly formatted dataset with covariates and metadata:
 
-```{r example crosstab data, echo = FALSE}
-abundance <- data.frame("Red Spotted Dragon" = c(2,6,0,5,4,4),
-                        "Green Striped Dragon" = c(6,0,4,1,9,7),
-                        "Blue Eyes White Dragon" = c(0,0,0,1,0,0))
+```{r example crosstab data}
+library(MATSS)
+data(dragons)
 
-num_rows <- NROW(abundance)
+str(dragons)
+```
 
-covariates <- data.frame("date" = rev(seq.Date(from = Sys.Date(), by = "-1 year", length.out = num_rows)), 
-                         "precipitation" = rpois(num_rows, lambda = 10))
-
-metadata <- list(timename = "date", 
-                 authors = c(person("Ellen", "Bledsoe", role = c("aut"), 
-                                    comment = c(ORCID = "0000-0002-3629-7235")),
-                             person("Hao", "Ye", role = c("aut"), 
-                                    email = "hao.ye@weecology.org", 
-                                    comment = c(ORCID = "0000-0002-8630-1458"))))
-
-dat <- mget(c("abundance", "covariates", "metadata"))
-
-str(dat)
-knitr::kable(dat[c("abundance", "covariates")])
+We can view the abundance and covariates tables side by side:
+```{r}
+knitr::kable(dragons[c("abundance", "covariates")])
 ```
 
 ## Checking Data
@@ -90,7 +79,6 @@ knitr::kable(dat[c("abundance", "covariates")])
 We also provide a function for checking whether the data is formatted correctly:
 
 ```{r check dat}
-library(MATSS)
-check_data_format(dat)
+check_data_format(dragons)
 ```
 

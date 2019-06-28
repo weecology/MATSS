@@ -31,3 +31,19 @@ if (getRversion() >= "2.15.1") utils::globalVariables(
     "endsky", "lat", "long", "."
   )
 )
+
+#' Example dataset
+#'
+#' A dataset containing example timeseries for some dragons.
+#'
+#' @format A list with 3 elements:
+#' \describe{
+#'   \item{abundance}{a data.frame with abundances for 3 dragons}
+#'   \item{covariates}{a data.frame with times of observations and effort and precip data}
+#'   \item{metadata}{a list with:
+#'     `timename` - the name of the time column in covariates,
+#'     `period` - the gap between successive observations, 
+#'     `authors` - the authors of the dataset, 
+#'     `species_table` - information about the species observed}
+#' }
+"dragons"
