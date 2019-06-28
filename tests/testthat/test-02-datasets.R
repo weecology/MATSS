@@ -84,6 +84,9 @@ test_that("get_mtquad_data formats data correctly", {
 })
 
 test_that("get_gpdd_data formats data correctly", {
+    data_path <- system.file("extdata", "subsampled",
+                             package = "MATSS", mustWork = TRUE)
+    Sys.setenv(MATSS_DATA_PATH = data_path)
     expect_error(dat <- get_gpdd_data(location_id = 83, timeperiod_id = 408), NA)
     expect_true(check_data_format(dat))
     expect_known_hash(dat$abundance, "660347d200")

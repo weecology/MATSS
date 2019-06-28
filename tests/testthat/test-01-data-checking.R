@@ -43,6 +43,6 @@ test_that("get_times_from_data works on basic examples", {
     expect_null(get_times_from_data(list(abundance = mtcars, 
                                          covariates = mtcars)))
     expect_equal(get_times_from_data(dragons), 
-                 seq.Date(from = "2014-06-28", by = "1 year", length.out = 6))
+                 seq.Date(from = as.Date("2014-06-28"), by = "1 year", length.out = 6))
 })
                  
