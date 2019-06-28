@@ -46,4 +46,5 @@ if (getRversion() >= "2.15.1") utils::globalVariables(
 #'     `authors` - the authors of the dataset, 
 #'     `species_table` - information about the species observed}
 #' }
+#' @export
 "dragons"
