@@ -167,7 +167,7 @@ filter_bbs_species <- function(bbs_data_table, species_table)
     }
     
     valid_taxa <- species_table %>%
-        dplyr:: filter(!is_unidentified(.data$species)) %>%
+        dplyr::filter(!is_unidentified(.data$species)) %>%
         dplyr::filter(.data$aou > 2880) %>%
         dplyr::filter(.data$aou < 3650 | .data$aou > 3810) %>%
         dplyr::filter(.data$aou < 3900 | .data$aou > 3910) %>%
@@ -211,7 +211,7 @@ combine_bbs_subspecies <- function(bbs_data_table, species_table)
     }
     
     df_grouped <- bbs_data_table %>%
-        dplyr::group_by_at(dplyr::vars(-one_of("abundance"))) %>%
+        dplyr::group_by_at(dplyr::vars(-dplyr::one_of("abundance"))) %>%
         dplyr::summarise(abundance = sum(.data$abundance)) %>%
         dplyr::ungroup() %>%
         dplyr::distinct()

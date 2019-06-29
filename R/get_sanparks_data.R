@@ -43,8 +43,8 @@ get_karoo_data <- function()
                           package = "MATSS", mustWork = TRUE) %>% 
         read.delim() %>%
         dplyr::mutate(Date = as.Date(.data$Date)) %>%
-        dplyr::mutate(Species = replace(as.character(.data$Species), Species == "kl","kp"),
-                      Species = replace(as.character(.data$Species), Species == "?","gr")) %>%
+        dplyr::mutate(Species = replace(as.character(.data$Species), .data$Species == "kl", "kp"),
+                      Species = replace(as.character(.data$Species), .data$Species == "?", "gr")) %>%
         dplyr::left_join(species, by = c("Species" = "Species")) %>%
         dplyr::rename(Latitude = "Lat", Longitude = "Long", total = "Total") %>%
         dplyr::select(c("Date", "Common.name", "total", "target", "Latitude", "Longitude"))
