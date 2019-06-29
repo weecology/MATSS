@@ -26,7 +26,7 @@ test_that("analysis_wrapper works for simple functions", {
     expect_identical(output$metadata[[1]], data$metadata)
     
     # check digest
-    expect_known_hash(digest::digest(output), "a5b8d5c75c")
+    expect_known_hash(output, "f448983294")
 })
 
 test_that("analysis_wrapper preserves arguments correctly", {
@@ -46,7 +46,7 @@ test_that("analysis_wrapper preserves arguments correctly", {
     expect_identical(output$dataset, "data")
     expect_identical(output$method, "quantile")
     expect_identical(output$args[[1]], list())
-    expect_known_hash(digest::digest(output), "bd96f20f5c")
+    expect_known_hash(output, "aac1b7606f")
     
     # check results
     expect_error(output <- quantiles_named(data), NA)
@@ -54,7 +54,7 @@ test_that("analysis_wrapper preserves arguments correctly", {
     expect_identical(output$dataset, "data")
     expect_identical(output$method, "quantile")
     expect_identical(output$args[[1]], list(probs = c(0.05, 0.95)))
-    expect_known_hash(digest::digest(output), "efe506a07c")
+    expect_known_hash(output, "85db7b33a3")
     
     # check results
     expect_error(output <- quantiles_arg(data), NA)
@@ -62,7 +62,7 @@ test_that("analysis_wrapper preserves arguments correctly", {
     expect_identical(output$dataset, "data")
     expect_identical(output$method, "quantile")
     expect_identical(output$args[[1]], list(probs = c(0.05, 0.95)))
-    expect_known_hash(digest::digest(output), "efe506a07c")
+    expect_known_hash(output, "85db7b33a3")
     
     # check results
     expect_error(output <- quantiles_unnamed(data), NA)
@@ -70,5 +70,5 @@ test_that("analysis_wrapper preserves arguments correctly", {
     expect_identical(output$dataset, "data")
     expect_identical(output$method, "quantile")
     expect_identical(output$args[[1]], list(c(0.05, 0.95)))
-    expect_known_hash(digest::digest(output), "1452db2bbb")
+    expect_known_hash(output, "84265b9082")
 })

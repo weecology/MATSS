@@ -50,15 +50,16 @@ get_maizuru_data <- function()
     data_path <- system.file("extdata", "Maizuru_dominant_sp.csv",
                              package = "MATSS", mustWork = TRUE)
     raw_data <- utils::read.csv(data_path)
-    raw_data$Date <- dplyr::select(raw_data, Y, M, D) %>%
+    raw_data$Date <- dplyr::select(raw_data, .data$Y, .data$M, .data$D) %>%
         apply(1, paste, collapse = "-") %>%
         as.Date()
     
-    list(abundance = dplyr::select(raw_data, -date_tag, -surf.t, -bot.t, -Y, -M,
-                                   -D, -Date) %>%
+    covars <- c("date_tag", "surf.t", "bot.t", "Y", "M", "D", "Date")
+    list(abundance = raw_data %>% 
+             dplyr::select(-dplyr::one_of(covars)) %>%
              dplyr::mutate_all(~round(. + 1e-10)), 
-         covariates = dplyr::select(raw_data, date_tag, surf.t, bot.t, Y, M, D, 
-                                    Date),
+         covariates = raw_data %>% 
+             dplyr::select(dplyr::one_of(covars)),
          metadata = list(timename = "Date", effort = NULL))
 }
 

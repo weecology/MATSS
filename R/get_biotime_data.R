@@ -18,10 +18,10 @@ get_biotime_data <- function(dataset, path = get_default_data_path())
     biotime_data_tables <- import_retriever_data('biotimesql', path = path)
     
     biotime_citations <- biotime_data_tables$biotimesql_citation1 %>%
-        dplyr::filter(study_id == dataset)
+        dplyr::filter(.data$study_id == dataset)
     
     biotime_data <- biotime_data_tables$biotimesql_allrawdata %>%
-        dplyr::filter(study_id == dataset) %>%
+        dplyr::filter(.data$study_id == dataset) %>%
         dplyr::select(-dplyr::one_of(c("day", "sample_desc", "biomass", 
                                        "id_all_raw_data", "depth", "study_id"))) %>%
         dplyr::arrange(.data$year, .data$month)

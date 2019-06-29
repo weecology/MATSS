@@ -58,7 +58,7 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
     }
     
     bbs_routes_regions %>%
-        dplyr::select(bcr, route) %>%
+        dplyr::select(.data$bcr, .data$route) %>%
         purrr::pmap(function(bcr, route) {
             bbs_data %>%
                 dplyr::filter(.data$bcr == !!bcr,
@@ -87,8 +87,8 @@ process_bbs_route_region_data <- function(bbs_data_table, species_table)
     
     # process species IDs
     this_bbs_data <- bbs_data_table %>%
-        combine_bbs_subspecies(species_table = .data$species_table) %>%
-        filter_bbs_species(species_table = .data$species_table) %>%
+        combine_bbs_subspecies(species_table = species_table) %>%
+        filter_bbs_species(species_table = species_table) %>%
         dplyr::mutate(species_id = paste0('sp', .data$species_id),
                       date = as.Date(paste(.data$year, .data$month, .data$day, sep = "-"))) %>%
         dplyr::ungroup() 
@@ -109,7 +109,7 @@ process_bbs_route_region_data <- function(bbs_data_table, species_table)
                          startsky = mean(.data$startsky), endsky = mean(.data$endsky),
                          lat = mean(.data$lat), long = mean(.data$long), 
                          mean_date = mean(.data$date)) %>%
-        dplyr::arrange(year)
+        dplyr::arrange(.data$year)
     
     metadata <- list(timename = 'year', effort = 'effort', route = route, region = region)
     
@@ -131,15 +131,15 @@ process_bbs_route_region_data <- function(bbs_data_table, species_table)
 #' @export
 filter_bbs_ts <- function(bbs_data, start_yr, end_yr, min_num_yrs) {
     sites_to_keep = bbs_data %>%
-        dplyr::filter(year >= start_yr, year <= end_yr) %>%
-        dplyr::group_by(site_id) %>%
-        dplyr::summarise(num_years = length(unique(year))) %>%
+        dplyr::filter(.data$year >= start_yr, .data$year <= end_yr) %>%
+        dplyr::group_by(.data$site_id) %>%
+        dplyr::summarize(num_years = length(unique(.data$year))) %>%
         dplyr::ungroup() %>%
-        dplyr::filter(num_years >= min_num_yrs)
+        dplyr::filter(.data$num_years >= min_num_yrs)
     
     filtered_data <- bbs_data %>%
-        dplyr::filter(year >= start_yr, year <= end_yr) %>%
-        dplyr::filter(site_id %in% sites_to_keep$site_id)
+        dplyr::filter(.data$year >= start_yr, .data$year <= end_yr) %>%
+        dplyr::filter(.data$site_id %in% sites_to_keep$site_id)
 }
 
 
@@ -167,14 +167,14 @@ filter_bbs_species <- function(bbs_data_table, species_table)
     }
     
     valid_taxa <- species_table %>%
-        dplyr:: filter(!is_unidentified(species)) %>%
-        dplyr::filter(aou > 2880) %>%
-        dplyr::filter(aou < 3650 | aou > 3810) %>%
-        dplyr::filter(aou < 3900 | aou > 3910) %>%
-        dplyr::filter(aou < 4160 | aou > 4210) %>%
-        dplyr::filter(aou != 7010)
+        dplyr:: filter(!is_unidentified(.data$species)) %>%
+        dplyr::filter(.data$aou > 2880) %>%
+        dplyr::filter(.data$aou < 3650 | .data$aou > 3810) %>%
+        dplyr::filter(.data$aou < 3900 | .data$aou > 3910) %>%
+        dplyr::filter(.data$aou < 4160 | .data$aou > 4210) %>%
+        dplyr::filter(.data$aou != 7010)
     
-    dplyr::filter(bbs_data_table, species_id %in% valid_taxa$aou)
+    dplyr::filter(bbs_data_table, .data$species_id %in% valid_taxa$aou)
 }
 
 #' @title Combine subspecies into their common species
@@ -188,20 +188,20 @@ combine_bbs_subspecies <- function(bbs_data_table, species_table)
 {
     # Subspecies have two spaces separated by non-spaces
     subspecies_names <- species_table %>%
-        dplyr::filter(aou %in% unique(bbs_data_table$species_id)) %>%
-        dplyr::pull(spanish_common_name) %>%
+        dplyr::filter(.data$aou %in% unique(bbs_data_table$species_id)) %>%
+        dplyr::pull(.data$spanish_common_name) %>%
         grep(" [^ ]+ ", ., value = TRUE)
     
     subspecies_ids <- species_table %>%
-        dplyr::filter(spanish_common_name %in% subspecies_names) %>%
-        dplyr::pull(aou)
+        dplyr::filter(.data$spanish_common_name %in% subspecies_names) %>%
+        dplyr::pull(.data$aou)
     
     # Drop all but the first two words to get the root species name,
     # then find the AOU code
     new_subspecies_ids <- species_table %>%
-        dplyr::slice(match(stringr::word(subspecies_names, 1,2),
+        dplyr::slice(match(stringr::word(subspecies_names, 1, 2),
                            species_table$spanish_common_name)) %>%
-        dplyr::pull(aou)
+        dplyr::pull(.data$aou)
     
     # replace the full subspecies names with species-level names
     if (length(new_subspecies_ids) > 0)
@@ -211,8 +211,8 @@ combine_bbs_subspecies <- function(bbs_data_table, species_table)
     }
     
     df_grouped <- bbs_data_table %>%
-        dplyr::group_by_at(dplyr::vars(-abundance)) %>%
-        dplyr::summarise(abundance = sum(abundance)) %>%
+        dplyr::group_by_at(dplyr::vars(-one_of("abundance"))) %>%
+        dplyr::summarise(abundance = sum(.data$abundance)) %>%
         dplyr::ungroup() %>%
         dplyr::distinct()
 }
