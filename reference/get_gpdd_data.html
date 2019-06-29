@@ -130,15 +130,11 @@ least min_num_yrs of data samples during that period.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_gpdd_data</span>(<span class='kw'>min_num_yrs</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='no'>location_id</span>, <span class='no'>timeperiod_id</span>)</pre>
+    <pre class="usage"><span class='fu'>get_gpdd_data</span>(<span class='no'>location_id</span>, <span class='no'>timeperiod_id</span>, <span class='kw'>min_num_yrs</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>min_num_yrs</th>
-      <td><p>minimum number of years of data</p></td>
-    </tr>
     <tr>
       <th>location_id</th>
       <td><p>Location code of data to return</p></td>
@@ -147,6 +143,10 @@ least min_num_yrs of data samples during that period.</p>
       <th>timeperiod_id</th>
       <td><p>Sampling timescale code of data to return
 (some datasets provide at more than one scale)</p></td>
+    </tr>
+    <tr>
+      <th>min_num_yrs</th>
+      <td><p>minimum number of years of data</p></td>
     </tr>
     </table>
     

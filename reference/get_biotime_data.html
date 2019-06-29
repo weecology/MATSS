@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>extract the effort from a formatted data structure — get_effort_from_data • MATSS</title>
+<title>Get Biotime time-series data — get_biotime_data • MATSS</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="extract the effort from a formatted data structure — get_effort_from_data" />
+<meta property="og:title" content="Get Biotime time-series data — get_biotime_data" />
 
-<meta property="og:description" content="extract the effort from a formatted data structure" />
+<meta property="og:description" content="Original data found here http://biotime.st-andrews.ac.uk/home.php" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -117,33 +117,42 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>extract the effort from a formatted data structure</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/utils-data-checks.R'><code>R/utils-data-checks.R</code></a></small>
-    <div class="hidden name"><code>get_effort_from_data.Rd</code></div>
+    <h1>Get Biotime time-series data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_biotime_data.R'><code>R/get_biotime_data.R</code></a></small>
+    <div class="hidden name"><code>get_biotime_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>extract the effort from a formatted data structure</p>
+    <p>Original data found here http://biotime.st-andrews.ac.uk/home.php</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_effort_from_data</span>(<span class='no'>data</span>)</pre>
+    <pre class="usage"><span class='fu'>get_biotime_data</span>(<span class='no'>dataset</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>a formatted data structure</p></td>
+      <th>dataset</th>
+      <td><p>Dataset number to retrieve</p></td>
+    </tr>
+    <tr>
+      <th>path</th>
+      <td><p>Data storage path</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <code>numeric</code> vector containing the effort</p>
+    <p>list of two dataframes (one with abundance data, the other with covariate data)
+and one list of metadata.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+  <span class='fu'>get_biotime_data</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='fl'>321</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -151,7 +160,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

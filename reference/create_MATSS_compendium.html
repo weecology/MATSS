@@ -138,7 +138,40 @@ then perform the following additional actions:</p><ul>
 
     <pre class="usage"><span class='fu'>create_MATSS_compendium</span>(<span class='no'>path</span>, <span class='kw'>fields</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>rstudio</span> <span class='kw'>=</span> <span class='kw pkg'>rstudioapi</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/rstudioapi/topics/isAvailable'>isAvailable</a></span>(), <span class='kw'>open</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/interactive'>interactive</a></span>())</pre>
-        
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>path</th>
+      <td><p>A path. If it exists, it is used. If it does not exist, it is
+created, provided that the parent path exists.</p></td>
+    </tr>
+    <tr>
+      <th>fields</th>
+      <td><p>A named list of fields to add to <code>DESCRIPTION</code>, potentially
+overriding default values. See <code>use_description()</code> for how you can set
+personalized defaults using package options</p></td>
+    </tr>
+    <tr>
+      <th>rstudio</th>
+      <td><p>If <code>TRUE</code>, calls <code>use_rstudio()</code> to make the new package or
+project into an <a href='{https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects}{RStudio Project}'>.
+</a>If <code>FALSE</code> and a non-package project, a sentinel <code>.here</code> file is placed so
+that the directory can be recognized as a project by the
+<a href='{https://here.r-lib.org}{here}'> or
+</a><a href='{https://rprojroot.r-lib.org}{rprojroot}'> packages.</a></p></td>
+    </tr>
+    <tr>
+      <th>open</th>
+      <td><p>If <code>TRUE</code>, activates the new project:</p><ul>
+<li><p>If RStudio desktop, the package is opened in a new session.</p></li>
+<li><p>If on RStudio server, the current RStudio project is activated.</p></li>
+<li><p>Otherwise, the working directory and active project is changed.</p></li>
+</ul></td>
+    </tr>
+    </table>
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Path to the newly created package, invisibly.</p>
@@ -148,6 +181,7 @@ then perform the following additional actions:</p><ul>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
           </ul>
