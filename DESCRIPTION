@@ -30,7 +30,7 @@ Depends: R (>= 3.4.0)
 Imports:
     magrittr,
     ggplot2,
-    lubridate
+    lubridate, 
     drake (>= 7.1.0),
     dplyr,
     tidyr,
