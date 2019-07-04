@@ -37,7 +37,15 @@ Imports:
     tidyr,
     purrr,
     rdataretriever (>= 1.1.0),
-    portalr (>= 0.2.4)
+    portalr (>= 0.2.4),
+    RSQLite,
+    forecast,
+    tibble,
+    future,
+    future.batchtools,
+    stringr,
+    usethis,
+    rgpdd (>= 0.1)
 Suggests:
     testthat,
     knitr,
