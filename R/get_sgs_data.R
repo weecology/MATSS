@@ -16,7 +16,7 @@ get_sgs_data <- function()
     # select key columns 
     # filter out unknown species and recaptures
     sgs_data <- sgs_data %>% 
-        dplyr::select(dplyr::one_of(c("SESSION", "YEAR", "VEG", "WEB", "SPP"))) %>% 
+        dplyr::select_at(c("SESSION", "YEAR", "VEG", "WEB", "SPP")) %>% 
         dplyr::filter(.data$SPP != 'NA')
     
     # get data into wide format

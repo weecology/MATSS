@@ -59,7 +59,7 @@ get_maizuru_data <- function()
              dplyr::select(-dplyr::one_of(covars)) %>%
              dplyr::mutate_all(~round(. + 1e-10)), 
          covariates = raw_data %>% 
-             dplyr::select(dplyr::one_of(covars)),
+             dplyr::select_at(covars),
          metadata = list(timename = "Date", effort = NULL))
 }
 

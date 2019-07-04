@@ -193,12 +193,12 @@ combine_bbs_subspecies <- function(bbs_data_table, species_table)
         dplyr::rename(old_id = .data$aou) %>%
         dplyr::mutate(species_name = stringr::word(.data$spanish_common_name, 1, 2)) %>%
         dplyr::left_join(dplyr::mutate_at(species_table, 
-                                          dplyr::vars(spanish_common_name), 
+                                          "spanish_common_name", 
                                           as.character), 
                          by = c("species_name" = "spanish_common_name")) %>%
         dplyr::rename(new_id = .data$aou) %>%
         dplyr::mutate(new_id = ifelse(is.na(.data$new_id), .data$old_id, .data$new_id)) %>%
-        dplyr::select(dplyr::one_of(c("new_id", "old_id")))
+        dplyr::select_at(c("new_id", "old_id"))
     
     # replace the full subspecies names with species-level names
     if (NROW(subspecies_LUT) > 0)
@@ -209,8 +209,8 @@ combine_bbs_subspecies <- function(bbs_data_table, species_table)
     }
     
     df_grouped <- bbs_data_table %>%
-        dplyr::group_by_at(dplyr::vars(-dplyr::one_of("abundance"))) %>%
-        dplyr::summarise(abundance = sum(.data$abundance)) %>%
+        dplyr::group_by_at(dplyr::vars(-.data$abundance)) %>%
+        dplyr::summarize(abundance = sum(.data$abundance)) %>%
         dplyr::ungroup() %>%
         dplyr::distinct()
 }

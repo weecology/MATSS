@@ -28,8 +28,8 @@ get_gpdd_data <- function(location_id, timeperiod_id, min_num_yrs = 10)
                       date = format(lubridate::date_decimal(.data$DecimalYearBegin), "%Y-%m-%d")) %>%
         dplyr::arrange(.data$date) %>%
         dplyr::select(-dplyr::one_of(c("SiblyFittedTheta", "SiblyThetaCILower", "SiblyThetaCIUpper", "SiblyExtremeNEffect",    
-                                       "SiblyReturnRate", "SiblyCarryingCapacity", "Population", "Generation", 
-                                       "SpatialDensity", "SpatialAccuracy")))
+                                          "SiblyReturnRate", "SiblyCarryingCapacity", "Population", "Generation", 
+                                          "SpatialDensity", "SpatialAccuracy")))
     
     abundance <- gpdd_data %>%
         dplyr::select(.data$date, .data$TaxonID, .data$PopulationUntransformed) %>%
@@ -49,19 +49,19 @@ get_gpdd_data <- function(location_id, timeperiod_id, min_num_yrs = 10)
                          DecimalYearEnd = max(.data$DecimalYearEnd)) %>%
         tidyr::spread(key = .data$TaxonID, value = .data$total, fill = 0) %>%
         dplyr::ungroup() %>%
-        dplyr::mutate_at(dplyr::vars(date), as.Date) %>% 
+        dplyr::mutate_at("date", as.Date) %>% 
         dplyr::select(-dplyr::starts_with('sp'))
     
     location = gpdd_data %>% 
-        dplyr::select(dplyr::one_of(c("BiotopeID", "LocationID", "ExactName", "TownName", "CountyStateProvince", 
-                                      "Country", "Continent", "Ocean", "LongitudeMinutes", "EorW", 
-                                      "LatitudeDegrees", "LatitudeMinutes", "NorS", "LongDD", "LatDD", 
-                                      "North", "East", "South", "Area", "Notes.y", "LocationExtent"))) %>% 
+        dplyr::select_at(c("BiotopeID", "LocationID", "ExactName", "TownName", "CountyStateProvince", 
+                           "Country", "Continent", "Ocean", "LongitudeMinutes", "EorW", 
+                           "LatitudeDegrees", "LatitudeMinutes", "NorS", "LongDD", "LatDD", 
+                           "North", "East", "South", "Area", "Notes.y", "LocationExtent")) %>% 
         dplyr::distinct()
     
     samples = gpdd_data %>% 
-        dplyr::select(dplyr::one_of(c("SamplingFrequency", "StartYear", "EndYear", "SamplingUnits", 
-                                      "SamplingProtocol", "Reliability", "DatasetLength", "Notes.x", "Notes.y"))) %>% 
+        dplyr::select_at(c("SamplingFrequency", "StartYear", "EndYear", "SamplingUnits", 
+                           "SamplingProtocol", "Reliability", "DatasetLength", "Notes.x", "Notes.y")) %>% 
         dplyr::distinct()
     
     source = gpdd_data %>% 

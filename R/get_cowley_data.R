@@ -16,7 +16,7 @@ get_cowley_lizards <- function()
         dplyr::filter(!is.na(.data$Cnemnidophorous_sexlineatus))
     
     list(abundance = dplyr::select(raw_data, -dplyr::one_of(c("Year", "Site", "Total"))), 
-         covariates = dplyr::select(raw_data, dplyr::one_of("Year")),
+         covariates = dplyr::select(raw_data, .data$Year),
          metadata = list(timename = "Year", effort = NULL, site = "CowleyCounty",
                          source = "Wilgers, DJ, Horne, EA, Sandercock, BK, Volkmann, AW, 2006.
                             EFFECTS OF RANGELAND MANAGEMENT ON COMMUNITY DYNAMICS OF THE 
@@ -45,7 +45,7 @@ get_cowley_snakes <- function()
         dplyr::filter(!is.na(.data$Agkistrodon_contortrix))
     
     list(abundance = dplyr::select(raw_data, -dplyr::one_of(c("Year", "Site", "Total"))), 
-         covariates = dplyr::select(raw_data, dplyr::one_of("Year")),
+         covariates = dplyr::select(raw_data, .data$Year),
          metadata = list(timename = "Year", effort = NULL, site = "CowleyCounty",
                          source = "Wilgers, DJ, Horne, EA, Sandercock, BK, Volkmann, AW, 2006.
                             EFFECTS OF RANGELAND MANAGEMENT ON COMMUNITY DYNAMICS OF THE 
