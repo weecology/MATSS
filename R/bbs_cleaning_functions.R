@@ -201,7 +201,7 @@ combine_bbs_subspecies <- function(bbs_data_table, species_table)
         dplyr::select(dplyr::one_of(c("new_id", "old_id")))
     
     # replace the full subspecies names with species-level names
-    if (length(new_subspecies_ids) > 0)
+    if (NROW(subspecies_LUT) > 0)
     {
         new_levels <- subspecies_LUT$new_id
         names(new_levels) <- subspecies_LUT$old_id
