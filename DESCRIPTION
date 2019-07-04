@@ -30,22 +30,11 @@ Depends: R (>= 3.4.0)
 Imports:
     magrittr,
     ggplot2,
-    lubridate,
-    portalr (>= 0.2.4),
+    lubridate
     drake (>= 7.1.0),
     dplyr,
     tidyr,
-    purrr,
-    rdataretriever (>= 1.1.0),
-    RSQLite,
-    forecast,
-    tibble,
-    rlang,
-    future,
-    future.batchtools,
-    stringr,
-    usethis,
-    rgpdd (>= 0.1)
+    purrr
 Suggests:
     testthat,
     knitr,
