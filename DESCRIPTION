@@ -35,7 +35,9 @@ Imports:
     rlang,
     dplyr,
     tidyr,
-    purrr
+    purrr,
+    rdataretriever (>= 1.1.0),
+    portalr (>= 0.2.4)
 Suggests:
     testthat,
     knitr,
