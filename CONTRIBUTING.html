@@ -192,7 +192,7 @@ newfunc &lt;- function() ...</code></pre>
 <li>Write code, documentation, and tests.</li>
 </ol>
 <ul>
-<li>To add dependencies on external packages, use <code><a href="https://usethis.r-lib.org/reference/use_package.html">usethis::use_package("package name")</a></code>. This will modify the documentation on <em>this</em> package accordingly. If you are adding a dependency to a package that is <em>NOT</em> on CRAN, use <code><a href="https://usethis.r-lib.org/reference/use_package.html">usethis::use_dev_package("package name")</a></code> instead.</li>
+<li>To add dependencies on external packages, use <code>usethis::use_package("package name")</code>. This will modify the documentation on <em>this</em> package accordingly. If you are adding a dependency to a package that is <em>NOT</em> on CRAN, use <code>usethis::use_dev_package("package name")</code> instead.</li>
 </ul>
 <ol>
 <li>Run <code>devtools::document()</code> to generate the documentation files and update the <code>NAMESPACE</code> file.</li>
