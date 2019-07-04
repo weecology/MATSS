@@ -5,6 +5,9 @@ sudo: required
 dist: "trusty"
 warnings_are_errors: false
 
+python:
+- 3.6
+
 r_packages:
   - covr
 
