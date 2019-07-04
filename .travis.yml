@@ -13,7 +13,6 @@ addons:
     packages:
       - libgsl0-dbg
       - libgsl0-dev
-      - libgsl0ldbl
       - "python3.5"
       - "python3-pip"
     update: true
