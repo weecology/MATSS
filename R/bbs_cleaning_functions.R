@@ -187,27 +187,25 @@ filter_bbs_species <- function(bbs_data_table, species_table)
 combine_bbs_subspecies <- function(bbs_data_table, species_table) 
 {
     # Subspecies have two spaces separated by non-spaces
-    subspecies_names <- species_table %>%
+    subspecies_LUT <- species_table %>%
         dplyr::filter(.data$aou %in% unique(bbs_data_table$species_id)) %>%
-        dplyr::pull(.data$spanish_common_name) %>%
-        grep(" [^ ]+ ", ., value = TRUE)
-    
-    subspecies_ids <- species_table %>%
-        dplyr::filter(.data$spanish_common_name %in% subspecies_names) %>%
-        dplyr::pull(.data$aou)
-    
-    # Drop all but the first two words to get the root species name,
-    # then find the AOU code
-    new_subspecies_ids <- species_table %>%
-        dplyr::slice(match(stringr::word(subspecies_names, 1, 2),
-                           species_table$spanish_common_name)) %>%
-        dplyr::pull(.data$aou)
+        dplyr::filter(grepl(" [^ ]+ ", .data$spanish_common_name)) %>%
+        dplyr::rename(old_id = .data$aou) %>%
+        dplyr::mutate(species_name = stringr::word(.data$spanish_common_name, 1, 2)) %>%
+        dplyr::left_join(dplyr::mutate_at(species_table, 
+                                          dplyr::vars(spanish_common_name), 
+                                          as.character), 
+                         by = c("species_name" = "spanish_common_name")) %>%
+        dplyr::rename(new_id = .data$aou) %>%
+        dplyr::mutate(new_id = ifelse(is.na(.data$new_id), .data$old_id, .data$new_id)) %>%
+        dplyr::select(dplyr::one_of(c("new_id", "old_id")))
     
     # replace the full subspecies names with species-level names
     if (length(new_subspecies_ids) > 0)
     {
-        names(new_subspecies_ids) <- subspecies_ids
-        bbs_data_table$species_id <- dplyr::recode(bbs_data_table$species_id, !!!new_subspecies_ids)
+        new_levels <- subspecies_LUT$new_id
+        names(new_levels) <- subspecies_LUT$old_id
+        bbs_data_table$species_id <- dplyr::recode(bbs_data_table$species_id, !!!new_levels)
     }
     
     df_grouped <- bbs_data_table %>%
