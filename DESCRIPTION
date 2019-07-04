@@ -32,6 +32,7 @@ Imports:
     ggplot2,
     lubridate, 
     drake (>= 7.1.0),
+    rlang,
     dplyr,
     tidyr,
     purrr
