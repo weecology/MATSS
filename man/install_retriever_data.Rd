@@ -3,12 +3,17 @@
 \name{install_retriever_data}
 \alias{install_retriever_data}
 \alias{import_retriever_data}
-\title{Download a dataset from data retriever}
+\alias{download_datasets}
+\title{Download data from the data retriever}
 \usage{
 install_retriever_data(dataset, path = get_default_data_path(),
   force_install = FALSE)
 
 import_retriever_data(dataset, path = get_default_data_path())
+
+download_datasets(dataset = c("breed-bird-survey", "veg-plots-sdl",
+  "mapped-plant-quads-mt", "biotimesql"), path = get_default_data_path(),
+  force_install = FALSE)
 }
 \arguments{
 \item{dataset}{the name of the dataset that you wish to download}
@@ -24,6 +29,10 @@ is a wrapper around rdataretriever::install
 
 \code{import_retriever_data} loads a previously downloaded
 retriever dataset
+
+\code{download_datasets} is a wrapper around
+\code{\link{install_retriever_data}} to download multiple datasets, with
+the default to download all of the datasets that are supported.
 }
 \examples{
 \dontrun{
@@ -31,5 +40,8 @@ retriever dataset
 }
 \dontrun{
   import_retriever_data("veg-plots-sdl")
+}
+\dontrun{
+  download_datasets()
 }
 }

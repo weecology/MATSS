@@ -30,7 +30,7 @@ use_default_data_path <- function(path = NULL)
     portalr::use_default_data_path(path, ENV_VAR = "MATSS_DATA_PATH")
 }
 
-#' @title Download a dataset from data retriever
+#' @title Download data from the data retriever
 #' @aliases import_retriever_data
 #'  
 #' @description \code{install_retriever_data} downloads retriever datasets and 
@@ -59,7 +59,7 @@ install_retriever_data <- function(dataset, path = get_default_data_path(),
     folder_path <- file.path(path, dataset)
     if (dir.exists(folder_path) && !force_install)
     {
-        message("A folder already exists for \"", dataset, "\".\n", 
+        message("A folder already exists for \"", dataset, "\"... skipping.\n", 
                 "Use `force_install = TRUE` to overwrite it with a fresh install.")
     } else {
         # make the folder
@@ -75,7 +75,6 @@ install_retriever_data <- function(dataset, path = get_default_data_path(),
     }
 }
 
-#' @title Import a dataset downloaded from data retriever
 #' @rdname install_retriever_data
 #'
 #' @description \code{import_retriever_data} loads a previously downloaded 
@@ -113,4 +112,32 @@ import_retriever_data <- function(dataset, path = get_default_data_path())
                                          stringsAsFactors = FALSE)
     }
     return(tempdata)
+}
+
+#' @rdname install_retriever_data
+#' 
+#' @description \code{download_datasets} is a wrapper around 
+#'   \code{\link{install_retriever_data}} to download multiple datasets, with 
+#'   the default to download all of the datasets that are supported.
+#'   
+#' @inheritParams install_retriever_data
+#' 
+#' @return NULL
+#' 
+#' @examples
+#' \dontrun{
+#'   download_datasets()
+#' }
+
+download_datasets <- function(dataset = c("breed-bird-survey", 
+                                          "veg-plots-sdl", 
+                                          "mapped-plant-quads-mt", 
+                                          "biotimesql"), 
+                              path = get_default_data_path(), 
+                              force_install = FALSE)
+{
+    purrr::walk(dataset, 
+                install_retriever_data, 
+                path = path, 
+                force_install = force_install)
 }

@@ -21,6 +21,7 @@ reference:
   - title: "Rdataretriever"
     desc: "Functions that use Rdataretriever to download and import data"
     contents:
+      - download_retriever_datasets
       - import_retriever_data
       - install_retriever_data
   - title: "Get Data"

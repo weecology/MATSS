@@ -1,5 +1,8 @@
-#' Get cleaned BBS data
-#' @description Gets prepped BBS data (as a list of abundance, covariates, and metadata) for a specified route and region. First run `prepare_bbs_data` to create these files from the raw BBS data tables
+#' @title Get cleaned BBS data
+#' @description Gets prepped BBS data (as a list of abundance, covariates, and 
+#'   metadata) for a specified route and region. First run `prepare_bbs_data` 
+#'   to create these files from the raw BBS data tables. If the files are not 
+#'   found, then `NULL` is returned.
 #' @param route Route number
 #' @param region Region number
 #' @param path Data storage path
