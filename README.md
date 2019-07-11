@@ -1,13 +1,15 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# MATSS 0.1.0
+# MATSS 0.1.1
 
 [![Build
 Status](https://travis-ci.org/weecology/MATSS.svg?branch=master)](https://travis-ci.org/weecology/MATSS)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/weecology/MATSS/master/LICENSE)
 [![Coverage
 status](https://codecov.io/gh/weecology/MATSS/branch/master/graph/badge.svg)](https://codecov.io/github/weecology/MATSS?branch=master)
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3333008.svg)](https://doi.org/10.5281/zenodo.3333008)
 
 ## Overview
 

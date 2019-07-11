@@ -1,0 +1,54 @@
+{
+"title": "Macroecological Analayses of Time Series Structure",
+"creators": [
+    {
+      "affiliation": "University of Florida",
+      "name": "Hao Ye",
+      "orcid": "0000-0002-8630-1458"
+    },
+    {
+      "affiliation": "University of Florida",
+      "name": "Ellen K. Bledsoe",
+      "orcid": "0000-0002-3629-7235"
+    },
+    {
+      "affiliation": "University of Florida",
+      "name": "Erica M. Christensen",
+      "orcid": "0000-0002-5635-2502"
+    },
+    {
+      "affiliation": "University of Florida",
+      "name": "Renata Diaz",
+      "orcid": "0000-0003-0803-4734"
+    },
+    {
+      "affiliation": "University of Florida",
+      "name": "S. K. Morgan Ernest",
+      "orcid": "0000-0002-6026-8530"
+    },
+    {
+      "affiliation": "University of Florida",
+      "name": "Juniper L. Simonis",
+      "orcid": "0000-0001-9798-0460"
+    },
+    {
+      "affiliation": "University of Florida",
+      "name": "Ethan P. White",
+      "orcid": "0000-0001-6728-7745"
+    },
+    {
+      "affiliation": "University of Florida",
+      "name": "Glenda M. Yenni",
+      "orcid": "0000-0001-6969-1848"
+    }
+],
+    "description": "Support for macroecological analyses of time series. The intent of the package is to enable end users to run analyses on a collection of population and community time series data. Functions are provided to download and import datasets, produce reproducible workflows using the `drake` package, and for generating research compendia with code and reports.",
+    "keywords": [
+    "ecology",
+    "long-term",
+    "time-series"
+  ],
+    "access_right": "open",
+    "license": "mit-license",
+    "upload_type": "software"
+}

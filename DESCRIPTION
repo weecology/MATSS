@@ -1,7 +1,7 @@
 Package: MATSS
 Type: Package
 Title: Macroecological Analyses of Time Series Structure
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
     person("Hao", "Ye", role = c("aut", "cre"), 
     	   email = "hao.ye@weecology.org", 
@@ -12,16 +12,16 @@ Authors@R: c(
     	   comment = c(ORCID = "0000-0002-5635-2502")),
     person("Renata", "Diaz", role = c("aut"), 
     	   comment = c(ORCID = "0000-0003-0803-4734")),
-    person("Juniper", "Simonis", role = c("aut"), 
-    	   comment = c(ORCID = "0000-0001-9798-0460")),
     person("S. K. Morgan", "Ernest", role = c("aut"), 
     	   comment = c(ORCID = "0000-0002-6026-8530")),
+    person("Juniper", "Simonis", role = c("aut"), 
+    	   comment = c(ORCID = "0000-0001-9798-0460")),
     person("Ethan", "White", role = c("aut"), 
     	   comment = c(ORCID = "0000-0001-6728-7745")),
     person("Glenda", "Yenni", role = c("aut"), 
     	   comment = c(ORCID = "0000-0001-6969-1848"))
   )
-Description: Support for automated analyses of ecological time series.  The goal is to support the ability of end users to run analyses on a collection of datasets. Users will be able to add datasets and/or analysis methods using code (in the case of data, code to bring the data into standardized formats), with functionality for Drake to automatically update downstream analyses and reports.
+Description: Support for macroecological analyses of time series. The intent of the package is to enable end users to run analyses on a collection of population and community time series data. Functions are provided to download and import datasets, produce reproducible workflows using the `drake` package, and for generating research compendia with code and reports.
 License: MIT + file LICENSE
 URL: https://github.com/weecology/MATSS
 BugReports: https://github.com/weecology/MATSS/issues
