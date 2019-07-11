@@ -119,7 +119,14 @@
 <h1 class="hasAnchor">
 <a href="#template-research-compendium" class="anchor"></a>Template Research Compendium</h1>
 <p>If you feel comfortable to dive right in, we recommend you start with our provided functionality to create a new research compendium.</p>
-<p>This code will perform the following operations: * create a new R package for the analysis * add required dependencies for the new R package to its <code>DESCRIPTION</code> file * create an <code>analysis</code> folder to hold the analysis files * add a template R script for the analysis * add a template Rmd report that is created as a result of running the above R script</p>
+<p>This code will perform the following operations:</p>
+<ul>
+<li>create a new R package for the analysis</li>
+<li>add required dependencies for the new R package to its <code>DESCRIPTION</code> file</li>
+<li>create an <code>analysis</code> folder to hold the analysis files</li>
+<li>add a template R script for the analysis</li>
+<li>add a template Rmd report that is created as a result of running the above R script</li>
+</ul>
 <p>After creating the new project, you can source <code>pipeline.R</code> to run the analysis and knit the report.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/create_MATSS_compendium.html">create_MATSS_compendium</a></span>(<span class="st">"&lt;path&gt;"</span>)</a></code></pre></div>
 <p>For further details about how the code within the template project works, see the below guide to interacting with the datasets, the <code>drake</code> workflow package, and our tools for building reproducible analyses.</p>
