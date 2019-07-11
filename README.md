@@ -10,8 +10,8 @@ status](https://codecov.io/gh/weecology/MATSS/branch/master/graph/badge.svg)](ht
 
 ## Overview
 
-The *MATSS* package is intended to support Macroecological Analysis of
-Time Series Structure. We provide functions to:
+The **`MATSS`** package is intended to support Macroecological Analysis
+of Time Series Structure. We provide functions to:
 
   - gather ecological time series datasets
   - perform basic processing and summaries of those datasets
@@ -26,11 +26,11 @@ please check out the [Contributing Guide](CONTRIBUTING.md).
 
 ## Installation
 
-You can install the `MATSS` package from github with:
+You can install **`MATSS`** from github with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("weecology/MATSS")
+remotes::install_github("weecology/MATSS", build_opts = c("--no-resave-data", "--no-manual"))
 ```
 
 This package relies on the development version of the `rdataretriever`
@@ -39,27 +39,44 @@ extra steps because it runs a Python package behind the scenes. Follow
 the installation instructions on the [`rdataretriever`
 README](https://github.com/ropensci/rdataretriever).
 
-## Examples
+## Datasets
 
-{add examples of using the `MATSS` package to get data and/or use the
-analysis methods}
+**`MATSS`** pulls data from a variety of sources, including:
 
-## Running the Analyses
+  - 10 individual datasets that we’ve added,
+  - the North American Breeding Bird Survey database (spanning 2587
+    separate datasets),
+  - the Global Population Dynamics Database (spanning 120 separate
+    datasets),
+  - and the BioTime database (spanning 361 separate datasets).
 
-Note: This entire section is deprecated and will be moved over into
-<https://github.com/weecology/MATSS-LDATS>
+Combined, there are **84052** individual time series across all of these
+data sources.
 
-To run the analysis component of this project, you will want to clone or
-copy the repository, *in addition* to installing the package. (*note
-that you can also install the package locally from the files*)
+## Getting Started
 
-The file `analysis/pipeline.R` has a full script that generates the
-Drake plan for the analyses and then runs it. When the code is run,
-these steps occur in sequence: (1) R creates a list of objects that need
-to be created and their dependencies (whether certain outputs depend on
-other outputs) (2) R checks the list of objects and code against its
-database of objects (usually stored in the `.drake` hidden folder). If
-any objects are out of date (because they are missing or the code /
-dependencies have changed), then they are queued up to be re-created.
-(3) R makes any objects that it needs to, including final reports, such
-as [LDA report](lda_report.md).
+To get started with the data or analysis templates, we recommend you
+take a look at our [Getting Started
+vignette](https://weecology.github.io/MATSS/articles/MATSS.html) for
+more details about how to interface with the datasets, use Drake to
+create workflows, and create research compendia.
+
+If you have the **`MATSS`** package installed, you can also view the
+vignette from within R:
+
+``` r
+vignette("MATSS")
+```
+
+## Example Use Cases
+
+Here are some examples of using **`MATSS`** to create research
+compendia:
+
+  - [MATSS-LDATS](https://github.com/weecology/MATSS-LDATS) applies the
+    [**`LDATS`**](https://github.com/weecology/LDATS) package to
+    investigate changepoints in community dynamics across the datasets
+    in **`MATSS`**
+  - [MATSS-Forecasting](https://github.com/weecology/MATSS-forecasting)
+    investigates which properties are associated with the predictability
+    of population time series across the datasets in **`MATSS`**

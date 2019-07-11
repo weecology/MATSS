@@ -37,7 +37,7 @@ Imports:
     tidyr,
     purrr,
     rdataretriever (>= 1.1.0),
-    portalr (>= 0.2.4),
+    portalr (>= 0.2.5),
     RSQLite,
     forecast,
     tibble,
@@ -56,7 +56,6 @@ Suggests:
 RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
-Remotes:  
-    weecology/portalr,
+Remotes: 
     ropensci/rdataretriever,
     ropensci/rgpdd
