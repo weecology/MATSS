@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MATSS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
       </span>
     </div>
 
@@ -128,6 +128,20 @@
     <tbody>
       <tr>
         <th colspan="2">
+          <h2 id="section-creating-a-research-compendium" class="hasAnchor"><a href="#section-creating-a-research-compendium" class="anchor"></a>Creating a Research Compendium</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="create_MATSS_compendium.html">create_MATSS_compendium()</a></code> </p>
+        </td>
+        <td><p>Create a research compendium for MATSS</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
           <h2 id="section-drake-plans" class="hasAnchor"><a href="#section-drake-plans" class="anchor"></a>Drake Plans</h2>
           <p class="section-desc"><p>Functions to help build Drake plans</p></p>
         </th>
@@ -144,6 +158,24 @@
           <p><code><a href="build_datasets_plan.html">build_datasets_plan()</a></code> </p>
         </td>
         <td><p>Generate a Drake Plan for Datasets</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="build_bbs_datasets_plan.html">build_bbs_datasets_plan()</a></code> </p>
+        </td>
+        <td><p>Generate a Drake Plan for BBS Datasets</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="build_biotime_datasets_plan.html">build_biotime_datasets_plan()</a></code> </p>
+        </td>
+        <td><p>Generate a Drake Plan for Biotime Datasets</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="build_gpdd_datasets_plan.html">build_gpdd_datasets_plan()</a></code> </p>
+        </td>
+        <td><p>Generate a Drake Plan for GPDD Datasets</p></td>
       </tr><tr>
         
         <td>
@@ -187,6 +219,20 @@ dataset</p></td>
     </tbody><tbody>
       <tr>
         <th colspan="2">
+          <h2 id="section-rdataretriever" class="hasAnchor"><a href="#section-rdataretriever" class="anchor"></a>Rdataretriever</h2>
+          <p class="section-desc"><p>Functions that use Rdataretriever to download and import data</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="install_retriever_data.html">install_retriever_data()</a></code> <code><a href="install_retriever_data.html">import_retriever_data()</a></code> </p>
+        </td>
+        <td><p>Download a dataset from data retriever</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
           <h2 id="section-get-data" class="hasAnchor"><a href="#section-get-data" class="anchor"></a>Get Data</h2>
           <p class="section-desc"><p>Functions to load datasets</p></p>
         </th>
@@ -194,106 +240,15 @@ dataset</p></td>
       <tr>
         
         <td>
-          <p><code><a href="MATSS.html">MATSS</a></code> </p>
+          <p><code><a href="get_biotime_data.html">get_biotime_data()</a></code> </p>
         </td>
-        <td><p>Macroecological Analayses of Time Series Structure</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="analysis_wrapper.html">analysis_wrapper()</a></code> </p>
-        </td>
-        <td><p>Create a function that replicates an analysis for all time series in a
-dataset</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="build_analyses_plan.html">build_analyses_plan()</a></code> </p>
-        </td>
-        <td><p>Generate a Drake Plan for Analyses</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="build_bbs_datasets_plan.html">build_bbs_datasets_plan()</a></code> </p>
-        </td>
-        <td><p>Generate a Drake Plan for BBS Datasets</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="build_biotime_datasets_plan.html">build_biotime_datasets_plan()</a></code> </p>
-        </td>
-        <td><p>Generate a Drake Plan for Biotime Datasets</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="build_datasets_plan.html">build_datasets_plan()</a></code> </p>
-        </td>
-        <td><p>Generate a Drake Plan for Datasets</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="build_gpdd_datasets_plan.html">build_gpdd_datasets_plan()</a></code> </p>
-        </td>
-        <td><p>Generate a Drake Plan for GPDD Datasets</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="check_data_format.html">check_data_format()</a></code> </p>
-        </td>
-        <td><p>Check data format</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="check_default_data_path.html">check_default_data_path()</a></code> </p>
-        </td>
-        <td><p>Check if a default data path is set</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="collect_analyses.html">collect_analyses()</a></code> </p>
-        </td>
-        <td><p>Collect the Analyses Together as a List</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="combine_bbs_subspecies.html">combine_bbs_subspecies()</a></code> </p>
-        </td>
-        <td><p>Combine subspecies into their common species</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="create_MATSS_compendium.html">create_MATSS_compendium()</a></code> </p>
-        </td>
-        <td><p>Create a research compendium for MATSS</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="dragons.html">dragons</a></code> </p>
-        </td>
-        <td><p>dragons dataset</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="filter_bbs_species.html">filter_bbs_species()</a></code> </p>
-        </td>
-        <td><p>Filter poorly sampled BBS species</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="filter_bbs_ts.html">filter_bbs_ts()</a></code> </p>
-        </td>
-        <td><p>Filter BBS to specified time series period and number of samples</p></td>
+        <td><p>Get Biotime time-series data</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="get_bbs_route_region_data.html">get_bbs_route_region_data()</a></code> </p>
         </td>
         <td><p>Get cleaned BBS data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_biotime_data.html">get_biotime_data()</a></code> </p>
-        </td>
-        <td><p>Get Biotime time-series data</p></td>
       </tr><tr>
         
         <td>
@@ -310,18 +265,6 @@ Import cowley lizard data from data files</p></td>
         <td><p>Read in the cowley snake community data from a txt file
 
 Import cowley snake data from data files</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_default_data_path.html">get_default_data_path()</a></code> </p>
-        </td>
-        <td><p>What is the default data path?</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_effort_from_data.html">get_effort_from_data()</a></code> </p>
-        </td>
-        <td><p>extract the effort from a formatted data structure</p></td>
       </tr><tr>
         
         <td>
@@ -390,54 +333,20 @@ LDA analysis.</p></td>
         <td><p>get Shortgrass Steppe rodent data
 
 Import Shortgrass Steppe rodent abundance from data files</p></td>
-      </tr><tr>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-analysis-methods" class="hasAnchor"><a href="#section-analysis-methods" class="anchor"></a>Analysis Methods</h2>
+          <p class="section-desc"><p>Functions to compute analyses</p></p>
+        </th>
+      </tr>
+      <tr>
         
         <td>
-          <p><code><a href="get_times_from_data.html">get_times_from_data()</a></code> </p>
+          <p><code><a href="ts_summary.html">ts_summary()</a></code> </p>
         </td>
-        <td><p>extract the times from a formatted data structure</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="install_retriever_data.html">install_retriever_data()</a></code> <code><a href="install_retriever_data.html">import_retriever_data()</a></code> </p>
-        </td>
-        <td><p>Download a dataset from data retriever</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="interpolate_obs.html">interpolate_obs()</a></code> </p>
-        </td>
-        <td><p>Interpolate observations</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="maizuru_data.html">maizuru_data</a></code> </p>
-        </td>
-        <td><p>Dataset Maizuru Fish Community</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="normalize_obs.html">normalize_obs()</a></code> <code><a href="normalize_obs.html">normalize_times()</a></code> <code><a href="normalize_obs.html">normalize_effort()</a></code> </p>
-        </td>
-        <td><p>Normalize observations, effort, or times</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="prepare_bbs_ts_data.html">prepare_bbs_ts_data()</a></code> </p>
-        </td>
-        <td><p>Prepare BBS population time-series data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="process_bbs_route_region_data.html">process_bbs_route_region_data()</a></code> </p>
-        </td>
-        <td><p>Process the BBS data for an individual route and region</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="richness.html">richness()</a></code> </p>
-        </td>
-        <td><p>Count non-0 entries</p></td>
+        <td><p>Summarize a time series</p></td>
       </tr><tr>
         
         <td>
@@ -453,9 +362,53 @@ Import Shortgrass Steppe rodent abundance from data files</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="richness.html">richness()</a></code> </p>
+        </td>
+        <td><p>Count non-0 entries</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="temp_autocor.html">temp_autocor()</a></code> </p>
         </td>
         <td><p>Interpolate observations</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="interpolate_obs.html">interpolate_obs()</a></code> </p>
+        </td>
+        <td><p>Interpolate observations</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-data-checking-filtering-and-processing" class="hasAnchor"><a href="#section-data-checking-filtering-and-processing" class="anchor"></a>Data Checking, Filtering, and Processing</h2>
+          <p class="section-desc"><p>Functions to check datasets, extract components, and preprocess them</p></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="check_data_format.html">check_data_format()</a></code> </p>
+        </td>
+        <td><p>Check data format</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_times_from_data.html">get_times_from_data()</a></code> </p>
+        </td>
+        <td><p>extract the times from a formatted data structure</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_effort_from_data.html">get_effort_from_data()</a></code> </p>
+        </td>
+        <td><p>extract the effort from a formatted data structure</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="normalize_obs.html">normalize_obs()</a></code> <code><a href="normalize_obs.html">normalize_times()</a></code> <code><a href="normalize_obs.html">normalize_effort()</a></code> </p>
+        </td>
+        <td><p>Normalize observations, effort, or times</p></td>
       </tr><tr>
         
         <td>
@@ -465,75 +418,53 @@ Import Shortgrass Steppe rodent abundance from data files</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="ts_summary.html">ts_summary()</a></code> </p>
+          <p><code><a href="prepare_bbs_ts_data.html">prepare_bbs_ts_data()</a></code> </p>
         </td>
-        <td><p>Summarize a time series</p></td>
+        <td><p>Prepare BBS population time-series data</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="use_default_data_path.html">use_default_data_path()</a></code> </p>
+          <p><code><a href="process_bbs_route_region_data.html">process_bbs_route_region_data()</a></code> </p>
         </td>
-        <td><p>Manage the default path for downloading MATSS Data into</p></td>
+        <td><p>Process the BBS data for an individual route and region</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="filter_bbs_ts.html">filter_bbs_ts()</a></code> </p>
+        </td>
+        <td><p>Filter BBS to specified time series period and number of samples</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="filter_bbs_species.html">filter_bbs_species()</a></code> </p>
+        </td>
+        <td><p>Filter poorly sampled BBS species</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="combine_bbs_subspecies.html">combine_bbs_subspecies()</a></code> </p>
+        </td>
+        <td><p>Combine subspecies into their common species</p></td>
       </tr>
     </tbody><tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-rdataretriever" class="hasAnchor"><a href="#section-rdataretriever" class="anchor"></a>Rdataretriever</h2>
-          <p class="section-desc"><p>Functions that use Rdataretriever to download and import data</p></p>
+          <h2 id="section-datasets" class="hasAnchor"><a href="#section-datasets" class="anchor"></a>Datasets</h2>
+          <p class="section-desc"><p>Description of the built-in datasets</p></p>
         </th>
       </tr>
       <tr>
         
         <td>
-          <p><code><a href="install_retriever_data.html">install_retriever_data()</a></code> <code><a href="install_retriever_data.html">import_retriever_data()</a></code> </p>
+          <p><code><a href="maizuru_data.html">maizuru_data</a></code> </p>
         </td>
-        <td><p>Download a dataset from data retriever</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-analysis-methods" class="hasAnchor"><a href="#section-analysis-methods" class="anchor"></a>Analysis Methods</h2>
-          <p class="section-desc"><p>Functions to compute analyses</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="richness.html">richness()</a></code> </p>
-        </td>
-        <td><p>Count non-0 entries</p></td>
+        <td><p>Dataset Maizuru Fish Community</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="ts_summary.html">ts_summary()</a></code> </p>
+          <p><code><a href="dragons.html">dragons</a></code> </p>
         </td>
-        <td><p>Summarize a time series</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="interpolate_obs.html">interpolate_obs()</a></code> </p>
-        </td>
-        <td><p>Interpolate observations</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="temp_autocor.html">temp_autocor()</a></code> </p>
-        </td>
-        <td><p>Interpolate observations</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-miscellaneous" class="hasAnchor"><a href="#section-miscellaneous" class="anchor"></a>Miscellaneous</h2>
-          <p class="section-desc"><p>Other functions</p></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="check_data_format.html">check_data_format()</a></code> </p>
-        </td>
-        <td><p>Check data format</p></td>
+        <td><p>dragons dataset</p></td>
       </tr>
     </tbody>
     </table>
@@ -542,12 +473,14 @@ Import Shortgrass Steppe rodent abundance from data files</p></td>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#section-creating-a-research-compendium">Creating a Research Compendium</a></li>
       <li><a href="#section-drake-plans">Drake Plans</a></li>
       <li><a href="#section-configure-data-path">Configure Data Path</a></li>
-      <li><a href="#section-get-data">Get Data</a></li>
       <li><a href="#section-rdataretriever">Rdataretriever</a></li>
+      <li><a href="#section-get-data">Get Data</a></li>
       <li><a href="#section-analysis-methods">Analysis Methods</a></li>
-      <li><a href="#section-miscellaneous">Miscellaneous</a></li>
+      <li><a href="#section-data-checking-filtering-and-processing">Data Checking, Filtering, and Processing</a></li>
+      <li><a href="#section-datasets">Datasets</a></li>
     </ul>
   </div>
 </div>
