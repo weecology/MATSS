@@ -46,6 +46,7 @@ library(MATSS)
 If you feel comfortable to dive right in, we recommend you start with our provided functionality to create a new research compendium.
 
 This code will perform the following operations:
+
 * create a new R package for the analysis
 * add required dependencies for the new R package to its `DESCRIPTION` file
 * create an `analysis` folder to hold the analysis files
