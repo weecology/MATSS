@@ -19,12 +19,12 @@ comment = "#>"
 
 # Overview
 
-`MATSS` is a package for conducting Macroecological Analyses of Time Series Structure. In other words, we have designed it with researchers in mind, as a tool for getting started quickly.
+`MATSS` is a package for conducting Macroecological Analyses of Time Series Structure. We have designed it with researchers in mind, as a tool for getting started quickly to analyzes a large collection of ecological time series (specifically for communities, though the data can also be analyzed as individual populations).
 
 The goals of the package are to make it as easy as possible to:
 
 - obtain a hoard of ecological time series data, processed into a common [data format](data-formats.html)
-- build an analysis pipeline, using a mixture of functions from the `drake` package and functions that we provide which do some of the background lifting.
+- build an analysis pipeline, following the workflow framework of the `drake` package; we provide functions to assist with this, as well as project template files
 
 ## Installation
 
@@ -32,7 +32,7 @@ You can install the `MATSS` package from github with:
 
 ```{r, eval = FALSE}
 # install.packages("remotes")
-remotes::install_github("weecology/MATSS")
+remotes::install_github("weecology/MATSS", build_opts = c("--no-resave-data", "--no-manual")))
 ```
 
 And load the package in the typical fashion:
@@ -41,19 +41,43 @@ And load the package in the typical fashion:
 library(MATSS)
 ```
 
+# Template Research Compendium
+
+If you feel comfortable to dive right in, we recommend you start with our provided functionality to create a new research compendium.
+
+This code will perform the following operations:
+* create a new R package for the analysis
+* add required dependencies for the new R package to its `DESCRIPTION` file
+* create an `analysis` folder to hold the analysis files
+* add a template R script for the analysis
+* add a template Rmd report that is created as a result of running the above R 
+  script
+
+After creating the new project, you can source `pipeline.R` to run the analysis and knit the report.
+
+```{r, eval = FALSE}
+create_MATSS_compendium("<path>")
+```
+
+For further details about how the code within the template project works, see the below guide to interacting with the datasets, the `drake` workflow package, and our tools for building reproducible analyses.
+
 # Data
 
 ## Packaged datasets
 
-Several datasets are included with this package - these can be loaded individually using specific functions.
+Several datasets are included with this package - these can be loaded individually using these specific functions, and require no additional setup.
 
 ```{r, eval = FALSE}
-get_jornada_data()
 get_maizuru_data()
+get_jornada_data()
 get_sgs_data()
+get_cowley_lizards()
+get_cowley_snakes()
+get_karoo_data()
+get_kruger_data()
 ```
 
-## Downloadable datasets
+## Configuring download locations:
 
 Other datasets require downloading. To facilitate this, we include functions to help configure a specific location on disk. To check your current setting:
 
@@ -61,10 +85,34 @@ Other datasets require downloading. To facilitate this, we include functions to 
 get_default_data_path()
 ```
 
-and to configure this setting:
+and to configure this setting (and then follow the instructions therein):
 
 ```{r, eval = FALSE}
 use_default_data_path("<path>")
+```
+
+## Downloading datasets:
+
+To download individual datasets, call `install_retriever_data()` with the name of the dataset:
+
+```{r, eval = FALSE}
+install_retriever_data("veg-plots-sdl")
+```
+
+To download all the datasets that are currently supported (i.e. we have functions for importing and processing into the standard format):
+
+```{r, eval = FALSE}
+download_datasets()
+```
+
+## Preprocessing datasets:
+
+Because the BBS database is an aggregate of observations from multiple locations across North America, it is not the ideal scale for doing community or population analysis. Further, it would be slow to load in the entire database, if only a small section is needed at a time. Thus, we provide a function that processes the database into separate routes and regions, which can be read in individually.
+
+This function will generate and then add processed dataset files to the set download location. This processing is required before running `get_bbs_route_region_data` to load the data.
+
+```{r, eval = FALSE}
+prepare_bbs_ts_data()
 ```
 
 # Working with Drake
@@ -73,9 +121,20 @@ For the most part `MATSS` provides only a light wrapper for the functions in `dr
 
 ## Basic Workflow
 
-The basic workflow of using `drake` plans in R is:
+The basic workflow of using `drake` plans is:
 * run R code that produces `drake` plans
 * run R code that takes a `drake` plan and executes it
+
+## Provided Helper Functions
+
+We provide several functions to help construct `drake` plans:
+
+* `build_datasets_plan()` constructs a plan for the datasets, with options to include downloaded datasets
+* `build_analyses_plan()` constructs a plan for a set of analyses that applies a method to each dataset. It takes as arguments, a plan for the datasets and a plan for the methods.
+* `collect_analyses()` combines a set of `drake` targets together into a list, which facilitates later processing
+* `analysis_wrapper()` is a function for constructing methods that can operate on the datasets (which are communities) by applying an input argument (which is another function) to each of the individual population time series. (See the example in `?analysis_wrapper` for more information)
+
+Usage of these functions is demonstrated in the template R script generated from `create_MATSS_compendium()`.
 
 ### Example
 
@@ -112,23 +171,38 @@ One thing to be aware of is that the function `drake_plan()` does not evaluate i
 In this example, the plan relies on `variable`, and so the result will change depending on the value of `variable` when the plan is run:
 
 ```{r}
-variable <- "Species"
-plan <- drake_plan(num_levels = nlevels(iris[, variable]))
+column <- "Species"
+plan <- drake_plan(num_species = nlevels(iris[, column]))
 
-## would compute nlevels on the "Sepal.Length" variable
-# variable <- "Sepal.Length"
-# make(plan)
+## This computes using the current value of `column` when the analysis is run, 
+#    as opposed to on the "Species" column, which was desired: 
+column <- "Sepal.Length"
+make(plan)
+readd(num_species)
 ```
 
-Here, we ask that `variable` be evaluated when building the plan - this locks in the column setting as `"Species"`:
+We can solve this in two ways:
+
+First, we can include `column` as a dependency in the plan:
 
 ```{r}
-variable <- "Species"
-drake_plan(num_levels = nlevels(iris[, !!variable]))
+plan <- drake_plan(column = "Species", 
+                   num_species = nlevels(iris[, column]))
 
-## does not require variable to be in the current environment
-# rm(variable)
-# make(plan)
+make(plan)
+readd(num_species)
+```
+
+Second, make sure that `column` is evaluated when building the plan - this locks in the value of `"Species"`:
+
+```{r}
+column <- "Species"
+plan <- drake_plan(num_species = nlevels(iris[, !!column]))
+
+## does not require column to be in the current environment
+rm(column)
+make(plan)
+readd(num_species)
 ```
 
 ### Running Drake Plans

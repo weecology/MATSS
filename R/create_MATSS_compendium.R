@@ -65,7 +65,7 @@ create_MATSS_compendium <- function(path,
 #' @noRd
 add_dependency <- function(pkg = "MATSS")
 {
-    installed_from_github <- tryCatch(github_info <- usethis:::package_remote(pkg), 
+    installed_from_github <- tryCatch(github_info <- !is.null(usethis:::package_remote(pkg)), 
                                       error = function(e) {FALSE}, 
                                       finally = TRUE)
     if (installed_from_github)

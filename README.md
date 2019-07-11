@@ -1,10 +1,11 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# MATSS
+# MATSS 0.1.0
 
 [![Build
 Status](https://travis-ci.org/weecology/MATSS.svg?branch=master)](https://travis-ci.org/weecology/MATSS)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/weecology/MATSS/master/LICENSE)
 [![Coverage
 status](https://codecov.io/gh/weecology/MATSS/branch/master/graph/badge.svg)](https://codecov.io/github/weecology/MATSS?branch=master)
 

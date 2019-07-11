@@ -21,17 +21,7 @@ methods <- drake::drake_plan(
 )
 
 ## a Drake plan for the analyses (each combination of method x dataset)
-analyses <- drake::drake_plan(
-    # make each individual analysis 
-    analysis = target(fun(data),
-                      transform = cross(fun = !!rlang::syms(methods$target),
-                                        data = !!rlang::syms(datasets$target))
-    ),
-    
-    # make a `results_***` object that combines the output of each individual method
-    results = target(collect_analyses(list(analysis)),
-                     transform = combine(analysis, .by = fun))
-)
+analyses <- build_analyses_plan(methods, datasets)
 
 ## a Drake plan for the Rmarkdown report
 #  - we use `knitr_in()` 
