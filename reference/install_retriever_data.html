@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Download a dataset from data retriever — install_retriever_data • MATSS</title>
+<title>Download data from the data retriever — install_retriever_data • MATSS</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,12 +30,15 @@
 
 
 
-<meta property="og:title" content="Download a dataset from data retriever — install_retriever_data" />
+<meta property="og:title" content="Download data from the data retriever — install_retriever_data" />
 
 <meta property="og:description" content="install_retriever_data downloads retriever datasets and
 is a wrapper around rdataretriever::install
 import_retriever_data loads a previously downloaded
-retriever dataset" />
+retriever dataset
+download_datasets is a wrapper around
+install_retriever_data to download multiple datasets, with
+the default to download all of the datasets that are supported." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -120,7 +123,7 @@ retriever dataset" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Download a dataset from data retriever</h1>
+    <h1>Download data from the data retriever</h1>
     <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/utils-retriever-data.R'><code>R/utils-retriever-data.R</code></a></small>
     <div class="hidden name"><code>install_retriever_data.Rd</code></div>
     </div>
@@ -131,13 +134,20 @@ retriever dataset" />
 is a wrapper around rdataretriever::install</p>
 <p><code>import_retriever_data</code> loads a previously downloaded
 retriever dataset</p>
+<p><code>download_datasets</code> is a wrapper around
+<code>install_retriever_data</code> to download multiple datasets, with
+the default to download all of the datasets that are supported.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>install_retriever_data</span>(<span class='no'>dataset</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(),
   <span class='kw'>force_install</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>import_retriever_data</span>(<span class='no'>dataset</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>())</pre>
+<span class='fu'>import_retriever_data</span>(<span class='no'>dataset</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>())
+
+<span class='fu'>download_datasets</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"breed-bird-survey"</span>, <span class='st'>"veg-plots-sdl"</span>,
+  <span class='st'>"mapped-plant-quads-mt"</span>, <span class='st'>"biotimesql"</span>), <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(),
+  <span class='kw'>force_install</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -163,6 +173,8 @@ folder already exists</p></td>
   <span class='fu'>install_retriever_data</span>(<span class='st'>"veg-plots-sdl"</span>)
 <span class='co'># }</span><span class='co'># NOT RUN {</span>
   <span class='fu'>import_retriever_data</span>(<span class='st'>"veg-plots-sdl"</span>)
+<span class='co'># }</span><span class='co'># NOT RUN {</span>
+  <span class='fu'>download_datasets</span>()
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
