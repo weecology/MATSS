@@ -1,9 +1,15 @@
 reference:
+  - title: "Creating a Research Compendium"
+    contents:
+      - create_MATSS_compendium
   - title: "Drake Plans"
     desc: "Functions to help build Drake plans"
     contents:
       - build_analyses_plan
       - build_datasets_plan
+      - build_bbs_datasets_plan
+      - build_biotime_datasets_plan
+      - build_gpdd_datasets_plan
       - analysis_wrapper
       - collect_analyses
   - title: "Configure Data Path"
@@ -12,10 +18,19 @@ reference:
       - get_default_data_path
       - check_default_data_path
       - use_default_data_path
+  - title: "Rdataretriever"
+    desc: "Functions that use Rdataretriever to download and import data"
+    contents:
+      - import_retriever_data
+      - install_retriever_data
   - title: "Get Data"
     desc: "Functions to load datasets"
     contents:
-      - get_bbs_data
+      - get_biotime_data
+      - get_bbs_route_region_data
+      - get_cowley_lizards
+      - get_cowley_snakes
+      - get_gpdd_data
       - get_jornada_data
       - get_karoo_data
       - get_kruger_data
@@ -24,25 +39,32 @@ reference:
       - get_portal_rodents
       - get_sdl_data
       - get_sgs_data
-      - filter_ts
-  - title: "Rdataretriever"
-    desc: "Functions that use Rdataretriever to download and import data"
-    contents:
-      - import_retriever_data
-      - install_retriever_data
   - title: "Analysis Methods"
     desc: "Functions to compute analyses"
     contents:
-      - richness
-      - summarize_effort
-      - summarize_obs
-      - summarize_times
       - ts_summary
-      - ts_summary_drake
-      - uni_ts_summary
-      - interpolate_obs
+      - summarize_df
+      - summarize_vec
+      - richness
       - temp_autocor
-  - title: "Miscellaneous"
-    desc: "Other functions"
+      - interpolate_obs
+  - title: "Data Checking, Filtering, and Processing"
+    desc: "Functions to check datasets, extract components, and preprocess them"
     contents:
       - check_data_format
+      - get_times_from_data
+      - get_effort_from_data
+      - normalize_obs
+      - normalize_times
+      - normalize_effort
+      - to_numeric_vector
+      - prepare_bbs_ts_data
+      - process_bbs_route_region_data
+      - filter_bbs_ts
+      - filter_bbs_species
+      - combine_bbs_subspecies
+  - title: "Datasets"
+    desc: "Description of the built-in datasets"
+    contents:
+      - maizuru_data
+      - dragons

@@ -8,8 +8,11 @@ expose_imports(MATSS)
 # expose_imports(my_pkg)
 
 ## a Drake plan for creating the datasets
+#  - these are the default options, which don't include downloaded datasets
 datasets <- build_datasets_plan(include_retriever_data = FALSE, 
-                                include_bbs_data = FALSE)
+                                include_bbs_data = FALSE, 
+                                include_gpdd = FALSE, 
+                                include_biotime_data = FALSE)
 
 ## a Drake plan that defines the methods
 methods <- drake::drake_plan(

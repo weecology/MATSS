@@ -4,8 +4,10 @@
 .RData
 .Ruserdata
 .drake/
+.drake_history/
 /output/drake-cache.sqlite
 /analysis/*.html
-doc
+/doc
+/docs
 Meta
 /inst/extdata/subsampled/breed-bird-survey-prepped
