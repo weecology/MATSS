@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MATSS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -98,22 +98,31 @@
 <div id="overview" class="section level1">
 <h1 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h1>
-<p><code>MATSS</code> is a package for conducting Macroecological Analyses of Time Series Structure. In other words, we have designed it with researchers in mind, as a tool for getting started quickly.</p>
+<p><code>MATSS</code> is a package for conducting Macroecological Analyses of Time Series Structure. We have designed it with researchers in mind, as a tool for getting started quickly to analyzes a large collection of ecological time series (specifically for communities, though the data can also be analyzed as individual populations).</p>
 <p>The goals of the package are to make it as easy as possible to:</p>
 <ul>
 <li>obtain a hoard of ecological time series data, processed into a common <a href="data-formats.html">data format</a>
 </li>
-<li>build an analysis pipeline, using a mixture of functions from the <code>drake</code> package and functions that we provide which do some of the background lifting.</li>
+<li>build an analysis pipeline, following the workflow framework of the <code>drake</code> package; we provide functions to assist with this, as well as project template files</li>
 </ul>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the <code>MATSS</code> package from github with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages("remotes")</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"weecology/MATSS"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb1-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"weecology/MATSS"</span>, <span class="dt">build_opts =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"--no-resave-data"</span>, <span class="st">"--no-manual"</span>))<span class="er">)</span></a></code></pre></div>
 <p>And load the package in the typical fashion:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(MATSS)</a></code></pre></div>
 </div>
+</div>
+<div id="template-research-compendium" class="section level1">
+<h1 class="hasAnchor">
+<a href="#template-research-compendium" class="anchor"></a>Template Research Compendium</h1>
+<p>If you feel comfortable to dive right in, we recommend you start with our provided functionality to create a new research compendium.</p>
+<p>This code will perform the following operations: * create a new R package for the analysis * add required dependencies for the new R package to its <code>DESCRIPTION</code> file * create an <code>analysis</code> folder to hold the analysis files * add a template R script for the analysis * add a template Rmd report that is created as a result of running the above R script</p>
+<p>After creating the new project, you can source <code>pipeline.R</code> to run the analysis and knit the report.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/create_MATSS_compendium.html">create_MATSS_compendium</a></span>(<span class="st">"&lt;path&gt;"</span>)</a></code></pre></div>
+<p>For further details about how the code within the template project works, see the below guide to interacting with the datasets, the <code>drake</code> workflow package, and our tools for building reproducible analyses.</p>
 </div>
 <div id="data" class="section level1">
 <h1 class="hasAnchor">
@@ -121,18 +130,37 @@
 <div id="packaged-datasets" class="section level2">
 <h2 class="hasAnchor">
 <a href="#packaged-datasets" class="anchor"></a>Packaged datasets</h2>
-<p>Several datasets are included with this package - these can be loaded individually using specific functions.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/get_jornada_data.html">get_jornada_data</a></span>()</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="../reference/get_maizuru_data.html">get_maizuru_data</a></span>()</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="../reference/get_sgs_data.html">get_sgs_data</a></span>()</a></code></pre></div>
+<p>Several datasets are included with this package - these can be loaded individually using these specific functions, and require no additional setup.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/get_maizuru_data.html">get_maizuru_data</a></span>()</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="../reference/get_jornada_data.html">get_jornada_data</a></span>()</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw"><a href="../reference/get_sgs_data.html">get_sgs_data</a></span>()</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw"><a href="../reference/get_cowley_lizards.html">get_cowley_lizards</a></span>()</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="kw"><a href="../reference/get_cowley_snakes.html">get_cowley_snakes</a></span>()</a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="kw"><a href="../reference/get_karoo_data.html">get_karoo_data</a></span>()</a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="kw"><a href="../reference/get_kruger_data.html">get_kruger_data</a></span>()</a></code></pre></div>
 </div>
-<div id="downloadable-datasets" class="section level2">
+<div id="configuring-download-locations" class="section level2">
 <h2 class="hasAnchor">
-<a href="#downloadable-datasets" class="anchor"></a>Downloadable datasets</h2>
+<a href="#configuring-download-locations" class="anchor"></a>Configuring download locations:</h2>
 <p>Other datasets require downloading. To facilitate this, we include functions to help configure a specific location on disk. To check your current setting:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/get_default_data_path.html">get_default_data_path</a></span>()</a></code></pre></div>
-<p>and to configure this setting:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/use_default_data_path.html">use_default_data_path</a></span>(<span class="st">"&lt;path&gt;"</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/get_default_data_path.html">get_default_data_path</a></span>()</a></code></pre></div>
+<p>and to configure this setting (and then follow the instructions therein):</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/use_default_data_path.html">use_default_data_path</a></span>(<span class="st">"&lt;path&gt;"</span>)</a></code></pre></div>
+</div>
+<div id="downloading-datasets" class="section level2">
+<h2 class="hasAnchor">
+<a href="#downloading-datasets" class="anchor"></a>Downloading datasets:</h2>
+<p>To download individual datasets, call <code><a href="../reference/install_retriever_data.html">install_retriever_data()</a></code> with the name of the dataset:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/install_retriever_data.html">install_retriever_data</a></span>(<span class="st">"veg-plots-sdl"</span>)</a></code></pre></div>
+<p>To download all the datasets that are currently supported (i.e. we have functions for importing and processing into the standard format):</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/install_retriever_data.html">download_datasets</a></span>()</a></code></pre></div>
+</div>
+<div id="preprocessing-datasets" class="section level2">
+<h2 class="hasAnchor">
+<a href="#preprocessing-datasets" class="anchor"></a>Preprocessing datasets:</h2>
+<p>Because the BBS database is an aggregate of observations from multiple locations across North America, it is not the ideal scale for doing community or population analysis. Further, it would be slow to load in the entire database, if only a small section is needed at a time. Thus, we provide a function that processes the database into separate routes and regions, which can be read in individually.</p>
+<p>This function will generate and then add processed dataset files to the set download location. This processing is required before running <code>get_bbs_route_region_data</code> to load the data.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/prepare_bbs_ts_data.html">prepare_bbs_ts_data</a></span>()</a></code></pre></div>
 </div>
 </div>
 <div id="working-with-drake" class="section level1">
@@ -142,84 +170,115 @@
 <div id="basic-workflow" class="section level2">
 <h2 class="hasAnchor">
 <a href="#basic-workflow" class="anchor"></a>Basic Workflow</h2>
-<p>The basic workflow of using <code>drake</code> plans in R is: * run R code that produces <code>drake</code> plans * run R code that takes a <code>drake</code> plan and executes it</p>
+<p>The basic workflow of using <code>drake</code> plans is: * run R code that produces <code>drake</code> plans * run R code that takes a <code>drake</code> plan and executes it</p>
+</div>
+<div id="provided-helper-functions" class="section level2">
+<h2 class="hasAnchor">
+<a href="#provided-helper-functions" class="anchor"></a>Provided Helper Functions</h2>
+<p>We provide several functions to help construct <code>drake</code> plans:</p>
+<ul>
+<li>
+<code><a href="../reference/build_datasets_plan.html">build_datasets_plan()</a></code> constructs a plan for the datasets, with options to include downloaded datasets</li>
+<li>
+<code><a href="../reference/build_analyses_plan.html">build_analyses_plan()</a></code> constructs a plan for a set of analyses that applies a method to each dataset. It takes as arguments, a plan for the datasets and a plan for the methods.</li>
+<li>
+<code><a href="../reference/collect_analyses.html">collect_analyses()</a></code> combines a set of <code>drake</code> targets together into a list, which facilitates later processing</li>
+<li>
+<code><a href="../reference/analysis_wrapper.html">analysis_wrapper()</a></code> is a function for constructing methods that can operate on the datasets (which are communities) by applying an input argument (which is another function) to each of the individual population time series. (See the example in <code><a href="../reference/analysis_wrapper.html">?analysis_wrapper</a></code> for more information)</li>
+</ul>
+<p>Usage of these functions is demonstrated in the template R script generated from <code><a href="../reference/create_MATSS_compendium.html">create_MATSS_compendium()</a></code>.</p>
 <div id="example" class="section level3">
 <h3 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(drake)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; Attaching package: 'dplyr'</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; The following objects are masked from 'package:stats':</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt;     filter, lag</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt; The following objects are masked from 'package:base':</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt;     intersect, setdiff, setequal, union</span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co"># define the plan</span></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan</a></span>(<span class="dt">data_1 =</span> mtcars, </a>
-<a class="sourceLine" id="cb6-14" data-line-number="14">                   <span class="dt">data_2 =</span> iris, </a>
-<a class="sourceLine" id="cb6-15" data-line-number="15">                   <span class="dt">my_model =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(mpg <span class="op">~</span><span class="st"> </span>disp, <span class="dt">data =</span> data_<span class="dv">1</span>), </a>
-<a class="sourceLine" id="cb6-16" data-line-number="16">                   <span class="dt">my_summary =</span> data_<span class="dv">2</span> <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="st">                       </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Species) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="st">                       </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarize_all</a></span>(mean))</a>
-<a class="sourceLine" id="cb6-19" data-line-number="19"></a>
-<a class="sourceLine" id="cb6-20" data-line-number="20"><span class="co"># run the plan</span></a>
-<a class="sourceLine" id="cb6-21" data-line-number="21"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan)</a>
-<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="co">#&gt; target data_1</span></a>
-<a class="sourceLine" id="cb6-23" data-line-number="23"><span class="co">#&gt; target data_2</span></a>
-<a class="sourceLine" id="cb6-24" data-line-number="24"><span class="co">#&gt; target my_model</span></a>
-<a class="sourceLine" id="cb6-25" data-line-number="25"><span class="co">#&gt; target my_summary</span></a>
-<a class="sourceLine" id="cb6-26" data-line-number="26"></a>
-<a class="sourceLine" id="cb6-27" data-line-number="27"><span class="co"># check resulting objects</span></a>
-<a class="sourceLine" id="cb6-28" data-line-number="28"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/readd">readd</a></span>(my_model)</a>
-<a class="sourceLine" id="cb6-29" data-line-number="29"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-30" data-line-number="30"><span class="co">#&gt; Call:</span></a>
-<a class="sourceLine" id="cb6-31" data-line-number="31"><span class="co">#&gt; lm(formula = mpg ~ disp, data = data_1)</span></a>
-<a class="sourceLine" id="cb6-32" data-line-number="32"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb6-33" data-line-number="33"><span class="co">#&gt; Coefficients:</span></a>
-<a class="sourceLine" id="cb6-34" data-line-number="34"><span class="co">#&gt; (Intercept)         disp  </span></a>
-<a class="sourceLine" id="cb6-35" data-line-number="35"><span class="co">#&gt;    29.59985     -0.04122</span></a>
-<a class="sourceLine" id="cb6-36" data-line-number="36"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/readd">readd</a></span>(my_summary)</a>
-<a class="sourceLine" id="cb6-37" data-line-number="37"><span class="co">#&gt; # A tibble: 3 x 5</span></a>
-<a class="sourceLine" id="cb6-38" data-line-number="38"><span class="co">#&gt;   Species    Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
-<a class="sourceLine" id="cb6-39" data-line-number="39"><span class="co">#&gt;   &lt;fct&gt;             &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;</span></a>
-<a class="sourceLine" id="cb6-40" data-line-number="40"><span class="co">#&gt; 1 setosa             5.01        3.43         1.46       0.246</span></a>
-<a class="sourceLine" id="cb6-41" data-line-number="41"><span class="co">#&gt; 2 versicolor         5.94        2.77         4.26       1.33 </span></a>
-<a class="sourceLine" id="cb6-42" data-line-number="42"><span class="co">#&gt; 3 virginica          6.59        2.97         5.55       2.03</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(drake)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; Attaching package: 'dplyr'</span></a>
+<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; The following objects are masked from 'package:stats':</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt;     filter, lag</span></a>
+<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; The following objects are masked from 'package:base':</span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt;     intersect, setdiff, setequal, union</span></a>
+<a class="sourceLine" id="cb10-11" data-line-number="11"></a>
+<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co"># define the plan</span></a>
+<a class="sourceLine" id="cb10-13" data-line-number="13">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan</a></span>(<span class="dt">data_1 =</span> mtcars, </a>
+<a class="sourceLine" id="cb10-14" data-line-number="14">                   <span class="dt">data_2 =</span> iris, </a>
+<a class="sourceLine" id="cb10-15" data-line-number="15">                   <span class="dt">my_model =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(mpg <span class="op">~</span><span class="st"> </span>disp, <span class="dt">data =</span> data_<span class="dv">1</span>), </a>
+<a class="sourceLine" id="cb10-16" data-line-number="16">                   <span class="dt">my_summary =</span> data_<span class="dv">2</span> <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="st">                       </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Species) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb10-18" data-line-number="18"><span class="st">                       </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarize_all</a></span>(mean))</a>
+<a class="sourceLine" id="cb10-19" data-line-number="19"></a>
+<a class="sourceLine" id="cb10-20" data-line-number="20"><span class="co"># run the plan</span></a>
+<a class="sourceLine" id="cb10-21" data-line-number="21"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan)</a>
+<a class="sourceLine" id="cb10-22" data-line-number="22"><span class="co">#&gt; target data_1</span></a>
+<a class="sourceLine" id="cb10-23" data-line-number="23"><span class="co">#&gt; target data_2</span></a>
+<a class="sourceLine" id="cb10-24" data-line-number="24"><span class="co">#&gt; target my_model</span></a>
+<a class="sourceLine" id="cb10-25" data-line-number="25"><span class="co">#&gt; target my_summary</span></a>
+<a class="sourceLine" id="cb10-26" data-line-number="26"></a>
+<a class="sourceLine" id="cb10-27" data-line-number="27"><span class="co"># check resulting objects</span></a>
+<a class="sourceLine" id="cb10-28" data-line-number="28"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/readd">readd</a></span>(my_model)</a>
+<a class="sourceLine" id="cb10-29" data-line-number="29"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-30" data-line-number="30"><span class="co">#&gt; Call:</span></a>
+<a class="sourceLine" id="cb10-31" data-line-number="31"><span class="co">#&gt; lm(formula = mpg ~ disp, data = data_1)</span></a>
+<a class="sourceLine" id="cb10-32" data-line-number="32"><span class="co">#&gt; </span></a>
+<a class="sourceLine" id="cb10-33" data-line-number="33"><span class="co">#&gt; Coefficients:</span></a>
+<a class="sourceLine" id="cb10-34" data-line-number="34"><span class="co">#&gt; (Intercept)         disp  </span></a>
+<a class="sourceLine" id="cb10-35" data-line-number="35"><span class="co">#&gt;    29.59985     -0.04122</span></a>
+<a class="sourceLine" id="cb10-36" data-line-number="36"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/readd">readd</a></span>(my_summary)</a>
+<a class="sourceLine" id="cb10-37" data-line-number="37"><span class="co">#&gt; # A tibble: 3 x 5</span></a>
+<a class="sourceLine" id="cb10-38" data-line-number="38"><span class="co">#&gt;   Species    Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
+<a class="sourceLine" id="cb10-39" data-line-number="39"><span class="co">#&gt;   &lt;fct&gt;             &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;</span></a>
+<a class="sourceLine" id="cb10-40" data-line-number="40"><span class="co">#&gt; 1 setosa             5.01        3.43         1.46       0.246</span></a>
+<a class="sourceLine" id="cb10-41" data-line-number="41"><span class="co">#&gt; 2 versicolor         5.94        2.77         4.26       1.33 </span></a>
+<a class="sourceLine" id="cb10-42" data-line-number="42"><span class="co">#&gt; 3 virginica          6.59        2.97         5.55       2.03</span></a></code></pre></div>
 </div>
 <div id="making-drake-plans" class="section level3">
 <h3 class="hasAnchor">
 <a href="#making-drake-plans" class="anchor"></a>Making Drake Plans</h3>
 <p>A <code>drake</code> plan is essentially a <code>tibble</code> that defines targets and the commands to build those targets. We can view <code>drake</code> plans by printing them to the console:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">plan <span class="co"># made from the previous example</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="co">#&gt; # A tibble: 4 x 2</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt;   target     command                                             </span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;      &lt;expr&gt;                                              </span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; 1 data_1     mtcars                                              </span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; 2 data_2     iris                                                </span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; 3 my_model   lm(mpg ~ disp, data = data_1)                       </span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; 4 my_summary data_2 %&gt;% group_by(Species) %&gt;% summarize_all(mean)</span></a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">plan <span class="co"># made from the previous example</span></a>
+<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="co">#&gt; # A tibble: 4 x 2</span></a>
+<a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&gt;   target     command                                             </span></a>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt;   &lt;chr&gt;      &lt;expr&gt;                                              </span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co">#&gt; 1 data_1     mtcars                                              </span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&gt; 2 data_2     iris                                                </span></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&gt; 3 my_model   lm(mpg ~ disp, data = data_1)                       </span></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#&gt; 4 my_summary data_2 %&gt;% group_by(Species) %&gt;% summarize_all(mean)</span></a></code></pre></div>
 <p>One thing to be aware of is that the function <code><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan()</a></code> does not evaluate its arguments, but only makes the plan. Thus, if you want any evaluation to occur within the construction of the plan, you will need some NSE magic.</p>
 <p>In this example, the plan relies on <code>variable</code>, and so the result will change depending on the value of <code>variable</code> when the plan is run:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">variable &lt;-<span class="st"> "Species"</span></a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan</a></span>(<span class="dt">num_levels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nlevels">nlevels</a></span>(iris[, variable]))</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">## would compute nlevels on the "Sepal.Length" variable</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co"># variable &lt;- "Sepal.Length"</span></a>
-<a class="sourceLine" id="cb8-6" data-line-number="6"><span class="co"># make(plan)</span></a></code></pre></div>
-<p>Here, we ask that <code>variable</code> be evaluated when building the plan - this locks in the column setting as <code>"Species"</code>:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">variable &lt;-<span class="st"> "Species"</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan</a></span>(<span class="dt">num_levels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nlevels">nlevels</a></span>(iris[, <span class="op">!!</span>variable]))</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt; # A tibble: 1 x 2</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;   target     command                   </span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt;   &lt;chr&gt;      &lt;expr&gt;                    </span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; 1 num_levels nlevels(iris[, "Species"])</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8">## does not require variable to be in the current environment</a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co"># rm(variable)</span></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co"># make(plan)</span></a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">column &lt;-<span class="st"> "Species"</span></a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan</a></span>(<span class="dt">num_species =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nlevels">nlevels</a></span>(iris[, column]))</a>
+<a class="sourceLine" id="cb12-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">## This computes using the current value of `column` when the analysis is run, </a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#    as opposed to on the "Species" column, which was desired: </span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6">column &lt;-<span class="st"> "Sepal.Length"</span></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan)</a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co">#&gt; target num_species</span></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/readd">readd</a></span>(num_species)</a>
+<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt; [1] 0</span></a></code></pre></div>
+<p>We can solve this in two ways:</p>
+<p>First, we can include <code>column</code> as a dependency in the plan:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan</a></span>(<span class="dt">column =</span> <span class="st">"Species"</span>, </a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">                   <span class="dt">num_species =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nlevels">nlevels</a></span>(iris[, column]))</a>
+<a class="sourceLine" id="cb13-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan)</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt; Unloading targets from environment:</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt;   column</span></a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">#&gt; target column</span></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#&gt; target num_species</span></a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/readd">readd</a></span>(num_species)</a>
+<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="co">#&gt; [1] 3</span></a></code></pre></div>
+<p>Second, make sure that <code>column</code> is evaluated when building the plan - this locks in the value of <code>"Species"</code>:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">column &lt;-<span class="st"> "Species"</span></a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan</a></span>(<span class="dt">num_species =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nlevels">nlevels</a></span>(iris[, <span class="op">!!</span>column]))</a>
+<a class="sourceLine" id="cb14-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb14-4" data-line-number="4">## does not require column to be in the current environment</a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rm">rm</a></span>(column)</a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan)</a>
+<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#&gt; target num_species</span></a>
+<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/readd">readd</a></span>(num_species)</a>
+<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co">#&gt; [1] 3</span></a></code></pre></div>
 </div>
 <div id="running-drake-plans" class="section level3">
 <h3 class="hasAnchor">
@@ -227,16 +286,16 @@
 <p>Drake plans are run by calling <code><a href="https://www.rdocumentation.org/packages/drake/topics/make">make()</a></code>. This does several things. First it checks the <strong>cache</strong> to see if any targets need to be re-built, and then it proceeds to build all the targets, in some order that accounts for the dependencies between targets. (e.g. an analysis target that depends on a dataset target to be processed)</p>
 <p>The manual has more information about how <a href="https://ropenscilabs.github.io/drake-manual/store.html#cache-formats">Drake stores its cache</a> and how <a href="https://ropenscilabs.github.io/drake-manual/triggers.html">Drake decides to rebuild targets</a>.</p>
 <p>Note that if there are file inputs, it is important that they are declared explicitly using e.g. <code><a href="https://www.rdocumentation.org/packages/drake/topics/file_in">file_in()</a></code>, <code><a href="https://www.rdocumentation.org/packages/drake/topics/knitr_in">knitr_in()</a></code>, and <code><a href="https://www.rdocumentation.org/packages/drake/topics/file_out">file_out()</a></code>. This enables Drake to check if those files are changed and to rebuild targets that depend on the files if needed. Otherwise Drake will treat them as fixed strings.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan</a></span>(<span class="dt">data =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv</a></span>(<span class="st">"some_data.csv"</span>))</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan)</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co"># make some changes to `some_data.csv`</span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan) <span class="co"># will NOT rebuild the `data` target</span></a></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan</a></span>(<span class="dt">data =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/file_in">file_in</a></span>(<span class="st">"some_data.csv"</span>)))</a>
-<a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan)</a>
-<a class="sourceLine" id="cb11-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co"># make some changes to `some_data.csv`</span></a>
-<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan) <span class="co"># will rebuild the `data` target</span></a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan</a></span>(<span class="dt">data =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv</a></span>(<span class="st">"some_data.csv"</span>))</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan)</a>
+<a class="sourceLine" id="cb15-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co"># make some changes to `some_data.csv`</span></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan) <span class="co"># will NOT rebuild the `data` target</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan</a></span>(<span class="dt">data =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/file_in">file_in</a></span>(<span class="st">"some_data.csv"</span>)))</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan)</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co"># make some changes to `some_data.csv`</span></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan) <span class="co"># will rebuild the `data` target</span></a></code></pre></div>
 </div>
 </div>
 </div>
@@ -252,15 +311,19 @@
 <li><a href="#installation">Installation</a></li>
       </ul>
 </li>
+      <li><a href="#template-research-compendium">Template Research Compendium</a></li>
       <li>
 <a href="#data">Data</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#packaged-datasets">Packaged datasets</a></li>
-      <li><a href="#downloadable-datasets">Downloadable datasets</a></li>
+      <li><a href="#configuring-download-locations">Configuring download locations:</a></li>
+      <li><a href="#downloading-datasets">Downloading datasets:</a></li>
+      <li><a href="#preprocessing-datasets">Preprocessing datasets:</a></li>
       </ul>
 </li>
       <li>
 <a href="#working-with-drake">Working with Drake</a><ul class="nav nav-pills nav-stacked">
 <li><a href="#basic-workflow">Basic Workflow</a></li>
+      <li><a href="#provided-helper-functions">Provided Helper Functions</a></li>
       </ul>
 </li>
       </ul>
