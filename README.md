@@ -3,13 +3,15 @@
 
 # MATSS 0.1.1
 
+<!-- badges: start -->
+
 [![Build
 Status](https://travis-ci.org/weecology/MATSS.svg?branch=master)](https://travis-ci.org/weecology/MATSS)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/weecology/MATSS/master/LICENSE)
 [![Coverage
 status](https://codecov.io/gh/weecology/MATSS/branch/master/graph/badge.svg)](https://codecov.io/github/weecology/MATSS?branch=master)
-
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3333008.svg)](https://doi.org/10.5281/zenodo.3333008)
+<!-- badges: end -->
 
 ## Overview
 
@@ -83,3 +85,24 @@ compendia:
   - [MATSS-Forecasting](https://github.com/weecology/MATSS-forecasting)
     investigates which properties are associated with the predictability
     of population time series across the datasets in **`MATSS`**
+
+## Acknowledgments
+
+We thank Erica Christensen and Joan Meiners for their contributions and
+input on early prototypes of this project. This project would not be
+possible without the support of Henry Senyondo and the
+[retriever](https://www.data-retriever.org/) team.
+
+Package development is supported through various funding sources:
+including the [Gordon and Betty Moore Foundation’s Data-Driven Discovery
+Initiative](http://www.moore.org/programs/science/data-driven-discovery),
+[Grant GBMF4563](http://www.moore.org/grants/list/GBMF4563) to E. P.
+White (supporting also the time of J. Simonis and H. Ye), the [National
+Science Foundation](http://nsf.gov/), [Grant
+DEB-1622425](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1622425)
+to S. K. M. Ernest, and a [National Science Foundation Graduate Research
+Fellowship](https://www.nsfgrfp.org/) (No.
+[DGE-1315138](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1315138)
+and
+[DGE-1842473](https://www.nsf.gov/awardsearch/showAward?AWD_ID=1842473))
+to R. Diaz.

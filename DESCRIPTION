@@ -1,15 +1,13 @@
 Package: MATSS
 Type: Package
 Title: Macroecological Analyses of Time Series Structure
-Version: 0.1.1
+Version: 0.1.1.9000
 Authors@R: c(
     person("Hao", "Ye", role = c("aut", "cre"), 
     	   email = "hao.ye@weecology.org", 
            comment = c(ORCID = "0000-0002-8630-1458")),
     person("Ellen", "Bledsoe", role = c("aut"), 
     	   comment = c(ORCID = "0000-0002-3629-7235")),
-    person("Erica", "Christensen", role = c("aut"), 
-    	   comment = c(ORCID = "0000-0002-5635-2502")),
     person("Renata", "Diaz", role = c("aut"), 
     	   comment = c(ORCID = "0000-0003-0803-4734")),
     person("S. K. Morgan", "Ernest", role = c("aut"), 
