@@ -8,5 +8,8 @@
 ^README\.Rmd$
 ^README-.*\.png$
 ^doc$
+^docs$
 ^Meta$
 ^.drake
+^.zenodo.json$
+^README_cache

@@ -210,7 +210,7 @@ readd(num_species)
 
 Drake plans are run by calling `make()`. This does several things. First it checks the **cache** to see if any targets need to be re-built, and then it proceeds to build all the targets, in some order that accounts for the dependencies between targets. (e.g. an analysis target that depends on a dataset target to be processed)
 
-The manual has more information about how [Drake stores its cache](https://ropenscilabs.github.io/drake-manual/store.html#cache-formats) and how [Drake decides to rebuild targets](https://ropenscilabs.github.io/drake-manual/triggers.html).
+The manual has more information about how [Drake stores its cache](https://ropenscilabs.github.io/drake-manual/storage.html#cache-formats) and how [Drake decides to rebuild targets](https://ropenscilabs.github.io/drake-manual/triggers.html).
 
 Note that if there are file inputs, it is important that they are declared explicitly using e.g. `file_in()`, `knitr_in()`, and `file_out()`. This enables Drake to check if those files are changed and to rebuild targets that depend on the files if needed. Otherwise Drake will treat them as fixed strings.
 

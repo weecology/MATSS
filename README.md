@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# MATSS 0.1.1
+# MATSS 0.1.1.9000
 
 <!-- badges: start -->
 
@@ -91,7 +91,9 @@ compendia:
 We thank Erica Christensen and Joan Meiners for their contributions and
 input on early prototypes of this project. This project would not be
 possible without the support of Henry Senyondo and the
-[retriever](https://www.data-retriever.org/) team.
+[retriever](https://www.data-retriever.org/) team. Finally, we thank
+Will Landau and the [drake](https://ropensci.github.io/drake/) team for
+their input and responsiveness to feedback.
 
 Package development is supported through various funding sources:
 including the [Gordon and Betty Moore Foundation’s Data-Driven Discovery

@@ -6,7 +6,11 @@
 \alias{MATSS-package}
 \title{Macroecological Analayses of Time Series Structure}
 \description{
-Functions for obtaining and processing ecological time series
-datasets, and for running different analyses.
+Support for macroecological analyses of time series. The intent
+of the package is to enable end users to run analyses on a collection of
+population and community time series data. Functions are provided to
+download and import datasets, produce reproducible workflows using the
+\code{drake} package, and for generating research compendia with code and
+reports.
 }
 \keyword{package}
