@@ -4,13 +4,13 @@
 \alias{build_bbs_datasets_plan}
 \title{Generate a Drake Plan for BBS Datasets}
 \usage{
-build_bbs_datasets_plan(data_path = get_default_data_path(),
-  bbs_subset = NULL)
+build_bbs_datasets_plan(path = get_default_data_path(),
+  data_subset = NULL)
 }
 \arguments{
-\item{data_path}{where to get the downloaded retriever datasets}
+\item{path}{where to get the downloaded retriever datasets}
 
-\item{bbs_subset}{optional, a subset of the BBS communities to use
+\item{data_subset}{optional, a subset of the BBS communities to use
 (to speed up development). As c(1:X)}
 }
 \value{

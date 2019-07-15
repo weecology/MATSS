@@ -1,3 +1,23 @@
+#' @title Get cleaned BBS data
+#' @description Gets prepped BBS data (as a list of abundance, covariates, and 
+#'   metadata) for a specified route and region. First run `prepare_bbs_data` 
+#'   to create these files from the raw BBS data tables. If the files are not 
+#'   found, then `NULL` is returned.
+#' @param route Route number
+#' @param region Region number
+#' @inheritParams get_mtquad_data
+#' @return list of abundance, covariates, and metadata
+#' @export
+get_bbs_route_region_data = function(route, region, path = get_default_data_path()) {
+    this_path = file.path(path, "breed-bird-survey-prepped", 
+                          paste0("route", route, "region", region, ".Rds"))
+    if (file.exists(this_path)) {
+        return(readRDS(this_path)) 
+    } else {
+        return(NULL)
+    }
+}
+
 #' @title Prepare BBS population time-series data
 #' @description Modified from \url{https://github.com/weecology/bbs-forecasting}
 #'   and \url{https://github.com/weecology/MATSS-community-change}. 
@@ -9,14 +29,13 @@
 #' @param start_yr num first year of time-series
 #' @param end_yr num last year of time-series
 #' @param min_num_yrs num minimum number of years of data between start_yr & end_yr
-#' @param bbs_subset optional, a subset of the BBS communities to use 
+#' @param data_subset optional, a subset of the BBS communities to use 
 #'   (to speed up development). As c(1:X)
 #' @inheritParams get_mtquad_data
 #' @return NULL
 #' @export
-
 prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10,
-                                path = get_default_data_path(), bbs_subset = NULL) 
+                                path = get_default_data_path(), data_subset = NULL) 
 {
     bbs_data_tables <- import_retriever_data("breed-bird-survey", path = path)
     
@@ -43,7 +62,7 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
         dplyr::distinct() %>%
         dplyr::mutate(name = paste0("bbs_bcr", .data$bcr, "_route", .data$route))
     
-    storage_path <- file.path(path, 'breed-bird-survey-prepped')
+    storage_path <- file.path(path, "breed-bird-survey-prepped")
     if (!dir.exists(storage_path)) {
         dir.create(storage_path)
     }
@@ -53,8 +72,8 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
                      row.names = F)
     
     # filter and process selected route and region combinations
-    if (!is.null(bbs_subset)) {
-        bbs_routes_regions <- bbs_routes_regions[bbs_subset, ]
+    if (!is.null(data_subset)) {
+        bbs_routes_regions <- bbs_routes_regions[data_subset, ]
     }
     
     bbs_routes_regions %>%

@@ -4,13 +4,13 @@
 \alias{build_datasets_plan}
 \title{Generate a Drake Plan for Datasets}
 \usage{
-build_datasets_plan(data_path = get_default_data_path(),
+build_datasets_plan(path = get_default_data_path(),
   include_retriever_data = FALSE, include_bbs_data = FALSE,
   bbs_subset = NULL, include_gpdd_data = FALSE,
-  include_biotime_data = FALSE)
+  include_biotime_data = FALSE, biotime_subset = NULL)
 }
 \arguments{
-\item{data_path}{where to get the downloaded retriever datasets}
+\item{path}{where to get the downloaded retriever datasets}
 
 \item{include_retriever_data}{whether to include retriever-downloaded data}
 
@@ -22,6 +22,9 @@ build_datasets_plan(data_path = get_default_data_path(),
 \item{include_gpdd_data}{whether to include gpdd data}
 
 \item{include_biotime_data}{whether to include biotime data}
+
+\item{biotime_subset}{optional, a subset of the biotime study_ids to use
+(to speed up development). As c(1:X)}
 }
 \value{
 a drake plan (i.e. a tibble) specifying the targets and commands

@@ -9,9 +9,9 @@
 #'
 get_cowley_lizards <- function()
 {
-    data_path <- system.file("extdata", "cowleylizards.txt",
-                             package = "MATSS", mustWork = TRUE)
-    raw_data <- read.delim(data_path) %>%
+    path <- system.file("extdata", "cowleylizards.txt",
+                        package = "MATSS", mustWork = TRUE)
+    raw_data <- read.delim(path) %>%
         dplyr::mutate_if(is.numeric, list(~dplyr::na_if(., -99))) %>%
         dplyr::filter(!is.na(.data$Cnemnidophorous_sexlineatus))
     
@@ -38,9 +38,9 @@ get_cowley_lizards <- function()
 #'
 get_cowley_snakes <- function()
 {
-    data_path <- system.file("extdata", "cowleysnakes.txt",
-                             package = "MATSS", mustWork = TRUE)
-    raw_data <- read.delim(data_path) %>%
+    path <- system.file("extdata", "cowleysnakes.txt",
+                        package = "MATSS", mustWork = TRUE)
+    raw_data <- read.delim(path) %>%
         dplyr::mutate_if(is.numeric,list(~dplyr::na_if(., -99))) %>%
         dplyr::filter(!is.na(.data$Agkistrodon_contortrix))
     
