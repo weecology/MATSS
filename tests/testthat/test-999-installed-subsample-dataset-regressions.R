@@ -5,6 +5,7 @@ path <- system.file("extdata", "subsampled",
 Sys.setenv(MATSS_DATA_PATH = path)
 
 test_that("process_bbs_ts_data formats data correctly", {
+    unlink(file.path(path, "breed-bird-survey-prepped"))
     expect_error(prepare_bbs_ts_data(), NA)
     expect_error(dat <- get_bbs_route_region_data(route = 1, region = 11), NA)
     expect_true(check_data_format(dat))
@@ -38,6 +39,7 @@ test_that("get_gpdd_data formats data correctly", {
 })
 
 test_that("get_biotime_data formats data correctly", {
+    unlink(file.path(path, "biotime-prepped"))
     expect_error(w <- capture_warnings(prepare_biotime_data(data_subset = 172)), NA)
     expect_match(w, "All formats failed to parse. No formats found.")
     expect_error(dat <- get_biotime_data(dataset = 321), NA)

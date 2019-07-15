@@ -71,6 +71,8 @@ build_analyses_plan <- function(methods, datasets, ...)
 #' @param include_biotime_data whether to include biotime data
 #' @param biotime_subset optional, a subset of the biotime study_ids to use 
 #'   (to speed up development). As c(1:X)
+#' @param biotime_process whether to process the biotime datasets when building 
+#'   the plan
 #' 
 #' @return a drake plan (i.e. a tibble) specifying the targets and commands 
 #'   for gathering datasets
@@ -83,7 +85,8 @@ build_datasets_plan <- function(path = get_default_data_path(),
                                 bbs_subset = NULL,
                                 include_gpdd_data = FALSE, 
                                 include_biotime_data = FALSE, 
-                                biotime_subset = NULL)
+                                biotime_subset = NULL, 
+                                biotime_process = TRUE)
 {
     datasets <- drake::drake_plan(
         maizuru_data = get_maizuru_data(),
@@ -123,7 +126,8 @@ build_datasets_plan <- function(path = get_default_data_path(),
     }
     if (include_biotime_data) {
         biotime_datasets = build_biotime_datasets_plan(path = path, 
-                                                       data_subset = biotime_subset)
+                                                       data_subset = biotime_subset, 
+                                                       do_processing = biotime_process)
         
         datasets <- datasets %>%
             dplyr::bind_rows(biotime_datasets)

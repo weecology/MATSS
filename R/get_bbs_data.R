@@ -62,7 +62,7 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
         dplyr::distinct() %>%
         dplyr::mutate(name = paste0("bbs_bcr", .data$bcr, "_route", .data$route))
     
-    storage_path <- file.path(path, 'breed-bird-survey-prepped')
+    storage_path <- file.path(path, "breed-bird-survey-prepped")
     if (!dir.exists(storage_path)) {
         dir.create(storage_path)
     }
