@@ -62,24 +62,28 @@ build_analyses_plan <- function(methods, datasets, ...)
 
 #' @title Generate a Drake Plan for Datasets
 #' 
-#' @param data_path where to get the downloaded retriever datasets
+#' @param path where to get the downloaded retriever datasets
 #' @param include_retriever_data whether to include retriever-downloaded data
 #' @param include_bbs_data whether to include BBS data
+#' @param bbs_subset optional, a subset of the BBS communities to use 
+#'   (to speed up development). As c(1:X)
 #' @param include_gpdd_data whether to include gpdd data
 #' @param include_biotime_data whether to include biotime data
-#' @inheritParams build_bbs_datasets_plan
+#' @param biotime_subset optional, a subset of the biotime study_ids to use 
+#'   (to speed up development). As c(1:X)
 #' 
 #' @return a drake plan (i.e. a tibble) specifying the targets and commands 
 #'   for gathering datasets
 #' 
 #' @export
 #' 
-build_datasets_plan <- function(data_path = get_default_data_path(), 
+build_datasets_plan <- function(path = get_default_data_path(), 
                                 include_retriever_data = FALSE,
                                 include_bbs_data = FALSE,
                                 bbs_subset = NULL,
                                 include_gpdd_data = FALSE, 
-                                include_biotime_data = FALSE)
+                                include_biotime_data = FALSE, 
+                                biotime_subset = NULL)
 {
     datasets <- drake::drake_plan(
         maizuru_data = get_maizuru_data(),
@@ -97,15 +101,15 @@ build_datasets_plan <- function(data_path = get_default_data_path(),
             dplyr::bind_rows(
                 drake::drake_plan(
                     portal_data = get_portal_rodents(),
-                    sdl_data = get_sdl_data(path = !!data_path),
-                    mtquad_data = get_mtquad_data(path = !!data_path)
+                    sdl_data = get_sdl_data(path = !!path),
+                    mtquad_data = get_mtquad_data(path = !!path)
                 )
             )
     }
     
     if (include_bbs_data) {
-        bbs_datasets = build_bbs_datasets_plan(data_path = data_path, 
-                                               bbs_subset = bbs_subset)
+        bbs_datasets = build_bbs_datasets_plan(path = path, 
+                                               data_subset = bbs_subset)
         
         datasets <- datasets %>%
             dplyr::bind_rows(bbs_datasets)
@@ -118,7 +122,8 @@ build_datasets_plan <- function(data_path = get_default_data_path(),
             dplyr::bind_rows(gpdd_datasets)
     }
     if (include_biotime_data) {
-        biotime_datasets = build_biotime_datasets_plan(data_path = data_path)
+        biotime_datasets = build_biotime_datasets_plan(path = path, 
+                                                       data_subset = biotime_subset)
         
         datasets <- datasets %>%
             dplyr::bind_rows(biotime_datasets)
@@ -137,23 +142,23 @@ build_datasets_plan <- function(data_path = get_default_data_path(),
 #' 
 #' @export
 #' 
-build_bbs_datasets_plan <- function(data_path = get_default_data_path(), bbs_subset = NULL)
+build_bbs_datasets_plan <- function(path = get_default_data_path(), data_subset = NULL)
 {
-    routes_and_regions_file <- file.path(data_path, "breed-bird-survey-prepped", "routes_and_regions_table.csv")
-    
+    # get metadata on routes and regions
+    routes_and_regions_file <- file.path(path, "breed-bird-survey-prepped", 
+                                         "routes_and_regions_table.csv")
     if (!file.exists(routes_and_regions_file)) {
         message("preprocessing bbs timeseries data")
-        prepare_bbs_ts_data(path = data_path, bbs_subset = bbs_subset)
+        prepare_bbs_ts_data(path = path, data_subset = data_subset)
     }
-    
     routes_and_regions <- utils::read.csv(routes_and_regions_file, colClasses = "character")
     
-    if (!is.null(bbs_subset)) {
-        routes_and_regions <- routes_and_regions[bbs_subset, ]
+    # filter datasets and generate plan
+    if (!is.null(data_subset)) {
+        routes_and_regions <- routes_and_regions[data_subset, ]
     }
-    
     bbs_datasets <- drake::drake_plan(
-        bbs_data_rtrg = target(get_bbs_route_region_data(route, region, path = !!data_path),
+        bbs_data_rtrg = target(get_bbs_route_region_data(route, region, path = !!path),
                                transform = map(route = !!rlang::syms(routes_and_regions$route),
                                                region = !!rlang::syms(routes_and_regions$bcr)
                                )
@@ -199,14 +204,25 @@ build_gpdd_datasets_plan <- function()
 #' 
 #' @export
 #' 
-build_biotime_datasets_plan <- function(data_path = get_default_data_path())
+build_biotime_datasets_plan <- function(path = get_default_data_path(), 
+                                        data_subset = NULL)
 {
-    dataset_file <- file.path(data_path, "biotimesql", "biotimesql_citation1.csv")
-    dataset_list <- utils::read.csv(dataset_file, colClasses = "character")
+    # get metadata on study_id
+    biotime_citations_file <- file.path(path, "biotime-prepped", "dataset_ids.csv")
+    if (!file.exists(biotime_citations_file)) {
+        message("preprocessing biotime timeseries data")
+        prepare_biotime_data(path = path, data_subset = data_subset)
+    }
+    dataset_list <- utils::read.csv(biotime_citations_file, colClasses = "character")
+    dataset_ids <- unique(dataset_list$study_id)
     
+    # filter datasets and generate plan
+    if (!is.null(data_subset)) {
+        dataset_ids <- dataset_ids[data_subset, ]
+    }
     biotime_datasets <- drake::drake_plan(
-        biotime_data_rtrg = target(get_biotime_data(dataset = dataset, path = !!data_path),
-                                   transform = map(dataset = !!rlang::syms(unique(dataset_list$study_id)))
+        biotime_data_rtrg = target(get_biotime_data(dataset = dataset, path = !!path),
+                                   transform = map(dataset = !!rlang::syms(dataset_ids))
         )
     )
     return(biotime_datasets)

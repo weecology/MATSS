@@ -50,7 +50,7 @@ get_karoo_data <- function()
         dplyr::select(c("Date", "Common.name", "total", "target", "Latitude", "Longitude"))
     
     karoo3 <- system.file("extdata", "sanparks/peggym.1049.1-karoo2008.txt",
-                              package = "MATSS", mustWork = TRUE) %>%
+                          package = "MATSS", mustWork = TRUE) %>%
         read.delim() %>%
         dplyr::rename(Common.name = "CONTROL", total = "TOTAL") %>%
         process_karoo()
@@ -60,7 +60,7 @@ get_karoo_data <- function()
         read.delim() %>%
         dplyr::rename(Common.name = "CONTROL", total = "TOTAL") %>%
         process_karoo()
-
+    
     #Combine cleaned tables and do more cleaning
     karoo_raw <- rbind(karoo1, karoo2, karoo3, karoo4) %>%
         dplyr::filter(.data$target == 1) %>%
@@ -102,14 +102,14 @@ get_karoo_data <- function()
 
 get_kruger_data <- function()
 {
-    data_path <- system.file("extdata", "sanparks/judithk.815.1-815.1.txt",
-                             package = "MATSS", mustWork = TRUE)
+    path <- system.file("extdata", "sanparks/judithk.815.1-815.1.txt",
+                        package = "MATSS", mustWork = TRUE)
     
-    kruger_raw <- read.delim(data_path) %>%
+    kruger_raw <- read.delim(path) %>%
         dplyr::group_by(.data$year, .data$Species) %>%
         dplyr::mutate(TOTAL = tidyr::replace_na(.data$TOTAL, 
-                              sum(.data$South, .data$Central, .data$North, .data$FarNorth, 
-                                  na.rm = TRUE))) %>%
+                                                sum(.data$South, .data$Central, .data$North, .data$FarNorth, 
+                                                    na.rm = TRUE))) %>%
         dplyr::select(.data$year, .data$Species, .data$TOTAL) %>%
         tidyr::spread(.data$Species, .data$TOTAL, fill = 0) %>%
         dplyr::ungroup()

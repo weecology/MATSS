@@ -1,24 +1,3 @@
-#' @title Get cleaned BBS data
-#' @description Gets prepped BBS data (as a list of abundance, covariates, and 
-#'   metadata) for a specified route and region. First run `prepare_bbs_data` 
-#'   to create these files from the raw BBS data tables. If the files are not 
-#'   found, then `NULL` is returned.
-#' @param route Route number
-#' @param region Region number
-#' @param path Data storage path
-#' @return list of abundance, covariates, and metadata
-#' @export
-get_bbs_route_region_data = function(route, region, path = get_default_data_path()) {
-    this_path = file.path(path, "breed-bird-survey-prepped", 
-                          paste0("route", route, "region", region, ".Rds"))
-    if (file.exists(this_path)) {
-        return(readRDS(this_path)) 
-    } else {
-        return(NULL)
-    }
-}
-
-
 #' @title Create Sonoran desert lab time-series data
 #'
 #' @description Original data found here http://www.eebweb.arizona.edu/faculty/venable/LTREB/LTREB%20data.htm

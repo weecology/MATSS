@@ -4,10 +4,11 @@
 \alias{build_biotime_datasets_plan}
 \title{Generate a Drake Plan for Biotime Datasets}
 \usage{
-build_biotime_datasets_plan(data_path = get_default_data_path())
+build_biotime_datasets_plan(path = get_default_data_path(),
+  data_subset = NULL)
 }
 \arguments{
-\item{data_path}{where to get the downloaded retriever datasets}
+\item{path}{where to get the downloaded retriever datasets}
 }
 \value{
 a drake plan (i.e. a tibble) specifying the targets and commands

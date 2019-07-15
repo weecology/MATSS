@@ -9,9 +9,9 @@
 get_jornada_data <- function()
 {
     # read in Jornada rodent data
-    data_path <- system.file("extdata", "jornada_rodents.csv", 
-                             package = "MATSS", mustWork = TRUE)
-    jornada <- utils::read.csv(data_path)
+    path <- system.file("extdata", "jornada_rodents.csv", 
+                        package = "MATSS", mustWork = TRUE)
+    jornada <- utils::read.csv(path)
     
     # select key columns 
     # filter out unknown species and recaptures
@@ -27,12 +27,12 @@ get_jornada_data <- function()
     # put data in wide format
     jornada_abundance_table <- jornada_abundances %>%
         tidyr::spread(.data$spp, .data$count, fill = 0)
- 
-
+    
+    
     season <- rep(0, nrow(jornada_abundance_table))
     season[which(jornada_abundance_table$season == "F")] <- 0.5
     jornada_abundance_table$time <- jornada_abundance_table$year + season
-
+    
     # split into two dataframes and save
     covariates <- jornada_abundance_table[, c("year", "season", "time")]
     abundance <- jornada_abundance_table[, -which(colnames(jornada_abundance_table) %in% c("year", "season", "samples", "time"))]
