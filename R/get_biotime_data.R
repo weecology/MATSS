@@ -3,9 +3,14 @@
 #'   covariates, and metadata) for a specified dataset_id. First run 
 #'   \code{\link{prepare_biotime_data}} to create these files from the raw 
 #'   BioTime database. If the files are not found, then `NULL` is returned.
+#'   Original data found here http://biotime.st-andrews.ac.uk/home.php
 #' @param dataset_id the dataset index
 #' @inheritParams get_mtquad_data
 #' @return list of abundance, covariates, and metadata
+#' @examples 
+#' \dontrun{
+#'   get_biotime_data(dataset_id = 321)
+#' }
 #' @export
 get_biotime_data <- function(dataset_id, path = get_default_data_path())
 {
@@ -18,48 +23,77 @@ get_biotime_data <- function(dataset_id, path = get_default_data_path())
     }
 }
 
-#' @title Prepare Biotime time-series datases for individual loading
+#' @title Return BioTime dataset ids for individual loading
 #'
-#' @description Original data found here http://biotime.st-andrews.ac.uk/home.php
-#' @param data_subset optional, a subset of the Biotime study_ids to use 
-#'   (to speed up development). As c(1:X)
-#' @inheritParams get_mtquad_data
-#' @return NULL
+#' @description Retrieve the dataset ids from processed BioTime files. If the 
+#'   processed files do not exist, and `do_processing == TRUE`, then we also 
+#'   load the raw BioTime database and process the necessary datasets, too.
+#' @inheritParams build_biotime_datasets_plan
+#' @return vector of dataset ids in the processed set of files
 #'
 #' @examples
 #' \dontrun{
-#'   get_biotime_data(dataset = 321)
+#'   get_biotime_dataset_ids()
 #' }
 #' @export
-prepare_biotime_data <- function(path = get_default_data_path(), data_subset = NULL)
+get_biotime_dataset_ids <- function(path = get_default_data_path(), data_subset = NULL, 
+                                    do_processing = FALSE)
 {
-    # get dataset ids
-    dataset_file <- file.path(path, "biotimesql", "biotimesql_citation1.csv")
-    dataset_list <- utils::read.csv(dataset_file, colClasses = "character")
-    dataset_ids <- unique(dataset_list$study_id)
-    
-    # prepare and write out dataset id metadata
+    # check for prepped citations file
     storage_path <- file.path(path, "biotime-prepped")
-    if (!dir.exists(storage_path)) {
-        dir.create(storage_path)
+    biotime_citations_file <- file.path(storage_path, "datasets.csv")
+    
+    if (file.exists(biotime_citations_file))
+    {
+        dataset_list <- utils::read.csv(biotime_citations_file, colClasses = "character")
+        dataset_ids <- unique(dataset_list$study_id)
+    } else if (do_processing) {
+        # create prepped citations file
+        dataset_file <- file.path(path, "biotimesql", "biotimesql_citation1.csv")
+        dataset_list <- utils::read.csv(dataset_file, colClasses = "character")
+
+        if (!dir.exists(storage_path)) {dir.create(storage_path)}
+        
+        utils::write.csv(dataset_list, 
+                         file.path(storage_path, "datasets.csv"), 
+                         row.names = F)
     }
     
-    utils::write.csv(dataset_list, 
-                     file.path(storage_path, "dataset_ids.csv"), 
-                     row.names = F)
-    
-    # filter and process selected datasets
+    # filter selected datasets
     if (!is.null(data_subset)) {
         dataset_ids <- dataset_ids[data_subset]
     }
     
-    biotime_data_tables <- import_retriever_data("biotimesql", path = path)
+    # process selected datasets if requested
+    if (!file.exists(biotime_citations_file) && do_processing)
+    {
+        message("preprocessing biotime timeseries data")
+        biotime_data_tables <- import_retriever_data("biotimesql", path = path)
+        
+        purrr::walk(dataset_ids, function(dataset_id) {
+            biotime_data_tables %>% 
+                process_biotime_data(dataset_id = dataset_id) %>%
+                saveRDS(file = file.path(storage_path, paste0("dataset", dataset_id, ".Rds")))
+        })
+    }
     
-    purrr::walk(dataset_ids, function(dataset_id) {
-        biotime_data_tables %>% 
-            process_biotime_data(dataset_id = dataset_id) %>%
-            saveRDS(file = file.path(storage_path, paste0("dataset", dataset_id, ".Rds")))
-    })
+    return(dataset_ids)
+}
+
+#' @rdname get_biotime_dataset_ids
+#' @description `prepare_biotime_data` is a thin wrapper around 
+#'   `get_biotime_dataset_ids()` for processing BioTime dataset
+#' @inheritParams get_biotime_dataset_ids
+#' @return vector of dataset ids in the processed set of files
+#'
+#' @examples
+#' \dontrun{
+#'   prepare_biotime_data()
+#' }
+#' @export
+prepare_biotime_data <- function(path = get_default_data_path(), data_subset = NULL)
+{
+    get_biotime_dataset_ids(do_processing = TRUE)
 }
 
 #' @title Process an individual BioTime dataset
@@ -69,7 +103,7 @@ prepare_biotime_data <- function(path = get_default_data_path(), data_subset = N
 #' @param dataset_id the study_id
 #' @return the processed BioTime dataset
 #' @export
-process_biotime_data <-  function(biotime_data_tables, dataset_id = 10)
+process_biotime_data <- function(biotime_data_tables, dataset_id = 10)
 {
     biotime_citations <- biotime_data_tables$biotimesql_citation1 %>%
         dplyr::filter(.data$study_id == dataset_id)

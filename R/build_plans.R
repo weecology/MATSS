@@ -197,7 +197,9 @@ build_gpdd_datasets_plan <- function()
 #' @title Generate a Drake Plan for Biotime Datasets
 #' 
 #' @inheritParams build_datasets_plan
-#' @inheritParams get_biotime_data
+#' @param data_subset optional, a subset of the Biotime study_ids to use 
+#'   (to speed up development). As c(1:X)
+#' @param do_processing whether to process the datasets if necessary
 #' 
 #' @return a drake plan (i.e. a tibble) specifying the targets and commands 
 #'   for gathering Biotime datasets
@@ -205,21 +207,13 @@ build_gpdd_datasets_plan <- function()
 #' @export
 #' 
 build_biotime_datasets_plan <- function(path = get_default_data_path(), 
-                                        data_subset = NULL)
+                                        data_subset = NULL, 
+                                        do_processing = TRUE)
 {
-    # get metadata on study_id
-    biotime_citations_file <- file.path(path, "biotime-prepped", "dataset_ids.csv")
-    if (!file.exists(biotime_citations_file)) {
-        message("preprocessing biotime timeseries data")
-        prepare_biotime_data(path = path, data_subset = data_subset)
-    }
-    dataset_list <- utils::read.csv(biotime_citations_file, colClasses = "character")
-    dataset_ids <- unique(dataset_list$study_id)
+    dataset_ids <- get_biotime_dataset_ids(path = path, 
+                                           data_subset = data_subset, 
+                                           do_processing = do_processing)
     
-    # filter datasets and generate plan
-    if (!is.null(data_subset)) {
-        dataset_ids <- dataset_ids[data_subset, ]
-    }
     biotime_datasets <- drake::drake_plan(
         biotime_data_rtrg = target(get_biotime_data(dataset = dataset, path = !!path),
                                    transform = map(dataset = !!rlang::syms(dataset_ids))

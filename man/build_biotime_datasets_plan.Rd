@@ -5,10 +5,15 @@
 \title{Generate a Drake Plan for Biotime Datasets}
 \usage{
 build_biotime_datasets_plan(path = get_default_data_path(),
-  data_subset = NULL)
+  data_subset = NULL, do_processing = TRUE)
 }
 \arguments{
 \item{path}{where to get the downloaded retriever datasets}
+
+\item{data_subset}{optional, a subset of the Biotime study_ids to use
+(to speed up development). As c(1:X)}
+
+\item{do_processing}{whether to process the datasets if necessary}
 }
 \value{
 a drake plan (i.e. a tibble) specifying the targets and commands

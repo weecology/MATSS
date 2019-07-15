@@ -19,4 +19,10 @@ Gets a prepped BioTime dataset (as a list of abundance,
 covariates, and metadata) for a specified dataset_id. First run
 \code{\link{prepare_biotime_data}} to create these files from the raw
 BioTime database. If the files are not found, then \code{NULL} is returned.
+Original data found here http://biotime.st-andrews.ac.uk/home.php
+}
+\examples{
+\dontrun{
+  get_biotime_data(dataset_id = 321)
+}
 }
