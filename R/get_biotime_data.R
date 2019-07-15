@@ -42,12 +42,13 @@ get_biotime_dataset_ids <- function(path = get_default_data_path(), data_subset 
     # check for prepped citations file
     storage_path <- file.path(path, "biotime-prepped")
     biotime_citations_file <- file.path(storage_path, "datasets.csv")
+    biotime_is_processed <- file.exists(biotime_citations_file)
     
-    if (file.exists(biotime_citations_file))
+    if (biotime_is_processed)
     {
         dataset_list <- utils::read.csv(biotime_citations_file, colClasses = "character")
         dataset_ids <- unique(dataset_list$study_id)
-    } else if (do_processing) {
+    } else {
         # create prepped citations file
         dataset_file <- file.path(path, "biotimesql", "biotimesql_citation1.csv")
         dataset_list <- utils::read.csv(dataset_file, colClasses = "character")
@@ -57,6 +58,7 @@ get_biotime_dataset_ids <- function(path = get_default_data_path(), data_subset 
         utils::write.csv(dataset_list, 
                          file.path(storage_path, "datasets.csv"), 
                          row.names = F)
+        dataset_ids <- unique(dataset_list$study_id)
     }
     
     # filter selected datasets
@@ -65,7 +67,7 @@ get_biotime_dataset_ids <- function(path = get_default_data_path(), data_subset 
     }
     
     # process selected datasets if requested
-    if (!file.exists(biotime_citations_file) && do_processing)
+    if (!biotime_is_processed && do_processing)
     {
         message("preprocessing biotime timeseries data")
         biotime_data_tables <- import_retriever_data("biotimesql", path = path)

@@ -38,7 +38,8 @@ test_that("get_gpdd_data formats data correctly", {
 })
 
 test_that("get_biotime_data formats data correctly", {
-    expect_error(prepare_biotime_data(data_subset = 172), NA)
+    expect_error(w <- capture_warnings(prepare_biotime_data(data_subset = 172)), NA)
+    expect_match(w, "All formats failed to parse. No formats found.")
     expect_error(dat <- get_biotime_data(dataset = 321), NA)
     expect_true(check_data_format(dat))
     expect_known_hash(dat$abundance, "3c7a4f434f")
