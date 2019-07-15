@@ -128,16 +128,16 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>build_datasets_plan</span>(<span class='kw'>data_path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(),
+    <pre class="usage"><span class='fu'>build_datasets_plan</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(),
   <span class='kw'>include_retriever_data</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>include_bbs_data</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>bbs_subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>include_gpdd_data</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>include_biotime_data</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>include_biotime_data</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>biotime_subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data_path</th>
+      <th>path</th>
       <td><p>where to get the downloaded retriever datasets</p></td>
     </tr>
     <tr>
@@ -160,6 +160,11 @@
     <tr>
       <th>include_biotime_data</th>
       <td><p>whether to include biotime data</p></td>
+    </tr>
+    <tr>
+      <th>biotime_subset</th>
+      <td><p>optional, a subset of the biotime study_ids to use
+(to speed up development). As c(1:X)</p></td>
     </tr>
     </table>
     

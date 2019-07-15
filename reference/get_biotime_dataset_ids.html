@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Prepare BBS population time-series data — prepare_bbs_ts_data • MATSS</title>
+<title>Return BioTime dataset ids for individual loading — get_biotime_dataset_ids • MATSS</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,14 +30,13 @@
 
 
 
-<meta property="og:title" content="Prepare BBS population time-series data — prepare_bbs_ts_data" />
+<meta property="og:title" content="Return BioTime dataset ids for individual loading — get_biotime_dataset_ids" />
 
-<meta property="og:description" content="Modified from https://github.com/weecology/bbs-forecasting
-and https://github.com/weecology/MATSS-community-change.
-Selects sites with data spanning start_yr through end_yr containing at
-least min_num_yrs of data samples during that period. Cleans data tables
-and stores each individual route as a .Rds file. Saves a data table of the
-route + region pairs." />
+<meta property="og:description" content="Retrieve the dataset ids from processed BioTime files. If the
+processed files do not exist, and do_processing == TRUE, then we also
+load the raw BioTime database and process the necessary datasets, too.
+prepare_biotime_data is a thin wrapper around
+get_biotime_dataset_ids() for processing BioTime dataset" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -122,58 +121,67 @@ route + region pairs." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Prepare BBS population time-series data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_bbs_data.R'><code>R/get_bbs_data.R</code></a></small>
-    <div class="hidden name"><code>prepare_bbs_ts_data.Rd</code></div>
+    <h1>Return BioTime dataset ids for individual loading</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_biotime_data.R'><code>R/get_biotime_data.R</code></a></small>
+    <div class="hidden name"><code>get_biotime_dataset_ids.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Modified from <a href='https://github.com/weecology/bbs-forecasting'>https://github.com/weecology/bbs-forecasting</a>
-and <a href='https://github.com/weecology/MATSS-community-change'>https://github.com/weecology/MATSS-community-change</a>.</p>
-<p>Selects sites with data spanning <code>start_yr</code> through <code>end_yr</code> containing at
-least <code>min_num_yrs</code> of data samples during that period. Cleans data tables
-and stores each individual route as a .Rds file. Saves a data table of the
-route + region pairs.</p>
+    <p>Retrieve the dataset ids from processed BioTime files. If the
+processed files do not exist, and <code>do_processing == TRUE</code>, then we also
+load the raw BioTime database and process the necessary datasets, too.</p>
+<p><code>prepare_biotime_data</code> is a thin wrapper around
+<code>get_biotime_dataset_ids()</code> for processing BioTime dataset</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>prepare_bbs_ts_data</span>(<span class='kw'>start_yr</span> <span class='kw'>=</span> <span class='fl'>1965</span>, <span class='kw'>end_yr</span> <span class='kw'>=</span> <span class='fl'>2017</span>, <span class='kw'>min_num_yrs</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(), <span class='kw'>data_subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>get_biotime_dataset_ids</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(),
+  <span class='kw'>data_subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>do_processing</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>prepare_biotime_data</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(),
+  <span class='kw'>data_subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>start_yr</th>
-      <td><p>num first year of time-series</p></td>
-    </tr>
-    <tr>
-      <th>end_yr</th>
-      <td><p>num last year of time-series</p></td>
-    </tr>
-    <tr>
-      <th>min_num_yrs</th>
-      <td><p>num minimum number of years of data between start_yr &amp; end_yr</p></td>
-    </tr>
-    <tr>
       <th>path</th>
-      <td><p>where to load the raw data files from</p></td>
+      <td><p>where to get the downloaded retriever datasets</p></td>
     </tr>
     <tr>
       <th>data_subset</th>
-      <td><p>optional, a subset of the BBS communities to use
+      <td><p>optional, a subset of the Biotime study_ids to use
 (to speed up development). As c(1:X)</p></td>
+    </tr>
+    <tr>
+      <th>do_processing</th>
+      <td><p>whether to process the datasets if necessary</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>vector of dataset ids in the processed set of files</p>
+<p>vector of dataset ids in the processed set of files</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><span class='co'># NOT RUN {</span>
+  <span class='fu'>get_biotime_dataset_ids</span>()
+<span class='co'># }</span><span class='co'># NOT RUN {</span>
+  <span class='fu'>prepare_biotime_data</span>()
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

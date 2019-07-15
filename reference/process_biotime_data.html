@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Prepare BBS population time-series data — prepare_bbs_ts_data • MATSS</title>
+<title>Process an individual BioTime dataset — process_biotime_data • MATSS</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,14 +30,10 @@
 
 
 
-<meta property="og:title" content="Prepare BBS population time-series data — prepare_bbs_ts_data" />
+<meta property="og:title" content="Process an individual BioTime dataset — process_biotime_data" />
 
-<meta property="og:description" content="Modified from https://github.com/weecology/bbs-forecasting
-and https://github.com/weecology/MATSS-community-change.
-Selects sites with data spanning start_yr through end_yr containing at
-least min_num_yrs of data samples during that period. Cleans data tables
-and stores each individual route as a .Rds file. Saves a data table of the
-route + region pairs." />
+<meta property="og:description" content="Filter and modify the BioTime data. Generate the abundance,
+covariate, and metadata tables and return the combined object." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -122,50 +118,36 @@ route + region pairs." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Prepare BBS population time-series data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_bbs_data.R'><code>R/get_bbs_data.R</code></a></small>
-    <div class="hidden name"><code>prepare_bbs_ts_data.Rd</code></div>
+    <h1>Process an individual BioTime dataset</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_biotime_data.R'><code>R/get_biotime_data.R</code></a></small>
+    <div class="hidden name"><code>process_biotime_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Modified from <a href='https://github.com/weecology/bbs-forecasting'>https://github.com/weecology/bbs-forecasting</a>
-and <a href='https://github.com/weecology/MATSS-community-change'>https://github.com/weecology/MATSS-community-change</a>.</p>
-<p>Selects sites with data spanning <code>start_yr</code> through <code>end_yr</code> containing at
-least <code>min_num_yrs</code> of data samples during that period. Cleans data tables
-and stores each individual route as a .Rds file. Saves a data table of the
-route + region pairs.</p>
+    <p>Filter and modify the BioTime data. Generate the abundance,
+covariate, and metadata tables and return the combined object.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>prepare_bbs_ts_data</span>(<span class='kw'>start_yr</span> <span class='kw'>=</span> <span class='fl'>1965</span>, <span class='kw'>end_yr</span> <span class='kw'>=</span> <span class='fl'>2017</span>, <span class='kw'>min_num_yrs</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(), <span class='kw'>data_subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>process_biotime_data</span>(<span class='no'>biotime_data_tables</span>, <span class='kw'>dataset_id</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>start_yr</th>
-      <td><p>num first year of time-series</p></td>
+      <th>biotime_data_tables</th>
+      <td><p>full BioTime data tables</p></td>
     </tr>
     <tr>
-      <th>end_yr</th>
-      <td><p>num last year of time-series</p></td>
-    </tr>
-    <tr>
-      <th>min_num_yrs</th>
-      <td><p>num minimum number of years of data between start_yr &amp; end_yr</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p>where to load the raw data files from</p></td>
-    </tr>
-    <tr>
-      <th>data_subset</th>
-      <td><p>optional, a subset of the BBS communities to use
-(to speed up development). As c(1:X)</p></td>
+      <th>dataset_id</th>
+      <td><p>the study_id</p></td>
     </tr>
     </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>the processed BioTime dataset</p>
     
 
   </div>
@@ -173,7 +155,9 @@ route + region pairs.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
 
   </div>
 </div>

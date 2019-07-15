@@ -128,14 +128,24 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>build_biotime_datasets_plan</span>(<span class='kw'>data_path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>())</pre>
+    <pre class="usage"><span class='fu'>build_biotime_datasets_plan</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(),
+  <span class='kw'>data_subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>do_processing</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data_path</th>
+      <th>path</th>
       <td><p>where to get the downloaded retriever datasets</p></td>
+    </tr>
+    <tr>
+      <th>data_subset</th>
+      <td><p>optional, a subset of the Biotime study_ids to use
+(to speed up development). As c(1:X)</p></td>
+    </tr>
+    <tr>
+      <th>do_processing</th>
+      <td><p>whether to process the datasets if necessary</p></td>
     </tr>
     </table>
     
