@@ -13,14 +13,22 @@ addons:
     packages:
       - libgsl0-dbg
       - libgsl0-dev
-      - "python3.5"
-      - "python3-pip"
     update: true
 
 before_install:
-  - sudo pip3 install --upgrade setuptools
-  - sudo pip3 install --upgrade git+https://git@github.com/weecology/retriever.git
-  - python3 -c 'import retriever;retriever.check_for_updates()'
+  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  # Useful for debugging any issues with conda
+  - conda info -a
+  - conda create -q -n test-environment python=3
+  - source activate test-environment
+  - conda install -c conda-forge retriever
+  - retriever
+  - python -c 'import retriever;retriever.check_for_updates()'
 
 matrix:
   include:
