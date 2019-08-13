@@ -90,15 +90,18 @@ install_retriever_data <- function(dataset, path = get_default_data_path(),
 #' }
 #' @export
 #'
-import_retriever_data <- function(dataset, path = get_default_data_path())
+import_retriever_data <- function(dataset = NULL, path = get_default_data_path())
 {
-    folder_path <- file.path(path, dataset)
+    if (!is.null(dataset))
+    {
+        path <- file.path(path, dataset)
+    }
     
     # check for existence of data_path
-    files <- dir(folder_path)
+    files <- dir(path)
     if (length(files) == 0) # check for presence of downloaded files
     {
-        warning("Didn't find any downloaded data in ", folder_path, ".\n", 
+        warning("Didn't find any downloaded data in ", path, ".\n", 
                 "Did you run get_retriever_data() first?")
         return(NULL)
     }
@@ -108,7 +111,7 @@ import_retriever_data <- function(dataset, path = get_default_data_path())
     names(tempdata) <- sub('.csv', '', files)
     for (j in seq_along(files))
     {
-        tempdata[[j]] <- utils::read.csv(file.path(folder_path, files[j]), 
+        tempdata[[j]] <- utils::read.csv(file.path(path, files[j]), 
                                          stringsAsFactors = FALSE)
     }
     return(tempdata)

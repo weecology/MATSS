@@ -51,9 +51,9 @@ get_sdl_data <- function(plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17),
 #' }
 #' @export
 
-get_mtquad_data <- function(path = get_default_data_path())
+get_mtquad_data <- function(path = file.path(get_default_data_path(), "mapped-plant-quads-mt"))
 {
-    mtquad_data_tables <- import_retriever_data('mapped-plant-quads-mt', path = path)
+    mtquad_data_tables <- import_retriever_data(path = path)
     
     mtquad_data <- mtquad_data_tables$mapped_plant_quads_mt_allrecords_density %>%
         dplyr::select(-.data$objectid, -.data$seedling, -.data$x, -.data$y) %>%

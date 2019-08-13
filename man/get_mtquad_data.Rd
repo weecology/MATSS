@@ -4,7 +4,8 @@
 \alias{get_mtquad_data}
 \title{Create Montana plant quad time-series data}
 \usage{
-get_mtquad_data(path = get_default_data_path())
+get_mtquad_data(path = file.path(get_default_data_path(),
+  "mapped-plant-quads-mt"))
 }
 \arguments{
 \item{path}{where to load the raw data files from}

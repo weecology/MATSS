@@ -9,7 +9,7 @@
 install_retriever_data(dataset, path = get_default_data_path(),
   force_install = FALSE)
 
-import_retriever_data(dataset, path = get_default_data_path())
+import_retriever_data(dataset = NULL, path = get_default_data_path())
 
 download_datasets(dataset = c("breed-bird-survey", "veg-plots-sdl",
   "mapped-plant-quads-mt", "biotimesql"), path = get_default_data_path(),
