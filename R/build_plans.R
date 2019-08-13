@@ -47,15 +47,15 @@ build_analyses_plan <- function(methods, datasets, ...)
         # note: tidyeval syntax is to get all the values from the previous plans,
         #       but keep them as unevaluated symbols, so that drake_plan handles
         #       them appropriately
-        analysis = target(fun(data),
-                          transform = cross(fun = !!rlang::syms(methods$target),
-                                            data = !!rlang::syms(datasets$target))
+        analysis = drake::target(fun(data),
+                                 transform = cross(fun = !!rlang::syms(methods$target),
+                                                   data = !!rlang::syms(datasets$target))
         ),
         # create a list of the created `analysis` objects, grouping by the `fun`
         # that made them - this keeps the results from the different methods
         # separated, so that the reports/syntheses can handle the right outputs
-        results = target(MATSS::collect_analyses(list(analysis)),
-                         transform = combine(analysis, .by = fun)),
+        results = drake::target(MATSS::collect_analyses(list(analysis)),
+                                transform = combine(analysis, .by = fun)),
         ...
     )
 }
@@ -100,41 +100,52 @@ build_datasets_plan <- function(path = get_default_data_path(),
     
     if (include_retriever_data)
     {
-        datasets <- datasets %>%
-            dplyr::bind_rows(
-                drake::drake_plan(
-                    portal_data = get_portal_rodents(),
-                    sdl_data = get_sdl_data(path = !!path),
-                    mtquad_data = get_mtquad_data(path = !!path)
-                )
-            )
+        datasets <- dplyr::bind_rows(datasets, 
+                                     build_retriever_datasets_plan(path = path))
     }
     
-    if (include_bbs_data) {
-        bbs_datasets = build_bbs_datasets_plan(path = path, 
-                                               data_subset = bbs_subset)
-        
-        datasets <- datasets %>%
-            dplyr::bind_rows(bbs_datasets)
+    if (include_bbs_data)
+    {
+        datasets <- dplyr::bind_rows(datasets, 
+                                     build_bbs_datasets_plan(path = path, data_subset = bbs_subset))
     }
     
-    if (include_gpdd_data) {
-        gpdd_datasets = build_gpdd_datasets_plan()
-        
-        datasets <- datasets %>%
-            dplyr::bind_rows(gpdd_datasets)
-    }
-    if (include_biotime_data) {
-        biotime_datasets = build_biotime_datasets_plan(path = path, 
-                                                       data_subset = biotime_subset, 
-                                                       do_processing = biotime_process)
-        
-        datasets <- datasets %>%
-            dplyr::bind_rows(biotime_datasets)
+    if (include_gpdd_data)
+    {
+        datasets <- dplyr::bind_rows(datasets, 
+                                     build_gpdd_datasets_plan())
     }
     
+    if (include_biotime_data)
+    {
+        datasets <- dplyr::bind_rows(datasets, 
+                                     build_biotime_datasets_plan(path = path, 
+                                                                 data_subset = biotime_subset, 
+                                                                 do_processing = biotime_process))
+    }
     return(datasets)
 }
+
+#' @title Generate a Drake Plan for retriever datasets
+#' 
+#' @inheritParams build_datasets_plan
+#' 
+#' @return a drake plan (i.e. a tibble) specifying the targets and commands 
+#'   for retriever downloaded datasets
+#' 
+#' @export
+#' 
+build_retriever_datasets_plan <- function(path = get_default_data_path())
+{
+    drake::drake_plan(
+        portal_data = get_portal_rodents(),
+        sdl_data = drake::target(get_sdl_data(path = !!file.path(path, "veg-plots-sdl")),
+                                 trigger = trigger(command = FALSE)), 
+        mtquad_data = drake::target(get_mtquad_data(path = !!file.path(path, "mapped-plant-quads-mt")), 
+                                    trigger = trigger(command = FALSE))
+    )
+}
+
 
 #' @title Generate a Drake Plan for BBS Datasets
 #' 
@@ -162,10 +173,11 @@ build_bbs_datasets_plan <- function(path = get_default_data_path(), data_subset 
         routes_and_regions <- routes_and_regions[data_subset, ]
     }
     bbs_datasets <- drake::drake_plan(
-        bbs_data_rtrg = target(get_bbs_route_region_data(route, region, path = !!path),
-                               transform = map(route = !!rlang::syms(routes_and_regions$route),
-                                               region = !!rlang::syms(routes_and_regions$bcr)
-                               )
+        bbs_data_rtrg = drake::target(get_bbs_route_region_data(path = file_in(!!file.path(path, "breed-bird-survey-prepped", 
+                                                                                           paste0("route", route, "region", region, ".Rds")))),
+                                      transform = map(route = !!rlang::syms(routes_and_regions$route),
+                                                      region = !!rlang::syms(routes_and_regions$bcr)), 
+                                      trigger = trigger(command = FALSE)
         )
     )
     return(bbs_datasets)
@@ -189,10 +201,9 @@ build_gpdd_datasets_plan <- function()
     locations <- utils::read.csv(locations_file, colClasses = "character")
     
     gpdd_datasets <- drake::drake_plan(
-        gpdd_data_rtrg = target(get_gpdd_data(location_id = location_id, timeperiod_id = timeperiod_id),
-                                transform = map(location_id = !!rlang::syms(locations$LocationID),
-                                                timeperiod_id = !!rlang::syms(locations$TimePeriodID)
-                                )
+        gpdd_data_rtrg = drake::target(get_gpdd_data(location_id = location_id, timeperiod_id = timeperiod_id),
+                                       transform = map(location_id = !!rlang::syms(locations$LocationID),
+                                                       timeperiod_id = !!rlang::syms(locations$TimePeriodID))
         )
     )
     return(gpdd_datasets)
@@ -219,8 +230,10 @@ build_biotime_datasets_plan <- function(path = get_default_data_path(),
                                            do_processing = do_processing)
     
     biotime_datasets <- drake::drake_plan(
-        biotime_data_rtrg = target(get_biotime_data(dataset = dataset, path = !!path),
-                                   transform = map(dataset = !!rlang::syms(dataset_ids))
+        biotime_data_rtrg = drake::target(get_biotime_data(path = file_in(!!file.path(path, "biotime-prepped", 
+                                                                                      paste0("dataset", dataset, ".Rds")))), 
+                                          transform = map(dataset = !!rlang::syms(dataset_ids)), 
+                                          trigger = trigger(command = FALSE)
         )
     )
     return(biotime_datasets)

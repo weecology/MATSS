@@ -12,12 +12,12 @@
 #'   get_biotime_data(dataset_id = 321)
 #' }
 #' @export
-get_biotime_data <- function(dataset_id, path = get_default_data_path())
+get_biotime_data <- function(path = file.path(get_default_data_path(), "biotime-prepped", 
+                                              paste0("dataset", dataset_id, ".Rds")), 
+                             dataset_id = 321)
 {
-    this_path <- file.path(path, "biotime-prepped", 
-                           paste0("dataset", dataset_id, ".Rds"))
-    if (file.exists(this_path)) {
-        return(readRDS(this_path)) 
+    if (file.exists(path)) {
+        return(readRDS(path)) 
     } else {
         return(NULL)
     }
@@ -91,7 +91,9 @@ get_biotime_dataset_ids <- function(path = get_default_data_path(), data_subset 
 #' @export
 prepare_biotime_data <- function(path = get_default_data_path(), data_subset = NULL)
 {
-    get_biotime_dataset_ids(do_processing = TRUE)
+    get_biotime_dataset_ids(path = path, 
+                            data_subset = data_subset, 
+                            do_processing = TRUE)
 }
 
 #' @title Process an individual BioTime dataset

@@ -79,7 +79,9 @@ install_retriever_data <- function(dataset, path = get_default_data_path(),
 #'
 #' @description \code{import_retriever_data} loads a previously downloaded 
 #'   retriever dataset
-#'   
+#' 
+#' @param path the overarching folder in which to download datasets; OR the 
+#'   full path to the folder containing the data (when `dataset == NULL`)
 #' @inheritParams install_retriever_data
 #' 
 #' @return NULL

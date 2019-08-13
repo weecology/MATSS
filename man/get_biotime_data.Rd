@@ -4,12 +4,14 @@
 \alias{get_biotime_data}
 \title{Get a cleaned BioTime dataset}
 \usage{
-get_biotime_data(dataset_id, path = get_default_data_path())
+get_biotime_data(path = file.path(get_default_data_path(),
+  "biotime-prepped", paste0("dataset", dataset_id, ".Rds")),
+  dataset_id = 321)
 }
 \arguments{
-\item{dataset_id}{the dataset index}
-
 \item{path}{where to load the raw data files from}
+
+\item{dataset_id}{the dataset index}
 }
 \value{
 list of abundance, covariates, and metadata

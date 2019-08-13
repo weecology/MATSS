@@ -15,9 +15,9 @@
 #' @export
 
 get_sdl_data <- function(plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17), 
-                         path = get_default_data_path())
+                         path = file.path(get_default_data_path(), "veg-plots-sdl"))
 {
-    sdl_data_tables <- import_retriever_data("veg-plots-sdl", path = path)
+    sdl_data_tables <- import_retriever_data(path = path)
     
     sdl_data <- sdl_data_tables$veg_plots_sdl_SMDensity %>%
         dplyr::select(-.data$countns) %>%

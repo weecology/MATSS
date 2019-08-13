@@ -8,11 +8,13 @@
 #' @inheritParams get_mtquad_data
 #' @return list of abundance, covariates, and metadata
 #' @export
-get_bbs_route_region_data = function(route, region, path = get_default_data_path()) {
-    this_path = file.path(path, "breed-bird-survey-prepped", 
-                          paste0("route", route, "region", region, ".Rds"))
-    if (file.exists(this_path)) {
-        return(readRDS(this_path)) 
+get_bbs_route_region_data = function(path = file.path(get_default_data_path(), "breed-bird-survey-prepped", 
+                                                      paste0("route", route, "region", region, ".Rds")), 
+                                     route = 1, 
+                                     region = 11)
+{
+    if (file.exists(path)) {
+        return(readRDS(path)) 
     } else {
         return(NULL)
     }

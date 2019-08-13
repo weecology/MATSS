@@ -22,6 +22,9 @@ download_datasets(dataset = c("breed-bird-survey", "veg-plots-sdl",
 
 \item{force_install}{whether to install the dataset if the correctly named
 folder already exists}
+
+\item{path}{the overarching folder in which to download datasets; OR the
+full path to the folder containing the data (when \code{dataset == NULL})}
 }
 \description{
 \code{install_retriever_data} downloads retriever datasets and

@@ -17,14 +17,14 @@ test_that("build_bbs_datasets_plan works", {
     expect_error(datasets <- build_bbs_datasets_plan(), NA)
     expect_plan(datasets)
     expect_true(all(grepl("bbs_data_rtrg_[0-9]+_[0-9]+$", datasets$target)))
-    expect_equal(dim(datasets), c(3, 2))
+    expect_equal(dim(datasets), c(3, 3))
     
     expect_error(datasets <- build_datasets_plan(include_retriever_data = TRUE, 
                                                  include_bbs_data = TRUE), NA)
     expect_plan(datasets)
     expect_equal(sum(grepl("_data$", datasets$target)), 10)
     expect_equal(sum(grepl("bbs_data_rtrg_[0-9]+_[0-9]+$", datasets$target)), 3)
-    expect_equal(dim(datasets), c(13, 2))
+    expect_equal(dim(datasets), c(13, 3))
 })
 
 test_that("build_gpdd_datasets_plan works", {
@@ -44,14 +44,14 @@ test_that("build_biotime_datasets_plan works", {
     expect_error(datasets <- build_biotime_datasets_plan(do_processing = FALSE), NA)
     expect_plan(datasets)
     expect_true(all(grepl("biotime_data_rtrg_[0-9]+$", datasets$target)))
-    expect_equal(dim(datasets), c(361, 2))
+    expect_equal(dim(datasets), c(361, 3))
     
     expect_error(datasets <- build_datasets_plan(include_biotime_data = TRUE, 
                                                  biotime_process = FALSE), NA)
     expect_plan(datasets)
     expect_equal(sum(grepl("_data$", datasets$target)), 7)
     expect_equal(sum(grepl("biotime_data_rtrg_[0-9]+$", datasets$target)), 361)
-    expect_equal(dim(datasets), c(368, 2))
+    expect_equal(dim(datasets), c(368, 3))
 })
 
 # test_that("build_bbs_datasets_plan works", {

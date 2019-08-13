@@ -5,7 +5,7 @@
 \title{Create Sonoran desert lab time-series data}
 \usage{
 get_sdl_data(plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17),
-  path = get_default_data_path())
+  path = file.path(get_default_data_path(), "veg-plots-sdl"))
 }
 \arguments{
 \item{plots}{vector of plots to keep}
