@@ -66,7 +66,7 @@ found, then NULL is returned." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MATSS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
       </span>
     </div>
 
@@ -134,11 +134,17 @@ found, then <code>NULL</code> is returned.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_bbs_route_region_data</span>(<span class='no'>route</span>, <span class='no'>region</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>())</pre>
+    <pre class="usage"><span class='fu'>get_bbs_route_region_data</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/file.path'>file.path</a></span>(<span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(),
+  <span class='st'>"breed-bird-survey-prepped"</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste0</a></span>(<span class='st'>"route"</span>, <span class='no'>route</span>, <span class='st'>"region"</span>, <span class='no'>region</span>,
+  <span class='st'>".Rds"</span>)), <span class='kw'>route</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>region</span> <span class='kw'>=</span> <span class='fl'>11</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>path</th>
+      <td><p>where to load the raw data files from</p></td>
+    </tr>
     <tr>
       <th>route</th>
       <td><p>Route number</p></td>
@@ -146,10 +152,6 @@ found, then <code>NULL</code> is returned.</p>
     <tr>
       <th>region</th>
       <td><p>Region number</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p>where to load the raw data files from</p></td>
     </tr>
     </table>
     

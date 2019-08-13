@@ -69,7 +69,7 @@ the default to download all of the datasets that are supported." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MATSS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
       </span>
     </div>
 
@@ -143,7 +143,7 @@ the default to download all of the datasets that are supported.</p>
     <pre class="usage"><span class='fu'>install_retriever_data</span>(<span class='no'>dataset</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(),
   <span class='kw'>force_install</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>import_retriever_data</span>(<span class='no'>dataset</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>())
+<span class='fu'>import_retriever_data</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>())
 
 <span class='fu'>download_datasets</span>(<span class='kw'>dataset</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"breed-bird-survey"</span>, <span class='st'>"veg-plots-sdl"</span>,
   <span class='st'>"mapped-plant-quads-mt"</span>, <span class='st'>"biotimesql"</span>), <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(),
@@ -164,6 +164,11 @@ the default to download all of the datasets that are supported.</p>
       <th>force_install</th>
       <td><p>whether to install the dataset if the correctly named
 folder already exists</p></td>
+    </tr>
+    <tr>
+      <th>path</th>
+      <td><p>the overarching folder in which to download datasets; OR the
+full path to the folder containing the data (when <code>dataset == NULL</code>)</p></td>
     </tr>
     </table>
     
