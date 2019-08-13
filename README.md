@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# MATSS 0.1.1.9000
+# MATSS 0.1.2
 
 <!-- badges: start -->
 
