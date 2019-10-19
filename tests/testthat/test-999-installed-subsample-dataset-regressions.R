@@ -39,8 +39,8 @@ test_that("get_gpdd_data formats data correctly", {
 })
 
 test_that("get_biotime_data processes data correctly", {
-    # unlink(file.path(path, "biotime-prepped"), recursive = TRUE)
-    # expect_error(prepare_biotime_data(data_subset = 162), NA)
+    unlink(file.path(path, "biotime-prepped"), recursive = TRUE)
+    expect_error(prepare_biotime_data(data_subset = 162), NA)
     biotime_data_tables <- import_retriever_data("biotimesql", path = path)
     expect_error(process_biotime_data(biotime_data_tables, dataset_id = 162), NA)
     expect_error(dat <- get_biotime_data(dataset_id = 304), NA)
