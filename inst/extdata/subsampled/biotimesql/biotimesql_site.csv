@@ -1,0 +1,5 @@
+"id_site","study_id","realm","climate","general_treat","treatment","treat_comments","treat_date","cen_latitude","cen_longitude","habitat","protected_area","area","biome_map"
+1,10,"Terrestrial","Temperate","","","","",47.4,-95.12,"Woodland",FALSE,5.91e-06,"Temperate broadleaf and mixed forests"
+16,57,"Freshwater","Temperate","","","","",43.9928,-89.4946,"Lakes",FALSE,5.56e-06,"Small lake ecosystems"
+71,162,"Marine","Temperate/Tropical","","","","",36.76236,-116.837677,"Coastal habitats",FALSE,54966400,"Multiple ecoregions"
+202,321,"Terrestrial","Temperate","vegetation responses to the exclusion of small mammals","one unfenced control plot. one fenced plot to exclude rodents and rabbits. and one fenced plot to exclude rabbits only","Each of the three or four plots in a replicate block are separated by 20 meters","",32.550335,-106.811564,"Shrubland",FALSE,9.99918,"Deserts and xeric shrublands"

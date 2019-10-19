@@ -96,6 +96,64 @@ prepare_biotime_data <- function(path = get_default_data_path(), data_subset = N
                             do_processing = TRUE)
 }
 
+#' @title Correct and clean specific datasets
+#' @details For `dataset_id = 54`, it appears that day and month were sometimes 
+#'   interchanged. Since there did not seem to be measurements after August in 
+#'   any given year otherwise, we use that to filter and swap `day` and `month`.
+#'   
+#' @param raw_data The raw data for a specific dataset_id
+#' @inheritParams process_biotime_data
+#' @return a corrected version of `raw_data`
+#' 
+#' @export
+correct_biotime_data <- function(raw_data, dataset_id = 10)
+{
+    switch(as.character(dataset_id), 
+           "54" = {
+               raw_data %>%
+                   dplyr::mutate(temp = day, 
+                                 day = ifelse(month >= 9, month, day), 
+                                 month = ifelse(month >= 9, temp, month), 
+                                 temp = NULL)
+           },
+           "327" = {
+               pattern <- "[0-9]+_[0-9]+_[0-9]+_([0-9]+-[0-9]+-[0-9]+)"
+               dates_from_desc <- stringr::str_match(raw_data$sample_desc, 
+                                                     pattern)[, 2] %>%
+                   lubridate::as_date()
+               raw_data %>%
+                   dplyr::mutate(day = lubridate::day(dates_from_desc), 
+                                 month = lubridate::month(dates_from_desc))
+           },
+           "373" = {
+               raw_data %>%
+                   dplyr::mutate(day = dplyr::if_else(day == 0, NA_integer_, day), 
+                                 month = dplyr::if_else(month == 0, NA_integer_, month))
+           }, 
+           "511" = {
+               raw_data %>%
+                   dplyr::mutate(month = dplyr::if_else(month == 0, NA_integer_, month))
+               
+           }, 
+           {
+               # 302, 330, 342, 343, 344, 345, 346, 352, 
+               # 380, 381, 382, 383, 384, 385, 386, 387, 
+               # 388, 389, 390, 391, 392, 393, 394, 395, 
+               # 396, 397, 398, 399, 400, 401
+               raw_data %>%
+                   dplyr::mutate(day = NA, 
+                                 month = NA)
+               # if (all(!is.finite(raw_data$month)) || 
+               #     is.numeric(raw_data$month) && 
+               #     all(raw_data$month < 1 | 
+               #         raw_data$month > 12))
+               #     raw_data$month <- 1
+               # 
+               # raw_data
+           }
+    )
+}
+
 #' @title Process an individual BioTime dataset
 #' @description Filter and modify the BioTime data. Generate the abundance, 
 #'   covariate, and metadata tables and return the combined object.
@@ -105,13 +163,13 @@ prepare_biotime_data <- function(path = get_default_data_path(), data_subset = N
 #' @export
 process_biotime_data <- function(biotime_data_tables, dataset_id = 10)
 {
-    biotime_citations <- biotime_data_tables$biotimesql_citation1 %>%
-        dplyr::filter(.data$study_id == dataset_id)
+    raw_data <- biotime_data_tables$biotimesql_allrawdata %>%
+        dplyr::filter(.data$study_id == dataset_id) %>% 
+        correct_biotime_data(dataset_id = dataset_id)
     
-    biotime_data <- biotime_data_tables$biotimesql_allrawdata %>%
-        dplyr::filter(.data$study_id == dataset_id) %>%
+    biotime_data <- raw_data %>%
         dplyr::select(-dplyr::one_of(c("day", "sample_desc", "biomass", 
-                                       "id_all_raw_data", "depth", "study_id"))) %>%
+                                       "id_all_raw_data", "study_id"))) %>%
         dplyr::arrange(.data$year, .data$month)
     
     abundance <- biotime_data %>%
@@ -125,12 +183,49 @@ process_biotime_data <- function(biotime_data_tables, dataset_id = 10)
         dplyr::group_by(.data$year, .data$month) %>%
         dplyr::summarize(effort = length(unique(.data$plot)),
                          latitude = mean(.data$latitude, na.rm = TRUE),
-                         longitude = mean(.data$longitude, na.rm = TRUE)) %>%
+                         longitude = mean(.data$longitude, na.rm = TRUE), 
+                         depth = mean(.data$depth, na.rm = TRUE)) %>%
         dplyr::ungroup() %>%
         dplyr::mutate(month = tidyr::replace_na(.data$month, 1),
                       date = lubridate::as_date(paste(.data$year, .data$month, 1)))
     
-    metadata <- list(timename = "date", effort = "effort", 
-                     source = biotime_citations$citation_line)
-    return(list("abundance" = abundance, "covariates" = covariates, "metadata" = metadata))
+    site_info <- c(biotime_data_tables$biotimesql_site %>%
+                       dplyr::filter(.data$study_id == dataset_id) %>%
+                       dplyr::select(-dplyr::one_of(c("study_id", "id_site", "cen_latitude", 
+                                                      "cen_longitude", "area"))) %>%
+                       as.list(), 
+                   biotime_data_tables$biotimesql_datasets %>%
+                       dplyr::filter(.data$study_id == dataset_id) %>%
+                       dplyr::left_join(biotime_data_tables$biotimesql_ID_ABUNDANCE, 
+                                        by = c("ab_type" = "id_abundance")) %>%
+                       dplyr::left_join(biotime_data_tables$biotimesql_biomass, 
+                                        by = c("bio_type" = "id_biomass")) %>%
+                       dplyr::left_join(biotime_data_tables$biotimesql_sample, 
+                                        by = c("sample_type" = "id_sample")) %>%
+                       dplyr::select(-dplyr::one_of(c("study_id", "ab_type", 
+                                                      "bio_type", "sample_type", 
+                                                      "id_datasets"))) %>%
+                       as.list())
+    
+    citation_info <- biotime_data_tables$biotimesql_citation1 %>%
+        dplyr::filter(.data$study_id == dataset_id) %>%
+        dplyr::select(-dplyr::one_of(c("study_id", "id_citation1")))
+    contact_info <- biotime_data_tables$biotimesql_contacts %>%
+        dplyr::filter(.data$study_id == dataset_id) %>%
+        dplyr::select(-dplyr::one_of(c("study_id", "id_contacts")))
+    species_table <- biotime_data_tables$biotimesql_species %>%
+        dplyr::filter(.data$id_species %in% unique(biotime_data$id_species))
+    method_info <- biotime_data_tables$biotimesql_methods %>%
+        dplyr::filter(.data$study_id == dataset_id)
+    
+    metadata <- c(list(timename = "date", effort = "effort", 
+                       source = citation_info$citation_line, 
+                       contact_info = contact_info, 
+                       species_table = species_table, 
+                       method = method_info$methods), 
+                  site_info)
+    
+    return(list("abundance" = abundance, 
+                "covariates" = covariates, 
+                "metadata" = metadata))
 }

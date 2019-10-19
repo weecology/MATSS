@@ -133,7 +133,8 @@ import_retriever_data <- function(dataset = NULL, path = get_default_data_path()
 #' \dontrun{
 #'   download_datasets()
 #' }
-
+#' @export
+#' 
 download_datasets <- function(dataset = c("breed-bird-survey", 
                                           "veg-plots-sdl", 
                                           "mapped-plant-quads-mt", 

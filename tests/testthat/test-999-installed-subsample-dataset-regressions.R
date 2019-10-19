@@ -40,10 +40,9 @@ test_that("get_gpdd_data formats data correctly", {
 
 test_that("get_biotime_data formats data correctly", {
     unlink(file.path(path, "biotime-prepped"))
-    expect_error(prepare_biotime_data(data_subset = 172), NA)
+    expect_error(prepare_biotime_data(data_subset = 162), NA)
     biotime_data_tables <- import_retriever_data("biotimesql", path = path)
-    w <- capture_warnings(process_biotime_data(biotime_data_tables, dataset_id = 172))
-    expect_match(w, "All formats failed to parse. No formats found.")
+    expect_error(process_biotime_data(biotime_data_tables, dataset_id = 162), NA)
     expect_error(dat <- get_biotime_data(dataset = 321), NA)
     expect_true(check_data_format(dat))
     expect_known_hash(dat$abundance, "3c7a4f434f")

@@ -1,0 +1,5 @@
+"id_contacts","study_id","contact_1","contact_2","cont_1_mail","cont_2_mail","license","web_link","data_source"
+1,10,"Sara Webb","Sara Scanga","swebb@drew.edu","sescanga@utica.edu","ODbL","http://esapubs.org/archive/ecol/E082/011/default.htm","Ecology"
+16,57,"Emily Stanley","Corinna Gries","ehstanley@wisc.edu","cgries@wisc.edu","CC-by","http://lter.limnology.wisc.edu/","North Temperate Lakes Long Term Ecological Research"
+71,162,"Stephen Hale","","hale.stephen@epa.gov","","PDDL","http://www.iobis.org/mapper/?dataset=25","OBIS"
+202,321,"Robert Schooley","","schooley@illinois.edu","","CC-by","http://jornada.nmsu.edu/lter/dataset/49798/view","Jornada LTER"
