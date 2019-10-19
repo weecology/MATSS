@@ -38,15 +38,15 @@ test_that("get_gpdd_data formats data correctly", {
     expect_known_hash(dat, "b1890b0735")
 })
 
-test_that("get_biotime_data formats data correctly", {
-    unlink(file.path(path, "biotime-prepped"))
-    expect_error(prepare_biotime_data(data_subset = 162), NA)
+test_that("get_biotime_data processes data correctly", {
+    # unlink(file.path(path, "biotime-prepped"), recursive = TRUE)
+    # expect_error(prepare_biotime_data(data_subset = 162), NA)
     biotime_data_tables <- import_retriever_data("biotimesql", path = path)
     expect_error(process_biotime_data(biotime_data_tables, dataset_id = 162), NA)
-    expect_error(dat <- get_biotime_data(dataset = 321), NA)
+    expect_error(dat <- get_biotime_data(dataset_id = 304), NA)
     expect_true(check_data_format(dat))
-    expect_known_hash(dat$abundance, "3c7a4f434f")
-    expect_known_hash(dat$covariates, "bb6df9ff3e")
-    expect_known_hash(dat$metadata, "ff95e3e4a6")
-    expect_known_hash(dat, "30d7359c31")
+    expect_known_hash(dat$abundance, "e4eabcc707")
+    expect_known_hash(dat$covariates, "afd655d5fd")
+    expect_known_hash(dat$metadata, "f18922719d")
+    expect_known_hash(dat, "5f8af4fcd8")
 })

@@ -214,7 +214,8 @@ process_biotime_data <- function(biotime_data_tables, dataset_id = 10)
         dplyr::filter(.data$study_id == dataset_id) %>%
         dplyr::select(-dplyr::one_of(c("study_id", "id_contacts")))
     species_table <- biotime_data_tables$biotimesql_species %>%
-        dplyr::filter(.data$id_species %in% unique(biotime_data$id_species))
+        dplyr::filter(.data$id_species %in% unique(biotime_data$id_species)) %>%
+        dplyr::rename(id = .data$id_species)
     method_info <- biotime_data_tables$biotimesql_methods %>%
         dplyr::filter(.data$study_id == dataset_id)
     
