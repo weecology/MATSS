@@ -7,8 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MATSS: Getting Started • MATSS</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="MATSS: Getting Started">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
@@ -38,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -67,7 +68,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/weecology/MATSS">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -80,13 +81,14 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>MATSS: Getting Started</h1>
                         <h4 class="author">Hao Ye</h4>
             
-            <h4 class="date">2019-08-13</h4>
+            <h4 class="date">2019-10-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/weecology/MATSS/blob/master/vignettes/MATSS.Rmd"><code>vignettes/MATSS.Rmd</code></a></small>
       <div class="hidden name"><code>MATSS.Rmd</code></div>
@@ -110,9 +112,9 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the <code>MATSS</code> package from github with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages("remotes")</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"weecology/MATSS"</span>, <span class="dt">build_opts =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"--no-resave-data"</span>, <span class="st">"--no-manual"</span>))<span class="er">)</span></a></code></pre></div>
+<a class="sourceLine" id="cb1-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"weecology/MATSS"</span>, <span class="dt">build_opts =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"--no-resave-data"</span>, <span class="st">"--no-manual"</span>))<span class="er">)</span></a></code></pre></div>
 <p>And load the package in the typical fashion:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(MATSS)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(MATSS)</a></code></pre></div>
 </div>
 </div>
 <div id="template-research-compendium" class="section level1">
@@ -197,8 +199,8 @@
 <div id="example" class="section level3">
 <h3 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(drake)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(drake)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
 <a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt; Attaching package: 'dplyr'</span></a>
 <a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt; The following objects are masked from 'package:stats':</span></a>
@@ -209,22 +211,22 @@
 <a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt;     intersect, setdiff, setequal, union</span></a>
 <a class="sourceLine" id="cb10-11" data-line-number="11"></a>
 <a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co"># define the plan</span></a>
-<a class="sourceLine" id="cb10-13" data-line-number="13">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan</a></span>(<span class="dt">data_1 =</span> mtcars, </a>
+<a class="sourceLine" id="cb10-13" data-line-number="13">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://docs.ropensci.org/drake/reference/drake_plan.html">drake_plan</a></span>(<span class="dt">data_1 =</span> mtcars, </a>
 <a class="sourceLine" id="cb10-14" data-line-number="14">                   <span class="dt">data_2 =</span> iris, </a>
-<a class="sourceLine" id="cb10-15" data-line-number="15">                   <span class="dt">my_model =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/lm">lm</a></span>(mpg <span class="op">~</span><span class="st"> </span>disp, <span class="dt">data =</span> data_<span class="dv">1</span>), </a>
+<a class="sourceLine" id="cb10-15" data-line-number="15">                   <span class="dt">my_model =</span> <span class="kw"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span>(mpg <span class="op">~</span><span class="st"> </span>disp, <span class="dt">data =</span> data_<span class="dv">1</span>), </a>
 <a class="sourceLine" id="cb10-16" data-line-number="16">                   <span class="dt">my_summary =</span> data_<span class="dv">2</span> <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb10-17" data-line-number="17"><span class="st">                       </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span>(Species) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb10-18" data-line-number="18"><span class="st">                       </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html">summarize_all</a></span>(mean))</a>
 <a class="sourceLine" id="cb10-19" data-line-number="19"></a>
 <a class="sourceLine" id="cb10-20" data-line-number="20"><span class="co"># run the plan</span></a>
-<a class="sourceLine" id="cb10-21" data-line-number="21"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan)</a>
+<a class="sourceLine" id="cb10-21" data-line-number="21"><span class="kw"><a href="https://docs.ropensci.org/drake/reference/make.html">make</a></span>(plan)</a>
 <a class="sourceLine" id="cb10-22" data-line-number="22"><span class="co">#&gt; target data_1</span></a>
 <a class="sourceLine" id="cb10-23" data-line-number="23"><span class="co">#&gt; target data_2</span></a>
 <a class="sourceLine" id="cb10-24" data-line-number="24"><span class="co">#&gt; target my_model</span></a>
 <a class="sourceLine" id="cb10-25" data-line-number="25"><span class="co">#&gt; target my_summary</span></a>
 <a class="sourceLine" id="cb10-26" data-line-number="26"></a>
 <a class="sourceLine" id="cb10-27" data-line-number="27"><span class="co"># check resulting objects</span></a>
-<a class="sourceLine" id="cb10-28" data-line-number="28"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/readd">readd</a></span>(my_model)</a>
+<a class="sourceLine" id="cb10-28" data-line-number="28"><span class="kw"><a href="https://docs.ropensci.org/drake/reference/readd.html">readd</a></span>(my_model)</a>
 <a class="sourceLine" id="cb10-29" data-line-number="29"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb10-30" data-line-number="30"><span class="co">#&gt; Call:</span></a>
 <a class="sourceLine" id="cb10-31" data-line-number="31"><span class="co">#&gt; lm(formula = mpg ~ disp, data = data_1)</span></a>
@@ -232,7 +234,7 @@
 <a class="sourceLine" id="cb10-33" data-line-number="33"><span class="co">#&gt; Coefficients:</span></a>
 <a class="sourceLine" id="cb10-34" data-line-number="34"><span class="co">#&gt; (Intercept)         disp  </span></a>
 <a class="sourceLine" id="cb10-35" data-line-number="35"><span class="co">#&gt;    29.59985     -0.04122</span></a>
-<a class="sourceLine" id="cb10-36" data-line-number="36"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/readd">readd</a></span>(my_summary)</a>
+<a class="sourceLine" id="cb10-36" data-line-number="36"><span class="kw"><a href="https://docs.ropensci.org/drake/reference/readd.html">readd</a></span>(my_summary)</a>
 <a class="sourceLine" id="cb10-37" data-line-number="37"><span class="co">#&gt; # A tibble: 3 x 5</span></a>
 <a class="sourceLine" id="cb10-38" data-line-number="38"><span class="co">#&gt;   Species    Sepal.Length Sepal.Width Petal.Length Petal.Width</span></a>
 <a class="sourceLine" id="cb10-39" data-line-number="39"><span class="co">#&gt;   &lt;fct&gt;             &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt;</span></a>
@@ -252,63 +254,64 @@
 <a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&gt; 2 data_2     iris                                                </span></a>
 <a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&gt; 3 my_model   lm(mpg ~ disp, data = data_1)                       </span></a>
 <a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#&gt; 4 my_summary data_2 %&gt;% group_by(Species) %&gt;% summarize_all(mean)</span></a></code></pre></div>
-<p>One thing to be aware of is that the function <code><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan()</a></code> does not evaluate its arguments, but only makes the plan. Thus, if you want any evaluation to occur within the construction of the plan, you will need some NSE magic.</p>
+<p>One thing to be aware of is that the function <code><a href="https://docs.ropensci.org/drake/reference/drake_plan.html">drake_plan()</a></code> does not evaluate its arguments, but only makes the plan. Thus, if you want any evaluation to occur within the construction of the plan, you will need some NSE magic.</p>
 <p>In this example, the plan relies on <code>variable</code>, and so the result will change depending on the value of <code>variable</code> when the plan is run:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">column &lt;-<span class="st"> "Species"</span></a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan</a></span>(<span class="dt">num_species =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nlevels">nlevels</a></span>(iris[, column]))</a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://docs.ropensci.org/drake/reference/drake_plan.html">drake_plan</a></span>(<span class="dt">num_species =</span> <span class="kw"><a href="https://rdrr.io/r/base/nlevels.html">nlevels</a></span>(iris[, column]))</a>
 <a class="sourceLine" id="cb12-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb12-4" data-line-number="4">## This computes using the current value of `column` when the analysis is run, </a>
 <a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#    as opposed to on the "Species" column, which was desired: </span></a>
 <a class="sourceLine" id="cb12-6" data-line-number="6">column &lt;-<span class="st"> "Sepal.Length"</span></a>
-<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan)</a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="kw"><a href="https://docs.ropensci.org/drake/reference/make.html">make</a></span>(plan)</a>
 <a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co">#&gt; target num_species</span></a>
-<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/readd">readd</a></span>(num_species)</a>
+<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="kw"><a href="https://docs.ropensci.org/drake/reference/readd.html">readd</a></span>(num_species)</a>
 <a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt; [1] 0</span></a></code></pre></div>
 <p>We can solve this in two ways:</p>
 <p>First, we can include <code>column</code> as a dependency in the plan:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan</a></span>(<span class="dt">column =</span> <span class="st">"Species"</span>, </a>
-<a class="sourceLine" id="cb13-2" data-line-number="2">                   <span class="dt">num_species =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nlevels">nlevels</a></span>(iris[, column]))</a>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://docs.ropensci.org/drake/reference/drake_plan.html">drake_plan</a></span>(<span class="dt">column =</span> <span class="st">"Species"</span>, </a>
+<a class="sourceLine" id="cb13-2" data-line-number="2">                   <span class="dt">num_species =</span> <span class="kw"><a href="https://rdrr.io/r/base/nlevels.html">nlevels</a></span>(iris[, column]))</a>
 <a class="sourceLine" id="cb13-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan)</a>
-<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt; Unloading targets from environment:</span></a>
-<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt;   column</span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="kw"><a href="https://docs.ropensci.org/drake/reference/make.html">make</a></span>(plan)</a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt; unload targets from environment:</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt;    column</span></a>
 <a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">#&gt; target column</span></a>
 <a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#&gt; target num_species</span></a>
-<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/readd">readd</a></span>(num_species)</a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="kw"><a href="https://docs.ropensci.org/drake/reference/readd.html">readd</a></span>(num_species)</a>
 <a class="sourceLine" id="cb13-10" data-line-number="10"><span class="co">#&gt; [1] 3</span></a></code></pre></div>
 <p>Second, make sure that <code>column</code> is evaluated when building the plan - this locks in the value of <code>"Species"</code>:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">column &lt;-<span class="st"> "Species"</span></a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan</a></span>(<span class="dt">num_species =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nlevels">nlevels</a></span>(iris[, <span class="op">!!</span>column]))</a>
+<a class="sourceLine" id="cb14-2" data-line-number="2">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://docs.ropensci.org/drake/reference/drake_plan.html">drake_plan</a></span>(<span class="dt">num_species =</span> <span class="kw"><a href="https://rdrr.io/r/base/nlevels.html">nlevels</a></span>(iris[, <span class="op">!!</span>column]))</a>
 <a class="sourceLine" id="cb14-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb14-4" data-line-number="4">## does not require column to be in the current environment</a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rm">rm</a></span>(column)</a>
-<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan)</a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/base/rm.html">rm</a></span>(column)</a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="kw"><a href="https://docs.ropensci.org/drake/reference/make.html">make</a></span>(plan)</a>
 <a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#&gt; target num_species</span></a>
-<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/readd">readd</a></span>(num_species)</a>
+<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="kw"><a href="https://docs.ropensci.org/drake/reference/readd.html">readd</a></span>(num_species)</a>
 <a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co">#&gt; [1] 3</span></a></code></pre></div>
 </div>
 <div id="running-drake-plans" class="section level3">
 <h3 class="hasAnchor">
 <a href="#running-drake-plans" class="anchor"></a>Running Drake Plans</h3>
-<p>Drake plans are run by calling <code><a href="https://www.rdocumentation.org/packages/drake/topics/make">make()</a></code>. This does several things. First it checks the <strong>cache</strong> to see if any targets need to be re-built, and then it proceeds to build all the targets, in some order that accounts for the dependencies between targets. (e.g. an analysis target that depends on a dataset target to be processed)</p>
+<p>Drake plans are run by calling <code><a href="https://docs.ropensci.org/drake/reference/make.html">make()</a></code>. This does several things. First it checks the <strong>cache</strong> to see if any targets need to be re-built, and then it proceeds to build all the targets, in some order that accounts for the dependencies between targets. (e.g. an analysis target that depends on a dataset target to be processed)</p>
 <p>The manual has more information about how <a href="https://ropenscilabs.github.io/drake-manual/storage.html#cache-formats">Drake stores its cache</a> and how <a href="https://ropenscilabs.github.io/drake-manual/triggers.html">Drake decides to rebuild targets</a>.</p>
-<p>Note that if there are file inputs, it is important that they are declared explicitly using e.g. <code><a href="https://www.rdocumentation.org/packages/drake/topics/file_in">file_in()</a></code>, <code><a href="https://www.rdocumentation.org/packages/drake/topics/knitr_in">knitr_in()</a></code>, and <code><a href="https://www.rdocumentation.org/packages/drake/topics/file_out">file_out()</a></code>. This enables Drake to check if those files are changed and to rebuild targets that depend on the files if needed. Otherwise Drake will treat them as fixed strings.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan</a></span>(<span class="dt">data =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv</a></span>(<span class="st">"some_data.csv"</span>))</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan)</a>
+<p>Note that if there are file inputs, it is important that they are declared explicitly using e.g. <code><a href="https://docs.ropensci.org/drake/reference/file_in.html">file_in()</a></code>, <code><a href="https://docs.ropensci.org/drake/reference/knitr_in.html">knitr_in()</a></code>, and <code><a href="https://docs.ropensci.org/drake/reference/file_out.html">file_out()</a></code>. This enables Drake to check if those files are changed and to rebuild targets that depend on the files if needed. Otherwise Drake will treat them as fixed strings.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://docs.ropensci.org/drake/reference/drake_plan.html">drake_plan</a></span>(<span class="dt">data =</span> <span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"some_data.csv"</span>))</a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw"><a href="https://docs.ropensci.org/drake/reference/make.html">make</a></span>(plan)</a>
 <a class="sourceLine" id="cb15-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb15-4" data-line-number="4"><span class="co"># make some changes to `some_data.csv`</span></a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan) <span class="co"># will NOT rebuild the `data` target</span></a></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/drake_plan">drake_plan</a></span>(<span class="dt">data =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/read.table">read.csv</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/file_in">file_in</a></span>(<span class="st">"some_data.csv"</span>)))</a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan)</a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="kw"><a href="https://docs.ropensci.org/drake/reference/make.html">make</a></span>(plan) <span class="co"># will NOT rebuild the `data` target</span></a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">plan &lt;-<span class="st"> </span><span class="kw"><a href="https://docs.ropensci.org/drake/reference/drake_plan.html">drake_plan</a></span>(<span class="dt">data =</span> <span class="kw"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="kw"><a href="https://docs.ropensci.org/drake/reference/file_in.html">file_in</a></span>(<span class="st">"some_data.csv"</span>)))</a>
+<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw"><a href="https://docs.ropensci.org/drake/reference/make.html">make</a></span>(plan)</a>
 <a class="sourceLine" id="cb16-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co"># make some changes to `some_data.csv`</span></a>
-<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="kw"><a href="https://www.rdocumentation.org/packages/drake/topics/make">make</a></span>(plan) <span class="co"># will rebuild the `data` target</span></a></code></pre></div>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="kw"><a href="https://docs.ropensci.org/drake/reference/make.html">make</a></span>(plan) <span class="co"># will rebuild the `data` target</span></a></code></pre></div>
 </div>
 </div>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -340,17 +343,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Hao Ye, Ellen Bledsoe, Renata Diaz, S. K. Morgan Ernest, Juniper Simonis, Ethan White, Glenda Yenni.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

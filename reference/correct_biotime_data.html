@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Summarize a time series — ts_summary • MATSS</title>
+<title>Correct and clean specific datasets — correct_biotime_data • MATSS</title>
 
 
 <!-- jquery -->
@@ -35,19 +35,8 @@
 
 
 
-<meta property="og:title" content="Summarize a time series — ts_summary" />
-<meta property="og:description" content="ts_summary creates a summary of a community time series
-dataset. The summary contains community-level statistics, including total
-number of observations, species richness, cross-correlations; as well as
-summary statistics on the individual populations that make up the
-community.
-Some aspects of the summaries depend on times, which should be a
-vector of the time index associated with the time series; and
-effort, which should be a vector of the sampling effort.
-obs_per_effort is an optional argument for correcting abundance
-based on effort; by default, it checks if effort is NULL.
-Interpolation of missing values for autocorrelation calcuations (if
-needed) is done via interp_method" />
+<meta property="og:title" content="Correct and clean specific datasets — correct_biotime_data" />
+<meta property="og:description" content="Correct and clean specific datasets" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -134,75 +123,38 @@ needed) is done via interp_method" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Summarize a time series</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/summary_stats.R'><code>R/summary_stats.R</code></a></small>
-    <div class="hidden name"><code>ts_summary.Rd</code></div>
+    <h1>Correct and clean specific datasets</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_biotime_data.R'><code>R/get_biotime_data.R</code></a></small>
+    <div class="hidden name"><code>correct_biotime_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>ts_summary</code> creates a summary of a community time series
-dataset. The summary contains community-level statistics, including total
-number of observations, species richness, cross-correlations; as well as
-summary statistics on the individual populations that make up the
-community.</p>
-<p>Some aspects of the summaries depend on <code>times</code>, which should be a
-vector of the time index associated with the time series; and
-<code>effort</code>, which should be a vector of the sampling effort.
-<code>obs_per_effort</code> is an optional argument for correcting abundance
-based on effort; by default, it checks if <code>effort</code> is NULL.
-Interpolation of missing values for autocorrelation calcuations (if
-needed) is done via <code>interp_method</code></p>
+    <p>Correct and clean specific datasets</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ts_summary</span>(<span class='no'>data</span>, <span class='kw'>times</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>effort</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>obs_per_effort</span> <span class='kw'>=</span> !<span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span>(<span class='no'>effort</span>),
-  <span class='kw'>interp_method</span> <span class='kw'>=</span> <span class='kw pkg'>forecast</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/forecast/man/na.interp.html'>na.interp</a></span>, <span class='kw'>include_spp_correlations</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>correct_biotime_data</span>(<span class='no'>raw_data</span>, <span class='kw'>dataset_id</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>a vector, matrix, or data.frame of <code>numeric</code> observations
-(within columns) across times (within rows).</p></td>
+      <th>raw_data</th>
+      <td><p>The raw data for a specific dataset_id</p></td>
     </tr>
     <tr>
-      <th>times</th>
-      <td><p><code>numeric</code> or <code>Date</code> vector of timestamps of the
-observations.</p></td>
-    </tr>
-    <tr>
-      <th>effort</th>
-      <td><p><code>numeric</code> vector of effort associated with the
-observations.</p></td>
-    </tr>
-    <tr>
-      <th>obs_per_effort</th>
-      <td><p><code>logical</code> indicator if <code>obs</code> should be
-corrected for <code>effort</code> before summaries are done.</p></td>
-    </tr>
-    <tr>
-      <th>interp_method</th>
-      <td><p><code>character</code> a function used to interpolate
-<code>obs</code>. Defaults to <code><a href='https://rdrr.io/pkg/forecast/man/na.interp.html'>na.interp</a></code>.</p></td>
-    </tr>
-    <tr>
-      <th>include_spp_correlations</th>
-      <td><p>whether to include the calculations of
-between-species correlations</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>additional arguments to be passed to <code><a href='temp_autocor.html'>temp_autocor</a></code></p></td>
+      <th>dataset_id</th>
+      <td><p>the study_id</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p><code>ts_summary</code>: <code>list</code> of number of species, number of
-observations, summaries of the variables, the times, the effort, the
-species richness, total observation, and the among-species correlation.</p>
+    <p>a corrected version of <code>raw_data</code></p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>For <code>dataset_id = 54</code>, it appears that day and month were sometimes
+interchanged. Since there did not seem to be measurements after August in
+any given year otherwise, we use that to filter and swap <code>day</code> and <code>month</code>.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -210,6 +162,7 @@ species richness, total observation, and the among-species correlation.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#details">Details</a></li>
     </ul>
 
   </div>
