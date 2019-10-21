@@ -1,0 +1,5 @@
+"id_datasets","study_id","taxa","organisms","title","ab_bio","has_plot","data_points","start_year","end_year","cent_lat","cent_long","number_of_species","number_of_samples","number_lat_long","total","grain_size_text","grain_sq_km","area_sq_km","ab_type","bio_type","sample_type"
+1,10,"Terrestrial plants","woody plants","Windstorm disturbance without patch dynamics twelve years of change in a Minnesota forest","A","Y",3,1984,1996,47.4,-95.12,25,191,1,1406,"2 x 2 m plots (16 ha)",4e-06,5.91e-06,1,1,11
+16,57,"Fish","fish","North Temperate Lakes LTER Fish Abundance","A","S",32,1981,2012,43.9928,-89.4946,76,258,1,10892,"11 lakes/6 littoral zones",40,5.56e-06,1,1,36
+71,162,"Benthos","Benthos","EPA'S EMAP Database","A","S",13,1990,2004,36.76236,-116.837677,5624,6588,6073,173040,"0.04 m sq or 0.1 m sq grabs",4.4e-08,4871568,5,1,16
+202,321,"Mammals","small mammals","Small Mammal Exclosure Study. Jornada LTER.  SMES rodent trapping data","AB","Y",13,1995,2007,32.550335,-106.811564,19,11757,766,12787,"0.5",0.5,9.9991855,1,3,112
