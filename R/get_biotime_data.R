@@ -182,22 +182,38 @@ process_biotime_dataset <- function(biotime_data_tables,
                                        "id_all_raw_data", "study_id"))) %>%
         dplyr::arrange(.data$year, .data$month)
     
+    # check if samples are only annual
+    is_annual_sampling <- all(is.na(biotime_data$month))
+    if (is_annual_sampling)
+    {
+        grouping <- c("year")
+    } else {
+        grouping <- c("year", "month")
+    }
+    
     abundance <- biotime_data %>%
-        dplyr::group_by(.data$year, .data$month, .data$id_species) %>%
+        dplyr::group_by_at(c(grouping, "id_species")) %>%
         dplyr::summarize(abundance = sum(.data$abundance)) %>%
         tidyr::spread(key = .data$id_species, value = .data$abundance, fill = 0) %>%
         dplyr::ungroup() %>%
-        dplyr::select(-c(.data$month, .data$year))
+        dplyr::select_at(dplyr::vars(-grouping))
     
     covariates <- biotime_data %>%
-        dplyr::group_by(.data$year, .data$month) %>%
+        dplyr::group_by_at(grouping) %>%
         dplyr::summarize(effort = length(unique(.data$plot)),
                          latitude = mean(.data$latitude, na.rm = TRUE),
                          longitude = mean(.data$longitude, na.rm = TRUE), 
                          depth = mean(.data$depth, na.rm = TRUE)) %>%
-        dplyr::ungroup() %>%
-        dplyr::mutate(month = tidyr::replace_na(.data$month, 1),
-                      date = lubridate::as_date(paste(.data$year, .data$month, 1)))
+        dplyr::ungroup()
+    if (is_annual_sampling)
+    {
+        covariates <- covariates %>%
+            dplyr::mutate(date = lubridate::as_date(paste(.data$year, 1, 1)))
+    } else {
+        covariates <- covariates %>%
+            dplyr::mutate(month = tidyr::replace_na(.data$month, 1),
+                          date = lubridate::as_date(paste(.data$year, .data$month, 1)))
+    }
     
     site_info <- c(biotime_data_tables$biotimesql_site %>%
                        dplyr::filter(.data$study_id == dataset_id) %>%
@@ -233,7 +249,8 @@ process_biotime_dataset <- function(biotime_data_tables,
                        source = citation_info$citation_line, 
                        contact_info = contact_info, 
                        species_table = species_table, 
-                       method = method_info$methods), 
+                       method = method_info$methods, 
+                       is_annual_sampling = is_annual_sampling), 
                   site_info)
     
     out <- list("abundance" = abundance, 
