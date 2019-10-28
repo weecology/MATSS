@@ -55,4 +55,6 @@ test_that("get_biotime_data processes data correctly", {
     expect_known_hash(dat$covariates, "31d9dbfb67")
     expect_known_hash(dat$metadata, "e8fdcb9186")
     expect_known_hash(dat, "ced523d79f")
+    
+    expect_true(check_metadata_species_table(dat))
 })

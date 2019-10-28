@@ -72,6 +72,7 @@ get_biotime_dataset_ids <- function(path = get_default_data_path(),
         biotime_data_tables <- import_retriever_data("biotimesql", path = path)
         
         purrr::walk(dataset_ids, function(dataset_id) {
+            message("  -dataset_id = ", dataset_id)
             process_biotime_dataset(biotime_data_tables, 
                                     dataset_id = dataset_id, 
                                     save_to_file = TRUE, 
