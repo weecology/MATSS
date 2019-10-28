@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Correct and clean specific datasets — correct_biotime_data • MATSS</title>
+<title>Process an individual BioTime dataset — process_biotime_dataset • MATSS</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,9 @@
 
 
 
-<meta property="og:title" content="Correct and clean specific datasets — correct_biotime_data" />
-<meta property="og:description" content="Correct and clean specific datasets" />
+<meta property="og:title" content="Process an individual BioTime dataset — process_biotime_dataset" />
+<meta property="og:description" content="Filter and modify the BioTime data. Generate the abundance,
+covariate, and metadata tables and return the combined object." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -123,38 +124,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Correct and clean specific datasets</h1>
+    <h1>Process an individual BioTime dataset</h1>
     <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_biotime_data.R'><code>R/get_biotime_data.R</code></a></small>
-    <div class="hidden name"><code>correct_biotime_data.Rd</code></div>
+    <div class="hidden name"><code>process_biotime_dataset.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Correct and clean specific datasets</p>
+    <p>Filter and modify the BioTime data. Generate the abundance,
+covariate, and metadata tables and return the combined object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>correct_biotime_data</span>(<span class='no'>raw_data</span>, <span class='kw'>dataset_id</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
+    <pre class="usage"><span class='fu'>process_biotime_dataset</span>(<span class='no'>biotime_data_tables</span>, <span class='kw'>dataset_id</span> <span class='kw'>=</span> <span class='fl'>10</span>,
+  <span class='kw'>save_to_file</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>storage_path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(), <span class='st'>"biotime-prepped"</span>))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>raw_data</th>
-      <td><p>The raw data for a specific dataset_id</p></td>
+      <th>biotime_data_tables</th>
+      <td><p>full BioTime data tables</p></td>
     </tr>
     <tr>
       <th>dataset_id</th>
       <td><p>the study_id</p></td>
     </tr>
+    <tr>
+      <th>save_to_file</th>
+      <td><p>whether to save the processed dataset to a file</p></td>
+    </tr>
+    <tr>
+      <th>storage_path</th>
+      <td><p>folder in which to put processed dataset</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a corrected version of <code>raw_data</code></p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>For <code>dataset_id = 54</code>, it appears that day and month were sometimes
-interchanged. Since there did not seem to be measurements after August in
-any given year otherwise, we use that to filter and swap <code>day</code> and <code>month</code>.</p>
+    <p>the processed BioTime dataset</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -162,7 +169,6 @@ any given year otherwise, we use that to filter and swap <code>day</code> and <c
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
     </ul>
 
   </div>
