@@ -18,7 +18,9 @@ comment = "#>"
 ```
 
 ```{r setup packages}
-library(tidyverse)
+library(dplyr)
+library(tidyr)
+library(purrr)
 library(MATSS)
 ```
 
