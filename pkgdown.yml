@@ -4,5 +4,6 @@ pkgdown_sha: ~
 articles:
   MATSS: MATSS.html
   data-formats: data-formats.html
+  dataset-summary: dataset-summary.html
   hipergator-install: hipergator-install.html
 
