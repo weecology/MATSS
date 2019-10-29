@@ -1,0 +1,116 @@
+---
+title: "MATSS: Dataset Summary"
+author: 
+- Hao Ye
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{MATSS: Dataset Summary}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+  ---
+  
+  ```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+collapse = TRUE,
+comment = "#>"
+)
+```
+
+```{r setup packages}
+library(tidyverse)
+library(MATSS)
+```
+
+# Overview
+
+The basic info we want for each dataset is:
+
+* taxon data (species-level if appropriate)
+* sampling start and end times
+* sampling frequency
+* geographical location
+* life history characteristics of the organisms
+* temperature at sampling location
+
+For the latter two, it's probably easier to rely on external packages to retrieve the info, so the summaries will first focus on the remaining entries.
+
+# BioTime summaries
+
+Define a function for how to generate the summary for BioTime datasets. Note that we use a `tibble` structure, to enable easy assembly across datasets.
+
+```{r define summary for Biotime data}
+summarize_biotime_data <- function(dataset_id = 10, ...)
+{
+    dat <- get_biotime_data(dataset_id = dataset_id, 
+                            ...)
+    
+    summ_info <- tibble(dataset_id = dataset_id)
+        
+    # determine species info
+    summ_info$species_table <- I(list(dat$metadata$species_table))
+    
+    # determine start and end time
+    if (dat$metadata$is_annual_sampling)
+    {
+        var <- "year"
+    } else {
+        var <- "date"
+    }
+    summ_info$start_time <- as.character(min(dat$covariates[[var]], na.rm = TRUE))
+    summ_info$end_time <- as.character(max(dat$covariates[[var]], na.rm = TRUE))
+    
+    # determine sampling frequency
+    if (dat$metadata$is_annual_sampling) # missing month data in raw values
+    {
+        summ_info$sampling_frequency <- "annual (or less)"
+    } else if (length(unique(dat$covariates$year)) >= NROW(dat$covariates)) {
+        summ_info$sampling_frquency <- "annual (or less)"
+    } else {
+        summ_info$sampling_frequency <- "subannual"
+    }
+    
+    # determine spatial extent
+    summ_info$number_locations <- dat$metadata$number_lat_long
+    summ_info$lat <- dat$metadata$cent_lat
+    summ_info$long <- dat$metadata$cent_long
+    summ_info$lat_min <- min(dat$covariates$latitude, na.rm = TRUE)
+    summ_info$lat_max <- max(dat$covariates$latitude, na.rm = TRUE)
+    summ_info$long_min <- min(dat$covariates$longitude, na.rm = TRUE)
+    summ_info$long_max <- max(dat$covariates$longitude, na.rm = TRUE)
+    return(summ_info)
+}
+```
+
+## Results
+
+Now repeat for all the datasets within BioTime
+
+```{r biotime summaries}
+biotime_dataset_ids <- get_biotime_dataset_ids()
+
+biotime_summaries <- map_dfr(biotime_dataset_ids, summarize_biotime_data)
+```
+
+Extract out just the dataset-level info:
+
+```{r dataset info}
+dataset_info <- biotime_summaries %>% 
+    select(-species_table)
+
+knitr::kable(dataset_info)
+```
+
+Extract out just the taxa:
+
+```{r species info}
+species_info <- biotime_summaries %>%
+    unnest() %>%
+    select(dataset_id, genus, species, genus_species)
+
+knitr::kable(species_info)
+```
+
+## Search for duplicates
+
+To identify duplicates, 

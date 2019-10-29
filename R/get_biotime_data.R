@@ -18,6 +18,11 @@ get_biotime_data <- function(path = get_default_data_path(),
                                                   "biotime-prepped", 
                                                   paste0("dataset", dataset_id, ".Rds")))
 {
+    if (!is.numeric(dataset_id))
+    {
+        dataset_id <- as.numeric(dataset_id)
+    }
+    
     if (file.exists(raw_path)) {
         return(readRDS(raw_path)) 
     } else {
