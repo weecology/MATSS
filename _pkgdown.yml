@@ -1,3 +1,14 @@
+navbar:
+  components:
+    articles:
+      text: Articles
+      menu:
+      - text: Data Formats
+        href: articles/data-formats.html
+      - text: Dataset Summaries
+        href: articles/dataset-summary.html
+      - text: Installing MATSS on the HiPerGator
+        href: articles/hipergator-install.html
 reference:
   - title: "Creating a Research Compendium"
     contents:
@@ -10,6 +21,7 @@ reference:
       - build_bbs_datasets_plan
       - build_biotime_datasets_plan
       - build_gpdd_datasets_plan
+      - build_retriever_datasets_plan
       - analysis_wrapper
       - collect_analyses
   - title: "Configure Data Path"
@@ -21,13 +33,14 @@ reference:
   - title: "Rdataretriever"
     desc: "Functions that use Rdataretriever to download and import data"
     contents:
-      - download_retriever_datasets
+      - download_datasets
       - import_retriever_data
       - install_retriever_data
   - title: "Get Data"
     desc: "Functions to load datasets"
     contents:
       - get_biotime_data
+      - get_biotime_dataset_ids
       - get_bbs_route_region_data
       - get_cowley_lizards
       - get_cowley_snakes
@@ -40,6 +53,8 @@ reference:
       - get_portal_rodents
       - get_sdl_data
       - get_sgs_data
+      - process_biotime_dataset
+      - correct_biotime_dataset
   - title: "Analysis Methods"
     desc: "Functions to compute analyses"
     contents:

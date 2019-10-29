@@ -3,17 +3,24 @@ title: "MATSS: Dataset Summary"
 author: 
 - Hao Ye
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_document:
+    self_contained: yes
+fontsize: 11pt
+documentclass: article
 vignette: >
   %\VignetteIndexEntry{MATSS: Dataset Summary}
-  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEngine{knitr::rmarkdown_notangle}
   %\VignetteEncoding{UTF-8}
-  ---
+---
   
-  ```{r setup, include = FALSE}
+```{r setup, include = FALSE}
+IS_LOCAL <- identical(Sys.getenv("LOCAL"), "true")
+
 knitr::opts_chunk$set(
-collapse = TRUE,
-comment = "#>"
+  collapse = TRUE,
+  comment = "#>", 
+  purl = IS_LOCAL
 )
 ```
 
@@ -88,7 +95,7 @@ summarize_biotime_data <- function(dataset_id = 10, ...)
 
 Now repeat for all the datasets within BioTime
 
-```{r biotime summaries}
+```{r biotime summaries, eval = IS_LOCAL}
 biotime_dataset_ids <- get_biotime_dataset_ids()
 
 biotime_summaries <- map_dfr(biotime_dataset_ids, summarize_biotime_data)
@@ -96,7 +103,7 @@ biotime_summaries <- map_dfr(biotime_dataset_ids, summarize_biotime_data)
 
 Extract out just the dataset-level info:
 
-```{r dataset info}
+```{r dataset info, eval = IS_LOCAL}
 dataset_info <- biotime_summaries %>% 
     select(-species_table)
 
@@ -105,14 +112,12 @@ knitr::kable(dataset_info)
 
 Extract out just the taxa:
 
-```{r species info}
+```{r species info, eval = IS_LOCAL}
 species_info <- biotime_summaries %>%
     unnest() %>%
     select(dataset_id, genus, species, genus_species)
 
-knitr::kable(species_info)
+# knitr::kable(species_info)
 ```
 
 ## Search for duplicates
-
-To identify duplicates, 
