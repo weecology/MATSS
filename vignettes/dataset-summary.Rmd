@@ -101,12 +101,20 @@ biotime_dataset_ids <- get_biotime_dataset_ids()
 biotime_summaries <- map_dfr(biotime_dataset_ids, summarize_biotime_data)
 ```
 
-Extract out just the dataset-level info:
+Extract out just the dataset-level info, and save it for the vignette to be built without needing to download and process the BioTime data first.
 
 ```{r dataset info, eval = IS_LOCAL}
 dataset_info <- biotime_summaries %>% 
     select(-species_table)
 
+saveRDS(dataset_info, here::here("inst/biotime_dataset_info.RDS"))
+```
+
+
+```{r print dataset info}
+dataset_info_file <- system.file("biotime_dataset_info.RDS", 
+                                 package = "MATSS", mustWork = TRUE)
+dataset_info <- readRDS(dataset_info_file)
 knitr::kable(dataset_info)
 ```
 
