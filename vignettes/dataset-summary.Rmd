@@ -115,7 +115,7 @@ saveRDS(dataset_info, here::here("inst/biotime_dataset_info.RDS"))
 dataset_info_file <- system.file("biotime_dataset_info.RDS", 
                                  package = "MATSS", mustWork = TRUE)
 dataset_info <- readRDS(dataset_info_file)
-knitr::kable(dataset_info)
+knitr::kable(dataset_info, digits = 2)
 ```
 
 Extract out just the taxa:
