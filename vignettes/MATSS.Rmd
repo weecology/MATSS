@@ -123,8 +123,9 @@ For the most part `MATSS` provides only a light wrapper for the functions in `dr
 ## Basic Workflow
 
 The basic workflow of using `drake` plans is:
-* run R code that produces `drake` plans
-* run R code that takes a `drake` plan and executes it
+
+* run R code to create `drake` plans
+* run R code to take a `drake` plan and execute it
 
 ## Provided Helper Functions
 
@@ -169,7 +170,7 @@ plan # made from the previous example
 
 One thing to be aware of is that the function `drake_plan()` does not evaluate its arguments, but only makes the plan. Thus, if you want any evaluation to occur within the construction of the plan, you will need some NSE magic.
 
-In this example, the plan relies on `variable`, and so the result will change depending on the value of `variable` when the plan is run:
+In this example, the plan depends on `iris[, column]`, and so the result will necessarily depends on the value of `column`, when the plan is run, as opposed to fixing the value when the drake plan was first created.
 
 ```{r}
 column <- "Species"
