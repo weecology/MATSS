@@ -41,7 +41,7 @@ analysis_wrapper <- function(fun, ...)
         dataset_name <- all.vars(match.call()$dataset)
 
         # apply the analysis to each abundance time series
-        results <- purrr::map_dfr(dataset$abundance, fun, .id = "id", ...)
+        results <- purrr::map_dfr(dataset$abundance, fun, ...)
         
         # Extract the metadata from the original dataset
         metadata <- dataset$metadata

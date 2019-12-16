@@ -26,7 +26,8 @@ datasets <- build_datasets_plan(include_retriever_data = use_downloaded_datasets
 ## a Drake plan that defines the methods
 methods <- drake::drake_plan(
     has_covariates = function(dataset) {"covariates" %in% names(dataset)}, 
-    ts_summary = ts_summary
+    ts_summary = ts_summary,
+    total_abundance = analysis_wrapper(sum)
 )
 
 ## a Drake plan for the analyses (each combination of method x dataset)

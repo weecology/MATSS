@@ -27,13 +27,18 @@ Note that we have two sets of results, one for running the `ts_summary()` functi
 
 We can use `loadd()` to load specific targets (or all of them) into the R environment or use `readd()` to assign names.
 
+### Covariates
+
 First, let's look at the `has_covariates()` results:
+
 ```{r}
 results_has_covariates <- readd("results_has_covariates")
 results_has_covariates
 ```
 
 The object is a list with the output from the `has_covariates()` function, and names that correspond to the function and the dataset.
+
+### Summaries
 
 Now, let's look at the `ts_summary()` results:
 
@@ -43,6 +48,31 @@ results_ts_summary
 ```
 
 Again, the object is a list with the output from the `ts_summary()` function, and names for each dataset.
+
+### Total Abundance
+
+Finally, let's look at the `total_abundance()` results:
+
+```{r}
+results_total_abundance <- readd("results_total_abundance")
+results_total_abundance
+```
+
+To process these together into something viewable:
+
+* combine output from separate datasets
+* extract just the `results` column
+* transform each wide-form data.frame into long-form
+* combine separate tables again
+
+```{r}
+results_total_abundance %>%
+    bind_rows() %>%
+    pull(results) %>%
+    lapply(tidyr::gather, "species", "abundance") %>%
+    bind_rows() %>%
+    knitr::kable()
+```
 
 ## Prepare for plotting
 
