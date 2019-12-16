@@ -21,6 +21,9 @@ create_MATSS_compendium <- function(path,
                             rstudio = rstudio, 
                             open = FALSE)
     
+    # get package name
+    pkg_name <- fs::path_file(path)
+    
     # track old project
     old_project <- usethis::proj_set(path, force = TRUE)
     on.exit(usethis::proj_set(old_project), add = TRUE)
@@ -37,6 +40,7 @@ create_MATSS_compendium <- function(path,
     # add template files
     usethis::use_directory("analysis")
     usethis::use_template("template-pipeline.R", save_as = "analysis/pipeline.R", 
+                          data = list(package = pkg_name), 
                           package = "MATSS")
     usethis::use_template("template-report.Rmd", save_as = "analysis/report.Rmd", 
                           package = "MATSS")
