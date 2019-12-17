@@ -51,7 +51,8 @@ analysis_wrapper <- function(fun, ...)
             
         #   - if all vectors, then convert to data.frames and bind_rows
         } else if (all(purrr::map_lgl(raw_results, is.vector))) {
-            results <- purrr::map(raw_results, ~ tibble::as_tibble(as.list(.))) %>%
+            results <- purrr::map(raw_results, ~ tibble::as_tibble(as.list(.), 
+                                                                   .name_repair = "unique")) %>%
                 dplyr::bind_rows(.id = "id")
             
         #   - otherwise, store as a tibble, with output in a list-column

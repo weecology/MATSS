@@ -62,15 +62,14 @@ To process these together into something viewable:
 
 * combine output from separate datasets
 * extract just the `results` column
-* transform each wide-form data.frame into long-form
-* combine separate tables again
+* combine separate tables again, and fix column name
 
 ```{r}
 results_total_abundance %>%
     bind_rows() %>%
     pull(results) %>%
-    lapply(tidyr::gather, "species", "abundance") %>%
     bind_rows() %>%
+    rename_at(2, ~"abundance") %>%
     knitr::kable()
 ```
 

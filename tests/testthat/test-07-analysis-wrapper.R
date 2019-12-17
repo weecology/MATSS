@@ -31,6 +31,27 @@ test_that("analysis_wrapper works for simple functions", {
     expect_known_hash(output, "f448983294")
 })
 
+test_that("analysis_wrapper works for sum", {
+    # check if it worked properly and had the right size
+    expect_error(f <- analysis_wrapper(sum), NA)
+    expect_error(output <- f(data), NA)
+    expect_equal(dim(output), c(1, 5))
+    
+    # check results data.frame
+    expect_error(results <- output$results[[1]], NA)
+    expect_equal(dim(results), c(num_vars, 2))
+    expect_identical(results$id, names(data$abundance))
+    expect_identical(output$dataset, "data")
+    expect_identical(output$method, "sum")
+    expect_identical(output$args[[1]], list())
+    
+    # check metadata
+    expect_identical(output$metadata[[1]], data$metadata)
+    
+    # check digest
+    expect_known_hash(output, "51c75f8725")
+})
+
 test_that("analysis_wrapper preserves arguments correctly", {
     # setup sample inputs
     CI_levels <- c(0.05, 0.95)
