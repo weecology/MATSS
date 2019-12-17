@@ -41,7 +41,24 @@ analysis_wrapper <- function(fun, ...)
         dataset_name <- all.vars(match.call()$dataset)
 
         # apply the analysis to each abundance time series
-        results <- purrr::map_dfr(dataset$abundance, fun, ...)
+        raw_results <- lapply(dataset$abundance, fun, ...)
+        
+        # check output types to see if we need conversion
+        #   - if all data.frames, then bind_rows
+        if (all(purrr::map_lgl(raw_results, ~ "data.frame" %in% class(.))))
+        {
+            results <- dplyr::bind_rows(raw_results, .id = "id")
+            
+        #   - if all vectors, then convert to data.frames and bind_rows
+        } else if (all(purrr::map_lgl(raw_results, is.vector))) {
+            results <- purrr::map(raw_results, ~ tibble::as_tibble(as.list(.))) %>%
+                dplyr::bind_rows(.id = "id")
+            
+        #   - otherwise, store as a tibble, with output in a list-column
+        } else {
+            results <- tibble::tibble("id" = names(raw_results), 
+                                      "value" = unname(raw_results))
+        }
         
         # Extract the metadata from the original dataset
         metadata <- dataset$metadata

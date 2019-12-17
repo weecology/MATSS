@@ -1,8 +1,10 @@
 context("Tests of Wrapper Functions")
 
+data <- get_sgs_data()
+num_vars <- NCOL(data$abundance)
+
 test_that("analysis_wrapper works for simple functions", {
     # setup sample inputs
-    data <- get_sgs_data()
     fun <- function(ts) {
         tibble::tibble(n = NROW(ts), 
                        mean = mean(ts), 
@@ -16,7 +18,7 @@ test_that("analysis_wrapper works for simple functions", {
     
     # check results data.frame
     expect_error(results <- output$results[[1]], NA)
-    expect_equal(dim(results), c(11, 4))
+    expect_equal(dim(results), c(num_vars, 4))
     expect_identical(results$id, names(data$abundance))
     expect_identical(output$dataset, "data")
     expect_identical(output$method, "fun")
@@ -31,9 +33,8 @@ test_that("analysis_wrapper works for simple functions", {
 
 test_that("analysis_wrapper preserves arguments correctly", {
     # setup sample inputs
-    data <- get_sgs_data()
     CI_levels <- c(0.05, 0.95)
-    
+
     # create our different methods
     expect_error(quantiles_default <- analysis_wrapper(quantile), NA)
     expect_error(quantiles_named <- analysis_wrapper(quantile, probs = c(0.05, 0.95)), NA)
@@ -42,33 +43,37 @@ test_that("analysis_wrapper preserves arguments correctly", {
     
     # check results
     expect_error(output <- quantiles_default(data), NA)
-    expect_equal(dim(output$results[[1]]), c(5, 12))
+    expect_equal(dim(output$results[[1]]), c(num_vars, 6))
+    expect_true("id" %in% names(output$results[[1]]))
     expect_identical(output$dataset, "data")
     expect_identical(output$method, "quantile")
     expect_identical(output$args[[1]], list())
-    expect_known_hash(output, "aac1b7606f")
+    expect_known_hash(output, "510d26ec15")
     
     # check results
     expect_error(output <- quantiles_named(data), NA)
-    expect_equal(dim(output$results[[1]]), c(2, 12))
+    expect_equal(dim(output$results[[1]]), c(num_vars, 3))
+    expect_true("id" %in% names(output$results[[1]]))
     expect_identical(output$dataset, "data")
     expect_identical(output$method, "quantile")
     expect_identical(output$args[[1]], list(probs = c(0.05, 0.95)))
-    expect_known_hash(output, "85db7b33a3")
+    expect_known_hash(output, "b6850f1cad")
     
     # check results
     expect_error(output <- quantiles_arg(data), NA)
-    expect_equal(dim(output$results[[1]]), c(2, 12))
+    expect_equal(dim(output$results[[1]]), c(num_vars, 3))
+    expect_true("id" %in% names(output$results[[1]]))
     expect_identical(output$dataset, "data")
     expect_identical(output$method, "quantile")
     expect_identical(output$args[[1]], list(probs = c(0.05, 0.95)))
-    expect_known_hash(output, "85db7b33a3")
+    expect_known_hash(output, "b6850f1cad")
     
     # check results
     expect_error(output <- quantiles_unnamed(data), NA)
-    expect_equal(dim(output$results[[1]]), c(2, 12))
+    expect_equal(dim(output$results[[1]]), c(num_vars, 3))
+    expect_true("id" %in% names(output$results[[1]]))
     expect_identical(output$dataset, "data")
     expect_identical(output$method, "quantile")
     expect_identical(output$args[[1]], list(c(0.05, 0.95)))
-    expect_known_hash(output, "84265b9082")
+    expect_known_hash(output, "4b876cd612")
 })
