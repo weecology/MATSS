@@ -12,7 +12,8 @@ test_that("compendium files exist", {
     expect_true(file.exists(file.path(test_path, "NAMESPACE")))
     expect_true(file.exists(file.path(test_path, ".gitignore")))
     expect_true(file.exists(file.path(test_path, ".Rbuildignore")))
-    expect_true(file.exists(file.path(test_path, "test.Rproj")))
+    expect_equal(file.exists(file.path(test_path, "test.Rproj")), 
+                 rstudioapi::isAvailable())
     expect_true(file.exists(file.path(test_path, "analysis")))
     expect_true(file.exists(file.path(test_path, "analysis", "pipeline.R")))
     expect_true(file.exists(file.path(test_path, "analysis", "report.Rmd")))
