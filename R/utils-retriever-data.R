@@ -66,11 +66,16 @@ install_retriever_data <- function(dataset, path = get_default_data_path(),
         dir.create(folder_path)
         
         # install the retriever data
-        tryCatch(rdataretriever::install_csv(dataset, data_dir = folder_path), 
-                 error = function(e) {
-                     unlink(folder_path, recursive = TRUE)
-                     e
-                 }
+        tryCatch({
+            rdataretriever::install_csv(dataset, data_dir = folder_path)
+            data_citation <- rdataretriever::get_citation(dataset)
+            raw_citation <- sub("^Citation:[[:space:]]*", "", data_citation[3])
+            cat(raw_citation, file = file.path(folder_path, "CITATION"))
+        }, 
+        error = function(e) {
+            unlink(folder_path, recursive = TRUE)
+            e
+        }
         )
     }
 }
