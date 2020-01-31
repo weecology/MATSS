@@ -87,6 +87,10 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
                 process_bbs_route_region_data(species_table = bbs_data_tables$breed_bird_survey_species) %>%
                 saveRDS(file = file.path(storage_path, paste0("route", route, "region", bcr, ".Rds")) )
         })
+    
+    citation_from <- file.path(path, "breed-bird-survey", "CITATION")
+    citation_to <- file.path(storage_path, "CITATION")
+    file.copy(citation_from, citation_to)
 }
 
 #' @title Process the BBS data for an individual route and region

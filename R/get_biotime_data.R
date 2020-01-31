@@ -83,6 +83,10 @@ get_biotime_dataset_ids <- function(path = get_default_data_path(),
                                     save_to_file = TRUE, 
                                     storage_path = storage_path)
         })
+        
+        citation_from <- file.path(path, "biotimesql", "CITATION")
+        citation_to <- file.path(storage_path, "CITATION")
+        file.copy(citation_from, citation_to)
     }
     
     return(dataset_ids)
