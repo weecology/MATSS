@@ -109,6 +109,7 @@ import_retriever_data <- function(dataset = NULL, path = get_default_data_path()
     }
     
     # load each csv and return a list
+    files <- setdiff(files, "CITATION")
     tempdata <- vector('list', length(files))
     names(tempdata) <- sub('.csv', '', files)
     for (j in seq_along(files))
@@ -138,7 +139,8 @@ import_retriever_data <- function(dataset = NULL, path = get_default_data_path()
 download_datasets <- function(dataset = c("breed-bird-survey", 
                                           "veg-plots-sdl", 
                                           "mapped-plant-quads-mt", 
-                                          "biotimesql"), 
+                                          "biotimesql", 
+                                          "ushio-maizuru-fish-community"), 
                               path = get_default_data_path(), 
                               force_install = FALSE)
 {
