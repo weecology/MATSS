@@ -2,6 +2,7 @@
 
 export("%>%")
 export(analysis_wrapper)
+export(append_data_citations)
 export(build_analyses_plan)
 export(build_bbs_datasets_plan)
 export(build_biotime_datasets_plan)

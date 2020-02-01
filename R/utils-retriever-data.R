@@ -154,3 +154,27 @@ download_datasets <- function(dataset = c("breed-bird-survey",
                 path = path, 
                 force_install = force_install)
 }
+
+#' @title Generate a vector of citations.
+#' 
+#' @description Given an existing vector of citations (or the NULL default), 
+#'   add the citations that are specified in the paths of `citation_files`
+#'   
+#' @param citations a vector of strings containing existing citations to append
+#' @param citation_files a vector of filepaths to the citation files
+#' 
+#' @return a vector of strings containing the citations
+#'
+#' @export
+#' 
+append_data_citations <- function(citations = NULL, 
+                                  citation_files)
+{
+    new_citations <- vapply(citation_files, function(filepath) {
+        f <- file(filepath, open = "r")
+        out <- readLines(f, warn = FALSE)
+        unlink(f)
+        return(out)
+    }, "", USE.NAMES = FALSE)
+    return(c(citations, new_citations))
+}
