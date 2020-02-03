@@ -26,7 +26,7 @@ test_that("Shortgrass Steppe data is retrievable and works", {
 test_that("Maizuru data is retrievable and works", {
     expect_error(maizuru_data <- get_maizuru_data(), NA)
     expect_true(check_data_format(maizuru_data))
-    expect_known_hash(maizuru_data, "2c5c615974")
+    expect_known_hash(maizuru_data, "48653710cd")
 })
 
 test_that("Karoo data is retrievable and works", {

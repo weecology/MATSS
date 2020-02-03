@@ -11,8 +11,8 @@ test_that("process_bbs_ts_data formats data correctly", {
     expect_true(check_data_format(dat))
     expect_known_hash(dat$abundance, "3fe07b68b9")
     expect_known_hash(dat$covariates, "3854304cf6")
-    expect_known_hash(dat$metadata, "f50efbadbf")
-    expect_known_hash(dat, "05adc99ddf")
+    expect_known_hash(dat$metadata, "08894a47db")
+    expect_known_hash(dat, "4eb9f31ac3")
     
     expect_error(dat <- get_bbs_route_region_data(route = 2, region = 11), NA)
     expect_true(check_data_format(dat))

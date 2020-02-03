@@ -163,7 +163,7 @@ process_bbs_route_region_data <- function(bbs_data_table,
     {
         saveRDS(out, 
                 file = file.path(storage_path, 
-                                 paste0("route", route, "region", bcr, ".RDS")))
+                                 paste0("route", route, "region", region, ".RDS")))
     }
     
     return(out)
