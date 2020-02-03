@@ -37,7 +37,7 @@
 #' This data is imported using \code{\link{get_maizuru_data}}
 NULL
 
-#' @title Read in the maizuru community data from a csv file
+#' @title Read in the maizuru community data from retriever downloaded CSV
 #'
 #' Import maizuru data from data files
 #' 
@@ -45,16 +45,16 @@ NULL
 #'   covariate data) and one list of metadata.
 #'
 #' @export
-get_maizuru_data <- function()
+get_maizuru_data <- function(path = file.path(get_default_data_path(), "ushio-maizuru-fish-community"))
 {
-    data_path <- system.file("extdata", "Maizuru_dominant_sp.csv",
-                             package = "MATSS", mustWork = TRUE)
-    raw_data <- utils::read.csv(data_path)
-    raw_data$Date <- dplyr::select(raw_data, .data$Y, .data$M, .data$D) %>%
+    data_tables <- import_retriever_data(path = path)
+    
+    raw_data <- data_tables$ushio_maizuru_fish_community_maizuru
+    raw_data$date <- dplyr::select(raw_data, .data$y, .data$m, .data$d) %>%
         apply(1, paste, collapse = "-") %>%
         as.Date()
     
-    covars <- c("date_tag", "surf.t", "bot.t", "Y", "M", "D", "Date")
+    covars <- c("date_tag", "surf_t", "bot_t", "y", "m", "d", "date")
     list(abundance = raw_data %>% 
              dplyr::select(-dplyr::one_of(covars)) %>%
              dplyr::mutate_all(~round(. + 1e-10)), 
@@ -62,4 +62,3 @@ get_maizuru_data <- function()
              dplyr::select_at(covars),
          metadata = list(timename = "Date", effort = NULL))
 }
-
