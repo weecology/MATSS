@@ -1,13 +1,5 @@
 context("Check Retriever datasets")
 
-# check if `retriever` is installed
-skip_if_no_retriever <- function()
-{
-    have_retriever <- reticulate::py_module_available("retriever")
-    if (!have_retriever)
-        skip("retriever not available for testing")
-}
-
 test_that("veg-plots-sdl data retrieval works correctly", {
     skip_if_no_retriever()
     test_path <- tempdir()
