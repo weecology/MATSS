@@ -6,7 +6,7 @@
 \usage{
 get_bbs_route_region_data(path = file.path(get_default_data_path(),
   "breed-bird-survey-prepped", paste0("route", route, "region", region,
-  ".Rds")), route = 1, region = 11)
+  ".RDS")), route = 1, region = 11)
 }
 \arguments{
 \item{path}{where to load the raw data files from}

@@ -15,6 +15,8 @@ build_biotime_datasets_plan(path = get_default_data_path(),
 (to speed up development). As c(1:X)}
 
 \item{do_processing}{whether to process the datasets if necessary}
+
+\item{force_reprocessing}{whether to force re-processing of datasets}
 }
 \value{
 a drake plan (i.e. a tibble) specifying the targets and commands

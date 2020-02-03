@@ -25,6 +25,6 @@ and \url{https://github.com/weecology/MATSS-community-change}.
 
 Selects sites with data spanning \code{start_yr} through \code{end_yr} containing at
 least \code{min_num_yrs} of data samples during that period. Cleans data tables
-and stores each individual route as a .Rds file. Saves a data table of the
+and stores each individual route as a .RDS file. Saves a data table of the
 route + region pairs.
 }

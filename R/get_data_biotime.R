@@ -5,6 +5,7 @@
 #'   BioTime database. If the files are not found, then `NULL` is returned.
 #'   Original data found here http://biotime.st-andrews.ac.uk/home.php
 #' @param dataset_id the dataset index
+#' @param raw_path full path to the raw dataset file
 #' @inheritParams get_mtquad_data
 #' @return list of abundance, covariates, and metadata
 #' @examples 
@@ -16,7 +17,7 @@ get_biotime_data <- function(path = get_default_data_path(),
                              dataset_id = 321, 
                              raw_path = file.path(path, 
                                                   "biotime-prepped", 
-                                                  paste0("dataset", dataset_id, ".Rds")))
+                                                  paste0("dataset", dataset_id, ".RDS")))
 {
     if (!is.numeric(dataset_id))
     {
@@ -126,9 +127,9 @@ correct_biotime_dataset <- function(raw_data, dataset_id = 10)
     switch(as.character(dataset_id), 
            "54" = {
                raw_data %>%
-                   dplyr::mutate(temp = day, 
-                                 day = ifelse(month >= 9, month, day), 
-                                 month = ifelse(month >= 9, temp, month), 
+                   dplyr::mutate(temp = .data$day, 
+                                 day = ifelse(.data$month >= 9, .data$month, .data$day), 
+                                 month = ifelse(.data$month >= 9, .data$temp, .data$month), 
                                  temp = NULL)
            },
            "327" = {
@@ -142,12 +143,12 @@ correct_biotime_dataset <- function(raw_data, dataset_id = 10)
            },
            "373" = {
                raw_data %>%
-                   dplyr::mutate(day = dplyr::if_else(day == 0, NA_integer_, day), 
-                                 month = dplyr::if_else(month == 0, NA_integer_, month))
+                   dplyr::mutate(day = dplyr::if_else(.data$day == 0, NA_integer_, .data$day), 
+                                 month = dplyr::if_else(.data$month == 0, NA_integer_, .data$month))
            }, 
            "511" = {
                raw_data %>%
-                   dplyr::mutate(month = dplyr::if_else(month == 0, NA_integer_, month))
+                   dplyr::mutate(month = dplyr::if_else(.data$month == 0, NA_integer_, .data$month))
                
            }, 
            {

@@ -9,7 +9,7 @@
 #' @return list of abundance, covariates, and metadata
 #' @export
 get_bbs_route_region_data = function(path = file.path(get_default_data_path(), "breed-bird-survey-prepped", 
-                                                      paste0("route", route, "region", region, ".Rds")), 
+                                                      paste0("route", route, "region", region, ".RDS")), 
                                      route = 1, 
                                      region = 11)
 {
@@ -32,7 +32,7 @@ get_bbs_route_region_data = function(path = file.path(get_default_data_path(), "
 #' 
 #' Selects sites with data spanning `start_yr` through `end_yr` containing at 
 #'   least `min_num_yrs` of data samples during that period. Cleans data tables 
-#'   and stores each individual route as a .Rds file. Saves a data table of the 
+#'   and stores each individual route as a .RDS file. Saves a data table of the 
 #'   route + region pairs. 
 #' @param start_yr num first year of time-series
 #' @param end_yr num last year of time-series
