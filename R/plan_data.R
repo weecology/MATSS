@@ -161,11 +161,13 @@ build_gpdd_datasets_plan <- function()
 #' 
 build_biotime_datasets_plan <- function(path = get_default_data_path(), 
                                         data_subset = NULL, 
-                                        do_processing = TRUE)
+                                        do_processing = TRUE, 
+                                        force_reprocessing = FALSE)
 {
     dataset_ids <- get_biotime_dataset_ids(path = path, 
                                            data_subset = data_subset, 
-                                           do_processing = do_processing)
+                                           do_processing = do_processing, 
+                                           force_reprocessing = force_reprocessing)
     
     biotime_datasets <- drake::drake_plan(
         biotime_data_rtrg = drake::target(get_biotime_data(path = file_in(!!file.path(path, "biotime-prepped", 

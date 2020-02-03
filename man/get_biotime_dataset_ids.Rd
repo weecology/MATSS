@@ -6,7 +6,8 @@
 \title{Return BioTime dataset ids for individual loading}
 \usage{
 get_biotime_dataset_ids(path = get_default_data_path(),
-  data_subset = NULL, do_processing = FALSE)
+  data_subset = NULL, do_processing = FALSE,
+  force_reprocessing = FALSE)
 
 prepare_biotime_data(path = get_default_data_path(),
   data_subset = NULL)

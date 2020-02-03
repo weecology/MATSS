@@ -45,7 +45,8 @@ get_biotime_data <- function(path = get_default_data_path(),
 #' @export
 get_biotime_dataset_ids <- function(path = get_default_data_path(), 
                                     data_subset = NULL, 
-                                    do_processing = FALSE)
+                                    do_processing = FALSE, 
+                                    force_reprocessing = FALSE)
 {
     # load in dataset_ids
     storage_path <- file.path(path, "biotime-prepped")
@@ -66,7 +67,7 @@ get_biotime_dataset_ids <- function(path = get_default_data_path(),
     }
    
     # process selected datasets if requested
-    if (!biotime_is_processed && do_processing)
+    if (!biotime_is_processed && do_processing || force_reprocessing)
     {
         message("preprocessing biotime timeseries data")
         if (!dir.exists(storage_path)) {dir.create(storage_path)}
@@ -75,18 +76,17 @@ get_biotime_dataset_ids <- function(path = get_default_data_path(),
                          file.path(storage_path, "datasets.csv"), 
                          row.names = F)
         biotime_data_tables <- import_retriever_data("biotimesql", path = path)
+        citation_file <- file.path(path, "biotimesql", "CITATION")
+        citation_text <- readLines(citation_file, warn = FALSE)
         
         purrr::walk(dataset_ids, function(dataset_id) {
             message("  -dataset_id = ", dataset_id)
             process_biotime_dataset(biotime_data_tables, 
                                     dataset_id = dataset_id, 
                                     save_to_file = TRUE, 
-                                    storage_path = storage_path)
+                                    storage_path = storage_path, 
+                                    biotime_citation = citation_text)
         })
-        
-        citation_from <- file.path(path, "biotimesql", "CITATION")
-        citation_to <- file.path(storage_path, "CITATION")
-        file.copy(citation_from, citation_to)
     }
     
     return(dataset_ids)
@@ -107,7 +107,8 @@ prepare_biotime_data <- function(path = get_default_data_path(), data_subset = N
 {
     get_biotime_dataset_ids(path = path, 
                             data_subset = data_subset, 
-                            do_processing = TRUE)
+                            do_processing = TRUE, 
+                            force_reprocessing = TRUE)
 }
 
 #' @title Correct and clean specific datasets
@@ -181,7 +182,8 @@ process_biotime_dataset <- function(biotime_data_tables,
                                     dataset_id = 10, 
                                     save_to_file = FALSE, 
                                     storage_path = file.path(get_default_data_path(), 
-                                                             "biotime-prepped"))
+                                                             "biotime-prepped"), 
+                                    biotime_citation = NULL)
 {
     raw_data <- biotime_data_tables$biotimesql_allrawdata %>%
         dplyr::filter(.data$study_id == dataset_id) %>% 
@@ -256,7 +258,7 @@ process_biotime_dataset <- function(biotime_data_tables,
         dplyr::filter(.data$study_id == dataset_id)
     
     metadata <- c(list(timename = "date", effort = "effort", 
-                       source = citation_info$citation_line, 
+                       citation = c(citation_info$citation_line, biotime_citation), 
                        contact_info = contact_info, 
                        species_table = species_table, 
                        method = method_info$methods, 

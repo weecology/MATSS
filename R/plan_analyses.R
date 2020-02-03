@@ -166,7 +166,8 @@ build_bbs_datasets_plan <- function(path = get_default_data_path(), data_subset 
         message("preprocessing bbs timeseries data")
         prepare_bbs_ts_data(path = path, data_subset = data_subset)
     }
-    routes_and_regions <- utils::read.csv(routes_and_regions_file, colClasses = "character")
+    routes_and_regions <- utils::read.csv(routes_and_regions_file, colClasses = "character") %>%
+        dplyr::mutate_at(c("bcr", "route"), as.integer)
     
     # filter datasets and generate plan
     if (!is.null(data_subset)) {

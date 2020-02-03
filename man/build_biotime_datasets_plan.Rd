@@ -5,10 +5,12 @@
 \title{Generate a Drake Plan for Biotime Datasets}
 \usage{
 build_biotime_datasets_plan(path = get_default_data_path(),
-  data_subset = NULL, do_processing = TRUE)
+  data_subset = NULL, do_processing = TRUE,
+  force_reprocessing = FALSE)
 
 build_biotime_datasets_plan(path = get_default_data_path(),
-  data_subset = NULL, do_processing = TRUE)
+  data_subset = NULL, do_processing = TRUE,
+  force_reprocessing = FALSE)
 }
 \arguments{
 \item{path}{where to get the downloaded retriever datasets}

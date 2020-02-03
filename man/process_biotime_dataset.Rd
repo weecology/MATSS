@@ -6,7 +6,8 @@
 \usage{
 process_biotime_dataset(biotime_data_tables, dataset_id = 10,
   save_to_file = FALSE,
-  storage_path = file.path(get_default_data_path(), "biotime-prepped"))
+  storage_path = file.path(get_default_data_path(), "biotime-prepped"),
+  biotime_citation = NULL)
 }
 \arguments{
 \item{biotime_data_tables}{full BioTime data tables}
