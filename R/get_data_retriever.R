@@ -32,8 +32,12 @@ get_sdl_data <- function(plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17),
     covariates <- dplyr::select(sdl_data, .data$year)
     metadata <- list(timename = "year", effort = NULL)
     
-    return(list('abundance' = abundance, 'covariates' = covariates, 
-                "metadata" = metadata))
+    out <- list("abundance" = abundance, 
+                "covariates" = covariates, 
+                "metadata" = metadata) %>%
+        append_retriever_citation(path)
+    
+    return(out)
 }
 
 #' @title Create Montana plant quad time-series data
@@ -65,11 +69,14 @@ get_mtquad_data <- function(path = file.path(get_default_data_path(), "mapped-pl
         dplyr::ungroup()
     
     abundance <- dplyr::select(mtquad_data, -.data$year)
-    
     covariates <- dplyr::select(mtquad_data, .data$year)
-    
     metadata <- list(timename = "year", effort = NULL)
-    return(list('abundance' = abundance, 'covariates' = covariates, 
-                "metadata" = metadata))
+    
+    out <- list("abundance" = abundance, 
+                "covariates" = covariates, 
+                "metadata" = metadata) %>%
+        append_retriever_citation(path)
+    
+    return(out)
 }
 

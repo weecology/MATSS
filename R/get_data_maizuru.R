@@ -63,4 +63,6 @@ get_maizuru_data <- function(path = file.path(get_default_data_path(),
                     dplyr::select_at(covars),
                 metadata = list(timename = "Date", effort = NULL)) %>%
         append_retriever_citation(path)
+    
+    return(out)
 }
