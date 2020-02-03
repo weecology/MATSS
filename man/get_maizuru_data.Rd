@@ -2,12 +2,13 @@
 % Please edit documentation in R/get_maizuru_data.R
 \name{get_maizuru_data}
 \alias{get_maizuru_data}
-\title{Read in the maizuru community data from retriever downloaded CSV
-
-Import maizuru data from data files}
+\title{Read in the maizuru community data from retriever downloaded CSV}
 \usage{
 get_maizuru_data(path = file.path(get_default_data_path(),
   "ushio-maizuru-fish-community"))
+}
+\arguments{
+\item{path}{where to load the raw data files from}
 }
 \value{
 list of two dataframes (one with abundance data, the other with
@@ -15,6 +16,4 @@ covariate data) and one list of metadata.
 }
 \description{
 Read in the maizuru community data from retriever downloaded CSV
-
-Import maizuru data from data files
 }

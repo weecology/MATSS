@@ -85,7 +85,7 @@ get_biotime_dataset_ids <- function(path = get_default_data_path(),
                                     dataset_id = dataset_id, 
                                     save_to_file = TRUE, 
                                     storage_path = storage_path, 
-                                    biotime_citation = citation_text)
+                                    citation_text = citation_text)
         })
     }
     
@@ -176,6 +176,7 @@ correct_biotime_dataset <- function(raw_data, dataset_id = 10)
 #' @param dataset_id the study_id
 #' @param save_to_file whether to save the processed dataset to a file
 #' @param storage_path folder in which to put processed dataset
+#' @param citation_text text of citation for the database
 #' @return the processed BioTime dataset
 #' @export
 process_biotime_dataset <- function(biotime_data_tables, 
@@ -183,7 +184,7 @@ process_biotime_dataset <- function(biotime_data_tables,
                                     save_to_file = FALSE, 
                                     storage_path = file.path(get_default_data_path(), 
                                                              "biotime-prepped"), 
-                                    biotime_citation = NULL)
+                                    citation_text = NULL)
 {
     raw_data <- biotime_data_tables$biotimesql_allrawdata %>%
         dplyr::filter(.data$study_id == dataset_id) %>% 
@@ -258,7 +259,7 @@ process_biotime_dataset <- function(biotime_data_tables,
         dplyr::filter(.data$study_id == dataset_id)
     
     metadata <- c(list(timename = "date", effort = "effort", 
-                       citation = c(citation_info$citation_line, biotime_citation), 
+                       citation = c(citation_info$citation_line, citation_text), 
                        contact_info = contact_info, 
                        species_table = species_table, 
                        method = method_info$methods, 
@@ -273,7 +274,7 @@ process_biotime_dataset <- function(biotime_data_tables,
     {
         saveRDS(out, 
                 file = file.path(storage_path, 
-                                 paste0("dataset", dataset_id, ".Rds")))
+                                 paste0("dataset", dataset_id, ".RDS")))
     }
     
     return(out)

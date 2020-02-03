@@ -7,7 +7,7 @@
 process_biotime_dataset(biotime_data_tables, dataset_id = 10,
   save_to_file = FALSE,
   storage_path = file.path(get_default_data_path(), "biotime-prepped"),
-  biotime_citation = NULL)
+  citation_text = NULL)
 }
 \arguments{
 \item{biotime_data_tables}{full BioTime data tables}
@@ -17,6 +17,8 @@ process_biotime_dataset(biotime_data_tables, dataset_id = 10,
 \item{save_to_file}{whether to save the processed dataset to a file}
 
 \item{storage_path}{folder in which to put processed dataset}
+
+\item{citation_text}{text of citation for the database}
 }
 \value{
 the processed BioTime dataset

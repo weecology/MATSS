@@ -155,6 +155,31 @@ download_datasets <- function(dataset = c("breed-bird-survey",
                 force_install = force_install)
 }
 
+#' @title Append citation info to a formatted dataset
+#' 
+#' @description Given an existing formatted dataset, and the path to the 
+#'   downloaded dataset, from retriever, and via `import_retriever_data()`, 
+#'   read in the citation info and add it to the metadata for the dataset
+#'   
+#' @param formatted_data a dataset that already follows the `MATSS`` standard
+#' @param path where to load the raw data files from
+#' 
+#' @return the same dataset, with the citation appended to `metadata`
+#'
+#' @export
+#' 
+append_retriever_citation <- function(formatted_data, path)
+{
+    citation_file <- file.path(path, "CITATION")
+    if (file.exists(citation_file))
+    {
+        citation_text <- readLines(citation_file, warn = FALSE)
+        formatted_data$metadata$citation <- c(formatted_data$metadata$citation, 
+                                              citation_text)
+    }
+    return(formatted_data)
+}
+
 #' @title Generate a vector of citations.
 #' 
 #' @description Given an existing vector of citations (or the NULL default), 

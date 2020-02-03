@@ -39,13 +39,14 @@ NULL
 
 #' @title Read in the maizuru community data from retriever downloaded CSV
 #'
-#' Import maizuru data from data files
+#' @param path where to load the raw data files from
 #' 
 #' @return list of two dataframes (one with abundance data, the other with 
 #'   covariate data) and one list of metadata.
 #'
 #' @export
-get_maizuru_data <- function(path = file.path(get_default_data_path(), "ushio-maizuru-fish-community"))
+get_maizuru_data <- function(path = file.path(get_default_data_path(), 
+                                              "ushio-maizuru-fish-community"))
 {
     data_tables <- import_retriever_data(path = path)
     
@@ -55,10 +56,11 @@ get_maizuru_data <- function(path = file.path(get_default_data_path(), "ushio-ma
         as.Date()
     
     covars <- c("date_tag", "surf_t", "bot_t", "y", "m", "d", "date")
-    list(abundance = raw_data %>% 
-             dplyr::select(-dplyr::one_of(covars)) %>%
-             dplyr::mutate_all(~round(. + 1e-10)), 
-         covariates = raw_data %>% 
-             dplyr::select_at(covars),
-         metadata = list(timename = "Date", effort = NULL))
+    out <- list(abundance = raw_data %>% 
+                    dplyr::select(-dplyr::one_of(covars)) %>%
+                    dplyr::mutate_all(~round(. + 1e-10)), 
+                covariates = raw_data %>% 
+                    dplyr::select_at(covars),
+                metadata = list(timename = "Date", effort = NULL)) %>%
+        append_retriever_citation(path)
 }
