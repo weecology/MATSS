@@ -36,6 +36,11 @@ test_that("ts_summary works", {
 })
 
 test_that("ts_summary works for formatted data", {
+    skip_if_no_retriever()
+    test_path <- tempdir()
+    Sys.setenv(MATSS_DATA_PATH = test_path)
+    download_datasets("ushio-maizuru-fish-community")
+    
     dat <- get_maizuru_data()
     n <- NCOL(dat$abundance)
     var_names <- names(dat$abundance)
