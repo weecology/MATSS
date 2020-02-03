@@ -113,8 +113,8 @@ build_bbs_datasets_plan <- function(path = get_default_data_path(), data_subset 
     bbs_datasets <- drake::drake_plan(
         bbs_data_rtrg = drake::target(get_bbs_route_region_data(path = file_in(!!file.path(path, "breed-bird-survey-prepped", 
                                                                                            paste0("route", route, "region", region, ".Rds")))),
-                                      transform = map(route = !!rlang::syms(routes_and_regions$route),
-                                                      region = !!rlang::syms(routes_and_regions$bcr)), 
+                                      transform = map(route = !!routes_and_regions$route,
+                                                      region = !!routes_and_regions$bcr), 
                                       trigger = trigger(command = FALSE)
         )
     )
@@ -140,8 +140,8 @@ build_gpdd_datasets_plan <- function()
     
     gpdd_datasets <- drake::drake_plan(
         gpdd_data_rtrg = drake::target(get_gpdd_data(location_id = location_id, timeperiod_id = timeperiod_id),
-                                       transform = map(location_id = !!rlang::syms(locations$LocationID),
-                                                       timeperiod_id = !!rlang::syms(locations$TimePeriodID))
+                                       transform = map(location_id = !!locations$LocationID,
+                                                       timeperiod_id = !!locations$TimePeriodID)
         )
     )
     return(gpdd_datasets)
@@ -172,7 +172,7 @@ build_biotime_datasets_plan <- function(path = get_default_data_path(),
     biotime_datasets <- drake::drake_plan(
         biotime_data_rtrg = drake::target(get_biotime_data(path = file_in(!!file.path(path, "biotime-prepped", 
                                                                                       paste0("dataset", dataset, ".Rds")))), 
-                                          transform = map(dataset = !!rlang::syms(dataset_ids)), 
+                                          transform = map(dataset = !!dataset_ids), 
                                           trigger = trigger(command = FALSE)
         )
     )
