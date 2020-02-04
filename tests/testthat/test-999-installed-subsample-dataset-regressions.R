@@ -29,15 +29,6 @@ test_that("get_mtquad_data formats data correctly", {
     expect_known_hash(dat, "c410abab6a")
 })
 
-test_that("get_gpdd_data formats data correctly", {
-    expect_error(dat <- get_gpdd_data(location_id = 83, timeperiod_id = 408), NA)
-    expect_true(check_data_format(dat))
-    expect_known_hash(dat$abundance, "701d60bb9e")
-    expect_known_hash(dat$covariates, "303e5d422b")
-    expect_known_hash(dat$metadata, "47e011df79")
-    expect_known_hash(dat, "fbb6ce96f3")
-})
-
 test_that("get_biotime_data processes data correctly", {
     unlink(file.path(path, "biotime-prepped"), recursive = TRUE)
     expect_error(prepare_biotime_data(data_subset = c(1, 14, 67, 172)), NA)
