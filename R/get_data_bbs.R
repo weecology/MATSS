@@ -9,10 +9,16 @@
 #' @return list of abundance, covariates, and metadata
 #' @export
 get_bbs_route_region_data = function(path = file.path(get_default_data_path(), "breed-bird-survey-prepped", 
-                                                      paste0("route", route, "region", region, ".Rds")), 
+                                                      paste0("route", route, "region", region, ".RDS")), 
                                      route = 1, 
                                      region = 11)
 {
+    if (!is.numeric(route) || !is.numeric(region))
+    {
+        route <- as.numeric(route)
+        region <- as.numeric(region)
+    }
+    
     if (file.exists(path)) {
         return(readRDS(path)) 
     } else {
@@ -26,7 +32,7 @@ get_bbs_route_region_data = function(path = file.path(get_default_data_path(), "
 #' 
 #' Selects sites with data spanning `start_yr` through `end_yr` containing at 
 #'   least `min_num_yrs` of data samples during that period. Cleans data tables 
-#'   and stores each individual route as a .Rds file. Saves a data table of the 
+#'   and stores each individual route as a .RDS file. Saves a data table of the 
 #'   route + region pairs. 
 #' @param start_yr num first year of time-series
 #' @param end_yr num last year of time-series
@@ -40,6 +46,8 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
                                 path = get_default_data_path(), data_subset = NULL) 
 {
     bbs_data_tables <- import_retriever_data("breed-bird-survey", path = path)
+    citation_file <- file.path(path, "breed-bird-survey", "CITATION")
+    citation_text <- readLines(citation_file, warn = FALSE)
     
     bbs_data <- bbs_data_tables$breed_bird_survey_weather %>%
         dplyr::filter(.data$runtype == 1, .data$rpid == 101) %>%
@@ -78,15 +86,19 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
         bbs_routes_regions <- bbs_routes_regions[data_subset, ]
     }
     
+    species_table <- bbs_data_tables$breed_bird_survey_species
     bbs_routes_regions %>%
         dplyr::select(.data$bcr, .data$route) %>%
         purrr::pmap(function(bcr, route) {
             bbs_data %>%
                 dplyr::filter(.data$bcr == !!bcr,
                               .data$route == !!route) %>%
-                process_bbs_route_region_data(species_table = bbs_data_tables$breed_bird_survey_species) %>%
-                saveRDS(file = file.path(storage_path, paste0("route", route, "region", bcr, ".Rds")) )
+                process_bbs_route_region_data(species_table = species_table, 
+                                              save_to_file = TRUE, 
+                                              storage_path = storage_path, 
+                                              citation_text = citation_text)
         })
+    
 }
 
 #' @title Process the BBS data for an individual route and region
@@ -96,15 +108,21 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
 #'   return the combined object.
 #' @param bbs_data_table main bbs data table
 #' @param species_table table of species for BBS
+#' @inheritParams process_biotime_dataset
 #' @return the processed BBS data
 #' @export
-process_bbs_route_region_data <- function(bbs_data_table, species_table)
+process_bbs_route_region_data <- function(bbs_data_table, 
+                                          species_table, 
+                                          save_to_file = FALSE, 
+                                          storage_path = file.path(get_default_data_path(), 
+                                                                   "breed-bird-survey-prepped"), 
+                                          citation_text = NULL)
 {
     # check that exactly one route and one region are represented in the data
     route <- unique(bbs_data_table$route)
     region <- unique(bbs_data_table$bcr)
     stopifnot(length(route) == 1 && 
-                  length(region == 1))
+              length(region == 1))
     
     # process species IDs
     this_bbs_data <- bbs_data_table %>%
@@ -132,9 +150,23 @@ process_bbs_route_region_data <- function(bbs_data_table, species_table)
                          mean_date = mean(.data$date)) %>%
         dplyr::arrange(.data$year)
     
-    metadata <- list(timename = 'year', effort = 'effort', route = route, region = region)
+    metadata <- list(timename = "year", 
+                     effort = "effort", 
+                     route = route, region = region, 
+                     citation = citation_text)
     
-    return(list('abundance' = abundance, 'covariates' = covariates, 'metadata' = metadata))
+    out <- list("abundance" = abundance, 
+                "covariates" = covariates, 
+                "metadata" = metadata)
+    
+    if (save_to_file)
+    {
+        saveRDS(out, 
+                file = file.path(storage_path, 
+                                 paste0("route", route, "region", region, ".RDS")))
+    }
+    
+    return(out)
 }
 
 
@@ -162,7 +194,6 @@ filter_bbs_ts <- function(bbs_data, start_yr, end_yr, min_num_yrs) {
         dplyr::filter(.data$year >= start_yr, .data$year <= end_yr) %>%
         dplyr::filter(.data$site_id %in% sites_to_keep$site_id)
 }
-
 
 #' @title Filter poorly sampled BBS species
 #' 

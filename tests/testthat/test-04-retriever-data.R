@@ -1,13 +1,5 @@
 context("Check Retriever datasets")
 
-# check if `retriever` is installed
-skip_if_no_retriever <- function()
-{
-    have_retriever <- reticulate::py_module_available("retriever")
-    if (!have_retriever)
-        skip("retriever not available for testing")
-}
-
 test_that("veg-plots-sdl data retrieval works correctly", {
     skip_if_no_retriever()
     test_path <- tempdir()
@@ -19,5 +11,8 @@ test_that("veg-plots-sdl data retrieval works correctly", {
     
     expect_error(sdl_data <- get_sdl_data(), NA)
     expect_true(check_data_format(sdl_data))
+    sdl_data$metadata$citation <- NULL
+    
     expect_known_hash(sdl_data, "e61d747927")
+    # expect_known_hash(sdl_data, "a53f798160") # with correct citation
 })

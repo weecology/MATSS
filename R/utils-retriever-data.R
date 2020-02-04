@@ -66,11 +66,16 @@ install_retriever_data <- function(dataset, path = get_default_data_path(),
         dir.create(folder_path)
         
         # install the retriever data
-        tryCatch(rdataretriever::install_csv(dataset, data_dir = folder_path), 
-                 error = function(e) {
-                     unlink(folder_path, recursive = TRUE)
-                     e
-                 }
+        tryCatch({
+            rdataretriever::install_csv(dataset, data_dir = folder_path)
+            data_citation <- rdataretriever::get_citation(dataset)
+            raw_citation <- sub("^Citation:[[:space:]]*", "", data_citation[3])
+            cat(raw_citation, file = file.path(folder_path, "CITATION"))
+        }, 
+        error = function(e) {
+            unlink(folder_path, recursive = TRUE)
+            e
+        }
         )
     }
 }
@@ -109,6 +114,7 @@ import_retriever_data <- function(dataset = NULL, path = get_default_data_path()
     }
     
     # load each csv and return a list
+    files <- setdiff(files, "CITATION")
     tempdata <- vector('list', length(files))
     names(tempdata) <- sub('.csv', '', files)
     for (j in seq_along(files))
@@ -138,7 +144,8 @@ import_retriever_data <- function(dataset = NULL, path = get_default_data_path()
 download_datasets <- function(dataset = c("breed-bird-survey", 
                                           "veg-plots-sdl", 
                                           "mapped-plant-quads-mt", 
-                                          "biotimesql"), 
+                                          "biotimesql", 
+                                          "ushio-maizuru-fish-community"), 
                               path = get_default_data_path(), 
                               force_install = FALSE)
 {
@@ -146,4 +153,53 @@ download_datasets <- function(dataset = c("breed-bird-survey",
                 install_retriever_data, 
                 path = path, 
                 force_install = force_install)
+}
+
+#' @title Append citation info to a formatted dataset
+#' 
+#' @description Given an existing formatted dataset, and the path to the 
+#'   downloaded dataset, from retriever, and via `import_retriever_data()`, 
+#'   read in the citation info and add it to the metadata for the dataset
+#'   
+#' @param formatted_data a dataset that already follows the `MATSS`` standard
+#' @param path where to load the raw data files from
+#' 
+#' @return the same dataset, with the citation appended to `metadata`
+#'
+#' @export
+#' 
+append_retriever_citation <- function(formatted_data, path)
+{
+    citation_file <- file.path(path, "CITATION")
+    if (file.exists(citation_file))
+    {
+        citation_text <- readLines(citation_file, warn = FALSE)
+        formatted_data$metadata$citation <- c(formatted_data$metadata$citation, 
+                                              citation_text)
+    }
+    return(formatted_data)
+}
+
+#' @title Generate a vector of citations.
+#' 
+#' @description Given an existing vector of citations (or the NULL default), 
+#'   add the citations that are specified in the paths of `citation_files`
+#'   
+#' @param citations a vector of strings containing existing citations to append
+#' @param citation_files a vector of filepaths to the citation files
+#' 
+#' @return a vector of strings containing the citations
+#'
+#' @export
+#' 
+append_data_citations <- function(citations = NULL, 
+                                  citation_files)
+{
+    new_citations <- vapply(citation_files, function(filepath) {
+        f <- file(filepath, open = "r")
+        out <- readLines(f, warn = FALSE)
+        unlink(f)
+        return(out)
+    }, "", USE.NAMES = FALSE)
+    return(c(citations, new_citations))
 }

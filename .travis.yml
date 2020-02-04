@@ -27,7 +27,9 @@ before_install:
   - conda info -a
   - conda create -q -n test-environment python=3
   - source activate test-environment
-  - conda install -c conda-forge retriever
+  - conda install git pip
+  - pip install git+git://github.com/weecology/retriever@master
+  # - conda install -c conda-forge retriever
   - retriever
   - python -c 'import retriever;retriever.check_for_updates()'
 

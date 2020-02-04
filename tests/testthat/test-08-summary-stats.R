@@ -36,36 +36,46 @@ test_that("ts_summary works", {
 })
 
 test_that("ts_summary works for formatted data", {
+    skip_if_no_retriever()
+    test_path <- tempdir()
+    Sys.setenv(MATSS_DATA_PATH = test_path)
+    download_datasets("ushio-maizuru-fish-community")
+    
+    files <- dir(file.path(test_path, "ushio-maizuru-fish-community"))
+    expect_equal(length(files), 2)
+    expect_true("CITATION" %in% files)
+    expect_true("ushio_maizuru_fish_community_maizuru.csv" %in% files)
+    
     dat <- get_maizuru_data()
     n <- NCOL(dat$abundance)
     var_names <- names(dat$abundance)
-    
+
     # check message output
     expect_error(m <- capture_messages(output <- ts_summary(dat)), NA)
     expect_match(m, "`effort` is `NULL`, assuming all effort = 1", all = FALSE)
-    
+
     # check basic output structure
     expect_true(all(c("num_spp", "num_obs", "stats", "spp_correlations") %in% names(output)))
     expect_equal(output$num_spp[1], n)
     expect_equal(output$num_obs[1], NROW(dat$abundance))
-    
+
     # check output stats
     stats <- output$stats[[1]]
     expect_equal(dim(stats), c(n + 4, 8))
-    expect_true(all(c("variable", "min", "max", "median", "mean", "sd", "n", "autocorrelation") 
+    expect_true(all(c("variable", "min", "max", "median", "mean", "sd", "n", "autocorrelation")
                     %in% names(stats)))
-    expect_equal(vapply(stats$autocorrelation, length, 0, USE.NAMES = FALSE), 
+    expect_equal(vapply(stats$autocorrelation, length, 0, USE.NAMES = FALSE),
                  rep.int(25, n + 4))
     expect_true(all(c(var_names, "times", "effort", "richness", "tot_obs")
                     %in% stats$variable))
-    expect_known_hash(stats, "2cf0923682")
-    
+    expect_known_hash(stats, "e77e6193fa")
+
     # check output spp correlations
     cor_matrix <- output$spp_correlations[[1]]
     expect_equal(dim(cor_matrix), c(n, n))
     expect_equal(var_names, rownames(cor_matrix))
     expect_equal(var_names, colnames(cor_matrix))
-    expect_known_hash(cor_matrix, "0b23b64d65")
+    expect_known_hash(cor_matrix, "3061024928")
 })
 
 test_that("ts_summary works with just a time series", {

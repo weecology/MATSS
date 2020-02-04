@@ -29,7 +29,7 @@ Imports:
     magrittr,
     ggplot2,
     lubridate, 
-    drake (>= 7.1.0),
+    drake (>= 7.10.0),
     rlang,
     dplyr,
     tidyr,

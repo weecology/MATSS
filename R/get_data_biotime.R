@@ -5,6 +5,7 @@
 #'   BioTime database. If the files are not found, then `NULL` is returned.
 #'   Original data found here http://biotime.st-andrews.ac.uk/home.php
 #' @param dataset_id the dataset index
+#' @param raw_path full path to the raw dataset file
 #' @inheritParams get_mtquad_data
 #' @return list of abundance, covariates, and metadata
 #' @examples 
@@ -16,7 +17,7 @@ get_biotime_data <- function(path = get_default_data_path(),
                              dataset_id = 321, 
                              raw_path = file.path(path, 
                                                   "biotime-prepped", 
-                                                  paste0("dataset", dataset_id, ".Rds")))
+                                                  paste0("dataset", dataset_id, ".RDS")))
 {
     if (!is.numeric(dataset_id))
     {
@@ -45,7 +46,8 @@ get_biotime_data <- function(path = get_default_data_path(),
 #' @export
 get_biotime_dataset_ids <- function(path = get_default_data_path(), 
                                     data_subset = NULL, 
-                                    do_processing = FALSE)
+                                    do_processing = FALSE, 
+                                    force_reprocessing = FALSE)
 {
     # load in dataset_ids
     storage_path <- file.path(path, "biotime-prepped")
@@ -66,7 +68,7 @@ get_biotime_dataset_ids <- function(path = get_default_data_path(),
     }
    
     # process selected datasets if requested
-    if (!biotime_is_processed && do_processing)
+    if (!biotime_is_processed && do_processing || force_reprocessing)
     {
         message("preprocessing biotime timeseries data")
         if (!dir.exists(storage_path)) {dir.create(storage_path)}
@@ -75,13 +77,16 @@ get_biotime_dataset_ids <- function(path = get_default_data_path(),
                          file.path(storage_path, "datasets.csv"), 
                          row.names = F)
         biotime_data_tables <- import_retriever_data("biotimesql", path = path)
+        citation_file <- file.path(path, "biotimesql", "CITATION")
+        citation_text <- readLines(citation_file, warn = FALSE)
         
         purrr::walk(dataset_ids, function(dataset_id) {
             message("  -dataset_id = ", dataset_id)
             process_biotime_dataset(biotime_data_tables, 
                                     dataset_id = dataset_id, 
                                     save_to_file = TRUE, 
-                                    storage_path = storage_path)
+                                    storage_path = storage_path, 
+                                    citation_text = citation_text)
         })
     }
     
@@ -103,7 +108,8 @@ prepare_biotime_data <- function(path = get_default_data_path(), data_subset = N
 {
     get_biotime_dataset_ids(path = path, 
                             data_subset = data_subset, 
-                            do_processing = TRUE)
+                            do_processing = TRUE, 
+                            force_reprocessing = TRUE)
 }
 
 #' @title Correct and clean specific datasets
@@ -121,9 +127,9 @@ correct_biotime_dataset <- function(raw_data, dataset_id = 10)
     switch(as.character(dataset_id), 
            "54" = {
                raw_data %>%
-                   dplyr::mutate(temp = day, 
-                                 day = ifelse(month >= 9, month, day), 
-                                 month = ifelse(month >= 9, temp, month), 
+                   dplyr::mutate(temp = .data$day, 
+                                 day = ifelse(.data$month >= 9, .data$month, .data$day), 
+                                 month = ifelse(.data$month >= 9, .data$temp, .data$month), 
                                  temp = NULL)
            },
            "327" = {
@@ -137,12 +143,12 @@ correct_biotime_dataset <- function(raw_data, dataset_id = 10)
            },
            "373" = {
                raw_data %>%
-                   dplyr::mutate(day = dplyr::if_else(day == 0, NA_integer_, day), 
-                                 month = dplyr::if_else(month == 0, NA_integer_, month))
+                   dplyr::mutate(day = dplyr::if_else(.data$day == 0, NA_integer_, .data$day), 
+                                 month = dplyr::if_else(.data$month == 0, NA_integer_, .data$month))
            }, 
            "511" = {
                raw_data %>%
-                   dplyr::mutate(month = dplyr::if_else(month == 0, NA_integer_, month))
+                   dplyr::mutate(month = dplyr::if_else(.data$month == 0, NA_integer_, .data$month))
                
            }, 
            {
@@ -171,13 +177,15 @@ correct_biotime_dataset <- function(raw_data, dataset_id = 10)
 #' @param dataset_id the study_id
 #' @param save_to_file whether to save the processed dataset to a file
 #' @param storage_path folder in which to put processed dataset
+#' @param citation_text text of citation for the database
 #' @return the processed BioTime dataset
 #' @export
 process_biotime_dataset <- function(biotime_data_tables, 
                                     dataset_id = 10, 
                                     save_to_file = FALSE, 
                                     storage_path = file.path(get_default_data_path(), 
-                                                             "biotime-prepped"))
+                                                             "biotime-prepped"), 
+                                    citation_text = NULL)
 {
     raw_data <- biotime_data_tables$biotimesql_allrawdata %>%
         dplyr::filter(.data$study_id == dataset_id) %>% 
@@ -252,7 +260,7 @@ process_biotime_dataset <- function(biotime_data_tables,
         dplyr::filter(.data$study_id == dataset_id)
     
     metadata <- c(list(timename = "date", effort = "effort", 
-                       source = citation_info$citation_line, 
+                       citation = c(citation_info$citation_line, citation_text), 
                        contact_info = contact_info, 
                        species_table = species_table, 
                        method = method_info$methods, 
@@ -267,7 +275,7 @@ process_biotime_dataset <- function(biotime_data_tables,
     {
         saveRDS(out, 
                 file = file.path(storage_path, 
-                                 paste0("dataset", dataset_id, ".Rds")))
+                                 paste0("dataset", dataset_id, ".RDS")))
     }
     
     return(out)

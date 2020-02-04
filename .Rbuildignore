@@ -13,3 +13,4 @@
 ^.drake
 ^.zenodo.json$
 ^README_cache
+^miniconda.sh$
