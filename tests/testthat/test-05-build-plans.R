@@ -1,14 +1,5 @@
 context("Building Drake Plans")
 
-expect_plan <- function(plan)
-{
-    eval(bquote(expect_true(tibble::is_tibble(.(plan)))))
-    eval(bquote(expect_true("drake_plan" %in% class(.(plan)))))
-    eval(bquote(expect_true(all(c("target", "command") %in% names(.(plan))))))
-    eval(bquote(expect_equal(class(.(plan)$target), "character")))
-    eval(bquote(expect_equal(class(.(plan)$command), "list")))
-}
-
 test_that("collect_analyses helper works", {
     a <- runif(3)
     b <- LETTERS[5:10]
