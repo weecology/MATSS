@@ -131,7 +131,7 @@ Original data found here http://biotime.st-andrews.ac.uk/home.php" />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Get a cleaned BioTime dataset</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_biotime_data.R'><code>R/get_biotime_data.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_data_biotime.R'><code>R/get_data_biotime.R</code></a></small>
     <div class="hidden name"><code>get_biotime_data.Rd</code></div>
     </div>
 
@@ -145,7 +145,7 @@ Original data found here http://biotime.st-andrews.ac.uk/home.php</p>
 
     <pre class="usage"><span class='fu'>get_biotime_data</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(), <span class='kw'>dataset_id</span> <span class='kw'>=</span> <span class='fl'>321</span>,
   <span class='kw'>raw_path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='no'>path</span>, <span class='st'>"biotime-prepped"</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"dataset"</span>,
-  <span class='no'>dataset_id</span>, <span class='st'>".Rds"</span>)))</pre>
+  <span class='no'>dataset_id</span>, <span class='st'>".RDS"</span>)))</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -157,6 +157,10 @@ Original data found here http://biotime.st-andrews.ac.uk/home.php</p>
     <tr>
       <th>dataset_id</th>
       <td><p>the dataset index</p></td>
+    </tr>
+    <tr>
+      <th>raw_path</th>
+      <td><p>full path to the raw dataset file</p></td>
     </tr>
     </table>
 

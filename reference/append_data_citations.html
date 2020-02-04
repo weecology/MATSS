@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get cleaned BBS data — get_bbs_route_region_data • MATSS</title>
+<title>Generate a vector of citations. — append_data_citations • MATSS</title>
 
 
 <!-- jquery -->
@@ -35,11 +35,9 @@
 
 
 
-<meta property="og:title" content="Get cleaned BBS data — get_bbs_route_region_data" />
-<meta property="og:description" content="Gets prepped BBS data (as a list of abundance, covariates, and
-metadata) for a specified route and region. First run prepare_bbs_data
-to create these files from the raw BBS data tables. If the files are not
-found, then NULL is returned." />
+<meta property="og:title" content="Generate a vector of citations. — append_data_citations" />
+<meta property="og:description" content="Given an existing vector of citations (or the NULL default),
+add the citations that are specified in the paths of citation_files" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -129,42 +127,34 @@ found, then NULL is returned." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get cleaned BBS data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_data_bbs.R'><code>R/get_data_bbs.R</code></a></small>
-    <div class="hidden name"><code>get_bbs_route_region_data.Rd</code></div>
+    <h1>Generate a vector of citations.</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/utils-retriever-data.R'><code>R/utils-retriever-data.R</code></a></small>
+    <div class="hidden name"><code>append_data_citations.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Gets prepped BBS data (as a list of abundance, covariates, and
-metadata) for a specified route and region. First run <code>prepare_bbs_data</code>
-to create these files from the raw BBS data tables. If the files are not
-found, then <code>NULL</code> is returned.</p>
+    <p>Given an existing vector of citations (or the NULL default),
+add the citations that are specified in the paths of <code>citation_files</code></p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_bbs_route_region_data</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(),
-  <span class='st'>"breed-bird-survey-prepped"</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"route"</span>, <span class='no'>route</span>, <span class='st'>"region"</span>, <span class='no'>region</span>,
-  <span class='st'>".RDS"</span>)), <span class='kw'>route</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>region</span> <span class='kw'>=</span> <span class='fl'>11</span>)</pre>
+    <pre class="usage"><span class='fu'>append_data_citations</span>(<span class='kw'>citations</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>citation_files</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>where to load the raw data files from</p></td>
+      <th>citations</th>
+      <td><p>a vector of strings containing existing citations to append</p></td>
     </tr>
     <tr>
-      <th>route</th>
-      <td><p>Route number</p></td>
-    </tr>
-    <tr>
-      <th>region</th>
-      <td><p>Region number</p></td>
+      <th>citation_files</th>
+      <td><p>a vector of filepaths to the citation files</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list of abundance, covariates, and metadata</p>
+    <p>a vector of strings containing the citations</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

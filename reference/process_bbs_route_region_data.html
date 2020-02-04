@@ -130,7 +130,7 @@ return the combined object." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Process the BBS data for an individual route and region</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_bbs_data.R'><code>R/get_bbs_data.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_data_bbs.R'><code>R/get_data_bbs.R</code></a></small>
     <div class="hidden name"><code>process_bbs_route_region_data.Rd</code></div>
     </div>
 
@@ -141,7 +141,10 @@ for more info). Generate the abundance, covariate, and metadata tables and
 return the combined object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>process_bbs_route_region_data</span>(<span class='no'>bbs_data_table</span>, <span class='no'>species_table</span>)</pre>
+    <pre class="usage"><span class='fu'>process_bbs_route_region_data</span>(<span class='no'>bbs_data_table</span>, <span class='no'>species_table</span>,
+  <span class='kw'>save_to_file</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>storage_path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(),
+  <span class='st'>"breed-bird-survey-prepped"</span>), <span class='kw'>citation_text</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,6 +156,18 @@ return the combined object.</p>
     <tr>
       <th>species_table</th>
       <td><p>table of species for BBS</p></td>
+    </tr>
+    <tr>
+      <th>save_to_file</th>
+      <td><p>whether to save the processed dataset to a file</p></td>
+    </tr>
+    <tr>
+      <th>storage_path</th>
+      <td><p>folder in which to put processed dataset</p></td>
+    </tr>
+    <tr>
+      <th>citation_text</th>
+      <td><p>text of citation for the database</p></td>
     </tr>
     </table>
 

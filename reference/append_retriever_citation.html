@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get cleaned BBS data — get_bbs_route_region_data • MATSS</title>
+<title>Append citation info to a formatted dataset — append_retriever_citation • MATSS</title>
 
 
 <!-- jquery -->
@@ -35,11 +35,10 @@
 
 
 
-<meta property="og:title" content="Get cleaned BBS data — get_bbs_route_region_data" />
-<meta property="og:description" content="Gets prepped BBS data (as a list of abundance, covariates, and
-metadata) for a specified route and region. First run prepare_bbs_data
-to create these files from the raw BBS data tables. If the files are not
-found, then NULL is returned." />
+<meta property="og:title" content="Append citation info to a formatted dataset — append_retriever_citation" />
+<meta property="og:description" content="Given an existing formatted dataset, and the path to the
+downloaded dataset, from retriever, and via import_retriever_data(),
+read in the citation info and add it to the metadata for the dataset" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -129,42 +128,35 @@ found, then NULL is returned." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get cleaned BBS data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_data_bbs.R'><code>R/get_data_bbs.R</code></a></small>
-    <div class="hidden name"><code>get_bbs_route_region_data.Rd</code></div>
+    <h1>Append citation info to a formatted dataset</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/utils-retriever-data.R'><code>R/utils-retriever-data.R</code></a></small>
+    <div class="hidden name"><code>append_retriever_citation.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Gets prepped BBS data (as a list of abundance, covariates, and
-metadata) for a specified route and region. First run <code>prepare_bbs_data</code>
-to create these files from the raw BBS data tables. If the files are not
-found, then <code>NULL</code> is returned.</p>
+    <p>Given an existing formatted dataset, and the path to the
+downloaded dataset, from retriever, and via <code><a href='install_retriever_data.html'>import_retriever_data()</a></code>,
+read in the citation info and add it to the metadata for the dataset</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_bbs_route_region_data</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(),
-  <span class='st'>"breed-bird-survey-prepped"</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"route"</span>, <span class='no'>route</span>, <span class='st'>"region"</span>, <span class='no'>region</span>,
-  <span class='st'>".RDS"</span>)), <span class='kw'>route</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>region</span> <span class='kw'>=</span> <span class='fl'>11</span>)</pre>
+    <pre class="usage"><span class='fu'>append_retriever_citation</span>(<span class='no'>formatted_data</span>, <span class='no'>path</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>formatted_data</th>
+      <td><p>a dataset that already follows the `MATSS`` standard</p></td>
+    </tr>
+    <tr>
       <th>path</th>
       <td><p>where to load the raw data files from</p></td>
-    </tr>
-    <tr>
-      <th>route</th>
-      <td><p>Route number</p></td>
-    </tr>
-    <tr>
-      <th>region</th>
-      <td><p>Region number</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list of abundance, covariates, and metadata</p>
+    <p>the same dataset, with the citation appended to <code>metadata</code></p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

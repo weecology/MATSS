@@ -128,7 +128,7 @@ covariate, and metadata tables and return the combined object." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Process an individual BioTime dataset</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_biotime_data.R'><code>R/get_biotime_data.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_data_biotime.R'><code>R/get_data_biotime.R</code></a></small>
     <div class="hidden name"><code>process_biotime_dataset.Rd</code></div>
     </div>
 
@@ -139,7 +139,8 @@ covariate, and metadata tables and return the combined object.</p>
 
     <pre class="usage"><span class='fu'>process_biotime_dataset</span>(<span class='no'>biotime_data_tables</span>, <span class='kw'>dataset_id</span> <span class='kw'>=</span> <span class='fl'>10</span>,
   <span class='kw'>save_to_file</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>storage_path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(), <span class='st'>"biotime-prepped"</span>))</pre>
+  <span class='kw'>storage_path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(), <span class='st'>"biotime-prepped"</span>),
+  <span class='kw'>citation_text</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -159,6 +160,10 @@ covariate, and metadata tables and return the combined object.</p>
     <tr>
       <th>storage_path</th>
       <td><p>folder in which to put processed dataset</p></td>
+    </tr>
+    <tr>
+      <th>citation_text</th>
+      <td><p>text of citation for the database</p></td>
     </tr>
     </table>
 

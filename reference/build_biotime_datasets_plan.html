@@ -127,7 +127,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Generate a Drake Plan for Biotime Datasets</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/build_plans.R'><code>R/build_plans.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/plan_data.R'><code>R/plan_data.R</code></a></small>
     <div class="hidden name"><code>build_biotime_datasets_plan.Rd</code></div>
     </div>
 
@@ -136,7 +136,8 @@
     </div>
 
     <pre class="usage"><span class='fu'>build_biotime_datasets_plan</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(),
-  <span class='kw'>data_subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>do_processing</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>data_subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>do_processing</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>force_reprocessing</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,6 +154,10 @@
     <tr>
       <th>do_processing</th>
       <td><p>whether to process the datasets if necessary</p></td>
+    </tr>
+    <tr>
+      <th>force_reprocessing</th>
+      <td><p>whether to force re-processing of datasets</p></td>
     </tr>
     </table>
 
