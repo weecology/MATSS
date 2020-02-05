@@ -10,8 +10,9 @@ test_that("get_gpdd_data formats data correctly", {
     expect_true(check_data_format(dat))
     expect_known_hash(dat$abundance, "701d60bb9e")
     expect_known_hash(dat$covariates, "303e5d422b")
-    expect_known_hash(dat$metadata, "47e011df79")
-    expect_known_hash(dat, "fbb6ce96f3")
+    dat$metadata$citation[2] <- ""
+    expect_known_hash(dat$metadata, "5afdbdd6ba")
+    expect_known_hash(dat, "95a131b00e")
 })
 
 test_that("Portal data is retrievable and works", {
