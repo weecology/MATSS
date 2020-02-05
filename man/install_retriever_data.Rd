@@ -15,8 +15,9 @@ install_retriever_data(
 import_retriever_data(dataset = NULL, path = get_default_data_path())
 
 download_datasets(
-  dataset = c("breed-bird-survey", "veg-plots-sdl", "mapped-plant-quads-mt",
-    "biotimesql", "ushio-maizuru-fish-community", "global-population-dynamics"),
+  dataset = c("jornada-lter-rodent", "veg-plots-sdl", "mapped-plant-quads-mt",
+    "ushio-maizuru-fish-community", "global-population-dynamics", "breed-bird-survey",
+    "biotimesql"),
   path = get_default_data_path(),
   force_install = FALSE
 )

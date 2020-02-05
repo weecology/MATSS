@@ -12,8 +12,7 @@ get_maizuru_data(
 \item{path}{where to load the raw data files from}
 }
 \value{
-list of two dataframes (one with abundance data, the other with
-covariate data) and one list of metadata.
+list of abundance, covariates, and metadata
 }
 \description{
 Read in the maizuru community data from retriever downloaded CSV

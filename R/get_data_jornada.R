@@ -2,17 +2,18 @@
 #' 
 #' Import Jornada rodent abundance from data files
 #' 
-#' @return list of two dataframes (one with abundance data, the other with
-#'   covariate data), and one list of metadata.
-#'
+#' 
+#' @inheritParams get_mtquad_data
+#' @return list of abundance, covariates, and metadata
+#' 
 #' @export
-get_jornada_data <- function()
+get_jornada_data <- function(path = file.path(get_default_data_path(), 
+                                              "jornada-lter-rodent"))
 {
     # read in Jornada rodent data
-    path <- system.file("extdata", "jornada_rodents.csv", 
-                        package = "MATSS", mustWork = TRUE)
-    jornada <- utils::read.csv(path)
-    
+    data_tables <- import_retriever_data(path = path)
+    jornada <- data_tables$jornada_lter_rodent_smes_rodent_trapping
+
     # select key columns 
     # filter out unknown species and recaptures
     jornada_rodents <- dplyr::select(jornada, .data$year, .data$season, .data$spp, .data$recap) %>% 
@@ -28,7 +29,6 @@ get_jornada_data <- function()
     jornada_abundance_table <- jornada_abundances %>%
         tidyr::spread(.data$spp, .data$count, fill = 0)
     
-    
     season <- rep(0, nrow(jornada_abundance_table))
     season[which(jornada_abundance_table$season == "F")] <- 0.5
     jornada_abundance_table$time <- jornada_abundance_table$year + season
@@ -37,8 +37,11 @@ get_jornada_data <- function()
     covariates <- jornada_abundance_table[, c("year", "season", "time")]
     abundance <- jornada_abundance_table[, -which(colnames(jornada_abundance_table) %in% c("year", "season", "samples", "time"))]
     metadata <- list(timename = "time", period = 0.5, effort = NULL)
-    jornada_raw <- list(abundance, covariates, metadata)
-    jornada_raw <- stats::setNames(jornada_raw, c("abundance", "covariates", "metadata"))
-    return(jornada_raw)
+    
+    out <- list(abundance = abundance, 
+                covariates = covariates, 
+                metadata = metadata) %>%
+        append_retriever_citation(path)
+    
+    return(out)
 }
-

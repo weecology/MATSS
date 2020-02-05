@@ -1,19 +1,12 @@
 #' @title Create Montana plant quad time-series data
 #'
-#' @description Original data found here 
-#'
 #' @param path where to load the raw data files from
-#'
-#' @return list of two dataframes (one with abundance data, the other with covariate data) 
-#'   and one list of metadata.
+#' @return list of abundance, covariates, and metadata
 #' 
-#' @examples
-#' \dontrun{
-#'   get_mtquad_data(mtquad_data_tables=retriever_data()$'mapped-plant-quads-mt')
-#' }
 #' @export
 
-get_mtquad_data <- function(path = file.path(get_default_data_path(), "mapped-plant-quads-mt"))
+get_mtquad_data <- function(path = file.path(get_default_data_path(), 
+                                             "mapped-plant-quads-mt"))
 {
     mtquad_data_tables <- import_retriever_data(path = path)
     

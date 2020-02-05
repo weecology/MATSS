@@ -39,11 +39,9 @@ NULL
 
 #' @title Read in the maizuru community data from retriever downloaded CSV
 #'
-#' @param path where to load the raw data files from
+#' @inheritParams get_mtquad_data
+#' @return list of abundance, covariates, and metadata
 #' 
-#' @return list of two dataframes (one with abundance data, the other with 
-#'   covariate data) and one list of metadata.
-#'
 #' @export
 get_maizuru_data <- function(path = file.path(get_default_data_path(), 
                                               "ushio-maizuru-fish-community"))

@@ -140,12 +140,13 @@ import_retriever_data <- function(dataset = NULL, path = get_default_data_path()
 #' }
 #' @export
 #' 
-download_datasets <- function(dataset = c("breed-bird-survey", 
+download_datasets <- function(dataset = c("jornada-lter-rodent", 
                                           "veg-plots-sdl", 
                                           "mapped-plant-quads-mt", 
-                                          "biotimesql", 
                                           "ushio-maizuru-fish-community", 
-                                          "global-population-dynamics"), 
+                                          "global-population-dynamics", 
+                                          "breed-bird-survey", 
+                                          "biotimesql"), 
                               path = get_default_data_path(), 
                               force_install = FALSE)
 {

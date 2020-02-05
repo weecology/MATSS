@@ -27,9 +27,14 @@ test_that("Portal data is retrievable and works", {
 })
 
 test_that("Jornada data is retrievable and works", {
+    skip_if_no_retriever()
+    test_path <- tempdir()
+    Sys.setenv(MATSS_DATA_PATH = test_path)
+    download_datasets("jornada-lter-rodent")
+
     expect_error(jornada_data <- get_jornada_data(), NA)
     expect_true(check_data_format(jornada_data))
-    expect_known_hash(jornada_data, "ac97408fcd")
+    expect_known_hash(jornada_data, "16f73b53c2")
 })
 
 test_that("Shortgrass Steppe data is retrievable and works", {
