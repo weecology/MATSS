@@ -36,7 +36,6 @@ use_default_data_path <- function(path = NULL)
 #' @description \code{install_retriever_data} downloads retriever datasets and 
 #'   is a wrapper around rdataretriever::install 
 #'   
-#' @param path the overarching folder in which to download datasets
 #' @param force_install whether to install the dataset if the correctly named 
 #'   folder already exists
 #' @inheritParams rdataretriever::install
@@ -145,7 +144,8 @@ download_datasets <- function(dataset = c("breed-bird-survey",
                                           "veg-plots-sdl", 
                                           "mapped-plant-quads-mt", 
                                           "biotimesql", 
-                                          "ushio-maizuru-fish-community"), 
+                                          "ushio-maizuru-fish-community", 
+                                          "global-population-dynamics"), 
                               path = get_default_data_path(), 
                               force_install = FALSE)
 {

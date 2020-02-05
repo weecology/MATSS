@@ -1,5 +1,20 @@
 context("Check Datasets")
 
+test_that("get_gpdd_data formats data correctly", {
+    skip_if_no_retriever()
+    test_path <- tempdir()
+    Sys.setenv(MATSS_DATA_PATH = test_path)
+    download_datasets("global-population-dynamics")
+    
+    expect_error(dat <- get_gpdd_data(location_id = 83, timeperiod_id = 408), NA)
+    expect_true(check_data_format(dat))
+    expect_known_hash(dat$abundance, "701d60bb9e")
+    expect_known_hash(dat$covariates, "303e5d422b")
+    dat$metadata$citation[2] <- ""
+    expect_known_hash(dat$metadata, "5afdbdd6ba")
+    expect_known_hash(dat, "95a131b00e")
+})
+
 test_that("Portal data is retrievable and works", {
     expect_error(portal_data <- get_portal_rodents(), NA)
     expect_true(check_data_format(portal_data))

@@ -12,19 +12,18 @@ install_retriever_data(dataset, path = get_default_data_path(),
 import_retriever_data(dataset = NULL, path = get_default_data_path())
 
 download_datasets(dataset = c("breed-bird-survey", "veg-plots-sdl",
-  "mapped-plant-quads-mt", "biotimesql", "ushio-maizuru-fish-community"),
-  path = get_default_data_path(), force_install = FALSE)
+  "mapped-plant-quads-mt", "biotimesql", "ushio-maizuru-fish-community",
+  "global-population-dynamics"), path = get_default_data_path(),
+  force_install = FALSE)
 }
 \arguments{
 \item{dataset}{the name of the dataset that you wish to download}
 
-\item{path}{the overarching folder in which to download datasets}
+\item{path}{the overarching folder in which to download datasets; OR the
+full path to the folder containing the data (when \code{dataset == NULL})}
 
 \item{force_install}{whether to install the dataset if the correctly named
 folder already exists}
-
-\item{path}{the overarching folder in which to download datasets; OR the
-full path to the folder containing the data (when \code{dataset == NULL})}
 }
 \description{
 \code{install_retriever_data} downloads retriever datasets and
