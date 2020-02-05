@@ -1,0 +1,24 @@
+citHeader("To cite MATSS in publications, use:")
+
+citEntry(key = "ye2020MATSS", 
+         entry = "Misc", 
+         title = "Macroecological Analyses of Time Series Structure", 
+         author = personList(as.person("Hao Ye"), 
+                             as.person("Ellen K. Bledsoe"), 
+                             as.person("Renata Diaz"), 
+                             as.person("S. K. Morgan Ernest"), 
+                             as.person("Juniper L. Simonis"), 
+                             as.person("Ethan P. White"), 
+                             as.person("Glenda M. Yenni")), 
+         year = "2020", 
+         version = "v0.2.0", 
+         publisher = "Zenodo", 
+         url = "https://doi.org/10.5281/zenodo.3643617", 
+         doi = "10.5281/zenodo.3643617", 
+         textVersion = 
+             paste("Hao Ye, Ellen K. Bledsoe, Renata Diaz, S. K. Morgan Ernest,", 
+                   "Juniper L. Simonis, Ethan P. White, & Glenda M. Yenni.", 
+                   "(2020, February 5). Macroecological Analyses of Time Series", 
+                   "Structure (Version v0.2.0). Zenodo.", 
+                   "http://doi.org/10.5281/zenodo.3643617")
+)

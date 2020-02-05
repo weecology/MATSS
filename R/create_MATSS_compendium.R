@@ -44,6 +44,11 @@ create_MATSS_compendium <- function(path,
                           package = "MATSS")
     usethis::use_template("template-report.Rmd", save_as = "analysis/report.Rmd", 
                           package = "MATSS")
+    usethis::use_template("template-references.bib", save_as = "analysis/references.bib", 
+                          data = list(bibentries = citation("MATSS") %>% 
+                                          toBibtex() %>% 
+                                          paste(collapse = "\n")), 
+                          package = "MATSS")
     
     # add analysis folder to .gitignore and .Rbuildignore
     usethis::use_git_ignore("^/analysis/*.html")
