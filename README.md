@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# MATSS 0.1.2
+# MATSS
 
 <!-- badges: start -->
 
@@ -49,7 +49,7 @@ README](https://github.com/ropensci/rdataretriever).
 **`MATSS`** pulls data from a variety of sources, including:
 
   - 10 individual datasets that we’ve added,
-  - the North American Breeding Bird Survey database (spanning 2587
+  - the North American Breeding Bird Survey database (spanning 2589
     separate datasets),
   - the Global Population Dynamics Database (spanning 120 separate
     datasets),
