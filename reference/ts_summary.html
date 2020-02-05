@@ -157,10 +157,15 @@ Interpolation of missing values for autocorrelation calcuations (if
 needed) is done via <code>interp_method</code></p>
     </div>
 
-    <pre class="usage"><span class='fu'>ts_summary</span>(<span class='no'>data</span>, <span class='kw'>times</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>effort</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+    <pre class="usage"><span class='fu'>ts_summary</span>(
+  <span class='no'>data</span>,
+  <span class='kw'>times</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>effort</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>obs_per_effort</span> <span class='kw'>=</span> !<span class='fu'><a href='https://rdrr.io/r/base/NULL.html'>is.null</a></span>(<span class='no'>effort</span>),
-  <span class='kw'>interp_method</span> <span class='kw'>=</span> <span class='kw pkg'>forecast</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/forecast/man/na.interp.html'>na.interp</a></span>, <span class='kw'>include_spp_correlations</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>)</pre>
+  <span class='kw'>interp_method</span> <span class='kw'>=</span> <span class='kw pkg'>forecast</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/forecast/man/na.interp.html'>na.interp</a></span>,
+  <span class='kw'>include_spp_correlations</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

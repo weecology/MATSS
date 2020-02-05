@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get cleaned BBS data — get_bbs_route_region_data • MATSS</title>
+<title>Generate a Drake Plan for dataset references — build_references_plan • MATSS</title>
 
 
 <!-- jquery -->
@@ -35,11 +35,9 @@
 
 
 
-<meta property="og:title" content="Get cleaned BBS data — get_bbs_route_region_data" />
-<meta property="og:description" content="Gets prepped BBS data (as a list of abundance, covariates, and
-metadata) for a specified route and region. First run prepare_bbs_data
-to create these files from the raw BBS data tables. If the files are not
-found, then NULL is returned." />
+<meta property="og:title" content="Generate a Drake Plan for dataset references — build_references_plan" />
+<meta property="og:description" content="Given N datasets, extract the citation from each one, and then
+combine them into a single vector and remove duplicates." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -129,45 +127,35 @@ found, then NULL is returned." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get cleaned BBS data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_data_bbs.R'><code>R/get_data_bbs.R</code></a></small>
-    <div class="hidden name"><code>get_bbs_route_region_data.Rd</code></div>
+    <h1>Generate a Drake Plan for dataset references</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/plan_references.R'><code>R/plan_references.R</code></a></small>
+    <div class="hidden name"><code>build_references_plan.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Gets prepped BBS data (as a list of abundance, covariates, and
-metadata) for a specified route and region. First run <code>prepare_bbs_data</code>
-to create these files from the raw BBS data tables. If the files are not
-found, then <code>NULL</code> is returned.</p>
+    <p>Given N datasets, extract the citation from each one, and then
+combine them into a single vector and remove duplicates.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_bbs_route_region_data</span>(
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(), <span class='st'>"breed-bird-survey-prepped"</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"route"</span>,
-    <span class='no'>route</span>, <span class='st'>"region"</span>, <span class='no'>region</span>, <span class='st'>".RDS"</span>)),
-  <span class='kw'>route</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>region</span> <span class='kw'>=</span> <span class='fl'>11</span>
-)</pre>
+    <pre class="usage"><span class='fu'>build_references_plan</span>(<span class='no'>datasets</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>where to load the raw data files from</p></td>
+      <th>datasets</th>
+      <td><p>a drake plan listing the datasets to be analyzed</p></td>
     </tr>
     <tr>
-      <th>route</th>
-      <td><p>Route number</p></td>
-    </tr>
-    <tr>
-      <th>region</th>
-      <td><p>Region number</p></td>
+      <th>...</th>
+      <td><p>arguments to be passed to <code>drake::<a href='https://docs.ropensci.org/drake/reference/drake_plan.html'>drake_plan</a></code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list of abundance, covariates, and metadata</p>
+    <p>a drake plan (i.e. a tibble) specifying the targets and commands
+for all the references and the combined vector</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

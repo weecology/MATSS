@@ -135,11 +135,19 @@
     <p>Compute summaries and autocorrelation for each variable</p>
     </div>
 
-    <pre class="usage"><span class='fu'>summarize_df</span>(<span class='no'>df</span>, <span class='kw'>times</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>NROW</a></span>(<span class='no'>df</span>)),
-  <span class='kw'>interp_method</span> <span class='kw'>=</span> <span class='kw pkg'>forecast</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/forecast/man/na.interp.html'>na.interp</a></span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>summarize_df</span>(
+  <span class='no'>df</span>,
+  <span class='kw'>times</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>NROW</a></span>(<span class='no'>df</span>)),
+  <span class='kw'>interp_method</span> <span class='kw'>=</span> <span class='kw pkg'>forecast</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/forecast/man/na.interp.html'>na.interp</a></span>,
+  <span class='no'>...</span>
+)
 
-<span class='fu'>summarise_df</span>(<span class='no'>df</span>, <span class='kw'>times</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>NROW</a></span>(<span class='no'>df</span>)),
-  <span class='kw'>interp_method</span> <span class='kw'>=</span> <span class='kw pkg'>forecast</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/forecast/man/na.interp.html'>na.interp</a></span>, <span class='no'>...</span>)</pre>
+<span class='fu'>summarise_df</span>(
+  <span class='no'>df</span>,
+  <span class='kw'>times</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq_len</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>NROW</a></span>(<span class='no'>df</span>)),
+  <span class='kw'>interp_method</span> <span class='kw'>=</span> <span class='kw pkg'>forecast</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/forecast/man/na.interp.html'>na.interp</a></span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
