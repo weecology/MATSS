@@ -106,4 +106,10 @@ ggplot(to_plot, aes(x = variable, y = mean)) +
     theme(axis.text.x = element_text(angle = 60, hjust = 1))
 ```
 
+## Dataset Citations
+
+```{r, echo = FALSE, results = "asis"}
+cat(paste("1.", readd(citations)), sep = "\n")
+```
+
 ## References

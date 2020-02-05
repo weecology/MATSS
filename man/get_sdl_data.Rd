@@ -4,8 +4,10 @@
 \alias{get_sdl_data}
 \title{Create Sonoran desert lab time-series data}
 \usage{
-get_sdl_data(plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17),
-  path = file.path(get_default_data_path(), "veg-plots-sdl"))
+get_sdl_data(
+  plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17),
+  path = file.path(get_default_data_path(), "veg-plots-sdl")
+)
 }
 \arguments{
 \item{plots}{vector of plots to keep}
@@ -17,7 +19,7 @@ list of two dataframes (one with abundance data, the other with covariate data)
 and one list of metadata.
 }
 \description{
-Original data found here http://www.eebweb.arizona.edu/faculty/venable/LTREB/LTREB%20data.htm
+Original data found here http://www.eebweb.arizona.edu/faculty/venable/LTREB/LTREB\%20data.htm
 }
 \examples{
 \dontrun{

@@ -6,15 +6,20 @@
 \alias{download_datasets}
 \title{Download data from the data retriever}
 \usage{
-install_retriever_data(dataset, path = get_default_data_path(),
-  force_install = FALSE)
+install_retriever_data(
+  dataset,
+  path = get_default_data_path(),
+  force_install = FALSE
+)
 
 import_retriever_data(dataset = NULL, path = get_default_data_path())
 
-download_datasets(dataset = c("breed-bird-survey", "veg-plots-sdl",
-  "mapped-plant-quads-mt", "biotimesql", "ushio-maizuru-fish-community",
-  "global-population-dynamics"), path = get_default_data_path(),
-  force_install = FALSE)
+download_datasets(
+  dataset = c("breed-bird-survey", "veg-plots-sdl", "mapped-plant-quads-mt",
+    "biotimesql", "ushio-maizuru-fish-community", "global-population-dynamics"),
+  path = get_default_data_path(),
+  force_install = FALSE
+)
 }
 \arguments{
 \item{dataset}{the name of the dataset that you wish to download}

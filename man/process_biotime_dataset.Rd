@@ -4,10 +4,13 @@
 \alias{process_biotime_dataset}
 \title{Process an individual BioTime dataset}
 \usage{
-process_biotime_dataset(biotime_data_tables, dataset_id = 10,
+process_biotime_dataset(
+  biotime_data_tables,
+  dataset_id = 10,
   save_to_file = FALSE,
   storage_path = file.path(get_default_data_path(), "biotime-prepped"),
-  citation_text = NULL)
+  citation_text = NULL
+)
 }
 \arguments{
 \item{biotime_data_tables}{full BioTime data tables}

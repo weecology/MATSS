@@ -4,10 +4,15 @@
 \alias{ts_summary}
 \title{Summarize a time series}
 \usage{
-ts_summary(data, times = NULL, effort = NULL,
+ts_summary(
+  data,
+  times = NULL,
+  effort = NULL,
   obs_per_effort = !is.null(effort),
-  interp_method = forecast::na.interp, include_spp_correlations = TRUE,
-  ...)
+  interp_method = forecast::na.interp,
+  include_spp_correlations = TRUE,
+  ...
+)
 }
 \arguments{
 \item{data}{a vector, matrix, or data.frame of \code{numeric} observations

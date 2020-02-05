@@ -4,9 +4,12 @@
 \alias{get_bbs_route_region_data}
 \title{Get cleaned BBS data}
 \usage{
-get_bbs_route_region_data(path = file.path(get_default_data_path(),
-  "breed-bird-survey-prepped", paste0("route", route, "region", region,
-  ".RDS")), route = 1, region = 11)
+get_bbs_route_region_data(
+  path = file.path(get_default_data_path(), "breed-bird-survey-prepped", paste0("route",
+    route, "region", region, ".RDS")),
+  route = 1,
+  region = 11
+)
 }
 \arguments{
 \item{path}{where to load the raw data files from}

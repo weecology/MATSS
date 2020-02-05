@@ -4,11 +4,16 @@
 \alias{build_datasets_plan}
 \title{Generate a Drake Plan for Datasets}
 \usage{
-build_datasets_plan(path = get_default_data_path(),
-  include_retriever_data = FALSE, include_bbs_data = FALSE,
-  bbs_subset = NULL, include_gpdd_data = FALSE,
-  include_biotime_data = FALSE, biotime_subset = NULL,
-  biotime_process = TRUE)
+build_datasets_plan(
+  path = get_default_data_path(),
+  include_retriever_data = FALSE,
+  include_bbs_data = FALSE,
+  bbs_subset = NULL,
+  include_gpdd_data = FALSE,
+  include_biotime_data = FALSE,
+  biotime_subset = NULL,
+  biotime_process = TRUE
+)
 }
 \arguments{
 \item{path}{where to get the downloaded retriever datasets}

@@ -4,9 +4,11 @@
 \alias{get_biotime_data}
 \title{Get a cleaned BioTime dataset}
 \usage{
-get_biotime_data(path = get_default_data_path(), dataset_id = 321,
-  raw_path = file.path(path, "biotime-prepped", paste0("dataset",
-  dataset_id, ".RDS")))
+get_biotime_data(
+  path = get_default_data_path(),
+  dataset_id = 321,
+  raw_path = file.path(path, "biotime-prepped", paste0("dataset", dataset_id, ".RDS"))
+)
 }
 \arguments{
 \item{path}{where to load the raw data files from}

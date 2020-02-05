@@ -5,12 +5,14 @@
 \alias{prepare_biotime_data}
 \title{Return BioTime dataset ids for individual loading}
 \usage{
-get_biotime_dataset_ids(path = get_default_data_path(),
-  data_subset = NULL, do_processing = FALSE,
-  force_reprocessing = FALSE)
+get_biotime_dataset_ids(
+  path = get_default_data_path(),
+  data_subset = NULL,
+  do_processing = FALSE,
+  force_reprocessing = FALSE
+)
 
-prepare_biotime_data(path = get_default_data_path(),
-  data_subset = NULL)
+prepare_biotime_data(path = get_default_data_path(), data_subset = NULL)
 }
 \arguments{
 \item{path}{where to get the downloaded retriever datasets}

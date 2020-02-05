@@ -33,6 +33,9 @@ methods <- drake::drake_plan(
 ## a Drake plan for the analyses (each combination of method x dataset)
 analyses <- build_analyses_plan(methods, datasets)
 
+## a Drake plan to collect citation info from datasets
+references <- build_references_plan(datasets)
+
 ## a Drake plan for the Rmarkdown report
 #  - we use `knitr_in()` 
 reports <- drake_plan(
@@ -46,6 +49,7 @@ workflow <- rbind(
     datasets,
     methods,
     analyses,
+    references, 
     reports
 )
 

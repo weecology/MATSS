@@ -4,8 +4,12 @@
 \alias{get_gpdd_data}
 \title{Create GPDD population time-series data}
 \usage{
-get_gpdd_data(path = get_default_data_path(), location_id = 83,
-  timeperiod_id = 408, min_num_yrs = 10)
+get_gpdd_data(
+  path = get_default_data_path(),
+  location_id = 83,
+  timeperiod_id = 408,
+  min_num_yrs = 10
+)
 }
 \arguments{
 \item{path}{where to load the raw data files from}

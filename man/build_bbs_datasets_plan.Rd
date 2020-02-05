@@ -4,8 +4,7 @@
 \alias{build_bbs_datasets_plan}
 \title{Generate a Drake Plan for BBS Datasets}
 \usage{
-build_bbs_datasets_plan(path = get_default_data_path(),
-  data_subset = NULL)
+build_bbs_datasets_plan(path = get_default_data_path(), data_subset = NULL)
 }
 \arguments{
 \item{path}{where to get the downloaded retriever datasets}

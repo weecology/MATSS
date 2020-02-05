@@ -8,8 +8,11 @@ Import Portal rodent data using portalr functions.
 Currently returns rodent data formatted appropriately for
 LDA analysis.}
 \usage{
-get_portal_rodents(time_or_plots = "plots", treatment = "control",
-  type = "Rodents")
+get_portal_rodents(
+  time_or_plots = "plots",
+  treatment = "control",
+  type = "Rodents"
+)
 }
 \arguments{
 \item{time_or_plots}{select whether to: (1) "time" == get the data for the

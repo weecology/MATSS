@@ -4,10 +4,13 @@
 \alias{process_bbs_route_region_data}
 \title{Process the BBS data for an individual route and region}
 \usage{
-process_bbs_route_region_data(bbs_data_table, species_table,
+process_bbs_route_region_data(
+  bbs_data_table,
+  species_table,
   save_to_file = FALSE,
-  storage_path = file.path(get_default_data_path(),
-  "breed-bird-survey-prepped"), citation_text = NULL)
+  storage_path = file.path(get_default_data_path(), "breed-bird-survey-prepped"),
+  citation_text = NULL
+)
 }
 \arguments{
 \item{bbs_data_table}{main bbs data table}

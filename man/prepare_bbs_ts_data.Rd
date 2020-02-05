@@ -4,8 +4,13 @@
 \alias{prepare_bbs_ts_data}
 \title{Prepare BBS population time-series data}
 \usage{
-prepare_bbs_ts_data(start_yr = 1965, end_yr = 2017, min_num_yrs = 10,
-  path = get_default_data_path(), data_subset = NULL)
+prepare_bbs_ts_data(
+  start_yr = 1965,
+  end_yr = 2017,
+  min_num_yrs = 10,
+  path = get_default_data_path(),
+  data_subset = NULL
+)
 }
 \arguments{
 \item{start_yr}{num first year of time-series}

@@ -3,7 +3,6 @@
 \docType{package}
 \name{MATSS}
 \alias{MATSS}
-\alias{MATSS-package}
 \title{Macroecological Analayses of Time Series Structure}
 \description{
 Support for macroecological analyses of time series. The intent

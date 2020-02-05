@@ -5,11 +5,19 @@
 \alias{summarise_df}
 \title{Compute summaries and autocorrelation for each variable}
 \usage{
-summarize_df(df, times = seq_len(NROW(df)),
-  interp_method = forecast::na.interp, ...)
+summarize_df(
+  df,
+  times = seq_len(NROW(df)),
+  interp_method = forecast::na.interp,
+  ...
+)
 
-summarise_df(df, times = seq_len(NROW(df)),
-  interp_method = forecast::na.interp, ...)
+summarise_df(
+  df,
+  times = seq_len(NROW(df)),
+  interp_method = forecast::na.interp,
+  ...
+)
 }
 \arguments{
 \item{df}{the data.frame of variables to summarize}
