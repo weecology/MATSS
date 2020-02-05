@@ -36,8 +36,8 @@
 
 
 <meta property="og:title" content="Create GPDD population time-series data — get_gpdd_data" />
-<meta property="og:description" content="Selects sites containing at
-least min_num_yrs of data samples during that period." />
+<meta property="og:description" content="Selects sites containing at least `min_num_yrs`` of data
+samples during that period." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -128,20 +128,25 @@ least min_num_yrs of data samples during that period." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Create GPDD population time-series data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_gpdd_data.R'><code>R/get_gpdd_data.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_data_gpdd.R'><code>R/get_data_gpdd.R</code></a></small>
     <div class="hidden name"><code>get_gpdd_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Selects sites containing at
-least min_num_yrs of data samples during that period.</p>
+    <p>Selects sites containing at least `min_num_yrs`` of data
+samples during that period.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_gpdd_data</span>(<span class='no'>location_id</span>, <span class='no'>timeperiod_id</span>, <span class='kw'>min_num_yrs</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
+    <pre class="usage"><span class='fu'>get_gpdd_data</span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(), <span class='kw'>location_id</span> <span class='kw'>=</span> <span class='fl'>83</span>,
+  <span class='kw'>timeperiod_id</span> <span class='kw'>=</span> <span class='fl'>408</span>, <span class='kw'>min_num_yrs</span> <span class='kw'>=</span> <span class='fl'>10</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>path</th>
+      <td><p>where to load the raw data files from</p></td>
+    </tr>
     <tr>
       <th>location_id</th>
       <td><p>Location code of data to return</p></td>
@@ -159,8 +164,7 @@ least min_num_yrs of data samples during that period.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list of two dataframes (one with abundance data, the other with covariate data)
-and one list of metadata.</p>
+    <p>list of abundance, covariates, and metadata</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
