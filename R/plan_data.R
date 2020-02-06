@@ -123,9 +123,6 @@ build_bbs_datasets_plan <- function(path = get_default_data_path(), data_subset 
 
 #' @title Generate a Drake Plan for GPDD Datasets
 #' 
-#' @inheritParams build_datasets_plan
-#' @inheritParams get_gpdd_data
-#' 
 #' @return a drake plan (i.e. a tibble) specifying the targets and commands 
 #'   for gathering GPDD datasets
 #' 
