@@ -1,6 +1,6 @@
 context("Tests of Wrapper Functions")
 
-data <- get_sgs_data()
+data <- dragons
 num_vars <- NCOL(data$abundance)
 
 test_that("analysis_wrapper works for simple functions", {
@@ -28,7 +28,7 @@ test_that("analysis_wrapper works for simple functions", {
     expect_identical(output$metadata[[1]], data$metadata)
     
     # check digest
-    expect_known_hash(output, "f448983294")
+    expect_known_hash(output, "27154127cb")
 })
 
 test_that("analysis_wrapper works for sum", {
@@ -49,7 +49,7 @@ test_that("analysis_wrapper works for sum", {
     expect_identical(output$metadata[[1]], data$metadata)
     
     # check digest
-    expect_known_hash(output, "51c75f8725")
+    expect_known_hash(output, "149dd196ff")
 })
 
 test_that("analysis_wrapper preserves arguments correctly", {
@@ -69,7 +69,7 @@ test_that("analysis_wrapper preserves arguments correctly", {
     expect_identical(output$dataset, "data")
     expect_identical(output$method, "quantile")
     expect_identical(output$args[[1]], list())
-    expect_known_hash(output, "510d26ec15")
+    expect_known_hash(output, "b9b9fa3457")
     
     # check results
     expect_error(output <- quantiles_named(data), NA)
@@ -78,7 +78,7 @@ test_that("analysis_wrapper preserves arguments correctly", {
     expect_identical(output$dataset, "data")
     expect_identical(output$method, "quantile")
     expect_identical(output$args[[1]], list(probs = c(0.05, 0.95)))
-    expect_known_hash(output, "b6850f1cad")
+    expect_known_hash(output, "fadb5f4c83")
     
     # check results
     expect_error(output <- quantiles_arg(data), NA)
@@ -87,7 +87,7 @@ test_that("analysis_wrapper preserves arguments correctly", {
     expect_identical(output$dataset, "data")
     expect_identical(output$method, "quantile")
     expect_identical(output$args[[1]], list(probs = c(0.05, 0.95)))
-    expect_known_hash(output, "b6850f1cad")
+    expect_known_hash(output, "fadb5f4c83")
     
     # check results
     expect_error(output <- quantiles_unnamed(data), NA)
@@ -96,5 +96,5 @@ test_that("analysis_wrapper preserves arguments correctly", {
     expect_identical(output$dataset, "data")
     expect_identical(output$method, "quantile")
     expect_identical(output$args[[1]], list(c(0.05, 0.95)))
-    expect_known_hash(output, "4b876cd612")
+    expect_known_hash(output, "c231b7c8e1")
 })
