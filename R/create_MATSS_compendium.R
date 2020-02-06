@@ -45,8 +45,8 @@ create_MATSS_compendium <- function(path,
     usethis::use_template("template-report.Rmd", save_as = "analysis/report.Rmd", 
                           package = "MATSS")
     usethis::use_template("template-references.bib", save_as = "analysis/references.bib", 
-                          data = list(bibentries = citation("MATSS") %>% 
-                                          toBibtex() %>% 
+                          data = list(bibentries = utils::citation("MATSS") %>% 
+                                          utils::toBibtex() %>% 
                                           paste(collapse = "\n")), 
                           package = "MATSS")
     

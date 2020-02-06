@@ -23,9 +23,9 @@ NULL
 
 ## quiets concerns of R CMD check re: variables used in NSE functions
 if (getRversion() >= "2.15.1") utils::globalVariables(
-    c("analysis", "combine", "cross", "data", "dataset", "file_in", "fun", 
-      "location_id", "map", "region", "route", "target", "timeperiod_id", 
-      "trigger")
+    c("analysis", "citation_text", "combine", "cross", "data", 
+      "dataset", "file_in", "fun", "location_id", "map", "region", "route", 
+      "target", "timeperiod_id", "trigger")
 )
 
 #' @title dragons dataset

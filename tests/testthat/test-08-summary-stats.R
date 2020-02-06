@@ -1,6 +1,11 @@
 context("Time Series Summary Statistics")
 
+test_path <- tempdir()
+Sys.setenv(MATSS_DATA_PATH = test_path)
+
 test_that("ts_summary works", {
+    skip_if_no_retriever()
+    download_datasets("jornada-lter-rodent")
     dat <- get_jornada_data()
     obs <- dat$abundance
     n <- NCOL(obs)
@@ -25,20 +30,18 @@ test_that("ts_summary works", {
                  rep.int(14, n + 4))
     expect_true(all(c(var_names, "times", "effort", "richness", "tot_obs")
                     %in% stats$variable))
-    expect_known_hash(stats, "6e8e178b2e")
+    expect_known_hash(stats, "02bda5727c")
     
     # check output spp correlations
     cor_matrix <- output$spp_correlations[[1]]
     expect_equal(dim(cor_matrix), c(n, n))
     expect_equal(var_names, rownames(cor_matrix))
     expect_equal(var_names, colnames(cor_matrix))
-    expect_known_hash(cor_matrix, "c52fce46d7")
+    expect_known_hash(cor_matrix, "cd8b3b36cf")
 })
 
 test_that("ts_summary works for formatted data", {
     skip_if_no_retriever()
-    test_path <- tempdir()
-    Sys.setenv(MATSS_DATA_PATH = test_path)
     download_datasets("ushio-maizuru-fish-community")
     
     files <- dir(file.path(test_path, "ushio-maizuru-fish-community"))

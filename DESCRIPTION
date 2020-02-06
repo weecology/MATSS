@@ -42,7 +42,8 @@ Imports:
     future,
     future.batchtools,
     stringr,
-    usethis
+    usethis, 
+    fs
 Suggests:
     testthat,
     knitr,

@@ -66,11 +66,11 @@ ts_summary <- function(data, times = NULL, effort = NULL,
     tot_obs <- apply(obs, 1, sum, na.rm = TRUE)
     
     # assemble data.frame of variables
-    df <- data.frame(obs, 
-                     times = times, 
-                     effort = effort, 
-                     richness = spp_richness, 
-                     tot_obs = tot_obs)
+    df <- dplyr::mutate(obs, 
+                        times = times, 
+                        effort = effort, 
+                        richness = spp_richness, 
+                        tot_obs = tot_obs)
     
     # compute summaries and assemble output
     out <- tibble::tibble(num_spp = num_spp,
