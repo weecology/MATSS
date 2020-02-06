@@ -40,7 +40,6 @@ test_that("Portal data is retrievable and works", {
     expect_known_hash(portal_data, "33df96d995")
 })
 
-
 test_that("Karoo data is retrievable and works", {
     expect_error(karoo_data <- get_karoo_data(), NA)
     expect_true(check_data_format(karoo_data))

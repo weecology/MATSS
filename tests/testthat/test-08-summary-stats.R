@@ -30,14 +30,14 @@ test_that("ts_summary works", {
                  rep.int(14, n + 4))
     expect_true(all(c(var_names, "times", "effort", "richness", "tot_obs")
                     %in% stats$variable))
-    expect_known_hash(stats, "02bda5727c")
+    expect_known_hash(stats, "1c69815948")
     
     # check output spp correlations
     cor_matrix <- output$spp_correlations[[1]]
     expect_equal(dim(cor_matrix), c(n, n))
     expect_equal(var_names, rownames(cor_matrix))
     expect_equal(var_names, colnames(cor_matrix))
-    expect_known_hash(cor_matrix, "cd8b3b36cf")
+    expect_known_hash(cor_matrix, "67f4ec1955")
 })
 
 test_that("ts_summary works for formatted data", {
