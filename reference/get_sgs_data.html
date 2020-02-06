@@ -6,9 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>get Shortgrass Steppe rodent data
-
-Import Shortgrass Steppe rodent abundance from data files — get_sgs_data • MATSS</title>
+<title>get Shortgrass Steppe rodent data — get_sgs_data • MATSS</title>
 
 
 <!-- jquery -->
@@ -37,11 +35,8 @@ Import Shortgrass Steppe rodent abundance from data files — get_sgs_data • M
 
 
 
-<meta property="og:title" content="get Shortgrass Steppe rodent data
-
-Import Shortgrass Steppe rodent abundance from data files — get_sgs_data" />
-<meta property="og:description" content="get Shortgrass Steppe rodent data
-Import Shortgrass Steppe rodent abundance from data files" />
+<meta property="og:title" content="get Shortgrass Steppe rodent data — get_sgs_data" />
+<meta property="og:description" content="get Shortgrass Steppe rodent data" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -131,30 +126,37 @@ Import Shortgrass Steppe rodent abundance from data files" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>get Shortgrass Steppe rodent data
-
-Import Shortgrass Steppe rodent abundance from data files</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_sgs_data.R'><code>R/get_sgs_data.R</code></a></small>
+    <h1>get Shortgrass Steppe rodent data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_data_shortgrass_steppe.R'><code>R/get_data_shortgrass_steppe.R</code></a></small>
     <div class="hidden name"><code>get_sgs_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>get Shortgrass Steppe rodent data</p>
-<p>Import Shortgrass Steppe rodent abundance from data files</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_sgs_data</span>()</pre>
+    <pre class="usage"><span class='fu'>get_sgs_data</span>(
+  <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(), <span class='st'>"shortgrass-steppe-lter"</span>)
+)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>path</th>
+      <td><p>where to load the raw data files from</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list of two dataframes (one with abundance data, the other with
-covariate data) and one list of metadata.</p>
+    <p>list of abundance, covariates, and metadata</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
     </ul>
 
