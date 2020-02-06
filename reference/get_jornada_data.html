@@ -134,7 +134,7 @@ Import Jornada rodent abundance from data files" />
     <h1>get Jornada rodent data
 
 Import Jornada rodent abundance from data files</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_jornada_data.R'><code>R/get_jornada_data.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_data_jornada.R'><code>R/get_data_jornada.R</code></a></small>
     <div class="hidden name"><code>get_jornada_data.Rd</code></div>
     </div>
 
@@ -143,18 +143,28 @@ Import Jornada rodent abundance from data files</h1>
 <p>Import Jornada rodent abundance from data files</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_jornada_data</span>()</pre>
+    <pre class="usage"><span class='fu'>get_jornada_data</span>(
+  <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(), <span class='st'>"jornada-lter-rodent"</span>)
+)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>path</th>
+      <td><p>where to load the raw data files from</p></td>
+    </tr>
+    </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list of two dataframes (one with abundance data, the other with
-covariate data), and one list of metadata.</p>
+    <p>list of abundance, covariates, and metadata</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
     </ul>
 
