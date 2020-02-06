@@ -22,11 +22,11 @@ test_that("Shortgrass Steppe data is retrievable and works", {
     
     expect_error(sgs_data <- get_sgs_data(), NA)
     expect_true(check_data_format(sgs_data))
-    expect_known_hash(sgs_data$abundance, "e92ffc56dc")
+    expect_known_hash(sgs_data$abundance, "30f412e387")
     expect_known_hash(sgs_data$covariates, "e87060f72a")
     sgs_data$metadata$citation <- NULL
     expect_known_hash(sgs_data$metadata, "5b4f0b2733")
-    expect_known_hash(sgs_data, "5f0887455b")
+    expect_known_hash(sgs_data, "ddee7094eb")
 })
 
 test_that("Portal data is retrievable and works", {
