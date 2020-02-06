@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_data_mtquad.R
 \name{get_mtquad_data}
 \alias{get_mtquad_data}
-\title{Create Montana plant quad time-series data}
+\title{get Montana plant quad time-series data}
 \usage{
 get_mtquad_data(
   path = file.path(get_default_data_path(), "mapped-plant-quads-mt")
@@ -15,5 +15,5 @@ get_mtquad_data(
 list of abundance, covariates, and metadata
 }
 \description{
-Create Montana plant quad time-series data
+get Montana plant quad time-series data
 }

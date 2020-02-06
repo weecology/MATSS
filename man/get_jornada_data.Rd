@@ -2,9 +2,7 @@
 % Please edit documentation in R/get_data_jornada.R
 \name{get_jornada_data}
 \alias{get_jornada_data}
-\title{get Jornada rodent data
-
-Import Jornada rodent abundance from data files}
+\title{get Jornada rodent data}
 \usage{
 get_jornada_data(
   path = file.path(get_default_data_path(), "jornada-lter-rodent")
@@ -18,6 +16,4 @@ list of abundance, covariates, and metadata
 }
 \description{
 get Jornada rodent data
-
-Import Jornada rodent abundance from data files
 }

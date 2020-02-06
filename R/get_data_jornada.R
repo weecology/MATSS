@@ -1,8 +1,5 @@
 #' @title get Jornada rodent data
 #' 
-#' Import Jornada rodent abundance from data files
-#' 
-#' 
 #' @inheritParams get_mtquad_data
 #' @return list of abundance, covariates, and metadata
 #' 

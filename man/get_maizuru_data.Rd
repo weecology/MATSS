@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_data_maizuru.R
 \name{get_maizuru_data}
 \alias{get_maizuru_data}
-\title{Read in the maizuru community data from retriever downloaded CSV}
+\title{get the maizuru community data}
 \usage{
 get_maizuru_data(
   path = file.path(get_default_data_path(), "ushio-maizuru-fish-community")
@@ -15,5 +15,5 @@ get_maizuru_data(
 list of abundance, covariates, and metadata
 }
 \description{
-Read in the maizuru community data from retriever downloaded CSV
+get the maizuru community data
 }

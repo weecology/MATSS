@@ -1,9 +1,10 @@
 context("Check Datasets")
 
+test_path <- tempdir()
+Sys.setenv(MATSS_DATA_PATH = test_path)
+
 test_that("get_gpdd_data formats data correctly", {
     skip_if_no_retriever()
-    test_path <- tempdir()
-    Sys.setenv(MATSS_DATA_PATH = test_path)
     download_datasets("global-population-dynamics")
     
     expect_error(dat <- get_gpdd_data(location_id = 83, timeperiod_id = 408), NA)
@@ -13,6 +14,19 @@ test_that("get_gpdd_data formats data correctly", {
     dat$metadata$citation[2] <- ""
     expect_known_hash(dat$metadata, "5afdbdd6ba")
     expect_known_hash(dat, "95a131b00e")
+})
+
+test_that("Shortgrass Steppe data is retrievable and works", {
+    skip_if_no_retriever()
+    download_datasets("shortgrass-steppe-lter")
+    
+    expect_error(sgs_data <- get_sgs_data(), NA)
+    expect_true(check_data_format(sgs_data))
+    expect_known_hash(sgs_data$abundance, "e92ffc56dc")
+    expect_known_hash(sgs_data$covariates, "e87060f72a")
+    sgs_data$metadata$citation <- NULL
+    expect_known_hash(sgs_data$metadata, "5b4f0b2733")
+    expect_known_hash(sgs_data, "5f0887455b")
 })
 
 test_that("Portal data is retrievable and works", {
@@ -26,11 +40,6 @@ test_that("Portal data is retrievable and works", {
     expect_known_hash(portal_data, "33df96d995")
 })
 
-test_that("Shortgrass Steppe data is retrievable and works", {
-    expect_error(sgs_data <- get_sgs_data(), NA)
-    expect_true(check_data_format(sgs_data))
-    expect_known_hash(sgs_data, "014b440328")
-})
 
 test_that("Karoo data is retrievable and works", {
     expect_error(karoo_data <- get_karoo_data(), NA)

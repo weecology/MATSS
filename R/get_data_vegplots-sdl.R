@@ -4,16 +4,9 @@
 #'
 #' @param plots vector of plots to keep
 #' @inheritParams get_mtquad_data
-#'
-#' @return list of two dataframes (one with abundance data, the other with covariate data) 
-#'   and one list of metadata.
-#'
-#' @examples
-#' \dontrun{
-#'   get_sdl_data(sdl_data_tables=retriever_data()$'veg-plots-sdl')
-#' }
+#' @return list of abundance, covariates, and metadata
+#' 
 #' @export
-
 get_sdl_data <- function(plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17), 
                          path = file.path(get_default_data_path(), "veg-plots-sdl"))
 {

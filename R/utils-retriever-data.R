@@ -141,6 +141,7 @@ import_retriever_data <- function(dataset = NULL, path = get_default_data_path()
 #' @export
 #' 
 download_datasets <- function(dataset = c("jornada-lter-rodent", 
+                                          "shortgrass-steppe-lter", 
                                           "veg-plots-sdl", 
                                           "mapped-plant-quads-mt", 
                                           "ushio-maizuru-fish-community", 

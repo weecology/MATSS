@@ -15,14 +15,8 @@ get_sdl_data(
 \item{path}{where to load the raw data files from}
 }
 \value{
-list of two dataframes (one with abundance data, the other with covariate data)
-and one list of metadata.
+list of abundance, covariates, and metadata
 }
 \description{
 Original data found here http://www.eebweb.arizona.edu/faculty/venable/LTREB/LTREB\%20data.htm
-}
-\examples{
-\dontrun{
-  get_sdl_data(sdl_data_tables=retriever_data()$'veg-plots-sdl')
-}
 }
