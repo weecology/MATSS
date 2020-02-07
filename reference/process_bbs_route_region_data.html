@@ -143,6 +143,7 @@ return the combined object.</p>
 
     <pre class="usage"><span class='fu'>process_bbs_route_region_data</span>(
   <span class='no'>bbs_data_table</span>,
+  <span class='no'>location_table</span>,
   <span class='no'>species_table</span>,
   <span class='kw'>save_to_file</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>storage_path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(), <span class='st'>"breed-bird-survey-prepped"</span>),
@@ -155,6 +156,10 @@ return the combined object.</p>
     <tr>
       <th>bbs_data_table</th>
       <td><p>main bbs data table</p></td>
+    </tr>
+    <tr>
+      <th>location_table</th>
+      <td><p>information about location of the route</p></td>
     </tr>
     <tr>
       <th>species_table</th>
