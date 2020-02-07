@@ -42,7 +42,7 @@ get_bbs_route_region_data = function(path = file.path(get_default_data_path(), "
 #' @inheritParams get_mtquad_data
 #' @return NULL
 #' @export
-prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10,
+prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2018, min_num_yrs = 10,
                                 path = get_default_data_path(), data_subset = NULL) 
 {
     bbs_data_tables <- import_retriever_data("breed-bird-survey", path = path)
@@ -68,9 +68,9 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
     
     # prepare and write out route and region metadata
     bbs_routes_regions <- bbs_data %>%
-        dplyr::select(.data$bcr, .data$route) %>%
+        dplyr::select(.data$statenum, .data$route) %>%
         dplyr::distinct() %>%
-        dplyr::mutate(name = paste0("bbs_bcr", .data$bcr, "_route", .data$route))
+        dplyr::mutate(name = paste0("bbs_region", .data$statenum, "_route", .data$route))
     
     storage_path <- file.path(path, "breed-bird-survey-prepped")
     if (!dir.exists(storage_path)) {
@@ -86,14 +86,21 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
         bbs_routes_regions <- bbs_routes_regions[data_subset, ]
     }
     
+    location_table <- dplyr::left_join(bbs_data_tables$breed_bird_survey_routes, 
+                                       bbs_data_tables$breed_bird_survey_region_codes, 
+                                       by = c("countrynum", "statenum" = "regioncode"))
+    
     species_table <- bbs_data_tables$breed_bird_survey_species
     bbs_routes_regions %>%
-        dplyr::select(.data$bcr, .data$route) %>%
-        purrr::pmap(function(bcr, route) {
+        dplyr::select(.data$statenum, .data$route) %>%
+        purrr::pmap(function(statenum, route) {
             bbs_data %>%
-                dplyr::filter(.data$bcr == !!bcr,
+                dplyr::filter(.data$statenum == !!statenum,
                               .data$route == !!route) %>%
-                process_bbs_route_region_data(species_table = species_table, 
+                process_bbs_route_region_data(location_table = dplyr::filter(location_table, 
+                                                                             statenum == !!statenum, 
+                                                                             route == !!route), 
+                                              species_table = species_table, 
                                               save_to_file = TRUE, 
                                               storage_path = storage_path, 
                                               citation_text = citation_text)
@@ -107,11 +114,13 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2017, min_num_yrs = 10
 #'   for more info). Generate the abundance, covariate, and metadata tables and 
 #'   return the combined object.
 #' @param bbs_data_table main bbs data table
+#' @param location_table information about location of the route
 #' @param species_table table of species for BBS
 #' @inheritParams process_biotime_dataset
 #' @return the processed BBS data
 #' @export
 process_bbs_route_region_data <- function(bbs_data_table, 
+                                          location_table, 
                                           species_table, 
                                           save_to_file = FALSE, 
                                           storage_path = file.path(get_default_data_path(), 
@@ -120,7 +129,7 @@ process_bbs_route_region_data <- function(bbs_data_table,
 {
     # check that exactly one route and one region are represented in the data
     route <- unique(bbs_data_table$route)
-    region <- unique(bbs_data_table$bcr)
+    region <- unique(bbs_data_table$statenum)
     stopifnot(length(route) == 1 && 
               length(region == 1))
     
@@ -131,12 +140,10 @@ process_bbs_route_region_data <- function(bbs_data_table,
         dplyr::mutate(species_id = paste0('sp', .data$species_id),
                       date = as.Date(paste(.data$year, .data$month, .data$day, sep = "-"))) %>%
         dplyr::ungroup() 
-    
+        
     abundance <- this_bbs_data %>%
-        dplyr::group_by(.data$year, .data$species_id) %>%
-        dplyr::summarize(abundance = sum(.data$abundance)) %>%
-        dplyr::ungroup() %>%
-        tidyr::spread(key = .data$species_id, value = .data$abundance, fill = 0) %>%
+        dplyr::count(.data$year, .data$species_id) %>%
+        tidyr::spread(key = .data$species_id, value = .data$n, fill = 0) %>%
         dplyr::arrange(.data$year) %>%
         dplyr::select(-.data$year)
     
@@ -150,8 +157,15 @@ process_bbs_route_region_data <- function(bbs_data_table,
                          mean_date = mean(.data$date)) %>%
         dplyr::arrange(.data$year)
     
+    my_species <- species_table %>% 
+        dplyr::rename(id = .data$aou) %>%
+        dplyr::mutate(id = paste0("sp", .data$id)) %>%
+        dplyr::filter(.data$id %in% colnames(abundance))
+    
     metadata <- list(timename = "year", 
                      effort = "effort", 
+                     species_table = my_species, 
+                     location = location_table, 
                      route = route, region = region, 
                      citation = citation_text)
     

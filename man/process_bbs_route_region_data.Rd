@@ -6,6 +6,7 @@
 \usage{
 process_bbs_route_region_data(
   bbs_data_table,
+  location_table,
   species_table,
   save_to_file = FALSE,
   storage_path = file.path(get_default_data_path(), "breed-bird-survey-prepped"),
@@ -14,6 +15,8 @@ process_bbs_route_region_data(
 }
 \arguments{
 \item{bbs_data_table}{main bbs data table}
+
+\item{location_table}{information about location of the route}
 
 \item{species_table}{table of species for BBS}
 

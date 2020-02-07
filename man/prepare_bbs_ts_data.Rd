@@ -6,7 +6,7 @@
 \usage{
 prepare_bbs_ts_data(
   start_yr = 1965,
-  end_yr = 2017,
+  end_yr = 2018,
   min_num_yrs = 10,
   path = get_default_data_path(),
   data_subset = NULL
