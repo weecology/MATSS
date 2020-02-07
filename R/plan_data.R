@@ -104,7 +104,8 @@ build_bbs_datasets_plan <- function(path = get_default_data_path(), data_subset 
         message("preprocessing bbs timeseries data")
         prepare_bbs_ts_data(path = path, data_subset = data_subset)
     }
-    routes_and_regions <- utils::read.csv(routes_and_regions_file, colClasses = "character")
+    routes_and_regions <- utils::read.csv(routes_and_regions_file, 
+                                          colClasses = "character")
     
     # filter datasets and generate plan
     if (!is.null(data_subset)) {
@@ -114,7 +115,7 @@ build_bbs_datasets_plan <- function(path = get_default_data_path(), data_subset 
         bbs_data_rtrg = drake::target(get_bbs_route_region_data(path = file_in(!!file.path(path, "breed-bird-survey-prepped", 
                                                                                            paste0("route", route, "region", region, ".RDS")))),
                                       transform = map(route = !!routes_and_regions$route,
-                                                      region = !!routes_and_regions$bcr), 
+                                                      region = !!routes_and_regions$statenum), 
                                       trigger = trigger(command = FALSE)
         )
     )
