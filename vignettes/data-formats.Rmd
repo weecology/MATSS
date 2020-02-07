@@ -51,7 +51,9 @@ The number of rows should match that of `abundance`, and rows of `covariates` sh
 
 In the `metadata` list:
 
-* any entries are allowed
+* in general, any entries are allowed, in any data structure and format
+* a `citation` entry that is a vector of text values for the reference to the dataset. There can be multiple values (e.g. in the case of a specific dataset pulled from a larger database).
+* a `location` entry that must contain at least a `latitude` and `longitude` value (in decimal form). `location` itself can be a data.frame or vector (that has names).
 * if there is a `timename` entry, it refers to a column in the `covariates` data.frame that gives a time index for the data
   - this column must be some form of numeric, integer, date, or date/time corresponding to the timing of the samples
   - this column must be of a form that applying `tidyr::full_seq`, along with a "period" entry (using 1 if missing) will produce the appropriate equi-timed spacing

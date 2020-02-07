@@ -25,7 +25,16 @@ check_data_format <- function(data)
         return(FALSE)
     }
     
-    # check if top-level has abundance
+    check_result <- check_abundance(data) && 
+        check_covariates(data) && 
+        check_metadata(data)
+    
+    return(check_result)
+}
+
+#' @noRd
+check_abundance <- function(data)
+{
     if (!("abundance" %in% names(data)))
     {
         message("The provided data did not have an `abundance` element.")
@@ -35,52 +44,44 @@ check_data_format <- function(data)
     # check that abundance is a data.frame
     if (!is.data.frame(data$abundance))
     {
-        message("data$abundance is not a data.frame.")
+        message("`data$abundance` is not a data.frame.")
         return(FALSE)
     }
     
-    # check that abundance  has only numeric columns
+    # check that abundance has only numeric columns
     if (!(all(vapply(data$abundance, class, "") %in% 
               c("numeric", "integer"))))
     {
-        message("Some columns in data$abundance were not numeric or integer.")
+        message("Some columns in `data$abundance` were not numeric or integer.")
         return(FALSE)
     }
     
-    # check if top-level has covariates
-    if (!check_for_covariates(data))
-        return(FALSE)
-    
-    # check if top-level has metadata
-    if (!check_metadata(data))
-        return(FALSE)
-
-    # else
     return(TRUE)
 }
 
 #' @noRd
 check_metadata <- function(data)
 {
-    if ("metadata" %in% names(data))
+    if (!"metadata" %in% names(data))
     {
-        # check that data$metadata is a list
-        if (!is.list(data$metadata))
-        {
-            message("data$metadata is not a list.")
-            return(FALSE)
-        }
-        
-        if (!check_metadata_time(data))
-            return(FALSE)
-        
-        if (!check_metadata_effort(data))
-            return(FALSE)
-
-        if (!check_metadata_species_table(data))
-            return(FALSE)
+        message("The provided data did not have an `metadata` element.")
+        return(FALSE)
     }
-    return(TRUE)
+
+    # check that data$metadata is a list
+    if (!is.list(data$metadata))
+    {
+        message("`data$metadata` is not a list.")
+        return(FALSE)
+    }
+    
+    check_result <- check_metadata_time(data) && 
+        check_metadata_effort(data) && 
+        check_metadata_species_table(data) && 
+        check_metadata_citation(data) && 
+        check_metadata_location(data)
+    
+    return(check_result)
 }
 
 #' @noRd
@@ -101,7 +102,6 @@ check_metadata_time <- function(data)
     }
     return(TRUE)
 }
-
 
 #' @noRd
 check_metadata_effort <- function(data)
@@ -133,17 +133,17 @@ check_metadata_species_table <- function(data)
         species_table <- data$metadata$species_table
         if (!is.data.frame(species_table))
         {
-            message("data$metadata$species_table is not a data.frame.")
+            message("`data$metadata$species_table` is not a data.frame.")
             return(FALSE)
         }
         if (!("id" %in% names(species_table)))
         {
-            message("data$metadata$species_table does not have an `id` variable.")
+            message("`data$metadata$species_table` does not have an `id` variable.")
             return(FALSE)
         }
         if (!all(names(data$abundance) %in% as.character(species_table$id)))
         {
-            message("data$abundance has columns not listed in data$metadata$species_table")
+            message("`data$abundance` has columns not listed in `data$metadata$species_table`")
             return(FALSE)
         }
     }
@@ -151,7 +151,71 @@ check_metadata_species_table <- function(data)
 }
 
 #' @noRd
-check_for_covariates <- function(data)
+check_metadata_citation <- function(data)
+{
+    if (!"citation" %in% names(data$metadata))
+    {
+        message("The provided data did not have an `metadata$citation` element.")
+        return(FALSE)
+    }
+    
+    if (!"character" %in% class(data$metadata$citation))
+    {
+        message("`data$metadata$citation` is not a character vector.")
+        return(FALSE)
+    }
+    
+    if (length(data$metadata$citation) < 1)
+    {
+        message("`data$metadata$citation` has no entries.")
+        return(FALSE)
+    }
+    
+    return(TRUE)
+}
+
+#' @noRd
+check_metadata_location <- function(data)
+{
+    if (!"location" %in% names(data$metadata))
+    {
+        message("The provided data did not have an `metadata$location` element.")
+        return(FALSE)
+    }
+    
+    if (!all(c("latitude", "longitude") %in% class(data$metadata$location)))
+    {
+        message("`data$metadata$location` is missing `latitude` and/or `longitude`.")
+        return(FALSE)
+    }
+    
+    if (!class(data$metadata$location$latitude) %in% c("numeric", "integer"))
+    {
+        message("`data$metadata$location$latitude` is not numeric.")
+        return(FALSE)
+    }
+    if (!class(data$metadata$location$longitude) %in% c("numeric", "integer"))
+    {
+        message("`data$metadata$location$longitude` is not numeric.")
+        return(FALSE)
+    }
+
+    if (length(data$metadata$location$latitude) < 1)
+    {
+        message("`data$metadata$location$latitude` has no entries.")
+        return(FALSE)
+    }
+    if (length(data$metadata$location$longitude) < 1)
+    {
+        message("`data$metadata$location$longitude` has no entries.")
+        return(FALSE)
+    }
+    
+    return(TRUE)
+}
+
+#' @noRd
+check_covariates <- function(data)
 {
     if ("covariates" %in% names(data))
     {
