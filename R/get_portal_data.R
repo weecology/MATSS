@@ -55,9 +55,18 @@ get_portal_rodents <- function(time_or_plots = "plots",
         dplyr::ungroup() %>%
         tidyr::spread(.data$species, .data$abundance)
     
-
-  list(abundance = dplyr::select(dat2, -.data$newmoonnumber, -.data$censusdate), 
-       covariates = dplyr::select(dat2, .data$newmoonnumber, .data$censusdate),
-       metadata = list(timename = "newmoonnumber", effort = NULL))
-
+    species_codes <- setdiff(names(dat2), c("censusdate", "newmoonnumber"))
+    species_table <- portalr::load_datafile(file.path("Rodents", "Portal_rodent_species.csv"),
+                                   na.strings = "", "repo") %>%
+        dplyr::rename(id = speciescode) %>%
+        dplyr::filter(id %in% species_codes) %>%
+        tidyr::separate(scientificname, c("genus", "species"), sep = " ")
+    
+    out <- list(abundance = dplyr::select(dat2, -.data$newmoonnumber, -.data$censusdate), 
+         covariates = dplyr::select(dat2, .data$newmoonnumber, .data$censusdate),
+         metadata = list(timename = "newmoonnumber", effort = NULL, 
+                         species_table = species_table, 
+                         location = c("latitude" = 31.938, 
+                                      "longitude" = -109.08)))
+    return(out)
 }
