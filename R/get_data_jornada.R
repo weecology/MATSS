@@ -87,7 +87,7 @@ get_jornada_data <- function(path = file.path(get_default_data_path(),
     metadata <- list(timename = "time", period = 0.5, effort = NULL, 
                      species_table = species_table, 
                      location = c("latitude" = 32.6, 
-                                  "longitude" = -106.7)
+                                  "longitude" = -106.7))
     
     out <- list(abundance = abundance, 
                 covariates = covariates, 
