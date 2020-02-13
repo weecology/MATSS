@@ -32,12 +32,20 @@ test_that("Shortgrass Steppe data is retrievable and works", {
 test_that("Portal data is retrievable and works", {
     expect_error(portal_data <- get_portal_rodents(), NA)
     expect_true(check_data_format(portal_data))
-    expect_known_hash(portal_data, "e7dfd234a7")
+    expect_known_hash(portal_data$abundance, "2136da689d")
+    expect_known_hash(portal_data$covariates, "ec4befd3dd")
+    portal_data$metadata$citation <- NULL
+    expect_known_hash(portal_data$metadata, "243346ff63")
+    expect_known_hash(portal_data, "8ec181b73d")
     
     expect_error(portal_data <- get_portal_rodents("time", 
                                                    "exclosure"), NA)
     expect_true(check_data_format(portal_data))
-    expect_known_hash(portal_data, "33df96d995")
+    expect_known_hash(portal_data$abundance, "d9948b7ad7")
+    expect_known_hash(portal_data$covariates, "effaf21489")
+    portal_data$metadata$citation <- NULL
+    expect_known_hash(portal_data$metadata, "243346ff63")
+    expect_known_hash(portal_data, "79a6b18e55")
 })
 
 test_that("Karoo data is retrievable and works", {
