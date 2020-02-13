@@ -67,6 +67,7 @@ get_portal_rodents <- function(time_or_plots = "plots",
          metadata = list(timename = "newmoonnumber", effort = NULL, 
                          species_table = species_table, 
                          location = c("latitude" = 31.938, 
-                                      "longitude" = -109.08)))
+                                      "longitude" = -109.08), 
+                         citation = portalr::get_dataset_citation()$textVersion))
     return(out)
 }

@@ -35,7 +35,7 @@ Imports:
     tidyr,
     purrr,
     rdataretriever (>= 2.0.0),
-    portalr (>= 0.2.5),
+    portalr (>= 0.3.2),
     RSQLite,
     forecast,
     tibble,
