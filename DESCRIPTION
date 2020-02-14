@@ -56,3 +56,5 @@ Suggests:
 RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
+Remotes:
+    weecology/portalr
