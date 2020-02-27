@@ -26,9 +26,8 @@ test_that("build_gpdd_datasets_plan works", {
     
     expect_error(datasets <- build_datasets_plan(include_gpdd_data = TRUE), NA)
     expect_plan(datasets)
-    expect_equal(sum(grepl("_data$", datasets$target)), 7)
     expect_equal(sum(grepl("gpdd_data_rtrg_[0-9]+_[0-9\\.]+$", datasets$target)), 120)
-    expect_equal(dim(datasets), c(127, 2))
+    expect_equal(dim(datasets), c(125, 2))
 })
 
 test_that("build_biotime_datasets_plan works", {
@@ -40,9 +39,8 @@ test_that("build_biotime_datasets_plan works", {
     expect_error(datasets <- build_datasets_plan(include_biotime_data = TRUE, 
                                                  biotime_process = FALSE), NA)
     expect_plan(datasets)
-    expect_equal(sum(grepl("_data$", datasets$target)), 7)
     expect_equal(sum(grepl("biotime_data_rtrg_[0-9]+$", datasets$target)), 361)
-    expect_equal(dim(datasets), c(368, 3))
+    expect_equal(dim(datasets), c(366, 3))
 })
 
 test_that("build_bbs_datasets_plan works", {
@@ -52,7 +50,7 @@ test_that("build_bbs_datasets_plan works", {
 
     expect_plan(datasets)
    # expect_true(all(grepl("_data$", datasets$target)))
-    expect_equal(dim(datasets), c(10, 3))
+    expect_equal(dim(datasets), c(8, 3))
 
     methods <- drake::drake_plan(
         abs = abs,
@@ -84,6 +82,4 @@ test_that("build_bbs_datasets_plan works", {
     fun_calls <- lapply(subplan_results$command, as.character)
     expect_true(all(vapply(fun_calls, dplyr::first, "") == "MATSS::collect_analyses"))
     expect_true(all(grepl("^list\\(", vapply(fun_calls, dplyr::last, ""))))
-
 })
-
