@@ -21,7 +21,20 @@ get_mtquad_data <- function(path = file.path(get_default_data_path(),
     
     abundance <- dplyr::select(mtquad_data, -.data$year)
     covariates <- dplyr::select(mtquad_data, .data$year)
-    metadata <- list(timename = "year", effort = NULL)
+    species_table <- mtquad_data_tables$mapped_plant_quads_mt_species_list %>%
+        dplyr::mutate(id = paste(species, density), 
+                      genus = sub("^unknown", NA, species), 
+                      species = ifelse(is.na(genus), NA, 
+                                       sub("^sp.|unknown]$", NA, density)), 
+                      density = cover, 
+                      cover = annual, 
+                      annual = growthform, 
+                      growthform = NULL) %>%
+        dplyr::select(id, genus, species, dplyr::everything())
+    metadata <- list(timename = "year", effort = NULL, 
+                     species_table = species_table, 
+                     location = c("latitude" = 46 + 22/60, 
+                                  "longitude" = -(105+5/60)))
     
     out <- list("abundance" = abundance, 
                 "covariates" = covariates, 

@@ -20,13 +20,26 @@ test_that("Shortgrass Steppe data is retrievable and works", {
     skip_if_no_retriever()
     download_datasets("shortgrass-steppe-lter")
     
-    expect_error(sgs_data <- get_sgs_data(), NA)
-    expect_true(check_data_format(sgs_data))
-    expect_known_hash(sgs_data$abundance, "30f412e387")
-    expect_known_hash(sgs_data$covariates, "e87060f72a")
-    sgs_data$metadata$citation <- NULL
-    expect_known_hash(sgs_data$metadata, "5b4f0b2733")
-    expect_known_hash(sgs_data, "ddee7094eb")
+    expect_error(dat <- get_sgs_data(), NA)
+    expect_true(check_data_format(dat))
+    expect_known_hash(dat$abundance, "30f412e387")
+    expect_known_hash(dat$covariates, "e87060f72a")
+    dat$metadata$citation <- NULL
+    expect_known_hash(dat$metadata, "e26dba7fb1")
+    expect_known_hash(dat, "64d70fd0da")
+})
+
+test_that("Jornada data is retrievable and works", {
+    skip_if_no_retriever()
+    download_datasets("jornada-lter-rodent")
+    
+    expect_error(dat <- get_jornada_data(), NA)
+    expect_true(check_data_format(dat))
+    expect_known_hash(dat$abundance, "b01c0f0361")
+    expect_known_hash(dat$covariates, "b71bd81c62")
+    dat$metadata$citation <- NULL
+    expect_known_hash(dat$metadata, "ed486a55a4")
+    expect_known_hash(dat, "c63518b526")
 })
 
 test_that("Portal data is retrievable and works", {

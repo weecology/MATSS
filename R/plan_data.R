@@ -27,13 +27,11 @@ build_datasets_plan <- function(path = get_default_data_path(),
                                 biotime_process = TRUE)
 {
     datasets <- drake::drake_plan(
-        maizuru_data = get_maizuru_data(),
-        jornada_data = get_jornada_data(),
-        sgs_data = get_sgs_data(), 
         cowley_lizards_data = get_cowley_lizards(), 
         cowley_snakes_data = get_cowley_snakes(), 
         karoo_data = get_karoo_data(), 
-        kruger_data = get_kruger_data()
+        kruger_data = get_kruger_data(), 
+        portal_data = get_portal_rodents()
     )
     
     if (include_retriever_data)
@@ -76,7 +74,12 @@ build_datasets_plan <- function(path = get_default_data_path(),
 build_retriever_datasets_plan <- function(path = get_default_data_path())
 {
     drake::drake_plan(
-        portal_data = get_portal_rodents(),
+        maizuru_data = drake::target(get_maizuru_data(path = !!file.path(path, "ushio-maizuru-fish-community")),
+                                     trigger = trigger(command = FALSE)), 
+        jornada_data = drake::target(get_jornada_data(path = !!file.path(path, "jornada-lter-rodent")),
+                                     trigger = trigger(command = FALSE)), 
+        sgs_data = drake::target(get_sgs_data(path = !!file.path(path, "shortgrass-steppe-lter")),
+                                     trigger = trigger(command = FALSE)), 
         sdl_data = drake::target(get_sdl_data(path = !!file.path(path, "veg-plots-sdl")),
                                  trigger = trigger(command = FALSE)), 
         mtquad_data = drake::target(get_mtquad_data(path = !!file.path(path, "mapped-plant-quads-mt")), 

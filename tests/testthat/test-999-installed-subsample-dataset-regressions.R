@@ -25,8 +25,8 @@ test_that("get_mtquad_data formats data correctly", {
     expect_true(check_data_format(dat))
     expect_known_hash(dat$abundance, "c4a22592f9")
     expect_known_hash(dat$covariates, "f9debd76c0")
-    expect_known_hash(dat$metadata, "3a6bbbf578")
-    expect_known_hash(dat, "c410abab6a")
+    expect_known_hash(dat$metadata, "5fc988f398")
+    expect_known_hash(dat, "c9b5f2d739")
 })
 
 test_that("get_biotime_data processes data correctly", {
