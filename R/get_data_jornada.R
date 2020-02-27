@@ -80,7 +80,7 @@ get_jornada_data <- function(path = file.path(get_default_data_path(),
                                            "leucopus", 
                                            "maniculatus", 
                                            "flavus", 
-                                           "megalotus", 
+                                           "megalotis", 
                                            "hispidus", 
                                            "spilosoma"))
     
