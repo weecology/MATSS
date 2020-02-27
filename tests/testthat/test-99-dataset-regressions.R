@@ -26,7 +26,7 @@ test_that("Shortgrass Steppe data is retrievable and works", {
     expect_known_hash(dat$covariates, "e87060f72a")
     dat$metadata$citation <- NULL
     expect_known_hash(dat$metadata, "e26dba7fb1")
-    expect_known_hash(dat, "64d70fd0da")
+    expect_known_hash(dat, "afd3e0c4ef")
 })
 
 test_that("Jornada data is retrievable and works", {
