@@ -25,7 +25,7 @@ The universal data structure we're going to use is:
 * a list with at least 1 element:
   - a data.frame or tibble, named `abundance` (required)
   - a data.frame or tibble, named `covariates` (optional)
-  - a list, named `metadata` (optional)
+  - a list, named `metadata` (required)
   
 If both `abundance` and `covariates` are present in the list, then the two data.frames must have the same number of rows.
 
@@ -52,6 +52,7 @@ The number of rows should match that of `abundance`, and rows of `covariates` sh
 In the `metadata` list:
 
 * any entries are allowed
+* it must have a `is_community` entry, which indicates whether the time series in `abundance` can be treated as components of a community with interactions and/or shared drivers in some way
 * if there is a `timename` entry, it refers to a column in the `covariates` data.frame that gives a time index for the data
   - this column must be some form of numeric, integer, date, or date/time corresponding to the timing of the samples
   - this column must be of a form that applying `tidyr::full_seq`, along with a "period" entry (using 1 if missing) will produce the appropriate equi-timed spacing

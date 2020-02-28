@@ -28,7 +28,7 @@ check_data_format <- function(data)
     # check if top-level has abundance
     if (!("abundance" %in% names(data)))
     {
-        message("The provided data did not have an `abundance` element.")
+        message("Data did not have an `abundance` element.")
         return(FALSE)
     }
     
@@ -48,7 +48,7 @@ check_data_format <- function(data)
     }
     
     # check if top-level has covariates
-    if (!check_for_covariates(data))
+    if (!check_covariates(data))
         return(FALSE)
     
     # check if top-level has metadata
@@ -62,28 +62,32 @@ check_data_format <- function(data)
 #' @noRd
 check_metadata <- function(data)
 {
-    if ("metadata" %in% names(data))
+    if (!("metadata" %in% names(data)))
     {
-        # check that data$metadata is a list
-        if (!is.list(data$metadata))
-        {
-            message("`metadata` is not a list.")
-            return(FALSE)
-        }
-        
-        if (!check_metadata_time(data))
-            return(FALSE)
-        
-        if (!check_metadata_effort(data))
-            return(FALSE)
-
-        if (!check_metadata_species_table(data))
-            return(FALSE)
-        
-        if (!check_metadata_community_flag(data))
-            return(FALSE)
+        message("Data did not have a `metadata` element.")
+        return(FALSE)
     }
-    return(TRUE)
+    
+    # check that data$metadata is a list
+    if (!is.list(data$metadata))
+    {
+        message("`metadata` is not a list.")
+        return(FALSE)
+    }
+    
+    if (!check_metadata_time(data))
+        return(FALSE)
+    
+    if (!check_metadata_effort(data))
+        return(FALSE)
+    
+    if (!check_metadata_species_table(data))
+        return(FALSE)
+    
+    if (!check_metadata_community_flag(data))
+        return(FALSE)
+ 
+    return(TRUE)   
 }
 
 #' @noRd
@@ -175,7 +179,7 @@ check_metadata_community_flag <- function(data)
 }
 
 #' @noRd
-check_for_covariates <- function(data)
+check_covariates <- function(data)
 {
     if ("covariates" %in% names(data))
     {
