@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MATSS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@
                         <h4 class="author">Ellen K. Bledsoe</h4>
                         <h4 class="author">Hao Ye</h4>
             
-            <h4 class="date">2020-02-27</h4>
+            <h4 class="date">2020-02-28</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/weecology/MATSS/blob/master/vignettes/data-formats.Rmd"><code>vignettes/data-formats.Rmd</code></a></small>
       <div class="hidden name"><code>data-formats.Rmd</code></div>
@@ -169,7 +169,7 @@
 <a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt;   ..$ date         : Date[1:6], format: "2014-06-28" "2015-06-28" ...</span></a>
 <a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt;   ..$ precipitation: int [1:6] 7 6 14 18 9 5</span></a>
 <a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt;   ..$ effort       : num [1:6] 3 3 2 4 1 9</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt;  $ metadata  :List of 5</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt;  $ metadata  :List of 7</span></a>
 <a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt;   ..$ timename     : chr "date"</span></a>
 <a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt;   ..$ effort       : chr "effort"</span></a>
 <a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt;   ..$ period       : num 365</span></a>
@@ -193,7 +193,9 @@
 <a class="sourceLine" id="cb1-35" data-line-number="35"><span class="co">#&gt;   .. ..- attr(*, "class")= chr "person"</span></a>
 <a class="sourceLine" id="cb1-36" data-line-number="36"><span class="co">#&gt;   ..$ species_table:'data.frame':    4 obs. of  2 variables:</span></a>
 <a class="sourceLine" id="cb1-37" data-line-number="37"><span class="co">#&gt;   .. ..$ id  : Factor w/ 4 levels "Blue Eyes White Dragon",..: 4 3 1 2</span></a>
-<a class="sourceLine" id="cb1-38" data-line-number="38"><span class="co">#&gt;   .. ..$ game: Factor w/ 2 levels "pokemon","yugioh": NA NA 2 1</span></a></code></pre></div>
+<a class="sourceLine" id="cb1-38" data-line-number="38"><span class="co">#&gt;   .. ..$ game: Factor w/ 2 levels "pokemon","yugioh": NA NA 2 1</span></a>
+<a class="sourceLine" id="cb1-39" data-line-number="39"><span class="co">#&gt;   ..$ citation     : chr "Hao Ye, Ellen K. Bledsoe, Renata Diaz, S. K. Morgan Ernest, Juniper L. Simonis, Ethan P. White, &amp; Glenda M. Yen"| __truncated__</span></a>
+<a class="sourceLine" id="cb1-40" data-line-number="40"><span class="co">#&gt;   ..$ is_community : logi TRUE</span></a></code></pre></div>
 <p>We can view the abundance and covariates tables side by side:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(dragons[<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"abundance"</span>, <span class="st">"covariates"</span>)])</a></code></pre></div>
 <table class="table kable_wrapper"><tbody><tr>
