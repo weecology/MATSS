@@ -166,6 +166,7 @@ process_bbs_route_region_data <- function(bbs_data_table,
                      effort = "effort", 
                      species_table = my_species, 
                      location = location_table, 
+                     is_community = TRUE, 
                      route = route, region = region, 
                      citation = citation_text)
     

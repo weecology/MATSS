@@ -33,6 +33,7 @@ get_mtquad_data <- function(path = file.path(get_default_data_path(),
         dplyr::select(id, genus, species, dplyr::everything())
     metadata <- list(timename = "year", effort = NULL, 
                      species_table = species_table, 
+                     is_community = TRUE, 
                      location = c("latitude" = 46 + 22/60, 
                                   "longitude" = -(105+5/60)))
     

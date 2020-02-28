@@ -260,6 +260,7 @@ process_biotime_dataset <- function(biotime_data_tables,
         dplyr::filter(.data$study_id == dataset_id)
     
     metadata <- c(list(timename = "date", effort = "effort", 
+                       is_community = TRUE, 
                        citation = c(citation_info$citation_line, citation_text), 
                        contact_info = contact_info, 
                        species_table = species_table, 

@@ -78,8 +78,8 @@ get_karoo_data <- function()
         dplyr::select(-.data$year)
     
     metadata <- list(timename = "year", 
-                     latitude = mean(karoo_raw$Latitude, na.rm = TRUE), 
-                     longitude = mean(karoo_raw$Longitude, na.rm = TRUE),
+                     location = c(latitude = mean(karoo_raw$Latitude, na.rm = TRUE), 
+                                  longitude = mean(karoo_raw$Longitude, na.rm = TRUE)),
                      is_community = TRUE, 
                      citation = paste("SANParks (2009) Karoo National Park Census Data.",
                                       "1994 - 2009 (South African National Park Data Repository: peggym.117.10)"), 
@@ -119,7 +119,7 @@ get_kruger_data <- function()
     covariates <- dplyr::select(kruger_raw, .data$year)
     abundance <- dplyr::select(kruger_raw, -.data$year)
     metadata <- list(timename = "year", 
-                     latitude = "-23.990032", longitude = "31.554869",
+                     location = c(latitude = "-23.990032", longitude = "31.554869"),
                      is_community = TRUE, 
                      citation = paste("SANParks (1997) Census totals for large herbivores in the Kruger National",  
                                       "Park summarized by year and region 1965-1997 (South African National Park Data",  
