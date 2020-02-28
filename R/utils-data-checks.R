@@ -25,7 +25,16 @@ check_data_format <- function(data)
         return(FALSE)
     }
     
-    # check if top-level has abundance
+    check_result <- check_abundance(data) && 
+        check_covariates(data) && 
+        check_metadata(data)
+    
+    return(check_result)
+}
+
+#' @noRd
+check_abundance <- function(data)
+{
     if (!("abundance" %in% names(data)))
     {
         message("Data did not have an `abundance` element.")
@@ -39,7 +48,7 @@ check_data_format <- function(data)
         return(FALSE)
     }
     
-    # check that abundance  has only numeric columns
+    # check that abundance has only numeric columns
     if (!(all(vapply(data$abundance, class, "") %in% 
               c("numeric", "integer"))))
     {
@@ -56,12 +65,14 @@ check_data_format <- function(data)
         return(FALSE)
 
     # else
+
     return(TRUE)
 }
 
 #' @noRd
 check_metadata <- function(data)
 {
+<<<<<<< HEAD
     if (!("metadata" %in% names(data)))
     {
         message("Data did not have a `metadata` element.")
@@ -75,19 +86,14 @@ check_metadata <- function(data)
         return(FALSE)
     }
     
-    if (!check_metadata_time(data))
-        return(FALSE)
+    check_result <- check_metadata_time(data) && 
+        check_metadata_effort(data) && 
+        check_metadata_species_table(data) && 
+        check_metadata_community_flag(data) && 
+        check_metadata_citation(data) && 
+        check_metadata_location(data)
     
-    if (!check_metadata_effort(data))
-        return(FALSE)
-    
-    if (!check_metadata_species_table(data))
-        return(FALSE)
-    
-    if (!check_metadata_community_flag(data))
-        return(FALSE)
- 
-    return(TRUE)   
+    return(check_result)
 }
 
 #' @noRd
@@ -108,7 +114,6 @@ check_metadata_time <- function(data)
     }
     return(TRUE)
 }
-
 
 #' @noRd
 check_metadata_effort <- function(data)
@@ -158,6 +163,7 @@ check_metadata_species_table <- function(data)
 }
 
 #' @noRd
+
 check_metadata_community_flag <- function(data)
 {
     if ("is_community" %in% names(data$metadata))
@@ -176,6 +182,65 @@ check_metadata_community_flag <- function(data)
     }
     message("`metadata$is_community` is missing.")
     return(FALSE)
+}
+
+check_metadata_citation <- function(data)
+{
+    if (!"citation" %in% names(data$metadata))
+    {
+        message("The provided data did not have an `metadata$citation` element.")
+        return(FALSE)
+    }
+    
+    if (!"character" %in% class(data$metadata$citation))
+    {
+        message("`data$metadata$citation` is not a character vector.")
+        return(FALSE)
+    }
+    
+    if (length(data$metadata$citation) < 1)
+    {
+        message("`data$metadata$citation` has no entries.")
+        return(FALSE)
+    }
+    
+    return(TRUE)
+}
+
+#' @noRd
+check_metadata_location <- function(data)
+{
+    if ("location" %in% names(data$metadata))
+    {
+        if (!all(c("latitude", "longitude") %in% class(data$metadata$location)))
+        {
+            message("`metadata$location` is missing `latitude` and/or `longitude`.")
+            return(FALSE)
+        }
+        
+        if (!class(data$metadata$location$latitude) %in% c("numeric", "integer"))
+        {
+            message("`metadata$location$latitude` is not numeric.")
+            return(FALSE)
+        }
+        if (!class(data$metadata$location$longitude) %in% c("numeric", "integer"))
+        {
+            message("`metadata$location$longitude` is not numeric.")
+            return(FALSE)
+        }
+        
+        if (length(data$metadata$location$latitude) < 1)
+        {
+            message("`metadata$location$latitude` has no entries.")
+            return(FALSE)
+        }
+        if (length(data$metadata$location$longitude) < 1)
+        {
+            message("`metadata$location$longitude` has no entries.")
+            return(FALSE)
+        }
+    }
+    return(TRUE)
 }
 
 #' @noRd
