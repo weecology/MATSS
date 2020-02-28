@@ -34,7 +34,7 @@ test_that("Portal data is retrievable and works", {
 
 test_that("Karoo data is retrievable and works", {
     expect_error(dat <- get_karoo_data(), NA)
-    expect_dataset(dat, "811613052a", "72deba00b8", "d61d648bc8")
+    expect_dataset(dat, "811613052a", "72deba00b8", "625990a0b8")
 })
 
 test_that("Cowley Lizards data is retrievable and works", {
@@ -49,5 +49,5 @@ test_that("Cowley Snakes data is retrievable and works", {
 
 test_that("Kruger data is retrievable and works", {
     expect_error(dat <- get_kruger_data(), NA)
-    expect_dataset(dat, "3184bfcfa6", "e00ef454e1", "d86941cf7e")
+    expect_dataset(dat, "3184bfcfa6", "e00ef454e1", "1720bfe5fc")
 })
