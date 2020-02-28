@@ -62,12 +62,17 @@ get_portal_rodents <- function(time_or_plots = "plots",
         dplyr::filter(id %in% species_codes) %>%
         tidyr::separate(scientificname, c("genus", "species"), sep = " ")
     
-    out <- list(abundance = dplyr::select(dat2, -.data$newmoonnumber, -.data$censusdate), 
-         covariates = dplyr::select(dat2, .data$newmoonnumber, .data$censusdate),
-         metadata = list(timename = "newmoonnumber", effort = NULL, 
-                         species_table = species_table, 
-                         location = c("latitude" = 31.938, 
-                                      "longitude" = -109.08), 
-                         citation = portalr::get_dataset_citation()$textVersion))
+    abundance <- dplyr::select(dat2, -.data$newmoonnumber, -.data$censusdate)
+    covariates <- dplyr::select(dat2, .data$newmoonnumber, .data$censusdate)
+    metadata <- list(timename = "newmoonnumber", effort = NULL, 
+                     species_table = species_table, 
+                     is_community = TRUE, 
+                     location = c("latitude" = 31.938, 
+                                  "longitude" = -109.08), 
+                     citation = portalr::get_dataset_citation()$textVersion)
+    
+    out <- list(abundance = abundance, 
+                covariates = covariates, 
+                metadata = metadata)
     return(out)
 }

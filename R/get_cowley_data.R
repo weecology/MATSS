@@ -18,9 +18,10 @@ get_cowley_lizards <- function()
     list(abundance = dplyr::select(raw_data, -dplyr::one_of(c("Year", "Site", "Total"))), 
          covariates = dplyr::select(raw_data, .data$Year),
          metadata = list(timename = "Year", effort = NULL, site = "CowleyCounty",
-                         source = "Wilgers, DJ, Horne, EA, Sandercock, BK, Volkmann, AW, 2006.
-                            EFFECTS OF RANGELAND MANAGEMENT ON COMMUNITY DYNAMICS OF THE 
-                            HERPETOFAUNA OF THE TALLGRASS PRAIRIE, Herpetologica, 62(4).",
+                         is_community = TRUE, 
+                         citation = paste("Wilgers, DJ, Horne, EA, Sandercock, BK, Volkmann, AW, 2006.", 
+                                        "EFFECTS OF RANGELAND MANAGEMENT ON COMMUNITY DYNAMICS OF THE",  
+                                        "HERPETOFAUNA OF THE TALLGRASS PRAIRIE, Herpetologica, 62(4)."),
                          source_url = "https://bioone.org/journals/Herpetologica/volume-62/
                             issue-4/0018-0831(2006)62[378:EORMOC]2.0.CO;2/EFFECTS-OF-RANGELAND-
                             MANAGEMENT-ON-COMMUNITY-DYNAMICS-OF-THE-HERPETOFAUNA/10.1655/0018-
@@ -47,9 +48,10 @@ get_cowley_snakes <- function()
     list(abundance = dplyr::select(raw_data, -dplyr::one_of(c("Year", "Site", "Total"))), 
          covariates = dplyr::select(raw_data, .data$Year),
          metadata = list(timename = "Year", effort = NULL, site = "CowleyCounty",
-                         source = "Wilgers, DJ, Horne, EA, Sandercock, BK, Volkmann, AW, 2006.
-                            EFFECTS OF RANGELAND MANAGEMENT ON COMMUNITY DYNAMICS OF THE 
-                            HERPETOFAUNA OF THE TALLGRASS PRAIRIE, Herpetologica, 62(4).",
+                         is_community = TRUE, 
+                         citation = paste("Wilgers, DJ, Horne, EA, Sandercock, BK, Volkmann, AW, 2006.", 
+                                          "EFFECTS OF RANGELAND MANAGEMENT ON COMMUNITY DYNAMICS OF THE", 
+                                          "HERPETOFAUNA OF THE TALLGRASS PRAIRIE, Herpetologica, 62(4)."), 
                          source_url = "https://bioone.org/journals/Herpetologica/volume-62/
                             issue-4/0018-0831(2006)62[378:EORMOC]2.0.CO;2/EFFECTS-OF-RANGELAND-
                             MANAGEMENT-ON-COMMUNITY-DYNAMICS-OF-THE-HERPETOFAUNA/10.1655/0018-

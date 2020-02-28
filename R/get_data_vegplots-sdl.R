@@ -23,7 +23,28 @@ get_sdl_data <- function(plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17),
     
     abundance <- dplyr::select(sdl_data, -.data$year)
     covariates <- dplyr::select(sdl_data, .data$year)
-    metadata <- list(timename = "year", effort = NULL)
+    species_table <- sdl_data_tables$veg_plots_sdl_Species %>%
+        dplyr::rename(id = code, 
+                      species_name = acceptedname)
+    Encoding(species_table$reportedname) <- "latin1"
+    Encoding(species_table$species_name) <- "latin1"
+    species_table[, c("species_name", "var_subsp")] <- 
+        stringr::str_split(species_table$species_name, "\\ssubsp\\.\\s|\\svar\\.\\s", simplify = TRUE)
+    species_table[, c("genus", "species")] <-
+        stringr::str_split(species_table$species_name, "\\s", simplify = TRUE)
+    species_table <- species_table %>%
+        dplyr::mutate(species = ifelse(nchar(.data$species) == 0, NA, .data$species), 
+                      var_subsp = ifelse(nchar(.data$var_subsp) == 0, NA, .data$var_subsp)) %>%
+        dplyr::select(.data$id, .data$species_name, 
+                      .data$family, .data$genus, .data$species, .data$var_subsp, 
+                      dplyr::everything()) %>%
+        tibble::add_row(id = "UNKN")
+    
+    metadata <- list(timename = "year", effort = NULL,
+                     species_table = species_table, 
+                     location = c("latitude" = 32.21, 
+                                  "longitude" = -111.01), 
+                     is_community = TRUE)
     
     out <- list("abundance" = abundance, 
                 "covariates" = covariates, 

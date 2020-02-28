@@ -13,6 +13,5 @@ test_that("veg-plots-sdl data retrieval works correctly", {
     expect_true(check_data_format(sdl_data))
     sdl_data$metadata$citation <- NULL
     
-    expect_known_hash(sdl_data, "e61d747927")
-    # expect_known_hash(sdl_data, "a53f798160") # with correct citation
+    expect_known_hash(sdl_data, "1d2cfd50a7")
 })

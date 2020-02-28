@@ -77,14 +77,16 @@ get_karoo_data <- function()
         dplyr::ungroup() %>%
         dplyr::select(-.data$year)
     
-    metadata <- list(timename = "year", latitude = mean(karoo_raw$Latitude,na.rm=TRUE), 
-                     longitude = mean(karoo_raw$Longitude,na.rm=TRUE),
-                     source = "SANParks (2009) Karoo National Park Census Data. 1994 - 2009 
-                     (South African National Park Data Repository: peggym.117.10)", 
+    metadata <- list(timename = "year", 
+                     latitude = mean(karoo_raw$Latitude, na.rm = TRUE), 
+                     longitude = mean(karoo_raw$Longitude, na.rm = TRUE),
+                     is_community = TRUE, 
+                     citation = paste("SANParks (2009) Karoo National Park Census Data.",
+                                      "1994 - 2009 (South African National Park Data Repository: peggym.117.10)"), 
                      source_url = "http://dataknp.sanparks.org/sanparks/metacat/peggym.117.10/sanparks",
-                     acknowledgements = "Data were provided by SANParks Regional Ecologists, in a 
-                     cooperative effort of the South African National Parks (SANParks) and the National 
-                     Center for Ecological Analysis and Synthesis (NCEAS).")
+                     acknowledgements = paste("Data were provided by SANParks Regional Ecologists, in a",  
+                                              "cooperative effort of the South African National Parks (SANParks) and the National",  
+                                              "Center for Ecological Analysis and Synthesis (NCEAS)."))
     
     list(abundance = abundance, covariates = covariates, metadata = metadata)
     
@@ -116,14 +118,16 @@ get_kruger_data <- function()
     
     covariates <- dplyr::select(kruger_raw, .data$year)
     abundance <- dplyr::select(kruger_raw, -.data$year)
-    metadata <- list(timename = "year", latitude = "-23.990032", longitude = "31.554869",
-                     source = "SANParks (1997) Census totals for large herbivores in the Kruger National 
-                 Park summarized by year and region 1965-1997 (South African National Park Data 
-                 Repository: judithk.814.4) ", 
+    metadata <- list(timename = "year", 
+                     latitude = "-23.990032", longitude = "31.554869",
+                     is_community = TRUE, 
+                     citation = paste("SANParks (1997) Census totals for large herbivores in the Kruger National",  
+                                      "Park summarized by year and region 1965-1997 (South African National Park Data",  
+                                      "Repository: judithk.814.4)"), 
                      source_url = "http://dataknp.sanparks.org/sanparks/metacat/judithk.814.4/sanparks",
-                     acknowledgements = "Data were provided by SANParks Regional Ecologists, in a 
-                 cooperative effort of the South African National Parks (SANParks) and the National 
-                 Center for Ecological Analysis and Synthesis (NCEAS).")
+                     acknowledgements = paste("Data were provided by SANParks Regional Ecologists, in a", 
+                                              "cooperative effort of the South African National Parks (SANParks) and the National", 
+                                              "Center for Ecological Analysis and Synthesis (NCEAS)."))
     
     list(abundance = abundance, covariates = covariates, metadata = metadata)
 }

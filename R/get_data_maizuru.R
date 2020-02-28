@@ -66,10 +66,11 @@ get_maizuru_data <- function(path = file.path(get_default_data_path(),
                     dplyr::mutate_all(~round(. + 1e-10)), 
                 covariates = raw_data %>% 
                     dplyr::select_at(covars),
-                metadata = list(timename = "Date", effort = NULL, 
+                metadata = list(timename = "date", effort = NULL, 
                                 species_table = species_table, 
                                 location = c("latitude" = 35 + 28/60, 
-                                             "longitude" = 135 + 22/60))) %>%
+                                             "longitude" = 135 + 22/60), 
+                                is_community = TRUE)) %>%
         append_retriever_citation(path)
     
     return(out)

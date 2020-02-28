@@ -69,6 +69,7 @@ get_sgs_data <- function(path = file.path(get_default_data_path(),
     
     metadata <- list(timename = "samples", effort = NULL, period = 0.5, 
                      species_table = species_table, 
+                     is_community = TRUE, 
                      location = c("latitude" = 40 + 49/60, 
                                   "longitude" = -(104 + 46/60)))
     

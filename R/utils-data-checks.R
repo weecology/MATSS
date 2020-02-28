@@ -35,7 +35,7 @@ check_data_format <- function(data)
     # check that abundance is a data.frame
     if (!is.data.frame(data$abundance))
     {
-        message("data$abundance is not a data.frame.")
+        message("`abundance` is not a data.frame.")
         return(FALSE)
     }
     
@@ -43,7 +43,7 @@ check_data_format <- function(data)
     if (!(all(vapply(data$abundance, class, "") %in% 
               c("numeric", "integer"))))
     {
-        message("Some columns in data$abundance were not numeric or integer.")
+        message("Some columns in `abundance` were not numeric or integer.")
         return(FALSE)
     }
     
@@ -67,7 +67,7 @@ check_metadata <- function(data)
         # check that data$metadata is a list
         if (!is.list(data$metadata))
         {
-            message("data$metadata is not a list.")
+            message("`metadata` is not a list.")
             return(FALSE)
         }
         
@@ -78,6 +78,9 @@ check_metadata <- function(data)
             return(FALSE)
 
         if (!check_metadata_species_table(data))
+            return(FALSE)
+        
+        if (!check_metadata_community_flag(data))
             return(FALSE)
     }
     return(TRUE)
@@ -95,7 +98,7 @@ check_metadata_time <- function(data)
         times <- as.numeric(times)
         if (any(is.na(times)))
         {
-            message("times could not be coerced into numeric.")
+            message("`times` could not be coerced into numeric.")
             return(FALSE)
         }
     }
@@ -113,12 +116,12 @@ check_metadata_effort <- function(data)
         effort <- dplyr::pull(data$covariates, effort_var)
         if (!is.numeric(effort))
         {
-            message("effort is not numeric.")
+            message("`metadata$effort` is not numeric.")
             return(FALSE)
         }
         if (any(is.na(effort)) || any(effort <= 0))
         {
-            message("effort contains invalid values (NA or non-positive).")
+            message("`metadata$effort` contains invalid values (NA or non-positive).")
             return(FALSE)
         }
     }
@@ -133,21 +136,42 @@ check_metadata_species_table <- function(data)
         species_table <- data$metadata$species_table
         if (!is.data.frame(species_table))
         {
-            message("data$metadata$species_table is not a data.frame.")
+            message("`metadata$species_table` is not a data.frame.")
             return(FALSE)
         }
         if (!("id" %in% names(species_table)))
         {
-            message("data$metadata$species_table does not have an `id` variable.")
+            message("`metadata$species_table` does not have an `id` variable.")
             return(FALSE)
         }
         if (!all(names(data$abundance) %in% as.character(species_table$id)))
         {
-            message("data$abundance has columns not listed in data$metadata$species_table")
+            message("`abundance` has columns not listed in `metadata$species_table`")
             return(FALSE)
         }
     }
     return(TRUE)
+}
+
+#' @noRd
+check_metadata_community_flag <- function(data)
+{
+    if ("is_community" %in% names(data$metadata))
+    {
+        if (!is.logical(data$metadata$is_community))
+        {
+            message("`metadata$is_community` is not logical.")
+            return(FALSE)
+        }
+        if (length(data$metadata$is_community) < 1)
+        {
+            message("`metadata$is_community` has zero length.")
+            return(FALSE)
+        }
+        return(TRUE)
+    }
+    message("`metadata$is_community` is missing.")
+    return(FALSE)
 }
 
 #' @noRd
@@ -158,14 +182,14 @@ check_for_covariates <- function(data)
         # check that data$covariates is a data.frame
         if (!is.data.frame(data$covariates))
         {
-            message("data$covariates is not a data.frame.")
+            message("`covariates` is not a data.frame.")
             return(FALSE)
         }
         
         # check that data$covariates has the correct number of rows
         if (NROW(data$covariates) != NROW(data$abundance))
         {
-            message("data$covariates has a different number of rows than data$abundance.")
+            message("`covariates` has a different number of rows than `abundance`.")
             return(FALSE)
         }
     }

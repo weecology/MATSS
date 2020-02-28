@@ -7,6 +7,7 @@ test_that("ts_summary works", {
     skip_if_no_retriever()
     download_datasets("jornada-lter-rodent")
     dat <- get_jornada_data()
+    expect_true(check_data_format(dat))
     obs <- dat$abundance
     n <- NCOL(obs)
     var_names <- names(obs)
@@ -44,12 +45,8 @@ test_that("ts_summary works for formatted data", {
     skip_if_no_retriever()
     download_datasets("ushio-maizuru-fish-community")
     
-    files <- dir(file.path(test_path, "ushio-maizuru-fish-community"))
-    expect_equal(length(files), 2)
-    expect_true("CITATION" %in% files)
-    expect_true("ushio_maizuru_fish_community_maizuru.csv" %in% files)
-    
     dat <- get_maizuru_data()
+    expect_true(check_data_format(dat))
     n <- NCOL(dat$abundance)
     var_names <- names(dat$abundance)
 

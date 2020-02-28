@@ -85,6 +85,7 @@ get_gpdd_data <- function(path = get_default_data_path(),
                      location = location, 
                      samples = samples, 
                      source = source, 
+                     is_community = FALSE, 
                      citation = c(citation_line, citation_text))
     
     out <- list("abundance" = abundance, 

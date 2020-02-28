@@ -83,9 +83,9 @@ get_jornada_data <- function(path = file.path(get_default_data_path(),
                                            "megalotis", 
                                            "hispidus", 
                                            "spilosoma"))
-    
     metadata <- list(timename = "time", period = 0.5, effort = NULL, 
                      species_table = species_table, 
+                     is_community = TRUE, 
                      location = c("latitude" = 32.6, 
                                   "longitude" = -106.7))
     
