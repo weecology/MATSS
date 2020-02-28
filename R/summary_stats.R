@@ -60,7 +60,7 @@ ts_summary <- function(data, times = NULL, effort = NULL,
     num_obs <- NROW(obs)
     if (is.null(dim(obs))) # NOT a data.frame or matrix
     {
-        obs <- data.frame(obs)
+        obs <- tibble::tibble(obs)
     }
     spp_richness <- apply(obs, 1, richness)
     tot_obs <- apply(obs, 1, sum, na.rm = TRUE)
@@ -127,8 +127,8 @@ summarize_vec <- function(x, round_out = TRUE, digits = NULL)
         stop("`round_out` must be logical")
     }
     x <- stats::na.omit(to_numeric_vector(x))
-    out <- data.frame(min = min(x), max = max(x), median = stats::median(x), 
-                      mean = mean(x), sd = stats::sd(x), n = length(x))
+    out <- tibble::tibble(min = min(x), max = max(x), median = stats::median(x), 
+                          mean = mean(x), sd = stats::sd(x), n = length(x))
     if (round_out) {
         if (is.null(digits)) {
             digits <- max(c(1, 2 + -floor(log10(min(x[x > 0])))))

@@ -22,15 +22,15 @@ get_mtquad_data <- function(path = file.path(get_default_data_path(),
     abundance <- dplyr::select(mtquad_data, -.data$year)
     covariates <- dplyr::select(mtquad_data, .data$year)
     species_table <- mtquad_data_tables$mapped_plant_quads_mt_species_list %>%
-        dplyr::mutate(id = paste(species, density), 
-                      genus = sub("^unknown", NA, species), 
-                      species = ifelse(is.na(genus), NA, 
-                                       sub("^sp.|unknown]$", NA, density)), 
-                      density = cover, 
-                      cover = annual, 
-                      annual = growthform, 
+        dplyr::mutate(id = paste(.data$species, .data$density), 
+                      genus = sub("^unknown", NA, .data$species), 
+                      species = ifelse(is.na(.data$genus), NA, 
+                                       sub("^sp.|unknown]$", NA, .data$density)), 
+                      density = .data$cover, 
+                      cover = .data$annual, 
+                      annual = .data$growthform, 
                       growthform = NULL) %>%
-        dplyr::select(id, genus, species, dplyr::everything())
+        dplyr::select(.data$id, .data$genus, .data$species, dplyr::everything())
     metadata <- list(timename = "year", effort = NULL, 
                      species_table = species_table, 
                      is_community = TRUE, 

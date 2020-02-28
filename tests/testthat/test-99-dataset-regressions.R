@@ -16,7 +16,7 @@ test_that("Shortgrass Steppe data is retrievable and works", {
     download_datasets("shortgrass-steppe-lter")
     
     expect_error(dat <- get_sgs_data(), NA)
-    expect_dataset(dat, "30f412e387", "e87060f72a", "995358babb")
+    expect_dataset(dat, "30f412e387", "e87060f72a", "dbd8310472")
 })
 
 test_that("Jornada data is retrievable and works", {
@@ -24,7 +24,7 @@ test_that("Jornada data is retrievable and works", {
     download_datasets("jornada-lter-rodent")
     
     expect_error(dat <- get_jornada_data(), NA)
-    expect_dataset(dat, "b01c0f0361", "b71bd81c62", "d33ab01da5")
+    expect_dataset(dat, "b01c0f0361", "b71bd81c62", "d8ee9c122b")
 })
 
 test_that("Portal data is retrievable and works", {

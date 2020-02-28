@@ -111,17 +111,17 @@ test_that("summarize_vec works", {
 
 test_that("summarize_vec works", {
     expect_error(output <- summarize_vec(ts), NA)
-    expect_known_hash(output, "aa847b7a8d")
+    expect_known_hash(output, "0d9e559fea")
     
     obs <- data.frame(sunspot.year = as.numeric(sunspot.year))
     expect_error(output <- summarize_vec(obs), NA)
-    expect_known_hash(output, "aa847b7a8d")
+    expect_known_hash(output, "0d9e559fea")
     
     expect_error(output <- summarize_vec(time(ts)), NA)
-    expect_known_hash(output, "ca53426f70")
+    expect_known_hash(output, "ae89fe6e71")
     
     expect_error(output <- summarize_vec(rep(1, NROW(ts))), NA)
-    expect_known_hash(output, "24cd619a6a")
+    expect_known_hash(output, "802c1824cc")
 })
 
 test_that("temp_autocor works for different data types", {
