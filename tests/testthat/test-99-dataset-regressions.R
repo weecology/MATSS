@@ -8,7 +8,7 @@ test_that("get_gpdd_data formats data correctly", {
     download_datasets("global-population-dynamics")
     
     expect_error(dat <- get_gpdd_data(location_id = 83, timeperiod_id = 408), NA)
-    expect_dataset(dat, "701d60bb9e", "303e5d422b", "be759de22a")
+    expect_dataset(dat, "701d60bb9e", "303e5d422b", "326db1e5d2")
 })
 
 test_that("Shortgrass Steppe data is retrievable and works", {
@@ -49,5 +49,5 @@ test_that("Cowley Snakes data is retrievable and works", {
 
 test_that("Kruger data is retrievable and works", {
     expect_error(dat <- get_kruger_data(), NA)
-    expect_dataset(dat, "3184bfcfa6", "e00ef454e1", "1720bfe5fc")
+    expect_dataset(dat, "3184bfcfa6", "e00ef454e1", "4b1f4de879")
 })

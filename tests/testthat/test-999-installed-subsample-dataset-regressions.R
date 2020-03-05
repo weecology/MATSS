@@ -18,7 +18,7 @@ test_that("process_bbs_ts_data formats data correctly", {
 
 test_that("get_mtquad_data formats data correctly", {
     expect_error(dat <- get_mtquad_data(), NA)
-    expect_dataset(dat, "c4a22592f9", "f9debd76c0", "2c45485800")
+    expect_dataset(dat, "c4a22592f9", "f9debd76c0", "ece9ecf713")
 })
 
 test_that("get_biotime_data processes data correctly", {

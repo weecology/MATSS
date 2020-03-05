@@ -9,9 +9,6 @@ test_that("veg-plots-sdl data retrieval works correctly", {
     expect_error(dat <- import_retriever_data("veg-plots-sdl"), NA)
     expect_false(is.null(dat))
     
-    expect_error(sdl_data <- get_sdl_data(), NA)
-    expect_true(check_data_format(sdl_data))
-    sdl_data$metadata$citation <- NULL
-    
-    expect_known_hash(sdl_data, "1d2cfd50a7")
+    expect_error(dat <- get_sdl_data(), NA)
+    expect_dataset(dat, "b076948e1b", "de2dc7f655", "aab2fb5c13")
 })

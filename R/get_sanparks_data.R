@@ -119,7 +119,7 @@ get_kruger_data <- function()
     covariates <- dplyr::select(kruger_raw, .data$year)
     abundance <- dplyr::select(kruger_raw, -.data$year)
     metadata <- list(timename = "year", 
-                     location = c(latitude = "-23.990032", longitude = "31.554869"),
+                     location = c(latitude = -23.990032, longitude = 31.554869),
                      is_community = TRUE, 
                      citation = paste("SANParks (1997) Census totals for large herbivores in the Kruger National",  
                                       "Park summarized by year and region 1965-1997 (South African National Park Data",  

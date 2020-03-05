@@ -12,13 +12,18 @@ test_that("check_data_format works on basic examples", {
     expect_false(check_data_format(list(mtcars)))
     
     # abundance type checking
-    expect_true(check_data_format(list(abundance = mtcars)))
+    expect_false(check_data_format(list(abundance = mtcars)))
+    expect_true(check_data_format(list(abundance = mtcars, 
+                                       metadata = list(is_community = FALSE, 
+                                                       citation = "Henderson and Velleman (1981), Building multiple regression models interactively. Biometrics, 37, 391–411."))))
     expect_false(check_data_format(list(abundance = iris)))
     expect_false(check_data_format(list(abundance = Nile)))
     
     # covariates format checking
     expect_true(check_data_format(list(abundance = mtcars, 
-                                       covariates = mtcars)))
+                                       covariates = mtcars, 
+                                       metadata = list(is_community = FALSE, 
+                                                       citation = "Henderson and Velleman (1981), Building multiple regression models interactively. Biometrics, 37, 391–411."))))
     expect_false(check_data_format(list(abundance = mtcars, 
                                         covariates = Nile)))
     expect_false(check_data_format(list(abundance = mtcars, 

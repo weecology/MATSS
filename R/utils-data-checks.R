@@ -72,7 +72,6 @@ check_abundance <- function(data)
 #' @noRd
 check_metadata <- function(data)
 {
-<<<<<<< HEAD
     if (!("metadata" %in% names(data)))
     {
         message("Data did not have a `metadata` element.")
@@ -212,29 +211,31 @@ check_metadata_location <- function(data)
 {
     if ("location" %in% names(data$metadata))
     {
-        if (!all(c("latitude", "longitude") %in% class(data$metadata$location)))
+        if (!all(c("latitude", "longitude") %in% names(data$metadata$location)))
         {
             message("`metadata$location` is missing `latitude` and/or `longitude`.")
             return(FALSE)
         }
         
-        if (!class(data$metadata$location$latitude) %in% c("numeric", "integer"))
+        latitude <- data$metadata$location[["latitude"]]
+        if (!class(latitude) %in% c("numeric", "integer"))
         {
             message("`metadata$location$latitude` is not numeric.")
             return(FALSE)
         }
-        if (!class(data$metadata$location$longitude) %in% c("numeric", "integer"))
-        {
-            message("`metadata$location$longitude` is not numeric.")
-            return(FALSE)
-        }
-        
-        if (length(data$metadata$location$latitude) < 1)
+        if (length(latitude) < 1)
         {
             message("`metadata$location$latitude` has no entries.")
             return(FALSE)
         }
-        if (length(data$metadata$location$longitude) < 1)
+        
+        longitude <- data$metadata$location[["longitude"]]
+        if (!class(longitude) %in% c("numeric", "integer"))
+        {
+            message("`metadata$location$longitude` is not numeric.")
+            return(FALSE)
+        }
+        if (length(longitude) < 1)
         {
             message("`metadata$location$longitude` has no entries.")
             return(FALSE)

@@ -30,7 +30,8 @@ get_mtquad_data <- function(path = file.path(get_default_data_path(),
                       cover = .data$annual, 
                       annual = .data$growthform, 
                       growthform = NULL) %>%
-        dplyr::select(.data$id, .data$genus, .data$species, dplyr::everything())
+        dplyr::select(.data$id, .data$genus, .data$species, dplyr::everything()) %>%
+        tibble::add_row(id = "unknown")
     metadata <- list(timename = "year", effort = NULL, 
                      species_table = species_table, 
                      is_community = TRUE, 

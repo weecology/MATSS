@@ -55,19 +55,21 @@ get_gpdd_data <- function(path = get_default_data_path(),
         dplyr::mutate_at("date", as.Date) %>% 
         dplyr::select(-dplyr::starts_with("sp"))
     
-    location = gpdd_data %>% 
+    location <- gpdd_data %>% 
         dplyr::select_at(c("biotopeid", "locationid", "exactname", "townname", "countystateprovince", 
-                           "country", "continent", "ocean", "longitudeminutes", "eorw", 
+                           "country", "continent", "ocean", "longitudedegrees", "longitudeminutes", "eorw", 
                            "latitudedegrees", "latitudeminutes", "nors", "longdd", "latdd", 
                            "north", "east", "south", "area", "notes.y", "locationextent")) %>% 
+        dplyr::rename(latitude = .data$latdd, 
+                      longitude = .data$longdd) %>%
         dplyr::distinct()
     
-    samples = gpdd_data %>% 
+    samples <- gpdd_data %>% 
         dplyr::select_at(c("samplingfrequency", "startyear", "endyear", "samplingunits", 
                            "samplingprotocol", "reliability", "datasetlength", "notes.x", "notes.y")) %>% 
         dplyr::distinct()
     
-    source = gpdd_data %>% 
+    source <- gpdd_data %>% 
         dplyr::select(.data$datasourceid) %>% 
         dplyr::distinct() %>%
         dplyr::left_join(gpdd_data_tables$global_population_dynamics_datasource, by = "datasourceid")
