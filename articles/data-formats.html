@@ -92,7 +92,7 @@
                         <h4 class="author">Ellen K. Bledsoe</h4>
                         <h4 class="author">Hao Ye</h4>
             
-            <h4 class="date">2020-02-28</h4>
+            <h4 class="date">2020-03-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/weecology/MATSS/blob/master/vignettes/data-formats.Rmd"><code>vignettes/data-formats.Rmd</code></a></small>
       <div class="hidden name"><code>data-formats.Rmd</code></div>
@@ -110,7 +110,7 @@
 <ul>
 <li>a data.frame or tibble, named <code>abundance</code> (required)</li>
 <li>a data.frame or tibble, named <code>covariates</code> (optional)</li>
-<li>a list, named <code>metadata</code> (optional)</li>
+<li>a list, named <code>metadata</code> (required)</li>
 </ul>
 </li>
 </ul>
@@ -140,7 +140,10 @@
 <a href="#metadata" class="anchor"></a>metadata</h3>
 <p>In the <code>metadata</code> list:</p>
 <ul>
-<li>any entries are allowed</li>
+<li>in general, any entries are allowed, in any data structure and format</li>
+<li>it must have a <code>is_community</code> entry, which indicates whether the time series in <code>abundance</code> can be treated as components of a community with interactions and/or shared drivers in some way</li>
+<li>it must have a <code>citation</code> entry that is a vector of text values for the reference to the dataset. There can be multiple values (e.g. in the case of a specific dataset pulled from a larger database).</li>
+<li>if there is a <code>location</code> entry, it must contain at least a <code>latitude</code> and <code>longitude</code> value (in decimal form). <code>location</code> itself can be a data.frame or vector (that has names)</li>
 <li>if there is a <code>timename</code> entry, it refers to a column in the <code>covariates</code> data.frame that gives a time index for the data
 <ul>
 <li>this column must be some form of numeric, integer, date, or date/time corresponding to the timing of the samples</li>
