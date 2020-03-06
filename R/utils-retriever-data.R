@@ -119,7 +119,8 @@ import_retriever_data <- function(dataset = NULL, path = get_default_data_path()
     for (j in seq_along(files))
     {
         tempdata[[j]] <- utils::read.csv(file.path(path, files[j]), 
-                                         stringsAsFactors = FALSE)
+                                         stringsAsFactors = FALSE, 
+                                         fileEncoding = "Latin1")
     }
     return(tempdata)
 }
