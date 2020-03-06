@@ -21,11 +21,15 @@ expect_plan <- function(plan)
 expect_dataset <- function(dat, 
                            abundance_hash = "", 
                            covariates_hash = "", 
-                           metadata_hash = "")
+                           metadata_hash = "",
+                           species_table_hash = NULL)
 {
     eval(bquote(testthat::expect_true(check_data_format(.(dat)))))
-    dat$metadata$citation <- NULL
     eval(bquote(testthat::expect_known_hash(.(dat)$abundance, .(abundance_hash))))
     eval(bquote(testthat::expect_known_hash(.(dat)$covariates, .(covariates_hash))))
+#    species_table <- dat$metadata$species_table
+#    if (!is.null(dat$metadata$species_table) && !is.null(dat$species_table_))
+    dat$metadata$citation <- NULL
+    dat$metadata$species_table <- NULL
     eval(bquote(testthat::expect_known_hash(.(dat)$metadata, .(metadata_hash))))
 }
