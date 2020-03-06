@@ -14,13 +14,14 @@ test_that("veg-plots-sdl data retrieval works correctly", {
     expect_known_hash(is.na(species_table_content), "4cada1727a")
     species_table_content[is.na(species_table_content)] <- "-999999"
     expect_known_hash(names(species_table_content), "461d52754e")
+    names(species_table_content) <- NULL
     expect_true(all(Encoding(species_table_content) == "unknown"))
-    #expect_known_hash(species_table_content[203:205], "7866845540")
-    #expect_identical(species_table_content[204])
-    expect_known_hash(dat$metadata$species_table, "5712adf07b")
+    expect_known_hash(species_table_content[203:205], "7e3401f35a")
+    expect_identical(species_table_content[204], "Aplopappus hartwegii")
+    expect_known_hash(dat$metadata$species_table, "5712adf07b") #
     expect_known_hash(is.na(dat$metadata$species_table), "a3ea041385")
     dat$metadata$species_table[is.na(dat$metadata$species_table)] <- "-999999"
-    expect_known_hash(dat$metadata$species_table, "d750b72bc9")
+    expect_known_hash(dat$metadata$species_table, "d750b72bc9") # 
     # expect_known_hash(dat$metadata$species_table$reportedname, "2688f9de54")
     # expect_known_hash(dat$metadata$species_table$species_name, "d679dd9ce8")
     expect_dataset(dat, "b076948e1b", "de2dc7f655", "309b69a603")
