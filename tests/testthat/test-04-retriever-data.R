@@ -10,6 +10,15 @@ test_that("veg-plots-sdl data retrieval works correctly", {
     expect_false(is.null(dat))
     
     expect_error(dat <- get_sdl_data(), NA)
+    species_table_content <- unlist(dat$metadata$species_table)
+    expect_known_hash(species_table_content, "70247bbb6d")
+    expect_known_hash(is.na(species_table_content), "4cada1727a")
+    species_table_content[is.na(species_table_content)] <- "-999999"
+    expect_known_hash(species_table_content, "c48abb0724")
+    expect_known_hash(names(species_table_content), "461d52754e")
+    names(species_table_content) <- NULL
+    expect_known_hash(species_table_content, "7866845540")
+    
     expect_known_hash(is.na(dat$metadata$species_table), "a3ea041385")
     dat$metadata$species_table[is.na(dat$metadata$species_table)] <- "-999999"
     expect_known_hash(dat$metadata$species_table, "9b6b7ee22c")
