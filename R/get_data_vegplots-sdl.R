@@ -38,7 +38,8 @@ get_sdl_data <- function(plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17),
         dplyr::select(.data$id, .data$species_name, 
                       .data$family, .data$genus, .data$species, .data$var_subsp, 
                       dplyr::everything()) %>%
-        tibble::add_row(id = "UNKN")
+        tibble::add_row(id = "UNKN") %>%
+        as.data.frame()
     
     metadata <- list(timename = "year", effort = NULL,
                      species_table = species_table, 
