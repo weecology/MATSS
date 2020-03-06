@@ -59,7 +59,7 @@ get_portal_rodents <- function(time_or_plots = "plots",
     species_table <- portalr::load_datafile(file.path("Rodents", "Portal_rodent_species.csv"),
                                    na.strings = "", "repo") %>%
         dplyr::rename(id = .data$speciescode) %>%
-        dplyr::filter(id %in% species_codes) %>%
+        dplyr::filter(.data$id %in% species_codes) %>%
         tidyr::separate(.data$scientificname, c("genus", "species"), sep = " ")
     
     abundance <- dplyr::select(dat2, -.data$newmoonnumber, -.data$censusdate)

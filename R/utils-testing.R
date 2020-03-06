@@ -4,7 +4,7 @@ skip_if_no_retriever <- function()
 {
     have_retriever <- reticulate::py_module_available("retriever")
     if (!have_retriever)
-        skip("retriever not available for testing")
+        testthat::skip("retriever not available for testing")
 }
 
 #' @noRd

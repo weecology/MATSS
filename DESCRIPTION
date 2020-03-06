@@ -43,7 +43,8 @@ Imports:
     future.batchtools,
     stringr,
     usethis, 
-    fs
+    fs, 
+    rstudioapi
 Suggests:
     testthat,
     knitr,

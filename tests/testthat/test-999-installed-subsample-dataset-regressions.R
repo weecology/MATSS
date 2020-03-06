@@ -18,6 +18,7 @@ test_that("process_bbs_ts_data formats data correctly", {
 
 test_that("get_mtquad_data formats data correctly", {
     expect_error(dat <- get_mtquad_data(), NA)
+    expect_known_hash(dat$metadata$species_table, "5481af34fb")
     expect_dataset(dat, "c4a22592f9", "f9debd76c0", "ece9ecf713")
 })
 
