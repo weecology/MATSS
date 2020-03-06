@@ -27,8 +27,11 @@ expect_dataset <- function(dat,
     eval(bquote(testthat::expect_true(check_data_format(.(dat)))))
     eval(bquote(testthat::expect_known_hash(.(dat)$abundance, .(abundance_hash))))
     eval(bquote(testthat::expect_known_hash(.(dat)$covariates, .(covariates_hash))))
-#    species_table <- dat$metadata$species_table
-#    if (!is.null(dat$metadata$species_table) && !is.null(dat$species_table_))
+    species_table <- unlist(dat$metadata$species_table)
+    if (!is.null(species_table) && !is.null(species_table_hash))
+    {
+        eval(bquote(testthat::expect_known_hash(species_table, .(species_table_hash))))
+    }
     dat$metadata$citation <- NULL
     dat$metadata$species_table <- NULL
     eval(bquote(testthat::expect_known_hash(.(dat)$metadata, .(metadata_hash))))
