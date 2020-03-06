@@ -25,9 +25,9 @@ get_sdl_data <- function(plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17),
     covariates <- dplyr::select(sdl_data, .data$year)
     species_table <- sdl_data_tables$veg_plots_sdl_Species %>%
         dplyr::rename(id = .data$code, 
-                      species_name = .data$acceptedname)
-    Encoding(species_table$reportedname) <- "latin1"
-    Encoding(species_table$species_name) <- "latin1"
+                      species_name = .data$acceptedname) %>%
+        dplyr::mutate_all(~gsub("[^\\x20-\\x7E]", " ", ., perl = TRUE)) %>%
+        dplyr::mutate_all(~gsub("  *", " ", .))
     species_table[, c("species_name", "var_subsp")] <- 
         stringr::str_split(species_table$species_name, "\\ssubsp\\.\\s|\\svar\\.\\s", simplify = TRUE)
     species_table[, c("genus", "species")] <-

@@ -120,7 +120,7 @@ import_retriever_data <- function(dataset = NULL, path = get_default_data_path()
     {
         tempdata[[j]] <- utils::read.csv(file.path(path, files[j]), 
                                          stringsAsFactors = FALSE, 
-                                         fileEncoding = "Latin1")
+                                         fileEncoding = "latin1")
     }
     return(tempdata)
 }
