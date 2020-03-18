@@ -9,10 +9,9 @@
 #'   as part of a Drake plan.
 #'   
 #' @param fun the analysis function
-#' @param ... extra params to be passed to the analysis function
 #' 
-#' @return a function that takes in a single argument, `dataset`, and returns a 
-#'   tibble with these columns:
+#' @return a function that takes in a `dataset` and optional arguments, and 
+#'  returns a tibble with these columns:
 #'   \tabular{ll}{
 #'     \code{results} \tab a combined results data.frame\cr
 #'     \code{metadata} \tab the metadata component of the original dataset\cr
@@ -30,12 +29,15 @@
 #' 
 #' @export
 #' 
-analysis_wrapper <- function(fun, ...)
+analysis_wrapper <- function(fun)
 {
+    # Make sure `fun` is availabe in the returned function
+    force(fun)
+    
     # Get the analysis method
     method_name <- all.vars(match.call()$fun)
     
-    function(dataset)
+    function(dataset, ...)
     {
         # Get the name of the dataset 
         dataset_name <- all.vars(match.call()$dataset)

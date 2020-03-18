@@ -39,6 +39,8 @@ create_MATSS_compendium <- function(path,
 
     # add template files
     usethis::use_directory("analysis")
+    usethis::use_template("template-functions.R", save_as = "R/analysis_functions.R", 
+                          package = "MATSS")
     usethis::use_template("template-pipeline.R", save_as = "analysis/pipeline.R", 
                           data = list(package = pkg_name), 
                           package = "MATSS")
