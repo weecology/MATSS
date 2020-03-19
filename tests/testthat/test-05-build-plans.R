@@ -3,12 +3,10 @@ context("Building Drake Plans")
 test_that("build_datasets_plan works", {
     expect_error(datasets <- build_datasets_plan(), NA)
     expect_plan(datasets)
-    expect_true(all(grepl("_data$", datasets$target)))
     expect_equal(dim(datasets), c(5, 2))
     
     expect_error(datasets <- build_datasets_plan(include_retriever_data = TRUE), NA)
     expect_plan(datasets)
-    expect_true(all(grepl("_data$", datasets$target)))
     expect_equal(dim(datasets), c(10, 3))
 })
 
