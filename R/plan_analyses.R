@@ -1,9 +1,14 @@
-#' @title Collect the Analyses Together as a List
+#' @title Collect Analyses Together into a Tibble
 #' 
-#' @description This is a helper function that enables the NSE evaluation in 
-#'   \code{\link{plan_analyses}}. For example, `collect_analyses(list(a, b))` 
-#'   will return a list of two named elements, `a` and `b` corresponding to the 
-#'   objects `a` and `b`. 
+#' @description This is a helper function to accompany [`plan_analyses`]: it is 
+#'   necessary to collect all of the results that are produced by the drake 
+#'   plan.
+#'   
+#'   This function strives to be intelligent about the format of the individual 
+#'   results. For output from [`analysis_wrapper`] that already has information 
+#'   about the method and dataset, we can just combine them. Otherwise, we 
+#'   parse the name of the object for the method and the dataset, to format 
+#'   into a structure similar to the output from [`analysis_wrapper`].
 #' 
 #' @param list_of_results the list of objects
 #' 
@@ -15,8 +20,17 @@
 #' 
 collect_analyses <- function(list_of_results)
 {
-    names(list_of_results) <- all.vars(match.call()$list_of_results)
-    list_of_results
+    if (!is_structured_results_list(list_of_results))
+    {
+        results_names <- all.vars(match.call()$list_of_results)
+        
+        
+        
+        
+        list_of_results
+        
+    }
+    dplyr::bind_rows(list_of_results)
 }
 
 #' @title Generate a Drake Plan for Analyses
@@ -47,14 +61,14 @@ build_analyses_plan <- function(methods, datasets, ...)
         # note: tidyeval syntax is to get all the values from the previous plans,
         #       but keep them as unevaluated symbols, so that drake_plan handles
         #       them appropriately
-        analysis = drake::target(fun(data),
+        analysis = drake::target(invoke(fun, data),
                                  transform = cross(fun = !!rlang::syms(methods$target),
                                                    data = !!rlang::syms(datasets$target))
         ),
         # create a list of the created `analysis` objects, grouping by the `fun`
         # that made them - this keeps the results from the different methods
         # separated, so that the reports/syntheses can handle the right outputs
-        results = drake::target(MATSS::collect_analyses(list(analysis)),
+        results = drake::target(dplyr::bind_rows(analysis),
                                 transform = combine(analysis, .by = fun)),
         ...
     )
