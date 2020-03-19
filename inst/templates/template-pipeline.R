@@ -55,8 +55,8 @@ workflow <- rbind(
 ## Visualize how the targets depend on one another
 if (interactive())
 {
-    sankey_drake_graph(build_times = "none", targets_only = TRUE)  # requires "networkD3" package
-    vis_drake_graph(build_times = "none", targets_only = TRUE)     # requires "visNetwork" package
+    sankey_drake_graph(workflow, build_times = "none", targets_only = TRUE)  # requires "networkD3" package
+    vis_drake_graph(workflow, build_times = "none", targets_only = TRUE)     # requires "visNetwork" package
 }
 
 ## Run the workflow
