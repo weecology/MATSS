@@ -80,6 +80,5 @@ test_that("build_bbs_datasets_plan works", {
     expect_identical(subplan_results$fun, methods$target)
 
     fun_calls <- lapply(subplan_results$command, as.character)
-    expect_true(all(vapply(fun_calls, dplyr::first, "") == "MATSS::collect_analyses"))
-    expect_true(all(grepl("^list\\(", vapply(fun_calls, dplyr::last, ""))))
+    expect_true(all(vapply(fun_calls, dplyr::first, "") == "dplyr::bind_rows"))
 })
