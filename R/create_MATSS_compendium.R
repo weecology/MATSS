@@ -47,11 +47,25 @@ create_MATSS_compendium <- function(path,
     usethis::use_template("template-report.Rmd", save_as = "analysis/report.Rmd", 
                           data = list(package = pkg_name), 
                           package = "MATSS")
+    usethis::use_template("template-README.md", save_as = "README.md", 
+                          data = list(package = pkg_name, 
+                                      citation_txt = citation("MATSS")$textVersion), 
+                          package = "MATSS")
     usethis::use_template("template-references.bib", save_as = "analysis/references.bib", 
                           data = list(bibentries = utils::citation("MATSS") %>% 
                                           utils::toBibtex() %>% 
                                           paste(collapse = "\n")), 
                           package = "MATSS")
+    
+    # add license
+    if (!interactive() || 
+        usethis::ui_yeah(paste0("Use the MIT License for this compendium?\n", 
+                                "(If unsure, please see ", 
+                                usethis::ui_code("?usethis::use_mit_license()"),
+                                ")")))
+    {
+        usethis::use_mit_license()
+    }
     
     # add analysis folder to .gitignore and .Rbuildignore
     usethis::use_git_ignore("^/analysis/*.html")
