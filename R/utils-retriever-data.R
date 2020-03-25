@@ -5,7 +5,7 @@
 #' @export
 check_default_data_path <- function()
 {
-    portalr::check_default_data_path(ENV_VAR = "MATSS_DATA_PATH")
+    portalr::check_default_data_path(ENV_VAR = "MATSS_DATA_PATH", DATA_NAME = "MATSS data")
 }
 
 #' @title What is the default data path?
@@ -52,7 +52,20 @@ install_retriever_data <- function(dataset, path = get_default_data_path(),
                                    force_install = FALSE)
 {
     # check for existence of data_path
-    path <- normalizePath(path, mustWork = TRUE)
+    path <- normalizePath(path, mustWork = FALSE)
+    if (!dir.exists(path))
+    {
+        if(usethis::ui_yeah(paste0(usethis::ui_path(path), 
+                                   " does not exist. Create it?")))
+        {
+            dir.create(path)
+        } else {
+            stop(usethis::ui_oops(c("Invalid location for downloading data.", 
+                                    paste("Please check", usethis::ui_path(path)), 
+                                    paste("or set the default location with", 
+                                          usethis::ui_code("set_default_data_path()")))))
+        }
+    }
     
     # where to put the retriever data
     folder_path <- file.path(path, dataset)

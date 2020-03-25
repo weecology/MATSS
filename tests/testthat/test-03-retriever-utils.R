@@ -10,6 +10,14 @@ skip_if_no_retriever <- function()
 
 test_path <- tempdir()
 
+test_that("retriever install checks data directory", {
+    Sys.setenv("MATSS_DATA_PATH" = file.path(tempdir(), "FUBAR"))
+    expect_error(install_retriever_data("iris"))
+    #    m <- capture_messages(install_retriever_data("iris"))
+    #    expect_match(m, "A folder already exists for \"iris\"")
+    #    expect_match(m, "Use `force_install = TRUE` to overwrite it with a fresh install.")
+})
+
 test_that("data_path functions work", {
     Sys.unsetenv("MATSS_DATA_PATH")
     expect_false(check_default_data_path())
