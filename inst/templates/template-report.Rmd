@@ -1,6 +1,6 @@
 ---
 title: "Summary Report"
-author: "Author"
+author: "{{{name}}}"
 date: "`r Sys.Date()`"
 output: github_document
 bibliography: references.bib

@@ -5,12 +5,14 @@
 #'   - add various package dependencies, including "MATSS"
 #'   - add template analysis and pipeline files
 #' 
+#' @param name author name for the package
 #' @inheritParams usethis::create_package
 #' 
 #' @return Path to the newly created package, invisibly.
 #' 
 #' @export
 create_MATSS_compendium <- function(path, 
+                                    name = usethis:::find_name(), 
                                     fields = NULL, 
                                     rstudio = rstudioapi::isAvailable(), 
                                     open = interactive())
@@ -45,7 +47,8 @@ create_MATSS_compendium <- function(path,
                           data = list(package = pkg_name), 
                           package = "MATSS")
     usethis::use_template("template-report.Rmd", save_as = "analysis/report.Rmd", 
-                          data = list(package = pkg_name), 
+                          data = list(package = pkg_name, 
+                                      author = name), 
                           package = "MATSS")
     usethis::use_template("template-README.md", save_as = "README.md", 
                           data = list(package = pkg_name, 
@@ -64,7 +67,7 @@ create_MATSS_compendium <- function(path,
                                 usethis::ui_code("?usethis::use_mit_license()"),
                                 ")")))
     {
-        usethis::use_mit_license()
+        usethis::use_mit_license(name = name)
     }
     
     # add analysis folder to .gitignore and .Rbuildignore

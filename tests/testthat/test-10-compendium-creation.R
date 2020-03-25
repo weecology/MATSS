@@ -3,7 +3,7 @@ context("MATSS research compendium")
 test_path <- file.path(tempdir(), "test")
 
 test_that("creating a compendium works", {
-    expect_error(create_MATSS_compendium(test_path), NA)
+    expect_error(create_MATSS_compendium(test_path, name = "test name"), NA)
 })
 
 test_that("compendium files exist", {
