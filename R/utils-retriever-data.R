@@ -60,10 +60,8 @@ install_retriever_data <- function(dataset, path = get_default_data_path(),
         {
             dir.create(path)
         } else {
-            stop(usethis::ui_oops(c("Invalid location for downloading data.", 
-                                    paste("Please check", usethis::ui_path(path)), 
-                                    paste("or set the default location with", 
-                                          usethis::ui_code("set_default_data_path()")))))
+            stop(usethis::ui_oops(paste("Please choose a valid path or set a different default location with\n", 
+                                        usethis::ui_code("set_default_data_path()"))))
         }
     }
     
