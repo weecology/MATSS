@@ -25,9 +25,8 @@ datasets <- build_datasets_plan(include_retriever_data = use_downloaded_datasets
 
 ## a Drake plan that defines the methods
 methods <- drake::drake_plan(
-    has_covariates = function(dataset) {"covariates" %in% names(dataset)}, 
-    ts_summary = ts_summary,
-    total_abundance = analysis_wrapper(sum)
+    simpson_index = {{{package}}}::compute_simpson_index,
+    linear_trend = {{{package}}}::compute_linear_trend
 )
 
 ## a Drake plan for the analyses (each combination of method x dataset)
@@ -56,9 +55,8 @@ workflow <- rbind(
 ## Visualize how the targets depend on one another
 if (interactive())
 {
-    config <- drake_config(workflow)
-    sankey_drake_graph(config, build_times = "none", targets_only = TRUE)  # requires "networkD3" package
-    vis_drake_graph(config, build_times = "none", targets_only = TRUE)     # requires "visNetwork" package
+    sankey_drake_graph(workflow, build_times = "none", targets_only = TRUE)  # requires "networkD3" package
+    vis_drake_graph(workflow, build_times = "none", targets_only = TRUE)     # requires "visNetwork" package
 }
 
 ## Run the workflow

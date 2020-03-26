@@ -1,24 +1,12 @@
 context("Building Drake Plans")
 
-test_that("collect_analyses helper works", {
-    a <- runif(3)
-    b <- LETTERS[5:10]
-    expect_error(result <- collect_analyses(list(a, b)), NA)
-    expect_true(is.list(result))
-    expect_identical(names(result), c("a", "b"))
-    expect_identical(result$a, a)
-    expect_identical(result$b, b)
-})
-
 test_that("build_datasets_plan works", {
     expect_error(datasets <- build_datasets_plan(), NA)
     expect_plan(datasets)
-    expect_true(all(grepl("_data$", datasets$target)))
     expect_equal(dim(datasets), c(5, 2))
     
     expect_error(datasets <- build_datasets_plan(include_retriever_data = TRUE), NA)
     expect_plan(datasets)
-    expect_true(all(grepl("_data$", datasets$target)))
     expect_equal(dim(datasets), c(10, 3))
 })
 
@@ -52,6 +40,5 @@ test_that("build_analyses_plan works", {
     expect_identical(subplan_results$fun, methods$target)
     
     fun_calls <- lapply(subplan_results$command, as.character)
-    expect_true(all(vapply(fun_calls, dplyr::first, "") == "MATSS::collect_analyses"))
-    expect_true(all(grepl("^list\\(", vapply(fun_calls, dplyr::last, ""))))
+    expect_true(all(vapply(fun_calls, dplyr::first, "") == "dplyr::bind_rows"))
 })

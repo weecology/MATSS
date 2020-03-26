@@ -27,11 +27,11 @@ build_datasets_plan <- function(path = get_default_data_path(),
                                 biotime_process = TRUE)
 {
     datasets <- drake::drake_plan(
-        cowley_lizards_data = get_cowley_lizards(), 
-        cowley_snakes_data = get_cowley_snakes(), 
-        karoo_data = get_karoo_data(), 
-        kruger_data = get_kruger_data(), 
-        portal_data = get_portal_rodents()
+        cowley_lizards = get_cowley_lizards(), 
+        cowley_snakes = get_cowley_snakes(), 
+        karoo = get_karoo_data(), 
+        kruger = get_kruger_data(), 
+        portal_rodents = get_portal_rodents()
     )
     
     if (include_retriever_data)
@@ -74,16 +74,16 @@ build_datasets_plan <- function(path = get_default_data_path(),
 build_retriever_datasets_plan <- function(path = get_default_data_path())
 {
     drake::drake_plan(
-        maizuru_data = drake::target(get_maizuru_data(path = !!file.path(path, "ushio-maizuru-fish-community")),
+        maizuru_fish = drake::target(get_maizuru_data(path = !!file.path(path, "ushio-maizuru-fish-community")),
                                      trigger = trigger(command = FALSE)), 
-        jornada_data = drake::target(get_jornada_data(path = !!file.path(path, "jornada-lter-rodent")),
-                                     trigger = trigger(command = FALSE)), 
-        sgs_data = drake::target(get_sgs_data(path = !!file.path(path, "shortgrass-steppe-lter")),
-                                     trigger = trigger(command = FALSE)), 
-        sdl_data = drake::target(get_sdl_data(path = !!file.path(path, "veg-plots-sdl")),
-                                 trigger = trigger(command = FALSE)), 
-        mtquad_data = drake::target(get_mtquad_data(path = !!file.path(path, "mapped-plant-quads-mt")), 
-                                    trigger = trigger(command = FALSE))
+        jornada_rodents = drake::target(get_jornada_data(path = !!file.path(path, "jornada-lter-rodent")),
+                                        trigger = trigger(command = FALSE)), 
+        shortgrass_steppe = drake::target(get_sgs_data(path = !!file.path(path, "shortgrass-steppe-lter")),
+                                          trigger = trigger(command = FALSE)), 
+        sonoran_desert_lab = drake::target(get_sdl_data(path = !!file.path(path, "veg-plots-sdl")),
+                                           trigger = trigger(command = FALSE)), 
+        montana_plantquads = drake::target(get_mtquad_data(path = !!file.path(path, "mapped-plant-quads-mt")), 
+                                           trigger = trigger(command = FALSE))
     )
 }
 
@@ -115,11 +115,11 @@ build_bbs_datasets_plan <- function(path = get_default_data_path(), data_subset 
         routes_and_regions <- routes_and_regions[data_subset, ]
     }
     bbs_datasets <- drake::drake_plan(
-        bbs_data_rtrg = drake::target(get_bbs_route_region_data(path = file_in(!!file.path(path, "breed-bird-survey-prepped", 
-                                                                                           paste0("route", route, "region", region, ".RDS")))),
-                                      transform = map(route = !!routes_and_regions$route,
-                                                      region = !!routes_and_regions$statenum), 
-                                      trigger = trigger(command = FALSE)
+        bbs_rtrg = drake::target(get_bbs_route_region_data(path = file_in(!!file.path(path, "breed-bird-survey-prepped", 
+                                                                                      paste0("route", route, "region", region, ".RDS")))),
+                                 transform = map(route = !!routes_and_regions$route,
+                                                 region = !!routes_and_regions$statenum), 
+                                 trigger = trigger(command = FALSE)
         )
     )
     return(bbs_datasets)
@@ -140,9 +140,9 @@ build_gpdd_datasets_plan <- function()
     locations <- utils::read.csv(locations_file, colClasses = "character")
     
     gpdd_datasets <- drake::drake_plan(
-        gpdd_data_rtrg = drake::target(get_gpdd_data(location_id = location_id, timeperiod_id = timeperiod_id),
-                                       transform = map(location_id = !!locations$LocationID,
-                                                       timeperiod_id = !!locations$TimePeriodID)
+        gpdd_rtrg = drake::target(get_gpdd_data(location_id = location_id, timeperiod_id = timeperiod_id),
+                                  transform = map(location_id = !!locations$LocationID,
+                                                  timeperiod_id = !!locations$TimePeriodID)
         )
     )
     return(gpdd_datasets)
@@ -172,10 +172,10 @@ build_biotime_datasets_plan <- function(path = get_default_data_path(),
                                            force_reprocessing = force_reprocessing)
     
     biotime_datasets <- drake::drake_plan(
-        biotime_data_rtrg = drake::target(get_biotime_data(path = file_in(!!file.path(path, "biotime-prepped", 
-                                                                                      paste0("dataset", dataset, ".RDS")))), 
-                                          transform = map(dataset = !!dataset_ids), 
-                                          trigger = trigger(command = FALSE)
+        biotime_rtrg = drake::target(get_biotime_data(path = file_in(!!file.path(path, "biotime-prepped", 
+                                                                                 paste0("dataset", dataset, ".RDS")))), 
+                                     transform = map(dataset = !!dataset_ids), 
+                                     trigger = trigger(command = FALSE)
         )
     )
     return(biotime_datasets)

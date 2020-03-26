@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 
 The universal data structure we're going to use is:
 
-* a list with at least 1 element:
+* a list with the following elements:
   - a data.frame or tibble, named `abundance` (required)
   - a data.frame or tibble, named `covariates` (optional)
   - a list, named `metadata` (required)

@@ -7,39 +7,38 @@ Sys.setenv(MATSS_DATA_PATH = path)
 test_that("build_bbs_datasets_plan works", {
     expect_error(datasets <- build_bbs_datasets_plan(), NA)
     expect_plan(datasets)
-    expect_true(all(grepl("bbs_data_rtrg_[0-9]+_[0-9]+$", datasets$target)))
+    expect_true(all(grepl("bbs_rtrg_[0-9]+_[0-9]+$", datasets$target)))
     expect_equal(dim(datasets), c(3, 3))
     
     expect_error(datasets <- build_datasets_plan(include_retriever_data = TRUE, 
                                                  include_bbs_data = TRUE), NA)
     expect_plan(datasets)
-    expect_equal(sum(grepl("_data$", datasets$target)), 10)
-    expect_equal(sum(grepl("bbs_data_rtrg_[0-9]+_[0-9]+$", datasets$target)), 3)
+    expect_equal(sum(grepl("bbs_rtrg_[0-9]+_[0-9]+$", datasets$target)), 3)
     expect_equal(dim(datasets), c(13, 3))
 })
 
 test_that("build_gpdd_datasets_plan works", {
     expect_error(datasets <- build_gpdd_datasets_plan(), NA)
     expect_plan(datasets)
-    expect_true(all(grepl("gpdd_data_rtrg_[0-9]+_[0-9\\.]+$", datasets$target)))
+    expect_true(all(grepl("gpdd_rtrg_[0-9]+_[0-9\\.]+$", datasets$target)))
     expect_equal(dim(datasets), c(120, 2))
     
     expect_error(datasets <- build_datasets_plan(include_gpdd_data = TRUE), NA)
     expect_plan(datasets)
-    expect_equal(sum(grepl("gpdd_data_rtrg_[0-9]+_[0-9\\.]+$", datasets$target)), 120)
+    expect_equal(sum(grepl("gpdd_rtrg_[0-9]+_[0-9\\.]+$", datasets$target)), 120)
     expect_equal(dim(datasets), c(125, 2))
 })
 
 test_that("build_biotime_datasets_plan works", {
     expect_error(datasets <- build_biotime_datasets_plan(do_processing = FALSE), NA)
     expect_plan(datasets)
-    expect_true(all(grepl("biotime_data_rtrg_[0-9]+$", datasets$target)))
+    expect_true(all(grepl("biotime_rtrg_[0-9]+$", datasets$target)))
     expect_equal(dim(datasets), c(361, 3))
     
     expect_error(datasets <- build_datasets_plan(include_biotime_data = TRUE, 
                                                  biotime_process = FALSE), NA)
     expect_plan(datasets)
-    expect_equal(sum(grepl("biotime_data_rtrg_[0-9]+$", datasets$target)), 361)
+    expect_equal(sum(grepl("biotime_rtrg_[0-9]+$", datasets$target)), 361)
     expect_equal(dim(datasets), c(366, 3))
 })
 
@@ -80,6 +79,5 @@ test_that("build_bbs_datasets_plan works", {
     expect_identical(subplan_results$fun, methods$target)
 
     fun_calls <- lapply(subplan_results$command, as.character)
-    expect_true(all(vapply(fun_calls, dplyr::first, "") == "MATSS::collect_analyses"))
-    expect_true(all(grepl("^list\\(", vapply(fun_calls, dplyr::last, ""))))
+    expect_true(all(vapply(fun_calls, dplyr::first, "") == "dplyr::bind_rows"))
 })
