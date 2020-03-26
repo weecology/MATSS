@@ -271,6 +271,7 @@ process_biotime_dataset <- function(biotime_data_tables,
     out <- list("abundance" = abundance, 
                 "covariates" = covariates, 
                 "metadata" = metadata)
+    attr(out, "class") <- "matssdata"
     
     if (save_to_file)
     {

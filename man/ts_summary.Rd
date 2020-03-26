@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_stats.R
 \name{ts_summary}
 \alias{ts_summary}
-\title{Summarize a time series}
+\title{Summarize a time series dataset}
 \usage{
 ts_summary(
   data,

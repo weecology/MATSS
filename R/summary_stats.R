@@ -1,4 +1,4 @@
-#' @title Summarize a time series
+#' @title Summarize a time series dataset
 #'
 #' @description \code{ts_summary} creates a summary of a community time series 
 #'   dataset. The summary contains community-level statistics, including total 

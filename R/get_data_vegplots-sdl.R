@@ -55,6 +55,7 @@ get_sdl_data <- function(plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17),
                 "covariates" = covariates, 
                 "metadata" = metadata) %>%
         append_retriever_citation(path)
+    attr(out, "class") <- "matssdata"
     
     return(out)
 }

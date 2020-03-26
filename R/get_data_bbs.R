@@ -173,6 +173,7 @@ process_bbs_route_region_data <- function(bbs_data_table,
     out <- list("abundance" = abundance, 
                 "covariates" = covariates, 
                 "metadata" = metadata)
+    attr(out, "class") <- "matssdata"
     
     if (save_to_file)
     {

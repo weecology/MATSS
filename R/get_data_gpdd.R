@@ -93,6 +93,7 @@ get_gpdd_data <- function(path = get_default_data_path(),
     out <- list("abundance" = abundance, 
                 "covariates" = covariates, 
                 "metadata" = metadata)
+    attr(out, "class") <- "matssdata"
     
     return(out)
 }

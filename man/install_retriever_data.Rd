@@ -16,8 +16,8 @@ import_retriever_data(dataset = NULL, path = get_default_data_path())
 
 download_datasets(
   dataset = c("jornada-lter-rodent", "shortgrass-steppe-lter", "veg-plots-sdl",
-    "mapped-plant-quads-mt", "ushio-maizuru-fish-community", "global-population-dynamics",
-    "breed-bird-survey", "biotimesql"),
+    "mapped-plant-quads-mt", "ushio-maizuru-fish-community",
+    "global-population-dynamics", "breed-bird-survey", "biotimesql"),
   path = get_default_data_path(),
   force_install = FALSE
 )
@@ -33,7 +33,7 @@ folder already exists}
 }
 \description{
 \code{install_retriever_data} downloads retriever datasets and
-is a wrapper around rdataretriever::install
+is a wrapper around \code{rdataretriever::\link[rdataretriever]{install}}
 
 \code{import_retriever_data} loads a previously downloaded
 retriever dataset

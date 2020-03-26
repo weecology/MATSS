@@ -6,6 +6,7 @@
 \usage{
 create_MATSS_compendium(
   path,
+  name = usethis:::find_name(),
   fields = NULL,
   rstudio = rstudioapi::isAvailable(),
   open = interactive()
@@ -14,6 +15,8 @@ create_MATSS_compendium(
 \arguments{
 \item{path}{A path. If it exists, it is used. If it does not exist, it is
 created, provided that the parent path exists.}
+
+\item{name}{author name for the package}
 
 \item{fields}{A named list of fields to add to \code{DESCRIPTION}, potentially
 overriding default values. See \code{\link[usethis:use_description]{use_description()}} for how you can set

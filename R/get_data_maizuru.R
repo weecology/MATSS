@@ -72,6 +72,7 @@ get_maizuru_data <- function(path = file.path(get_default_data_path(),
                                              "longitude" = 135 + 22/60), 
                                 is_community = TRUE)) %>%
         append_retriever_citation(path)
+    attr(out, "class") <- "matssdata"
     
     return(out)
 }

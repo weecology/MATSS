@@ -5,8 +5,8 @@
 \title{Get cleaned BBS data}
 \usage{
 get_bbs_route_region_data(
-  path = file.path(get_default_data_path(), "breed-bird-survey-prepped", paste0("route",
-    route, "region", region, ".RDS")),
+  path = file.path(get_default_data_path(), "breed-bird-survey-prepped",
+    paste0("route", route, "region", region, ".RDS")),
   route = 1,
   region = 11
 )

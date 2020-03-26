@@ -77,6 +77,7 @@ get_sgs_data <- function(path = file.path(get_default_data_path(),
                 "covariates" = covariates, 
                 "metadata" = metadata) %>%
         append_retriever_citation(path)
+    attr(out, "class") <- "matssdata"
     
     return(out)
 }

@@ -15,7 +15,7 @@ get_cowley_lizards <- function()
         dplyr::mutate_if(is.numeric, list(~dplyr::na_if(., -99))) %>%
         dplyr::filter(!is.na(.data$Cnemnidophorous_sexlineatus))
     
-    list(abundance = dplyr::select(raw_data, -dplyr::one_of(c("Year", "Site", "Total"))), 
+    out <- list(abundance = dplyr::select(raw_data, -dplyr::one_of(c("Year", "Site", "Total"))), 
          covariates = dplyr::select(raw_data, .data$Year),
          metadata = list(timename = "Year", effort = NULL, site = "CowleyCounty",
                          is_community = TRUE, 
@@ -26,6 +26,9 @@ get_cowley_lizards <- function()
                             issue-4/0018-0831(2006)62[378:EORMOC]2.0.CO;2/EFFECTS-OF-RANGELAND-
                             MANAGEMENT-ON-COMMUNITY-DYNAMICS-OF-THE-HERPETOFAUNA/10.1655/0018-
                             0831(2006)62[378:EORMOC]2.0.CO;2.full"))
+    attr(out, "class") <- "matssdata"
+    
+    return(out)
 }
 
 #' @title Read in the cowley snake community data from a txt file
@@ -45,7 +48,7 @@ get_cowley_snakes <- function()
         dplyr::mutate_if(is.numeric,list(~dplyr::na_if(., -99))) %>%
         dplyr::filter(!is.na(.data$Agkistrodon_contortrix))
     
-    list(abundance = dplyr::select(raw_data, -dplyr::one_of(c("Year", "Site", "Total"))), 
+    out <- list(abundance = dplyr::select(raw_data, -dplyr::one_of(c("Year", "Site", "Total"))), 
          covariates = dplyr::select(raw_data, .data$Year),
          metadata = list(timename = "Year", effort = NULL, site = "CowleyCounty",
                          is_community = TRUE, 
@@ -56,4 +59,7 @@ get_cowley_snakes <- function()
                             issue-4/0018-0831(2006)62[378:EORMOC]2.0.CO;2/EFFECTS-OF-RANGELAND-
                             MANAGEMENT-ON-COMMUNITY-DYNAMICS-OF-THE-HERPETOFAUNA/10.1655/0018-
                             0831(2006)62[378:EORMOC]2.0.CO;2.full"))
+    attr(out, "class") <- "matssdata"
+    
+    return(out)
 }
