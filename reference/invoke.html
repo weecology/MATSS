@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Process the BBS data for an individual route and region — process_bbs_route_region_data • MATSS</title>
+<title>Invoke an analysis on a dataset — invoke • MATSS</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,12 @@
 
 
 
-<meta property="og:title" content="Process the BBS data for an individual route and region — process_bbs_route_region_data" />
-<meta property="og:description" content="Correct and otherwise filter BBS species data (see
-combine_bbs_subspecies and filter_bbs_species
-for more info). Generate the abundance, covariate, and metadata tables and
-return the combined object." />
+<meta property="og:title" content="Invoke an analysis on a dataset — invoke" />
+<meta property="og:description" content="This function is a helper that, at its core, simply applies the
+function to the dataset. The key added functionality is to preserve the
+names of the function and the dataset, as well as metadata and any
+additional arguments; returning the result in a tibble that is consistent
+in format, regardless of what function is actually being invoked." />
 
 
 
@@ -132,60 +133,55 @@ return the combined object." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Process the BBS data for an individual route and region</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_data_bbs.R'><code>R/get_data_bbs.R</code></a></small>
-    <div class="hidden name"><code>process_bbs_route_region_data.Rd</code></div>
+    <h1>Invoke an analysis on a dataset</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/analysis_wrapper.R'><code>R/analysis_wrapper.R</code></a></small>
+    <div class="hidden name"><code>invoke.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Correct and otherwise filter BBS species data (see
-<code><a href='combine_bbs_subspecies.html'>combine_bbs_subspecies</a></code> and <code><a href='filter_bbs_species.html'>filter_bbs_species</a></code>
-for more info). Generate the abundance, covariate, and metadata tables and
-return the combined object.</p>
+    <p>This function is a helper that, at its core, simply applies the
+function to the dataset. The key added functionality is to preserve the
+names of the function and the dataset, as well as metadata and any
+additional arguments; returning the result in a tibble that is consistent
+in format, regardless of what function is actually being invoked.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>process_bbs_route_region_data</span>(
-  <span class='no'>bbs_data_table</span>,
-  <span class='no'>location_table</span>,
-  <span class='no'>species_table</span>,
-  <span class='kw'>save_to_file</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>storage_path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(), <span class='st'>"breed-bird-survey-prepped"</span>),
-  <span class='kw'>citation_text</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>invoke</span>(<span class='no'>fun</span>, <span class='no'>data</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>bbs_data_table</th>
-      <td><p>main bbs data table</p></td>
+      <th>fun</th>
+      <td><p>the analysis function</p></td>
     </tr>
     <tr>
-      <th>location_table</th>
-      <td><p>information about location of the route</p></td>
+      <th>data</th>
+      <td><p>the dataset</p></td>
     </tr>
     <tr>
-      <th>species_table</th>
-      <td><p>table of species for BBS</p></td>
-    </tr>
-    <tr>
-      <th>save_to_file</th>
-      <td><p>whether to save the processed dataset to a file</p></td>
-    </tr>
-    <tr>
-      <th>storage_path</th>
-      <td><p>folder in which to put processed dataset</p></td>
-    </tr>
-    <tr>
-      <th>citation_text</th>
-      <td><p>text of citation for the database</p></td>
+      <th>...</th>
+      <td><p>additional arguments to pass to <code>fun</code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>the processed BBS data</p>
+    <p>a tibble with these columns:</p><table class='table'>
+<tr><td><code>results</code></td><td>the output of <code>fun(data)</code></td></tr>
+<tr><td><code>metadata</code></td><td>the metadata component of the original dataset</td></tr>
+<tr><td><code>dataset</code></td><td>the name of the dataset</td></tr>
+<tr><td><code>method</code></td><td>the name of the analysis function</td></tr>
+<tr><td><code>args</code></td><td>a list of optional args to <code>method</code></td></tr>
+</table>
 
+
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+  <span class='no'>sgs_data</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>MATSS</span><span class='kw ns'>::</span><span class='fu'><a href='get_sgs_data.html'>get_sgs_data</a></span>()
+  <span class='fu'>invoke</span>(<span class='no'>ts_summary</span>, <span class='no'>sgs_data</span>)
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
