@@ -2,7 +2,7 @@
 % Please edit documentation in R/plan_analyses.R
 \name{collect_analyses}
 \alias{collect_analyses}
-\title{Collect the Analyses Together as a List}
+\title{Collect Analyses Together into a Tibble}
 \usage{
 collect_analyses(list_of_results)
 }
@@ -15,8 +15,13 @@ for all the analyses and the collected results (grouping the outputs from
 each method into a single list)
 }
 \description{
-This is a helper function that enables the NSE evaluation in
-\code{\link{plan_analyses}}. For example, \code{collect_analyses(list(a, b))}
-will return a list of two named elements, \code{a} and \code{b} corresponding to the
-objects \code{a} and \code{b}.
+This is a helper function to accompany \code{\link{plan_analyses}}: it is
+necessary to collect all of the results that are produced by the drake
+plan.
+
+This function strives to be intelligent about the format of the individual
+results. For output from \code{\link{analysis_wrapper}} that already has information
+about the method and dataset, we can just combine them. Otherwise, we
+parse the name of the object for the method and the dataset, to format
+into a structure similar to the output from \code{\link{analysis_wrapper}}.
 }

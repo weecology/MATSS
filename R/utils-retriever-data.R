@@ -34,7 +34,7 @@ use_default_data_path <- function(path = NULL)
 #' @aliases import_retriever_data
 #'  
 #' @description \code{install_retriever_data} downloads retriever datasets and 
-#'   is a wrapper around rdataretriever::install 
+#'   is a wrapper around \code{rdataretriever::\link[rdataretriever]{install}}
 #'   
 #' @param force_install whether to install the dataset if the correctly named 
 #'   folder already exists
