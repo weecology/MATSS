@@ -74,5 +74,7 @@ get_portal_rodents <- function(time_or_plots = "plots",
     out <- list(abundance = abundance, 
                 covariates = covariates, 
                 metadata = metadata)
+    attr(out, "class") <- "matssdata"
+    
     return(out)
 }

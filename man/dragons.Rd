@@ -4,7 +4,8 @@
 \name{dragons}
 \alias{dragons}
 \title{dragons dataset}
-\format{A list with 3 elements:
+\format{
+A list with 3 elements:
 \describe{
 \item{abundance}{a data.frame with abundances for 3 dragons}
 \item{covariates}{a data.frame with times of observations and effort and precip data}
@@ -13,7 +14,8 @@
 \code{period} - the gap between successive observations,
 \code{authors} - the authors of the dataset,
 \code{species_table} - information about the species observed}
-}}
+}
+}
 \usage{
 dragons
 }

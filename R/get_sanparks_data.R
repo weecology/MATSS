@@ -88,8 +88,10 @@ get_karoo_data <- function()
                                               "cooperative effort of the South African National Parks (SANParks) and the National",  
                                               "Center for Ecological Analysis and Synthesis (NCEAS)."))
     
-    list(abundance = abundance, covariates = covariates, metadata = metadata)
+    out <- list(abundance = abundance, covariates = covariates, metadata = metadata)
+    attr(out, "class") <- "matssdata"
     
+    return(out)
 }
 
 
@@ -129,6 +131,9 @@ get_kruger_data <- function()
                                               "cooperative effort of the South African National Parks (SANParks) and the National", 
                                               "Center for Ecological Analysis and Synthesis (NCEAS)."))
     
-    list(abundance = abundance, covariates = covariates, metadata = metadata)
+    out <- list(abundance = abundance, covariates = covariates, metadata = metadata)
+    attr(out, "class") <- "matssdata"
+    
+    return(out)
 }
 

@@ -55,8 +55,9 @@ Suggests:
     reticulate, 
     networkD3, 
     visNetwork
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 Roxygen: list(markdown = TRUE)
 VignetteBuilder: knitr
-Remotes:
-    weecology/portalr
+Remotes: 
+    weecology/portalr,
+    ropensci/rdataretriever
