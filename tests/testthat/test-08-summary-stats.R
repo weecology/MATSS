@@ -93,8 +93,9 @@ test_that("ts_summary works with full obs, times, effort", {
     effort <- sample(10:12, length(times), replace = TRUE)
     expect_error(output <- ts_summary(data = ts, times = times, effort = effort), NA)
     #    expect_known_hash(output$stats[[1]], "4155ffc4fa")
-    expect_known_hash(output$stats[[1]]$autocorrelation, "a5322be834")
-    expect_known_hash(output$stats[[1]][, -8], "8173cd7aaae")
+    autocorr <- output$stats[[1]]$autocorrelation
+    expect_known_hash(lapply(autocorr, round, 3), "ce953b6955")
+    expect_known_hash(round(output$stats[[1]][, -c(1, 8)], 3), "70ed4f6e1ff")
     expect_known_hash(output$spp_correlations, "1d6dee4961")
     #    expect_known_hash(tibble::as_tibble(output), "d61f90652f")
 })
