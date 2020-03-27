@@ -1,63 +1,84 @@
-Package: MATSS
 Type: Package
+Package: MATSS
 Title: Macroecological Analyses of Time Series Structure
 Version: 0.2.2
-Authors@R: c(
-    person("Hao", "Ye", role = c("aut", "cre"), 
-    	   email = "hao.ye@weecology.org", 
-           comment = c(ORCID = "0000-0002-8630-1458")),
-    person("Ellen", "Bledsoe", role = c("aut"), 
-    	   comment = c(ORCID = "0000-0002-3629-7235")),
-    person("Renata", "Diaz", role = c("aut"), 
-    	   comment = c(ORCID = "0000-0003-0803-4734")),
-    person("S. K. Morgan", "Ernest", role = c("aut"), 
-    	   comment = c(ORCID = "0000-0002-6026-8530")),
-    person("Juniper", "Simonis", role = c("aut"), 
-    	   comment = c(ORCID = "0000-0001-9798-0460")),
-    person("Ethan", "White", role = c("aut"), 
-    	   comment = c(ORCID = "0000-0001-6728-7745")),
-    person("Glenda", "Yenni", role = c("aut"), 
-    	   comment = c(ORCID = "0000-0001-6969-1848"))
-  )
-Description: Support for macroecological analyses of time series. The intent of the package is to enable end users to run analyses on a collection of population and community time series data. Functions are provided to download and import datasets, produce reproducible workflows using the `drake` package, and for generating research compendia with code and reports.
+Authors@R: 
+    c(person(given = "Hao",
+             family = "Ye",
+             role = c("aut", "cre"),
+             email = "hao.ye@weecology.org",
+             comment = c(ORCID = "0000-0002-8630-1458")),
+      person(given = "Ellen",
+             family = "Bledsoe",
+             role = "aut",
+             comment = c(ORCID = "0000-0002-3629-7235")),
+      person(given = "Renata",
+             family = "Diaz",
+             role = "aut",
+             comment = c(ORCID = "0000-0003-0803-4734")),
+      person(given = "S. K. Morgan",
+             family = "Ernest",
+             role = "aut",
+             comment = c(ORCID = "0000-0002-6026-8530")),
+      person(given = "Juniper",
+             family = "Simonis",
+             role = "aut",
+             comment = c(ORCID = "0000-0001-9798-0460")),
+      person(given = "Ethan",
+             family = "White",
+             role = "aut",
+             comment = c(ORCID = "0000-0001-6728-7745")),
+      person(given = "Glenda",
+             family = "Yenni",
+             role = "aut",
+             comment = c(ORCID = "0000-0001-6969-1848")))
+Description: Support for macroecological analyses of time
+    series. The intent of the package is to enable end users to run
+    analyses on a collection of population and community time series data.
+    Functions are provided to download and import datasets, produce
+    reproducible workflows using the `drake` package, and for generating
+    research compendia with code and reports.
 License: MIT + file LICENSE
 URL: https://github.com/weecology/MATSS
 BugReports: https://github.com/weecology/MATSS/issues
-LazyData: true
-Depends: R (>= 3.4.0)
+Depends: 
+    R (>= 3.4.0)
 Imports:
-    magrittr,
-    ggplot2,
-    lubridate, 
-    drake (>= 7.10.0),
-    rlang,
     dplyr,
-    tidyr,
-    purrr,
-    rdataretriever (>= 2.0.0),
-    reticulate, 
-    portalr (>= 0.3.2),
-    RSQLite,
+    drake (>= 7.10.0),
     forecast,
-    tibble,
+    fs,
     future,
     future.batchtools,
+    ggplot2,
+    lubridate,
+    magrittr,
+    portalr (>= 0.3.2),
+    purrr,
+    rdataretriever (>= 2.0.0),
+    reticulate,
+    rlang,
+    RSQLite,
+    rstudioapi,
     stringr,
-    usethis, 
-    fs, 
-    rstudioapi
+    tibble,
+    tidyr,
+    usethis
 Suggests:
-    testthat,
-    knitr,
-    rmarkdown, 
-    pkgdown,
     covr,
-    reticulate, 
-    networkD3, 
+    knitr,
+    networkD3,
+    pkgdown,
+    reticulate,
+    rmarkdown,
+    testthat,
     visNetwork
-RoxygenNote: 7.1.0
-Roxygen: list(markdown = TRUE)
-VignetteBuilder: knitr
+VignetteBuilder: 
+    knitr
 Remotes: 
-    weecology/portalr,
-    ropensci/rdataretriever
+    ropensci/rdataretriever,
+    weecology/portalr
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0

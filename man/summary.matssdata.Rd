@@ -4,20 +4,12 @@
 \alias{summary.matssdata}
 \title{Summarize a time series dataset}
 \usage{
-\method{summary}{matssdata}(
-  data,
-  times = NULL,
-  effort = NULL,
-  obs_per_effort = !is.null(effort),
-  interp_method = forecast::na.interp,
-  include_spp_correlations = TRUE,
-  ...
-)
+\method{summary}{matssdata}(x, ...)
 }
 \arguments{
-\item{...}{additional arguments to \code{ts_summary()}}
-
 \item{x}{Class \code{matssdata} object to be summarized.}
+
+\item{...}{additional arguments to \code{ts_summary()}}
 }
 \value{
 \code{list} of number of species, number of
