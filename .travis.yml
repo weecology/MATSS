@@ -1,7 +1,6 @@
 language: r
 cache:
 - packages
-sudo: required
 dist: "xenial"
 warnings_are_errors: false
 
@@ -33,7 +32,7 @@ before_install:
   - retriever
   - python -c 'import retriever;retriever.check_for_updates()'
 
-matrix:
+jobs:
   include:
   - r: devel
   - r: release
@@ -45,10 +44,10 @@ matrix:
     - bash deploy_compendium.sh
     deploy:
       provider: pages
-      skip-cleanup: true
-      github-token: $GITHUB_PAT
-      keep-history: true
-      local-dir: docs
+      skip_cleanup: true
+      github_token: $GITHUB_PAT
+      keep_history: true
+      local_dir: docs
       on:
         branch: master
   
