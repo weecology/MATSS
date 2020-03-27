@@ -8,24 +8,20 @@
 #'   species richness, total observation, and the among-species correlation.
 #' 
 #' @export
-summary.matssdata <- ts_summary
-
-# print the variables of a tibble or data.frame
-print_tbl_info <- function(tbl, tbl_name = "Abundances")
+summary.matssdata <- function(x, ...)
 {
-    nrows <- NROW(tbl)
-    ncols <- NCOL(tbl)
-    comment <- paste0("# ", tbl_name, ": ", nrows, " x ", ncols)
-    cat(pillar::style_subtle(comment), "\n")
-    cat(pillar::style_subtle("#   variables: "), "\n")
-    print(names(tbl))
+    stopifnot(check_data_format(x))
+    ts_summary(x, ..., include_spp_correlations = FALSE)
 }
 
-# print a horizontal line
-print_hrule <- function(width = getOption("width"))
+# print the summary
+print.matsssummary <- function(x, ..., n = NULL)
 {
-    line_text <- paste0(c(rep.int("-", width), "\n"), collapse = "")
-    cat(pillar::style_subtle(line_text))
+    cat(pillar::style_subtle(paste0("# Abundance matrix: ", x$num_obs, " obs x ", x$num_spp, " spp")), 
+        "\n")
+    
+    details <- tibble::trunc_mat(x$stats[[1]], n = n)
+    cat(format(details)[-1], sep = "\n")
 }
 
 #' @title Print a time series dataset
@@ -37,14 +33,56 @@ print_hrule <- function(width = getOption("width"))
 print.matssdata <- function(x, ...)
 {
     print_hrule()
-    print_tbl_info(x$abundance, "Abundances")
-
-    print_hrule()
-    print_tbl_info(x$covariates, "Covariates")
+    print_info(x$abundance, "$abundance")
     
     print_hrule()
-    comment <- paste0("# Metadata: ", length(x$metadata), " fields")
-    cat(pillar::style_subtle(comment), "\n")
-    str(x$metadata, no.list = TRUE, max.level = 1)
+    print_info(x$covariates, "$covariates")
+    
+    print_hrule()
+    print_info(x$metadata, "$metadata")
+
     invisible(x)
+}
+
+
+# print the info about a tibble or list
+print_info <- function(x, name = "$abundance", details = TRUE, width = 13)
+{
+    header <- format_info_header(x)
+    cat(format(name, width = width), header, "\n")
+    print_details(x, details)
+}
+
+# format header info for an object
+format_info_header <- function(x)
+{
+    if (inherits(x, "tbl"))
+    {
+        pillar::style_subtle(paste0("# A tibble: ", NROW(x), " x ", NCOL(x)))
+    } else if (inherits(x, "data.frame")) {
+        pillar::style_subtle(paste0("# A data.frame: ", NROW(x), " x ", NCOL(x)))
+    } else if (inherits(x, "list")) {
+        pillar::style_subtle(paste0("# List of ", length(x)))
+    }
+}
+
+# print the details of an object
+print_details <- function(x, details = TRUE)
+{
+    if (!details) return()
+    
+    if (inherits(x, "data.frame"))
+    {
+        cat(pillar::style_subtle("#   variables: "), "\n")
+        print(names(x))
+    } else if (inherits(x, "list")) {
+        str(x, no.list = TRUE, max.level = 1, indent.str = "  ..")
+    }
+}
+
+# print a horizontal line
+print_hrule <- function(width = getOption("width"))
+{
+    line_text <- paste0(c(rep.int("-", width), "\n"), collapse = "")
+    cat(pillar::style_subtle(line_text))
 }

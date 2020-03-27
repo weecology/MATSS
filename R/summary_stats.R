@@ -40,8 +40,8 @@ ts_summary <- function(data, times = NULL, effort = NULL,
                        include_spp_correlations = TRUE, 
                        ...)
 {
-    suppressMessages(is_data_formatted <- check_data_format(data))
-    if (is_data_formatted)
+    is_matssdata <- inherits(data, "matssdata")
+    if (is_matssdata)
     {
         obs <- data$abundance
         times <- get_times_from_data(data)
@@ -80,6 +80,8 @@ ts_summary <- function(data, times = NULL, effort = NULL,
     {
         out$spp_correlations <- list(round(stats::cor(obs), 4))
     }
+    attr(out, "class") <- c("matsssummary", class(out))
+    
     return(out)
 }
 

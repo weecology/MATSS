@@ -40,6 +40,7 @@ create_MATSS_compendium <- function(path,
     add_dependency("rlang")
 
     # add template files
+    matss_citation <- utils::citation("MATSS")
     usethis::use_directory("analysis")
     usethis::use_template("template-functions.R", save_as = "R/analysis_functions.R", 
                           package = "MATSS")
@@ -48,14 +49,15 @@ create_MATSS_compendium <- function(path,
                           package = "MATSS")
     usethis::use_template("template-report.Rmd", save_as = "analysis/report.Rmd", 
                           data = list(package = pkg_name, 
-                                      author = name), 
+                                      author = name, 
+                                      matss_ref_key = matss_citation$key), 
                           package = "MATSS")
     usethis::use_template("template-README.md", save_as = "README.md", 
                           data = list(package = pkg_name, 
                                       citation_txt = citation("MATSS")$textVersion), 
                           package = "MATSS")
     usethis::use_template("template-references.bib", save_as = "analysis/references.bib", 
-                          data = list(bibentries = utils::citation("MATSS") %>% 
+                          data = list(bibentries = matss_citation %>% 
                                           utils::toBibtex() %>% 
                                           paste(collapse = "\n")), 
                           package = "MATSS")
