@@ -54,6 +54,7 @@ create_MATSS_compendium <- function(path,
                           package = "MATSS")
     usethis::use_template("template-README.md", save_as = "README.md", 
                           data = list(package = pkg_name, 
+                                      version = packageVersion("MATSS"), 
                                       citation_txt = citation("MATSS")$textVersion), 
                           package = "MATSS")
     usethis::use_template("template-references.bib", save_as = "analysis/references.bib", 

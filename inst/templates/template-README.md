@@ -4,15 +4,11 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-{{{package}}} is an example research compendium, created by [MATSS](https://weecology.github.io/MATSS/); 
-
-```
-{{{citation_txt}}}
-```
+{{{package}}} is an example research compendium, created by [MATSS](https://weecology.github.io/MATSS/), version {{{version}}}; ({{{citation_txt}}}).
 
 ## File/Folder Structure
 
-The organization of this project follows the recommendations for a research compendium;  Marwick, Boettiger, Mullen 2018 "Packaging Data Analytical Work Reproducibly Using R (and Friends)".
+The organization of this project follows the recommendations for a research compendium (Marwick, Boettiger, Mullen 2018 "Packaging Data Analytical Work Reproducibly Using R (and Friends)").
 
 The initial contents are:
 
@@ -49,7 +45,7 @@ The default option with a new compendium is to use the permissive MIT License. H
 If you're in RStudio, you can use the interactive "Build" pane: https://support.rstudio.com/hc/en-us/articles/200486488-Developing-Packages-with-RStudio  
 Otherwise, using the **`devtools`** package:
 ```r
-devtools::install()
+devtools::install(".") # in the working directory of this compendium
 ```
 
 2. **Source the analysis script.**
