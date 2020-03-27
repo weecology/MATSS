@@ -1,7 +1,7 @@
 language: r
 cache:
 - packages
-sudo: required
+os: linux
 dist: "xenial"
 warnings_are_errors: false
 
@@ -33,7 +33,7 @@ before_install:
   - retriever
   - python -c 'import retriever;retriever.check_for_updates()'
 
-matrix:
+jobs:
   include:
   - r: devel
   - r: release
@@ -42,11 +42,13 @@ matrix:
     - rm README.Rmd
     - Rscript -e 'pkgdown::build_site()'
     - Rscript -e 'covr::codecov()'
+    - bash deploy_compendium.sh
     deploy:
+      strategy: git
       provider: pages
-      skip-cleanup: true
-      github-token: $GITHUB_PAT
-      keep-history: true
-      local-dir: docs
+      token: $GITHUB_PAT
+      keep_history: true
+      local_dir: docs
       on:
         branch: master
+  

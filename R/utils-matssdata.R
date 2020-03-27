@@ -14,7 +14,12 @@ summary.matssdata <- function(x, ...)
     ts_summary(x, ..., include_spp_correlations = FALSE)
 }
 
-# print the summary
+#' @title Print a time series summary
+#'
+#' @param x Class `matsssummary` object to be printed
+#' @param ... additional arguments (unused)
+#' 
+#' @export
 print.matsssummary <- function(x, ..., n = NULL)
 {
     cat(pillar::style_subtle(paste0("# Abundance matrix: ", x$num_obs, " obs x ", x$num_spp, " spp")), 

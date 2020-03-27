@@ -86,13 +86,15 @@ test_that("ts_summary works with just a time series", {
 })
 
 test_that("ts_summary works with full obs, times, effort", {
-    set.seed(42)
     ts <- sunspot.year
     ts[c(1, 5, 10:14)] <- NA
     times <- as.numeric(time(sunspot.year))
-    effort <- sample(10:12, length(times), replace = TRUE)
+    effort <- rep_len(1:12, length.out = length(times))
     expect_error(output <- ts_summary(data = ts, times = times, effort = effort), NA)
-    expect_known_hash(tibble::as_tibble(output), "d61f90652f")
+    autocorr <- data.frame(output$stats[[1]]$autocorrelation)
+    expect_known_hash(round(autocorr, 2), "648bf4aeb9")
+    expect_known_hash(round(output$stats[[1]][, -c(1, 8)], 3), "596e864bcb1")
+    expect_known_hash(output$spp_correlations, "1d6dee4961")
 })
 
 test_that("summarize_df works", {
