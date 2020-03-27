@@ -14,3 +14,4 @@
 ^.zenodo.json$
 ^README_cache
 ^miniconda.sh$
+^deploy_compendium.sh$
