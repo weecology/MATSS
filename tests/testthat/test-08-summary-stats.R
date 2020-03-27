@@ -82,7 +82,7 @@ test_that("ts_summary works with just a time series", {
     ts <- sunspot.year
     ts[c(1, 5, 10:14)] <- NA
     expect_error(m <- capture_messages(output <- ts_summary(ts)), NA)
-    expect_known_hash(output, "a38b9118f0")
+    expect_known_hash(tibble::as_tibble(output), "a38b9118f0")
 })
 
 test_that("ts_summary works with full obs, times, effort", {
@@ -92,7 +92,7 @@ test_that("ts_summary works with full obs, times, effort", {
     times <- as.numeric(time(sunspot.year))
     effort <- sample(10:12, length(times), replace = TRUE)
     expect_error(output <- ts_summary(data = ts, times = times, effort = effort), NA)
-    expect_known_hash(output, "728394cff5")
+    expect_known_hash(tibble::as_tibble(output), "d61f90652f")
 })
 
 test_that("summarize_df works", {
