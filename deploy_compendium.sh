@@ -1,3 +1,10 @@
+# exit if not running on branch 'master'
+this_branch=$(git branch --show-current)
+if [[ $this_branch != "master" ]]; then
+    echo "Not on branch 'master', exiting."
+    exit 0
+fi
+
 # setup vars
 GIT_USER="Weecology Deploy Bot"
 GIT_EMAIL="weecologydeploy@weecology.org"
