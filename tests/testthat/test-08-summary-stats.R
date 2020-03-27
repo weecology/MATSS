@@ -92,7 +92,9 @@ test_that("ts_summary works with full obs, times, effort", {
     times <- as.numeric(time(sunspot.year))
     effort <- sample(10:12, length(times), replace = TRUE)
     expect_error(output <- ts_summary(data = ts, times = times, effort = effort), NA)
-    expect_known_hash(tibble::as_tibble(output), "d61f90652f")
+    expect_known_hash(output$stats, "4155ffc4fa")
+    expect_known_hash(output$spp_correlations, "1d6dee4961")
+#    expect_known_hash(tibble::as_tibble(output), "d61f90652f")
 })
 
 test_that("summarize_df works", {
