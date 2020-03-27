@@ -1,6 +1,7 @@
 language: r
 cache:
 - packages
+os: linux
 dist: "xenial"
 warnings_are_errors: false
 
@@ -43,9 +44,9 @@ jobs:
     - Rscript -e 'covr::codecov()'
     - bash deploy_compendium.sh
     deploy:
+      strategy: git
       provider: pages
-      skip_cleanup: true
-      github_token: $GITHUB_PAT
+      token: $GITHUB_PAT
       keep_history: true
       local_dir: docs
       on:

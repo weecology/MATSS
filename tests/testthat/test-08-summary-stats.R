@@ -91,8 +91,8 @@ test_that("ts_summary works with full obs, times, effort", {
     times <- as.numeric(time(sunspot.year))
     effort <- rep_len(1:12, length.out = length(times))
     expect_error(output <- ts_summary(data = ts, times = times, effort = effort), NA)
-    autocorr <- output$stats[[1]]$autocorrelation
-    expect_known_hash(lapply(autocorr, round, 3), "2b9b2ad2be")
+    autocorr <- data.frame(output$stats[[1]]$autocorrelation)
+    expect_known_hash(round(autocorr, 3), "38976d8016")
     expect_known_hash(round(output$stats[[1]][, -c(1, 8)], 3), "596e864bcb1")
     expect_known_hash(output$spp_correlations, "1d6dee4961")
 })
