@@ -1,11 +1,11 @@
 # exit if not running on branch 'master'
 this_branch=$(git branch --show-current)
-if [[ $this_branch != "master" ]]; then
-    echo "Not on branch 'master'; branch is $this_branch"
+if  [ "$this_branch" == "master" ] || [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+    echo "Not on branch 'master'; exiting early"
     exit 0
 fi
 
-# save working directory to restore later
+# save working directory to restore lat1er
 orig_dir=$(pwd)
 
 # setup vars
