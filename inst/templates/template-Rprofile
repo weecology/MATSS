@@ -1,0 +1,9 @@
+options(
+        usethis.full_name = "{{{name}}}", 
+        usethis.description = list(
+            `Authors@R` = 'person("{{{name}}}", 
+                              email = "{{{email}}}", 
+                              role = c("aut", "cre"))', 
+            Version = "{{{version}}}"
+        )
+    )

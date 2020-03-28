@@ -9,7 +9,8 @@ create_MATSS_compendium(
   name = usethis:::find_name(),
   fields = NULL,
   rstudio = rstudioapi::isAvailable(),
-  open = interactive()
+  open = interactive(),
+  DEPLOY = FALSE
 )
 }
 \arguments{
@@ -35,6 +36,8 @@ that the directory can be recognized as a project by the
 \item If on RStudio server, the current RStudio project is activated.
 \item Otherwise, the working directory and active project is changed.
 }}
+
+\item{DEPLOY}{if \code{TRUE}, add preamble text to the readme}
 }
 \value{
 Path to the newly created package, invisibly.

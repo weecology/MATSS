@@ -6,6 +6,7 @@
 #'   - add template analysis and pipeline files
 #' 
 #' @param name author name for the package
+#' @param DEPLOY if `TRUE`, add preamble text to the readme
 #' @inheritParams usethis::create_package
 #' 
 #' @return Path to the newly created package, invisibly.
@@ -15,7 +16,8 @@ create_MATSS_compendium <- function(path,
                                     name = usethis:::find_name(), 
                                     fields = NULL, 
                                     rstudio = rstudioapi::isAvailable(), 
-                                    open = interactive())
+                                    open = interactive(),
+                                    DEPLOY = FALSE)
 {
     # make new package, but don't open it
     usethis::create_package(path = path, 
@@ -52,10 +54,15 @@ create_MATSS_compendium <- function(path,
                                       author = name, 
                                       matss_ref_key = matss_citation$key), 
                           package = "MATSS")
+    if (DEPLOY)
+        preamble_text <- "**THIS IS AN AUTO-GENERATED EXAMPLE COMPENDIUM**\n"
+    else
+        preamble_text <- ""
     usethis::use_template("template-README.md", save_as = "README.md", 
                           data = list(package = pkg_name, 
                                       version = packageVersion("MATSS"), 
-                                      citation_txt = citation("MATSS")$textVersion), 
+                                      citation_txt = citation("MATSS")$textVersion, 
+                                      preamble = preamble_text), 
                           package = "MATSS")
     usethis::use_template("template-references.bib", save_as = "analysis/references.bib", 
                           data = list(bibentries = matss_citation %>% 
@@ -107,4 +114,21 @@ add_dependency <- function(pkg = "MATSS")
         usethis::use_package(pkg)
     }
     return()
+}
+
+#' @noRd
+write_Rprofile <- function(dir = ".", name = "Weecology Deploy Bot", 
+                           email = "weecologydeploy@weecology.org", 
+                           version = packageVersion("MATSS"))
+{
+    Rprofile_loc <- file.path(dir, ".Rprofile")
+    Rprofile_exists <- file.exists(Rprofile_loc)
+    if (Rprofile_exists)
+        return()
+    
+    usethis::use_template("template-Rprofile", save_as = Rprofile_loc, 
+                          data = list(name = name, 
+                                      email = email, 
+                                      version = version), 
+                          package = "MATSS")
 }
