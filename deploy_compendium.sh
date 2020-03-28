@@ -1,5 +1,10 @@
 # exit if not running on branch 'master'
 this_branch=$(git branch --show-current)
+
+echo "this_branch = $this_branch"
+echo "TRAVIS_BRANCH = $TRAVIS_BRANCH"
+echo "TRAVIS_PULL_REQUEST = $TRAVIS_PULL_REQUEST"
+
 if  [ "$this_branch" == "master" ] || [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     echo "Not on branch 'master'; exiting early"
     exit 0
