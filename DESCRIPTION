@@ -56,7 +56,7 @@ Imports:
     portalr (>= 0.3.2),
     purrr,
     rdataretriever (>= 2.0.0),
-    reticulate,
+    reticulate (>= 1.14.9002),
     rlang,
     RSQLite,
     rstudioapi,
@@ -77,6 +77,7 @@ VignetteBuilder:
     knitr
 Remotes: 
     ropensci/rdataretriever,
+    rstudio/reticulate,
     weecology/portalr
 Encoding: UTF-8
 LazyData: true
