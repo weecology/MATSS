@@ -1,7 +1,7 @@
 # exit if not running on branch 'master'
 this_branch=$(git branch --show-current)
 if [[ $this_branch != "master" ]]; then
-    echo "Not on branch 'master', exiting."
+    echo "Not on branch 'master'; branch is $this_branch"
     exit 0
 fi
 
