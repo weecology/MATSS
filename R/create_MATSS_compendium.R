@@ -33,13 +33,14 @@ create_MATSS_compendium <- function(path,
     on.exit(usethis::proj_set(old_project), add = TRUE)
     
     # add package dependencies
-    add_dependency("MATSS")
     add_dependency("drake")
     add_dependency("dplyr")
-    add_dependency("tidyr")
     add_dependency("ggplot2")
-    add_dependency("rmarkdown")
+    add_dependency("here")
+    add_dependency("MATSS")
     add_dependency("rlang")
+    add_dependency("rmarkdown")
+    add_dependency("tidyr")
 
     # add template files
     matss_citation <- utils::citation("MATSS")
@@ -55,22 +56,12 @@ create_MATSS_compendium <- function(path,
                                       matss_ref_key = matss_citation$key), 
                           package = "MATSS")
     if (DEPLOY)
-        preamble_text <- "**THIS IS AN AUTO-GENERATED EXAMPLE COMPENDIUM**\n"
+        preamble_text <- ":rotating_light: **THIS IS AN AUTO-GENERATED EXAMPLE COMPENDIUM** :rotating_light:\n"
     else
         preamble_text <- ""
-    usethis::use_template("template-README.md", save_as = "README.md", 
-                          data = list(package = pkg_name, 
-                                      version = packageVersion("MATSS"), 
-                                      citation_txt = citation("MATSS")$textVersion, 
-                                      preamble = preamble_text), 
-                          package = "MATSS")
-    usethis::use_template("template-references.bib", save_as = "analysis/references.bib", 
-                          data = list(bibentries = matss_citation %>% 
-                                          utils::toBibtex() %>% 
-                                          paste(collapse = "\n")), 
-                          package = "MATSS")
     
     # add license
+    license_text <- ""
     if (!interactive() || 
         usethis::ui_yeah(paste0("Use the MIT License for this compendium?\n", 
                                 "(If unsure, please see ", 
@@ -78,7 +69,22 @@ create_MATSS_compendium <- function(path,
                                 ")")))
     {
         usethis::use_mit_license(name = name)
+        license_text <- paste0("├── LICENSE.md\n", 
+                               "├── LICENSE\n")
     }
+    
+    usethis::use_template("template-README.md", save_as = "README.md", 
+                          data = list(package = pkg_name, 
+                                      version = packageVersion("MATSS"), 
+                                      citation_txt = citation("MATSS")$textVersion, 
+                                      preamble = preamble_text, 
+                                      license_file_contents = license_text), 
+                          package = "MATSS")
+    usethis::use_template("template-references.bib", save_as = "analysis/references.bib", 
+                          data = list(bibentries = matss_citation %>% 
+                                          utils::toBibtex() %>% 
+                                          paste(collapse = "\n")), 
+                          package = "MATSS")
     
     # add analysis folder to .gitignore and .Rbuildignore
     usethis::use_git_ignore("^/analysis/*.html")

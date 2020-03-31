@@ -2,6 +2,9 @@ library(MATSS)
 library(drake)
 library({{{package}}})
 
+## set working directory to project folder
+setwd(here::here())
+
 ## include the functions in packages as dependencies
 #  - this is to help Drake recognize that targets need to be rebuilt if the 
 #    functions have changed
@@ -19,12 +22,12 @@ if (use_downloaded_datasets)
 ## a Drake plan for creating the datasets
 #  - these are the default options, which don't include downloaded datasets
 datasets <- build_datasets_plan(include_retriever_data = use_downloaded_datasets, 
-                                include_bbs_data = FALSE, 
-                                include_gpdd = FALSE, 
-                                include_biotime_data = FALSE)
+                                include_bbs_data = use_downloaded_datasets, 
+                                include_gpdd = use_downloaded_datasets, 
+                                include_biotime_data = use_downloaded_datasets)
 
 ## a Drake plan that defines the methods
-methods <- drake::drake_plan(
+methods <- drake_plan(
     simpson_index = {{{package}}}::compute_simpson_index,
     linear_trend = {{{package}}}::compute_linear_trend
 )
@@ -39,7 +42,8 @@ references <- build_references_plan(datasets)
 #  - we use `knitr_in()` 
 reports <- drake_plan(
     report = rmarkdown::render(
-        knitr_in("analysis/report.Rmd")
+        knitr_in("analysis/report.Rmd"), 
+        output_file("analysis/report.md")
     )
 )
 

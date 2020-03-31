@@ -1,7 +1,7 @@
 Type: Package
 Package: MATSS
 Title: Macroecological Analyses of Time Series Structure
-Version: 0.3.0
+Version: 0.3.1
 Authors@R: 
     c(person(given = "Hao",
              family = "Ye",
@@ -51,6 +51,7 @@ Imports:
     future,
     future.batchtools,
     ggplot2,
+    here, 
     lubridate,
     magrittr,
     portalr (>= 0.3.2),
@@ -76,7 +77,6 @@ Suggests:
 VignetteBuilder: 
     knitr
 Remotes: 
-    ropensci/rdataretriever,
     rstudio/reticulate,
     weecology/portalr
 Encoding: UTF-8
