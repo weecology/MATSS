@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">MATSS</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.1</span>
       </span>
     </div>
 
@@ -91,7 +91,7 @@
       <h1 data-toc-skip>MATSS: Dataset Summary</h1>
                         <h4 class="author">Hao Ye</h4>
             
-            <h4 class="date">2020-03-28</h4>
+            <h4 class="date">2020-03-31</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/weecology/MATSS/blob/master/vignettes/dataset-summary.Rmd"><code>vignettes/dataset-summary.Rmd</code></a></small>
       <div class="hidden name"><code>dataset-summary.Rmd</code></div>
@@ -186,7 +186,7 @@
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">dataset_info</span> <span class="kw">&lt;-</span> <span class="no">biotime_summaries</span> <span class="kw">%&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(-<span class="no">species_table</span>)
 
-<span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span>(<span class="no">dataset_info</span>, <span class="kw pkg">here</span><span class="kw ns">::</span><span class="fu">here</span>(<span class="st">"inst/biotime_dataset_info.RDS"</span>))</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">saveRDS</a></span>(<span class="no">dataset_info</span>, <span class="kw pkg">here</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/here/man/here.html">here</a></span>(<span class="st">"inst/biotime_dataset_info.RDS"</span>))</pre></body></html></div>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">dataset_info_file</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span>(<span class="st">"biotime_dataset_info.RDS"</span>,
                                  <span class="kw">package</span> <span class="kw">=</span> <span class="st">"MATSS"</span>, <span class="kw">mustWork</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
 <span class="no">dataset_info</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html">readRDS</a></span>(<span class="no">dataset_info_file</span>)
