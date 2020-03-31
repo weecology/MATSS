@@ -115,8 +115,8 @@ build_bbs_datasets_plan <- function(path = get_default_data_path(), data_subset 
         routes_and_regions <- routes_and_regions[data_subset, ]
     }
     bbs_datasets <- drake::drake_plan(
-        bbs_rtrg = drake::target(get_bbs_route_region_data(path = file_in(!!file.path(path, "breed-bird-survey-prepped", 
-                                                                                      paste0("route", route, "region", region, ".RDS")))),
+        bbs_rtrg = drake::target(get_bbs_route_region_data(path = !!file.path(path, "breed-bird-survey-prepped", 
+                                                                              paste0("route", route, "region", region, ".RDS"))),
                                  transform = map(route = !!routes_and_regions$route,
                                                  region = !!routes_and_regions$statenum), 
                                  trigger = trigger(command = FALSE)
@@ -172,8 +172,8 @@ build_biotime_datasets_plan <- function(path = get_default_data_path(),
                                            force_reprocessing = force_reprocessing)
     
     biotime_datasets <- drake::drake_plan(
-        biotime_rtrg = drake::target(get_biotime_data(path = file_in(!!file.path(path, "biotime-prepped", 
-                                                                                 paste0("dataset", dataset, ".RDS")))), 
+        biotime_rtrg = drake::target(get_biotime_data(path = !!file.path(path, "biotime-prepped", 
+                                                                         paste0("dataset", dataset, ".RDS"))), 
                                      transform = map(dataset = !!dataset_ids), 
                                      trigger = trigger(command = FALSE)
         )
