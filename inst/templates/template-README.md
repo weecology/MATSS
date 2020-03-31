@@ -115,3 +115,11 @@ In `analysis/pipeline.R`, you will want to modify the `methods` drake plan to in
 
 3. **Add code to process and plot the results.**
 In `analysis/report.Rmd`, you will want to modify the code to read in the new results, process the output, and construct plots.
+
+## Set up version control
+
+`MATSS` compendia are designed to be easily distributible via code-sharing platforms, such as Github. An example compendium, built using the latest version of `MATSS` can be found at https://github.com/weecology/MATSSdemo.
+
+A guide to setting up Git and getting the compendium uploaded to Github is in [this chapter](http://r-pkgs.had.co.nz/git.html) of Hadley Wickham's book on R packages.
+
+For a more extensive resource on using Git and Github as part of your coding workflow, see [Happy Git and GitHub for the useR](https://happygitwithr.com/).

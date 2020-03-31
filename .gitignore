@@ -1,4 +1,3 @@
-/inst/doc
 .Rproj.user
 .Rhistory
 .RData
@@ -12,5 +11,5 @@
 Meta
 /inst/extdata/subsampled/breed-bird-survey-prepped
 /inst/extdata/subsampled/biotime-prepped
+/inst/templates/template-README.html
 README_cache
-doc
