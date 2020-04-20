@@ -1,7 +1,6 @@
 context("Check Dataset Processing Code")
 
 test_that("BBS data processing works", {
-    
     species_table <- data.frame(aou = c(1, 3, 33, 44), 
                                 spanish_common_name = c("a x", "c x", "c x / yy", "d x zz"))
     
@@ -14,3 +13,19 @@ test_that("BBS data processing works", {
     expect_equal(out$species_id, c(1, 2, 3, 44))
     expect_equal(out$abundance, c(2, 2, 4, 2))
 })
+
+test_that("is_equitimed works", {
+    m <- capture_error(expect_false(is_equitimed(dragons)))
+    expect_match(as.character(m), "Error: `x` is not a regular sequence.", fixed = TRUE)
+    
+    path <- system.file("extdata", "subsampled",
+                        package = "MATSS", mustWork = TRUE)
+    dat <- get_mtquad_data()
+    expect_true(is_equitimed(dat))
+})
+
+
+
+
+
+test_that("make_integer_times")
