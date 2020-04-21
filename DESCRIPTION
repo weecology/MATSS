@@ -64,7 +64,8 @@ Imports:
     stringr,
     tibble,
     tidyr,
-    usethis
+    usethis, 
+    vctrs
 Suggests:
     covr,
     knitr,

@@ -20,8 +20,9 @@ test_that("is_equitimed works", {
     
     path <- system.file("extdata", "subsampled",
                         package = "MATSS", mustWork = TRUE)
-    dat <- get_mtquad_data()
-    expect_true(is_equitimed(dat))
+    dat <- get_mtquad_data(path = file.path(path, "mapped-plant-quads-mt"))
+    m <- capture_messages(expect_true(is_equitimed(dat)))
+    expect_match(m, "No time period found. Assuming period = 1.", fixed = TRUE)
 })
 
 

@@ -5,7 +5,7 @@
 \alias{is_evenly_sampled}
 \title{Check that the times of a dataset are evenly sampled}
 \usage{
-is_equitimed(data, period = NULL, tol = 1e-06, return_if_time_missing = TRUE)
+is_equitimed(data, period = NULL, tol = 1e-06)
 }
 \arguments{
 \item{data}{dataset to check}
@@ -14,8 +14,6 @@ is_equitimed(data, period = NULL, tol = 1e-06, return_if_time_missing = TRUE)
 see if there is a known \code{period} set in the metadata, otherwise assumes 1)}
 
 \item{tol}{tolerance for the period}
-
-\item{return_if_time_missing}{default value to return if times are missing}
 }
 \value{
 TRUE or FALSE, invisibly
