@@ -15,8 +15,8 @@ test_that("BBS data processing works", {
 })
 
 test_that("is_equitimed works", {
-    m <- capture_error(expect_false(is_equitimed(dragons)))
-    expect_match(as.character(m), "Error: `x` is not a regular sequence.", fixed = TRUE)
+    m <- capture_messages(expect_false(is_equitimed(dragons)))
+    expect_match(m, "`x` is not a regular sequence.", fixed = TRUE)
     
     path <- system.file("extdata", "subsampled",
                         package = "MATSS", mustWork = TRUE)
@@ -25,8 +25,39 @@ test_that("is_equitimed works", {
     expect_match(m, "No time period found. Assuming period = 1.", fixed = TRUE)
 })
 
+test_that("make_equitimed works", {
+    expect_error(make_equitimed(dragons), 
+                 "Unable to construct an evenly spaced time index.", 
+                 fixed = TRUE)
+
+    path <- system.file("extdata", "subsampled",
+                        package = "MATSS", mustWork = TRUE)
+    dat <- get_mtquad_data(path = file.path(path, "mapped-plant-quads-mt"))
+    expect_error(m <- capture_messages(out <- make_equitimed(dat)), NA)
+    expect_match(m, "No time period found. Assuming period = 1.", fixed = TRUE, all = FALSE)
+    expect_match(m, "Dataset is already evenly sampled in time.", fixed = TRUE, all = FALSE)
+    expect_equal(out, dat)
+    
+    dat <- list(
+        abundance = data.frame(a = c(1, 2, 3, 5, 6, 9, 10, 11, 12, 13), 
+                               b = c(1, 1, 1, 1, 1, 1, 1,  1,  1,  1)), 
+        covariates = data.frame(time = c(0, 0.5, 1, 2, 2.5, 4, 4.5, 5, 5.5, 6)), 
+        metadata = list(timename = "time", 
+                        period = 0.5, 
+                        is_community = FALSE, 
+                        citation = "NA")
+    )
+    attr(dat, "class") <- "matssdata"
+    expect_error(out <- make_equitimed(dat), NA)
+    expect_true(is_equitimed(out))
+    expect_true(check_data_format(out))
+    expect_equal(dim(out$abundance), c(13, 2))
+    expect_true(all(is.na(out$abundance[c(4, 7, 8), ])))
+    expect_true(!any(is.na(out$abundance[-c(4, 7, 8), ])))
+})
 
 
 
-
-test_that("make_integer_times")
+test_that("make_integer_times", {
+    
+})

@@ -13,7 +13,7 @@ is_equitimed <- function(data, period = NULL, tol = 1e-06)
 {
     stopifnot(check_data_format(data))
     
-    fulL_times <- get_full_times(data = data, period = period, tol = tol)
+    full_times <- get_full_times(data = data, period = period, tol = tol)
     times <- get_times_from_data(data)
     invisible(isTRUE(all.equal(times, full_times)))
 }
@@ -25,15 +25,14 @@ is_evenly_sampled <- is_equitimed
 #' period to establish the sampling frequency
 #' 
 #' @noRd
-get_full_times <- function(data, period = NULL, tol = 1e-06, 
-                           convert_error_to_message = TRUE)
+get_full_times <- function(data, period = NULL, tol = 1e-06)
 {
     times <- get_times_from_data(data)
     period <- get_period_from_data(data, period)
     
     full_times <- tryCatch(tidyr::full_seq(times, period, tol), 
              error = function(e) {
-                 message(e$message);
+                 message(e$message)
                  return(NULL)
              })
     return(full_times)
@@ -94,19 +93,19 @@ make_equitimed <- function(data, period = NULL, tol = 1e-06,
     full_times <- get_full_times(data = data, period = period, tol = tol)
     if (is.null(full_times))
     {
-        stop("Unable to construct an equitimed time index.")
+        stop("Unable to construct an evenly spaced time index.")
     }
     
     times <- get_times_from_data(data)
     if (isTRUE(all.equal(times, full_times)))
     {
-        message("Dataset is already equitimed (evenly sampled in time).")
+        message("Dataset is already evenly sampled in time.")
         return(invisible(data))
     }
     
     # generate empty matrices to hold final abundance and covariates
     abundance <- matrix(NA, nrow = length(full_times), ncol = NCOL(data$abundance))
-    covariates <- data$covariates[0,]
+    covariates <- data$covariates[0, , drop = FALSE]
 
     # compute separation between times and full_times
     times_dist <- outer(times, full_times, function(a, b) {abs(b - a)})
@@ -119,7 +118,7 @@ make_equitimed <- function(data, period = NULL, tol = 1e-06,
                for (i in seq_along(full_times))
                {
                    abundance[i, ] <- colMeans(data$abundance[idx[, i], , drop = FALSE], na.rm = na.rm)
-                   covariates[i, ] <- purrr::map_dfc(yy$covariates[idx[, i], , drop = FALSE], mean, na.rm = TRUE)
+                   covariates[i, ] <- purrr::map_dfc(data$covariates[idx[, i], , drop = FALSE], mean, na.rm = TRUE)
                }
            }, 
            median = {
@@ -127,7 +126,7 @@ make_equitimed <- function(data, period = NULL, tol = 1e-06,
                for (i in seq_along(full_times))
                {
                    abundance[i, ] <- apply(data$abundance[idx[, i], , drop = FALSE], 2, median, na.rm = na.rm)
-                   covariates[i, ] <- purrr::map_dfc(yy$covariates[idx[, i], , drop = FALSE], median, na.rm = TRUE)
+                   covariates[i, ] <- purrr::map_dfc(data$covariates[idx[, i], , drop = FALSE], median, na.rm = TRUE)
                }
            }, 
            closest = {
