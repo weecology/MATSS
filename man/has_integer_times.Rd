@@ -10,7 +10,7 @@ has_integer_times(data)
 \item{data}{dataset to check}
 }
 \value{
-TRUE or FALSE
+\code{TRUE} or \code{FALSE}
 }
 \description{
 Check if a dataset has integer times

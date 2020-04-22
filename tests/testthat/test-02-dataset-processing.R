@@ -66,10 +66,18 @@ test_that("make_equitimed works", {
     expect_true(!any(is.na(out$abundance[-c(4, 7, 8), ])))
 })
 
+test_that("has_integer_times works", {
+    expect_true(has_integer_times(dragons))
+    expect_false(has_integer_times(sample_dat))
+    
+    path <- system.file("extdata", "subsampled",
+                        package = "MATSS", mustWork = TRUE)
+    dat <- get_mtquad_data(path = file.path(path, "mapped-plant-quads-mt"))
+    expect_true(has_integer_times(dat))
+})
 
-
-test_that("make_integer_times", {
-    expect_error(out <- make_integer_times(sample_dat), 
+test_that("make_integer_times works", {
+    expect_error(make_integer_times(sample_dat), 
                  "Dataset is not evenly sampled in time.")
     
     expect_error(out <- make_integer_times(make_equitimed(sample_dat)), NA)
@@ -82,6 +90,28 @@ test_that("make_integer_times", {
     dat <- get_mtquad_data(path = file.path(path, "mapped-plant-quads-mt"))
     m <- capture_messages(out <- make_integer_times(dat))
     expect_match(m, "No time period found. Assuming period = 1.", fixed = TRUE, all = FALSE)
-    expect_match(m, "Dataset appears evenly sampled in time with integer times already.", fixed = TRUE, all = FALSE)
+    expect_match(m, "Dataset is evenly sampled with integer times already.", fixed = TRUE, all = FALSE)
     expect_equal(out, dat)
+})
+
+test_that("is_fully_sampled works", {
+    m <- capture_messages(expect_false(is_fully_sampled(sample_dat)))
+    expect_match(m, "Dataset is not evenly sampled in time.")
+    
+    sample_dat$covariates["temp"] <- rnorm(NROW(sample_dat$covariates))
+    
+    out <- make_equitimed(sample_dat)
+    m <- capture_messages(expect_false(is_fully_sampled(out)))
+    expect_match(m, "Dataset has NA (or Inf) values in `abundance`", fixed = TRUE, all = FALSE)
+    idx <- is.na(out$abundance)
+    out$abundance[idx] <- Inf
+    m <- capture_messages(expect_false(is_fully_sampled(out)))
+    expect_match(m, "Dataset has NA (or Inf) values in `abundance`", fixed = TRUE, all = FALSE)
+    out$abundance[idx] <- -999
+    expect_true(is_fully_sampled(out))
+    
+    m <- capture_messages(expect_false(is_fully_sampled(out, check_covariates = TRUE)))
+    expect_match(m, "Dataset has NA (or Inf) values in `covariates`", fixed = TRUE, all = FALSE)
+    out$covariates[is.na(out$covariates)] <- -999
+    expect_true(is_fully_sampled(out, check_covariates = TRUE))
 })

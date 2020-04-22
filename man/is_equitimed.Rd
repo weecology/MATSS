@@ -16,7 +16,7 @@ see if there is a known \code{period} set in the metadata, otherwise assumes 1)}
 \item{tol}{tolerance for the period}
 }
 \value{
-TRUE or FALSE, invisibly
+\code{TRUE} or \code{FALSE}
 }
 \description{
 Check that the times of a dataset are evenly sampled

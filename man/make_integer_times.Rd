@@ -4,10 +4,15 @@
 \alias{make_integer_times}
 \title{Add a time variable with integer values for evenly sampled data}
 \usage{
-make_integer_times(data)
+make_integer_times(data, period = NULL, tol = 1e-06)
 }
 \arguments{
 \item{data}{dataset to modify}
+
+\item{period}{period to check the times against (if \code{NULL}, first check to
+see if there is a known \code{period} set in the metadata, otherwise assumes 1)}
+
+\item{tol}{tolerance for the period}
 }
 \value{
 the dataset, with integer times
@@ -16,8 +21,9 @@ the dataset, with integer times
 Add a time variable with integer values for evenly sampled data
 }
 \details{
-If the times are already integer or Date, we don't do anything. If
-the times are numeric, but roundable to integer, we round. Otherwise, we
-add a new variable to \code{covariates} from 1:n and designate this variable as
-the \code{timename}.
+First, check if the data are evenly sampled in time. If not, we
+exit early. Next, if the times are already integer or Date, we don't do
+anything. If the times are numeric, but roundable to integer, we round.
+Otherwise, we add a new variable to \code{covariates} from 1:n and designate
+this variable as the \code{timename}.
 }
