@@ -57,7 +57,7 @@ Imports:
     portalr (>= 0.3.2),
     purrr,
     rdataretriever (>= 2.0.0),
-    reticulate (>= 1.14.9002),
+    reticulate (>= 1.15),
     rlang,
     RSQLite,
     rstudioapi,
@@ -77,9 +77,6 @@ Suggests:
     visNetwork
 VignetteBuilder: 
     knitr
-Remotes: 
-    rstudio/reticulate,
-    weecology/portalr
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)

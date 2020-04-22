@@ -28,6 +28,12 @@ is_evenly_sampled <- is_equitimed
 get_full_times <- function(data, period = NULL, tol = 1e-06)
 {
     times <- get_times_from_data(data)
+    if (is.null(times))
+    {
+        stop("Dataset does not appear to have a times variable.\n", 
+             "Check", usethis::ui_code("covariates"), " and ", 
+               usethis::ui_code("metadata$timename"), ".\n")
+    }
     period <- get_period_from_data(data, period)
     
     full_times <- tryCatch(tidyr::full_seq(times, period, tol), 
@@ -58,6 +64,7 @@ get_period_from_data <- function(data, period = NULL)
     }
     return(period)
 }
+
 #' @title Insert rows if necessary so that time series are evenly sampled
 #' @aliases make_evenly_sampled
 #' 
@@ -145,7 +152,8 @@ make_equitimed <- function(data, period = NULL, tol = 1e-06,
     if (is.null(time_var))
     {
         # make sure timename variable is unique
-        new_col_names <- vctrs::vec_as_names(c(colnames(covariates), "time"), repair = "unique")
+        new_col_names <- vctrs::vec_as_names(c(colnames(covariates), "time"), 
+                                             repair = "unique", quiet = TRUE)
         time_var <- tail(new_col_names, 1)
         data$metadata$timename <- time_var
     }
@@ -162,5 +170,79 @@ make_equitimed <- function(data, period = NULL, tol = 1e-06,
 
 #' @export
 make_evenly_sampled <- make_equitimed
+
+#' @title Add a time variable with integer values for evenly sampled data
+#' 
+#' @param data dataset to modify
+#' @inheritParams is_equitimed
+#' @inheritParams base::mean
+#' 
+#' @return the dataset, with integer times
+#'
+#' @details First, check if the data are evenly sampled in time. If not, we 
+#'   exit early. Next, if the times are already integer or Date, we don't do 
+#'   anything. If the times are numeric, but roundable to integer, we round. 
+#'   Otherwise, we add a new variable to `covariates` from 1:n and designate 
+#'   this variable as the `timename`.
+#' 
+#' @export
+make_integer_times <- function(data, period = NULL, tol = 1e-06, 
+                               confirm = interactive())
+{
+    is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5)
+    {
+        abs(x - round(x)) < tol
+    }
+    
+    # check for existence of times
+    times <- get_times_from_data(data)
+    
+    # do checks based on existing times
+    if (!is.null(times))
+    {    
+        # check for equitimed
+        if (!is_equitimed(data = data, period = period, tol = tol))
+        {
+            stop(c("Dataset is not evenly sampled in time.\n",
+                   "Perhaps you want to call ", usethis::ui_code("make_equitimed()"), " first.\n"))
+        }
+        
+        # check for integer times
+        if (is.integer(times))
+        {
+            message("Dataset appears evenly sampled in time with integer times already.")
+            return(invisible(data))
+        } else if (inherits(times, "Date"))
+        {
+            message("Dataset appears evenly sampled in time with `Date` formatted times already.")
+            return(invisible(data))
+        }
+        if (all(is.wholenumber(times)))
+        {
+            message("Dataset appears evenly sampled in time with (close to) integer times already.")
+            message("Rounding times to integer and replacing them...")
+            time_var <- data$metadata$timename
+            data$covariates[time_var] <- as.integer(round(times))
+            return(invisible(data))
+        }
+    }
+    
+    # add time
+    times <- seq_len(NROW(data$abundance))
+    if (is.null(data$covariates)) # create covariates
+    {
+        time_var <- "time"
+        data$covariates <- tibble::tibble(time_var = times)
+    } else {
+        new_col_names <- vctrs::vec_as_names(c(colnames(data$covariates), "time"), 
+                                             repair = "unique", quiet = TRUE)
+        time_var <- tail(new_col_names, 1)
+        data$covariates[time_var] <- times
+    }
+    data$metadata$timename <- time_var
+    message("Integer times created in variable ", usethis::ui_code(time_var), ".")
+    return(invisible(data))
+}
+
 
 
