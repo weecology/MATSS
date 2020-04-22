@@ -21,50 +21,6 @@ is_equitimed <- function(data, period = NULL, tol = 1e-06)
 #' @export
 is_evenly_sampled <- is_equitimed
 
-#' get the complete time index, filling in gaps where necessary, and using the 
-#' period to establish the sampling frequency
-#' 
-#' @noRd
-get_full_times <- function(data, period = NULL, tol = 1e-06)
-{
-    times <- get_times_from_data(data)
-    if (is.null(times))
-    {
-        stop("Dataset does not appear to have a times variable.\n", 
-             "Check", usethis::ui_code("covariates"), " and ", 
-               usethis::ui_code("metadata$timename"), ".\n")
-    }
-    period <- get_period_from_data(data, period)
-    
-    full_times <- tryCatch(tidyr::full_seq(times, period, tol), 
-             error = function(e) {
-                 message(e$message)
-                 return(NULL)
-             })
-    return(full_times)
-}
-
-#' extract the period, given the value from the metadata field, and a value 
-#' specified by the user. The flowchart is:
-#'   (1) if user has supplied non-null `period`, use that
-#'   (2) if metadata period is non-null, use that
-#'   (3) use a default value of 1 and print a message
-#' 
-#' @noRd
-get_period_from_data <- function(data, period = NULL)
-{
-    if (is.null(period))
-    {
-        period <- data$metadata$period
-        if (is.null(period))
-        {
-            message("No time period found. Assuming period = 1.")
-            period <- 1
-        }
-    }
-    return(period)
-}
-
 #' @title Insert rows if necessary so that time series are evenly sampled
 #' @aliases make_evenly_sampled
 #' 
@@ -171,11 +127,45 @@ make_equitimed <- function(data, period = NULL, tol = 1e-06,
 #' @export
 make_evenly_sampled <- make_equitimed
 
+#' @title Check if a dataset has integer times
+#' 
+#' @param data dataset to check
+#' 
+#' @return TRUE or FALSE
+#'
+#' @details If the times are already integer or Date, true. Otherwise FALSE, 
+#'   with a message if times are missing, or if times could potentially be 
+#'   rounded.
+#' 
+#' @export
+has_integer_times <- function(data)
+{
+    # check for existence of times
+    times <- get_times_from_data(data)
+    if (is.null(times))
+    {
+        message("Dataset is missing times.")
+        return(FALSE)
+    }
+    
+    # check for integer times
+    if (is.integer(times) || inherits(times, "Date"))
+    {
+        return(TRUE)
+    } else if (all(is.wholenumber(times))) {
+        message("Dataset has close to integer times, but they need to be rounded.\n", 
+                "Perhaps you want to call ", usethis::ui_code("make_integer_times()"), ".\n")
+        return(FALSE)
+    }
+    
+    # otherwise
+    return(FALSE)
+}
+
 #' @title Add a time variable with integer values for evenly sampled data
 #' 
 #' @param data dataset to modify
 #' @inheritParams is_equitimed
-#' @inheritParams base::mean
 #' 
 #' @return the dataset, with integer times
 #'
@@ -186,20 +176,13 @@ make_evenly_sampled <- make_equitimed
 #'   this variable as the `timename`.
 #' 
 #' @export
-make_integer_times <- function(data, period = NULL, tol = 1e-06, 
-                               confirm = interactive())
+make_integer_times <- function(data, period = NULL, tol = 1e-06)
 {
-    is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5)
-    {
-        abs(x - round(x)) < tol
-    }
-    
-    # check for existence of times
     times <- get_times_from_data(data)
     
     # do checks based on existing times
     if (!is.null(times))
-    {    
+    {
         # check for equitimed
         if (!is_equitimed(data = data, period = period, tol = tol))
         {
@@ -210,16 +193,13 @@ make_integer_times <- function(data, period = NULL, tol = 1e-06,
         # check for integer times
         if (is.integer(times))
         {
-            message("Dataset appears evenly sampled in time with integer times already.")
+            message("Dataset is evenly sampled with integer times already.")
             return(invisible(data))
-        } else if (inherits(times, "Date"))
-        {
-            message("Dataset appears evenly sampled in time with `Date` formatted times already.")
+        } else if (inherits(times, "Date")) {
+            message("Dataset is evenly sampled with `Date` formatted times already.")
             return(invisible(data))
-        }
-        if (all(is.wholenumber(times)))
-        {
-            message("Dataset appears evenly sampled in time with (close to) integer times already.")
+        } else if (all(is.wholenumber(times))) {
+            message("Dataset is evenly sampled with (close to) integer times already.")
             message("Rounding times to integer and replacing them...")
             time_var <- data$metadata$timename
             data$covariates[time_var] <- as.integer(round(times))
@@ -244,5 +224,55 @@ make_integer_times <- function(data, period = NULL, tol = 1e-06,
     return(invisible(data))
 }
 
+
+#' get the complete time index, filling in gaps where necessary, and using the 
+#' period to establish the sampling frequency
+#' 
+#' @noRd
+get_full_times <- function(data, period = NULL, tol = 1e-06)
+{
+    times <- get_times_from_data(data)
+    if (is.null(times))
+    {
+        stop("Dataset does not appear to have a times variable.\n", 
+             "Check", usethis::ui_code("covariates"), " and ", 
+             usethis::ui_code("metadata$timename"), ".\n")
+    }
+    period <- get_period_from_data(data, period)
+    
+    full_times <- tryCatch(tidyr::full_seq(times, period, tol), 
+                           error = function(e) {
+                               message(e$message)
+                               return(NULL)
+                           })
+    return(full_times)
+}
+
+#' extract the period, given the value from the metadata field, and a value 
+#' specified by the user. The flowchart is:
+#'   (1) if user has supplied non-null `period`, use that
+#'   (2) if metadata period is non-null, use that
+#'   (3) use a default value of 1 and print a message
+#' 
+#' @noRd
+get_period_from_data <- function(data, period = NULL)
+{
+    if (is.null(period))
+    {
+        period <- data$metadata$period
+        if (is.null(period))
+        {
+            message("No time period found. Assuming period = 1.")
+            period <- 1
+        }
+    }
+    return(period)
+}
+
+#' @noRd
+is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5)
+{
+    abs(x - round(x)) < tol
+}
 
 
