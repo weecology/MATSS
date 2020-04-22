@@ -251,16 +251,16 @@ has_missing_samples <- function(data, period = NULL, tol = 1e-06,
     }
     
     # check abundance
-    if (!all(is.finite(data$abundance)))
+    if (any(is.na(data$abundance)))
     {
-        message("Dataset has NA (or Inf) values in ", usethis::ui_code("abundance"), ".")
+        message("Dataset has NA values in ", usethis::ui_code("abundance"), ".")
         return(TRUE)
     }
     
     # check covariates
-    if (check_covariates && !all(is.finite(data$covariates)))
+    if (check_covariates && any(is.na(data$covariates)))
     {
-        message("Dataset has NA (or Inf) values in ", usethis::ui_code("covariates"), ".")
+        message("Dataset has NA values in ", usethis::ui_code("covariates"), ".")
         return(TRUE)
     }
     
@@ -272,6 +272,53 @@ is_fully_sampled <- function(data, period = NULL, tol = 1e-06,
                              check_covariates = FALSE)
 {
     return(!has_missing_samples(data, period, tol, check_covariates))
+}
+
+#' @title Impute missing samples using linear interpolation
+#' 
+#' @param data dataset to modify
+#' @inheritParams is_equitimed
+#' @param interpolate_covariates `TRUE` or `FALSE` (whether to do covariates, too)
+#' 
+#' @return the dataset, with interpolated samples
+#'
+#' @details First, check if the data are evenly sampled in time. If not, we 
+#'   exit early. Next, apply `forecast::na.interp()` to each variable that has 
+#'   non-finite values. 
+#' 
+#' @export
+interpolate_missing_samples <- function(data, period = NULL, tol = 1e-06, 
+                                        interpolate_covariates = FALSE)
+{
+    interpolate_tbl <- function(df)
+    {
+        finite_cols_idx <- apply(is.na(df), 2, all)
+        # replace all non finite values with NA
+        
+        for (j in which(!finite_cols_idx))
+        {
+            x <- df[[j]]
+            x[!is.finite(x)] <- NA
+            interpolated <- forecast::na.interp(x)
+            df[[j]] <- as.numeric(interpolated)
+        }
+        return(df)
+    }
+    
+    if (!is_equitimed(data, period, tol))
+    {
+        stop(c("Dataset is not evenly sampled in time.\n",
+               "Perhaps you want to call ", usethis::ui_code("make_equitimed()"), " first.\n"))
+    }
+    
+    data$abundance <- interpolate_tbl(data$abundance)
+    
+    if (interpolate_covariates)
+    {
+        data$covariates <- interpolate_tbl(data$covariates)
+    }
+    
+    return(invisible(data))
 }
 
 #' get the complete time index, filling in gaps where necessary, and using the 
@@ -322,10 +369,4 @@ get_period_from_data <- function(data, period = NULL)
 is.wholenumber <- function(x, tol = .Machine$double.eps ^ 0.5)
 {
     abs(x - round(x)) < tol
-}
-
-#' @noRd
-is.finite.data.frame <- function(df)
-{
-    do.call(cbind, lapply(df, is.finite))
 }

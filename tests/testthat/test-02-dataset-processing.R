@@ -102,16 +102,25 @@ test_that("is_fully_sampled works", {
     
     out <- make_equitimed(sample_dat)
     m <- capture_messages(expect_false(is_fully_sampled(out)))
-    expect_match(m, "Dataset has NA (or Inf) values in `abundance`", fixed = TRUE, all = FALSE)
+    expect_match(m, "Dataset has NA values in `abundance`", fixed = TRUE, all = FALSE)
     idx <- is.na(out$abundance)
-    out$abundance[idx] <- Inf
-    m <- capture_messages(expect_false(is_fully_sampled(out)))
-    expect_match(m, "Dataset has NA (or Inf) values in `abundance`", fixed = TRUE, all = FALSE)
     out$abundance[idx] <- -999
     expect_true(is_fully_sampled(out))
     
     m <- capture_messages(expect_false(is_fully_sampled(out, check_covariates = TRUE)))
-    expect_match(m, "Dataset has NA (or Inf) values in `covariates`", fixed = TRUE, all = FALSE)
+    expect_match(m, "Dataset has NA values in `covariates`", fixed = TRUE, all = FALSE)
     out$covariates[is.na(out$covariates)] <- -999
     expect_true(is_fully_sampled(out, check_covariates = TRUE))
 })
+
+test_that("interpolate_missing_samples works", {
+    sample_dat$covariates["temp"] <- rnorm(NROW(sample_dat$covariates))
+    
+    dat <- make_equitimed(sample_dat)
+    interpolated_dat <- interpolate_missing_samples(dat)
+    expect_true(is_fully_sampled(interpolated_dat))
+    expect_false(is_fully_sampled(interpolated_dat, check_covariates = TRUE))
+    expect_true(is_fully_sampled(interpolate_missing_samples(dat, interpolate_covariates = TRUE), 
+                                 check_covariates = TRUE))
+})
+    
