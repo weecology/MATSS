@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>get the maizuru community data — get_maizuru_data • MATSS</title>
+<title>Check for missing samples — has_missing_samples • MATSS</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,12 @@
 
 
 
-<meta property="og:title" content="get the maizuru community data — get_maizuru_data" />
-<meta property="og:description" content="get the maizuru community data" />
+<meta property="og:title" content="Check for missing samples — has_missing_samples" />
+<meta property="og:description" content="Some analyses may require evenly sampled data without missing
+values. has_missing_samples checks that the dataset is equitimed, and
+then for missing values within abundance (and optionally, covariates)
+is_full_sampled() does the same check, but returns TRUE if there are
+NO missing samples." />
 
 
 
@@ -129,31 +133,46 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>get the maizuru community data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_data_maizuru.R'><code>R/get_data_maizuru.R</code></a></small>
-    <div class="hidden name"><code>get_maizuru_data.Rd</code></div>
+    <h1>Check for missing samples</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/utils-data-processing.R'><code>R/utils-data-processing.R</code></a></small>
+    <div class="hidden name"><code>has_missing_samples.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>get the maizuru community data</p>
+    <p>Some analyses may require evenly sampled data without missing
+values. <code>has_missing_samples</code> checks that the dataset is equitimed, and
+then for missing values within <code>abundance</code> (and optionally, <code>covariates</code>)</p>
+<p><code>is_full_sampled()</code> does the same check, but returns <code>TRUE</code> if there are
+NO missing samples.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_maizuru_data</span>(
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/file.path.html'>file.path</a></span>(<span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(), <span class='st'>"ushio-maizuru-fish-community"</span>)
-)</pre>
+    <pre class="usage"><span class='fu'>has_missing_samples</span>(<span class='no'>data</span>, <span class='kw'>period</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>tol</span> <span class='kw'>=</span> <span class='fl'>1e-06</span>, <span class='kw'>check_covariates</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>path</th>
-      <td><p>where to load the raw data files from</p></td>
+      <th>data</th>
+      <td><p>dataset to check</p></td>
+    </tr>
+    <tr>
+      <th>period</th>
+      <td><p>period to check the times against (if <code>NULL</code>, first check to
+see if there is a known <code>period</code> set in the metadata, otherwise assumes 1)</p></td>
+    </tr>
+    <tr>
+      <th>tol</th>
+      <td><p>tolerance for the period</p></td>
+    </tr>
+    <tr>
+      <th>check_covariates</th>
+      <td><p><code>TRUE</code> or <code>FALSE</code> (whether to check covariates, too)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list of abundance, covariates, and metadata</p>
+    <p><code>TRUE</code> or <code>FALSE</code></p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
