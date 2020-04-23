@@ -301,6 +301,7 @@ interpolate_missing_samples <- function(data, period = NULL, tol = 1e-06,
             x[!is.finite(x)] <- NA
             interpolated <- forecast::na.interp(x)
             df[[j]] <- as.numeric(interpolated)
+            class(df[[j]]) <- class(x)
         }
         return(df)
     }
