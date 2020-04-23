@@ -56,7 +56,8 @@ create_MATSS_compendium <- function(path,
                                       matss_ref_key = matss_citation$key), 
                           package = "MATSS")
     if (DEPLOY)
-        preamble_text <- ":rotating_light: **THIS IS AN AUTO-GENERATED EXAMPLE COMPENDIUM** :rotating_light:\n"
+        preamble_text <- c(":rotating_light: **THIS IS AN AUTO-GENERATED EXAMPLE COMPENDIUM** :rotating_light:\n", 
+                           "*last updated: ", Sys.Date(), "*\n")
     else
         preamble_text <- ""
     
