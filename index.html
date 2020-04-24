@@ -100,12 +100,16 @@
 <div id="overview" class="section level2">
 <h2 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h2>
-<p>The <strong><code>MATSS</code></strong> package is intended to support Macroecological Analysis of Time Series Structure. We provide functions to:</p>
+<p><strong><code>MATSS</code></strong> is a package for conducting Macroecological Analyses of Time Series Structure. We designed it to help researchers quickly get started in analyses of ecological time series, and to reinforce and spread good practices in computational analyses.</p>
+<p>We provide functionality to:</p>
 <ul>
-<li>gather ecological time series datasets</li>
-<li>perform basic processing and summaries of those datasets</li>
-<li>build an analytical pipeline to conduct macroecological analyses on those datasets</li>
-<li>create template reports for collating results and produce syntheses</li>
+<li>obtain time series data from ecological communities, processed into a common <a href="weecology.github.io/articles/data-formats.html">data format</a>
+</li>
+<li>perform basic processing and summaries of those datasets; see <a href="weecology.github.io/articles/data-processing.html">data processing</a>
+</li>
+<li>build an analysis pipeline for macroecological analyses, using the workflow framework of the <code>drake</code> package</li>
+<li>package the above data analytical work in a reproducible way in a <a href="https://weecology.github.io/MATSS/articles/MATSS.html#template-research-compendium">research compendium</a>
+</li>
 </ul>
 </div>
 <div id="contributing" class="section level2">
@@ -119,7 +123,7 @@
 <p>You can install <strong><code>MATSS</code></strong> from github with:</p>
 <div class="sourceCode" id="cb1"><pre class="r"><span class="co"># install.packages("remotes")</span>
 <span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"weecology/MATSS"</span>, <span class="kw">build_opts</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"--no-resave-data"</span>, <span class="st">"--no-manual"</span>))</pre></div>
-<p>This package relies on the development version of the <code>rdataretriever</code> package to install datasets. Installation of this package takes a few extra steps because it runs a Python package behind the scenes. Follow the installation instructions on the <a href="https://github.com/ropensci/rdataretriever"><code>rdataretriever</code> README</a>.</p>
+<p><strong><code>MATSS</code></strong> also uses the <strong><code>rdataretriever</code></strong> package to download additional datasets. To get this package and its dependencies wokring, we recommend following the online <a href="https://docs.ropensci.org/rdataretriever/">installation instructions</a>.</p>
 </div>
 <div id="datasets" class="section level2">
 <h2 class="hasAnchor">
@@ -127,23 +131,23 @@
 <p><strong><code>MATSS</code></strong> pulls data from a variety of sources, including:</p>
 <ul>
 <li>10 individual datasets that we’ve added,</li>
-<li>the North American Breeding Bird Survey database (spanning 2589 separate datasets),</li>
+<li>the North American Breeding Bird Survey database (spanning 3903 separate datasets),</li>
 <li>the Global Population Dynamics Database (spanning 120 separate datasets),</li>
 <li>and the BioTime database (spanning 361 separate datasets).</li>
 </ul>
-<p>Combined, there are <strong>84052</strong> individual time series across all of these data sources.</p>
+<p>Combined, there are <strong>320483</strong> individual time series across all of these data sources.</p>
 </div>
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting Started</h2>
-<p>To get started with the data or analysis templates, we recommend you take a look at our <a href="https://weecology.github.io/MATSS/articles/MATSS.html">Getting Started vignette</a> for more details about how to interface with the datasets, use Drake to create workflows, and create research compendia.</p>
-<p>If you have the <strong><code>MATSS</code></strong> package installed, you can also view the vignette from within R:</p>
+<p>We recommend you take a look at our vignette on <a href="https://weecology.github.io/MATSS/articles/MATSS.html">Getting Started</a> for more details about how to begin using <strong><code>MATSS</code></strong>.</p>
+<p>If you have the package installed, you can also view the vignette from within R:</p>
 <div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/vignette.html">vignette</a></span>(<span class="st">"MATSS"</span>)</pre></div>
 </div>
 <div id="example-use-cases" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example-use-cases" class="anchor"></a>Example Use Cases</h2>
-<p>Here are some examples of using <strong><code>MATSS</code></strong> to create research compendia:</p>
+<p>Here are some examples of analyses built on <strong><code>MATSS</code></strong>:</p>
 <ul>
 <li>
 <a href="https://github.com/weecology/MATSS-LDATS">MATSS-LDATS</a> applies the <a href="https://github.com/weecology/LDATS"><strong><code>LDATS</code></strong></a> package to investigate changepoints in community dynamics across the datasets in <strong><code>MATSS</code></strong>
