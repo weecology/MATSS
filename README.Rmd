@@ -24,12 +24,15 @@ status](https://codecov.io/gh/weecology/MATSS/branch/master/graph/badge.svg)](ht
 <!-- badges: end -->
 
 ## Overview
-The **`MATSS`** package is intended to support Macroecological Analysis of Time Series Structure. We provide functions to:
 
-* gather ecological time series datasets
-* perform basic processing and summaries of those datasets
-* build an analytical pipeline to conduct macroecological analyses on those datasets
-* create template reports for collating results and produce syntheses
+**`MATSS`** is a package for conducting Macroecological Analyses of Time Series Structure. We designed it to help researchers quickly get started in analyses of ecological time series, and to reinforce and spread good practices in computational analyses.
+
+We provide functionality to:
+
+  - obtain time series data from ecological communities, processed into a common [data format](weecology.github.io/articles/data-formats.html)
+  - perform basic processing and summaries of those datasets; see [data processing](weecology.github.io/articles/data-processing.html)
+  - build an analysis pipeline for macroecological analyses, using the workflow framework of the `drake` package
+  - package the above data analytical work in a reproducible way in a [research compendium](https://weecology.github.io/MATSS/articles/MATSS.html#template-research-compendium)
 
 ## Contributing
 
@@ -44,10 +47,7 @@ You can install **`MATSS`** from github with:
 remotes::install_github("weecology/MATSS", build_opts = c("--no-resave-data", "--no-manual"))
 ```
 
-This package relies on the development version of the `rdataretriever` package
-to install datasets. Installation of this package takes a few extra steps
-because it runs a Python package behind the scenes. Follow the installation
-instructions on the [`rdataretriever` README](https://github.com/ropensci/rdataretriever).
+**`MATSS`** also uses the **`rdataretriever`** package to download additional datasets. To get this package and its dependencies wokring, we recommend following the online [installation instructions](https://docs.ropensci.org/rdataretriever/).
 
 ## Datasets
 
@@ -56,7 +56,7 @@ library(MATSS)
 library(drake)
 ```
 
-```{r compute info on datasets, include = FALSE, cache = TRUE}
+```{r compute info on datasets, include = FALSE}
 datasets <- build_datasets_plan(include_retriever_data = TRUE, 
                                 include_bbs_data = TRUE, 
                                 include_gpdd_data = TRUE, 
@@ -69,7 +69,7 @@ analyses <- drake_plan(num_ts = target(count_ts(data),
                        total = target(sum(num_ts), 
                                       transform = combine(num_ts)))
 
-plan <- rbind(datasets, analyses)
+plan <- bind_plans(datasets, analyses)
 make(plan)
 ```
 
@@ -84,9 +84,9 @@ Combined, there are **`r readd(total)`** individual time series across all of th
 
 ## Getting Started
 
-To get started with the data or analysis templates, we recommend you take a look at our [Getting Started vignette](https://weecology.github.io/MATSS/articles/MATSS.html) for more details about how to interface with the datasets, use Drake to create workflows, and create research compendia.
+We recommend you take a look at our vignette on [Getting Started](https://weecology.github.io/MATSS/articles/MATSS.html) for more details about how to begin using **`MATSS`**.
 
-If you have the **`MATSS`** package installed, you can also view the vignette from within R:
+If you have the package installed, you can also view the vignette from within R:
 
 ```{r, eval = FALSE}
 vignette("MATSS")
@@ -94,7 +94,7 @@ vignette("MATSS")
 
 ## Example Use Cases
 
-Here are some examples of using **`MATSS`** to create research compendia:
+Here are some examples of analyses built on **`MATSS`**:
 
 * [MATSS-LDATS](https://github.com/weecology/MATSS-LDATS) applies the [**`LDATS`**](https://github.com/weecology/LDATS) package to investigate changepoints in community dynamics across the datasets in **`MATSS`**
 * [MATSS-Forecasting](https://github.com/weecology/MATSS-forecasting) investigates which properties are associated with the predictability of population time series across the datasets in **`MATSS`**

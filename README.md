@@ -15,14 +15,23 @@ status](https://codecov.io/gh/weecology/MATSS/branch/master/graph/badge.svg)](ht
 
 ## Overview
 
-The **`MATSS`** package is intended to support Macroecological Analysis
-of Time Series Structure. We provide functions to:
+**`MATSS`** is a package for conducting Macroecological Analyses of Time
+Series Structure. We designed it to help researchers quickly get started
+in analyses of ecological time series, and to reinforce and spread good
+practices in computational analyses.
 
-  - gather ecological time series datasets
-  - perform basic processing and summaries of those datasets
-  - build an analytical pipeline to conduct macroecological analyses on
-    those datasets
-  - create template reports for collating results and produce syntheses
+We provide functionality to:
+
+  - obtain time series data from ecological communities, processed into
+    a common [data
+    format](weecology.github.io/articles/data-formats.html)
+  - perform basic processing and summaries of those datasets; see [data
+    processing](weecology.github.io/articles/data-processing.html)
+  - build an analysis pipeline for macroecological analyses, using the
+    workflow framework of the `drake` package
+  - package the above data analytical work in a reproducible way in a
+    [research
+    compendium](https://weecology.github.io/MATSS/articles/MATSS.html#template-research-compendium)
 
 ## Contributing
 
@@ -38,36 +47,33 @@ You can install **`MATSS`** from github with:
 remotes::install_github("weecology/MATSS", build_opts = c("--no-resave-data", "--no-manual"))
 ```
 
-This package relies on the development version of the `rdataretriever`
-package to install datasets. Installation of this package takes a few
-extra steps because it runs a Python package behind the scenes. Follow
-the installation instructions on the [`rdataretriever`
-README](https://github.com/ropensci/rdataretriever).
+**`MATSS`** also uses the **`rdataretriever`** package to download
+additional datasets. To get this package and its dependencies wokring,
+we recommend following the online [installation
+instructions](https://docs.ropensci.org/rdataretriever/).
 
 ## Datasets
 
 **`MATSS`** pulls data from a variety of sources, including:
 
   - 10 individual datasets that we’ve added,
-  - the North American Breeding Bird Survey database (spanning 2589
+  - the North American Breeding Bird Survey database (spanning 3903
     separate datasets),
   - the Global Population Dynamics Database (spanning 120 separate
     datasets),
   - and the BioTime database (spanning 361 separate datasets).
 
-Combined, there are **84052** individual time series across all of these
-data sources.
+Combined, there are **320483** individual time series across all of
+these data sources.
 
 ## Getting Started
 
-To get started with the data or analysis templates, we recommend you
-take a look at our [Getting Started
-vignette](https://weecology.github.io/MATSS/articles/MATSS.html) for
-more details about how to interface with the datasets, use Drake to
-create workflows, and create research compendia.
+We recommend you take a look at our vignette on [Getting
+Started](https://weecology.github.io/MATSS/articles/MATSS.html) for more
+details about how to begin using **`MATSS`**.
 
-If you have the **`MATSS`** package installed, you can also view the
-vignette from within R:
+If you have the package installed, you can also view the vignette from
+within R:
 
 ``` r
 vignette("MATSS")
@@ -75,8 +81,7 @@ vignette("MATSS")
 
 ## Example Use Cases
 
-Here are some examples of using **`MATSS`** to create research
-compendia:
+Here are some examples of analyses built on **`MATSS`**:
 
   - [MATSS-LDATS](https://github.com/weecology/MATSS-LDATS) applies the
     [**`LDATS`**](https://github.com/weecology/LDATS) package to
