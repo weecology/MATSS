@@ -48,7 +48,7 @@ reports <- drake_plan(
 )
 
 ## The full workflow
-workflow <- rbind(
+workflow <- bind_plans(
     datasets,
     methods,
     analyses,
