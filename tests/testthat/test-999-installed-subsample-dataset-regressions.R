@@ -8,7 +8,7 @@ test_that("process_bbs_ts_data formats data correctly", {
     unlink(file.path(path, "breed-bird-survey-prepped"))
     expect_error(prepare_bbs_ts_data(), NA)
     expect_error(dat <- get_bbs_route_region_data(route = 1, region = 4), NA)
-    expect_dataset(dat, "70cc9189b7", "3854304cf6", "5fd9a7fdc3", "f9d0f4d9a6")
+    expect_dataset(dat, "3fe07b68b9", "3854304cf6", "5fd9a7fdc3", "f9d0f4d9a6")
 
     expect_error(dat <- get_bbs_route_region_data(route = 2, region = 4), NA)
     expect_true(check_data_format(dat))

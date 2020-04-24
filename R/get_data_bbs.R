@@ -142,7 +142,7 @@ process_bbs_route_region_data <- function(bbs_data_table,
         dplyr::ungroup() 
         
     abundance <- this_bbs_data %>%
-        dplyr::count(.data$year, .data$species_id) %>%
+        dplyr::count(.data$year, .data$species_id, wt = .data$abundance) %>%
         tidyr::spread(key = .data$species_id, value = .data$n, fill = 0) %>%
         dplyr::arrange(.data$year) %>%
         dplyr::select(-.data$year)
