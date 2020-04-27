@@ -51,6 +51,7 @@ use_default_data_path <- function(path = NULL)
 install_retriever_data <- function(dataset, path = get_default_data_path(), 
                                    force_install = FALSE)
 {
+
     # check for existence of data_path
     path <- normalizePath(path, mustWork = FALSE)
     if (!dir.exists(path))
@@ -79,7 +80,7 @@ install_retriever_data <- function(dataset, path = get_default_data_path(),
         tryCatch({
             rdataretriever::install_csv(dataset, data_dir = folder_path)
             data_citation <- rdataretriever::get_citation(dataset)
-            raw_citation <- sub("^Citation:[[:space:]]*", "", data_citation[3])
+            raw_citation <- sub("^Citation:[[:space:]]*", "", data_citation)
             cat(raw_citation, file = file.path(folder_path, "CITATION"))
         }, 
         error = function(e) {
