@@ -41,7 +41,8 @@ get_cowley_data <- function(file = "cowleylizards.txt")
     metadata <- list(timename = "Year", effort = NULL, site = "CowleyCounty",
                      period = 1, 
                      is_community = TRUE, 
-                     species_table = data.frame(id = colnames(abundance)) %>%
+                     species_table = data.frame(id = colnames(abundance), 
+                                                stringsAsFactors = FALSE) %>%
                          dplyr::mutate(species_name = gsub("_", " ", .data$id)), 
                      location = c("latitude" = 37.25, "longitude" = -(96+43/60)), 
                      citation = paste("Wilgers, DJ, Horne, EA, Sandercock, BK, Volkmann, AW, 2006.", 
