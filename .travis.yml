@@ -7,7 +7,7 @@ warnings_are_errors: false
 
 r_packages:
   - covr
-  - rdataretriever
+  - remotes
 
 addons:
   apt:
@@ -32,6 +32,7 @@ before_install:
   # - conda install -c conda-forge retriever
   - retriever
   - python -c 'import retriever;retriever.check_for_updates()'
+  - R -e 'remotes::install_github("ropensci/rdataretriever")'
 
 jobs:
   include:
