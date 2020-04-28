@@ -15,10 +15,10 @@ get_sdl_data <- function(plots = c(4, 7, 8, 9, 10, 11, 12, 14, 15, 16, 17),
     sdl_data <- sdl_data_tables$veg_plots_sdl_SMDensity %>%
         dplyr::select(-.data$countns) %>%
         dplyr::filter(.data$plot %in% plots) %>%
+        dplyr::mutate(code = ifelse(code == "", "UNKN", code)) %>%
         dplyr::group_by(.data$year, .data$code) %>%
         dplyr::summarize(count = sum(.data$count)) %>%
         tidyr::spread(key = .data$code, value = .data$count, fill = 0) %>%
-        dplyr::rename(UNKN = .data$V1) %>%
         dplyr::ungroup()
     
     abundance <- dplyr::select(sdl_data, -.data$year)

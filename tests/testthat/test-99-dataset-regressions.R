@@ -44,13 +44,13 @@ test_that("Karoo data is retrievable and works", {
 
 test_that("Cowley Lizards data is retrievable and works", {
     expect_error(dat <- get_cowley_lizards(), NA)
-    expect_dataset(dat, "baf0ca42d4", "36181d12d0", "b59b5ae6b4", "c3f66160ae")
+    expect_dataset(dat, "baf0ca42d4", "ea94cef99a", "b59b5ae6b4", "c3f66160ae")
     expect_known_hash(dat$metadata$citation, "e7bbe85cb4")
 })
 
 test_that("Cowley Snakes data is retrievable and works", {
     expect_error(dat <- get_cowley_snakes(), NA)
-    expect_dataset(dat, "f9d6848c03", "36181d12d0", "b59b5ae6b4", "8ee7798b91")
+    expect_dataset(dat, "f9d6848c03", "ea94cef99a", "b59b5ae6b4", "8ee7798b91")
     expect_known_hash(dat$metadata$citation, "e7bbe85cb4")
 })
 
