@@ -192,7 +192,7 @@ process_biotime_dataset <- function(biotime_data_tables,
         correct_biotime_dataset(dataset_id = dataset_id)
     
     biotime_data <- raw_data %>%
-        dplyr::select(-dplyr::one_of(c("day", "sample_desc", "biomass", 
+        dplyr::select(-tidyselect::all_of(c("day", "sample_desc", "biomass", 
                                        "id_all_raw_data", "study_id"))) %>%
         dplyr::arrange(.data$year, .data$month)
     
@@ -231,7 +231,7 @@ process_biotime_dataset <- function(biotime_data_tables,
     
     site_info <- c(biotime_data_tables$biotimesql_site %>%
                        dplyr::filter(.data$study_id == dataset_id) %>%
-                       dplyr::select(-dplyr::one_of(c("study_id", "id_site", "cen_latitude", 
+                       dplyr::select(-tidyselect::all_of(c("study_id", "id_site", "cen_latitude", 
                                                       "cen_longitude", "area"))) %>%
                        as.list(), 
                    biotime_data_tables$biotimesql_datasets %>%
@@ -242,17 +242,17 @@ process_biotime_dataset <- function(biotime_data_tables,
                                         by = c("bio_type" = "id_biomass")) %>%
                        dplyr::left_join(biotime_data_tables$biotimesql_sample, 
                                         by = c("sample_type" = "id_sample")) %>%
-                       dplyr::select(-dplyr::one_of(c("study_id", "ab_type", 
+                       dplyr::select(-tidyselect::all_of(c("study_id", "ab_type", 
                                                       "bio_type", "sample_type", 
                                                       "id_datasets"))) %>%
                        as.list())
     
     citation_info <- biotime_data_tables$biotimesql_citation1 %>%
         dplyr::filter(.data$study_id == dataset_id) %>%
-        dplyr::select(-dplyr::one_of(c("study_id", "id_citation1")))
+        dplyr::select(-tidyselect::all_of(c("study_id", "id_citation1")))
     contact_info <- biotime_data_tables$biotimesql_contacts %>%
         dplyr::filter(.data$study_id == dataset_id) %>%
-        dplyr::select(-dplyr::one_of(c("study_id", "id_contacts")))
+        dplyr::select(-tidyselect::all_of(c("study_id", "id_contacts")))
     species_table <- biotime_data_tables$biotimesql_species %>%
         dplyr::filter(.data$id_species %in% unique(biotime_data$id_species)) %>%
         dplyr::rename(id = .data$id_species)

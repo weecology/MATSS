@@ -64,6 +64,7 @@ Imports:
     stringr,
     tibble,
     tidyr,
+    tidyselect (>= 1.0.0), 
     usethis, 
     vctrs
 Suggests:

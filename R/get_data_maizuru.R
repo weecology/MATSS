@@ -62,7 +62,7 @@ get_maizuru_data <- function(path = file.path(get_default_data_path(),
     
     covars <- c("date_tag", "surf_t", "bot_t", "y", "m", "d", "date")
     out <- list(abundance = raw_data %>% 
-                    dplyr::select(-dplyr::one_of(covars)) %>%
+                    dplyr::select(-tidyselect::any_of(covars)) %>%
                     dplyr::mutate_all(~round(. + 1e-10)), 
                 covariates = raw_data %>% 
                     dplyr::select_at(covars),

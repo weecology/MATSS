@@ -36,7 +36,7 @@ get_cowley_data <- function(file = "cowleylizards.txt")
         dplyr::mutate_if(is.numeric, list(~dplyr::na_if(., -99))) %>%
         dplyr::filter(!is.na(dplyr::select(., 4)))
     
-    abundance <- dplyr::select(raw_data, -dplyr::one_of(c("Year", "Site", "Total")))
+    abundance <- dplyr::select(raw_data, -tidyselect::all_of(c("Year", "Site", "Total")))
     
     covariates <- tibble::tibble(Year = c(1989, 1990, 1992, 1993, 1994, 1995, 1996, 
                                          1997, 1998, 1999, 2000, 2001, 2002, 2003), 

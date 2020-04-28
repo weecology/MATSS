@@ -33,7 +33,7 @@ get_gpdd_data <- function(path = get_default_data_path(),
         dplyr::mutate(taxonid = paste0("sp", .data$taxonid), 
                       date = format(lubridate::date_decimal(.data$decimalyearbegin), "%Y-%m-%d")) %>%
         dplyr::arrange(.data$date) %>%
-        dplyr::select(-dplyr::one_of(c("siblyfittedtheta", "siblythetacilower", "siblythetaciupper", "siblyextremeneffect",    
+        dplyr::select(-tidyselect::all_of(c("siblyfittedtheta", "siblythetacilower", "siblythetaciupper", "siblyextremeneffect",    
                                        "siblyreturnrate", "siblycarryingcapacity", "population", "generation", 
                                        "spatialdensity", "spatialaccuracy")))
     
