@@ -66,7 +66,7 @@ get_biotime_dataset_ids <- function(path = get_default_data_path(),
     if (!is.null(data_subset)) {
         dataset_ids <- dataset_ids[data_subset]
     }
-   
+    
     # process selected datasets if requested
     if (!biotime_is_processed && do_processing || force_reprocessing)
     {
@@ -106,10 +106,10 @@ get_biotime_dataset_ids <- function(path = get_default_data_path(),
 #' @export
 prepare_biotime_data <- function(path = get_default_data_path(), data_subset = NULL)
 {
-    get_biotime_dataset_ids(path = path, 
-                            data_subset = data_subset, 
-                            do_processing = TRUE, 
-                            force_reprocessing = TRUE)
+    invisible(get_biotime_dataset_ids(path = path, 
+                                      data_subset = data_subset, 
+                                      do_processing = TRUE, 
+                                      force_reprocessing = TRUE))
 }
 
 #' @title Correct and clean specific datasets
@@ -193,7 +193,7 @@ process_biotime_dataset <- function(biotime_data_tables,
     
     biotime_data <- raw_data %>%
         dplyr::select(-tidyselect::all_of(c("day", "sample_desc", "biomass", 
-                                       "id_all_raw_data", "study_id"))) %>%
+                                            "id_all_raw_data", "study_id"))) %>%
         dplyr::arrange(.data$year, .data$month)
     
     # check if samples are only annual
@@ -232,7 +232,7 @@ process_biotime_dataset <- function(biotime_data_tables,
     site_info <- c(biotime_data_tables$biotimesql_site %>%
                        dplyr::filter(.data$study_id == dataset_id) %>%
                        dplyr::select(-tidyselect::all_of(c("study_id", "id_site", "cen_latitude", 
-                                                      "cen_longitude", "area"))) %>%
+                                                           "cen_longitude", "area"))) %>%
                        as.list(), 
                    biotime_data_tables$biotimesql_datasets %>%
                        dplyr::filter(.data$study_id == dataset_id) %>%
@@ -243,8 +243,8 @@ process_biotime_dataset <- function(biotime_data_tables,
                        dplyr::left_join(biotime_data_tables$biotimesql_sample, 
                                         by = c("sample_type" = "id_sample")) %>%
                        dplyr::select(-tidyselect::all_of(c("study_id", "ab_type", 
-                                                      "bio_type", "sample_type", 
-                                                      "id_datasets"))) %>%
+                                                           "bio_type", "sample_type", 
+                                                           "id_datasets"))) %>%
                        as.list())
     
     citation_info <- biotime_data_tables$biotimesql_citation1 %>%

@@ -43,10 +43,11 @@ create_MATSS_compendium <- function(path,
     add_dependency("tidyr")
 
     # add template files
-    matss_citation <- utils::citation("MATSS")
-    usethis::use_directory("analysis")
     usethis::use_template("template-functions.R", save_as = "R/analysis_functions.R", 
                           package = "MATSS")
+    
+    matss_citation <- utils::citation("MATSS")
+    usethis::use_directory("analysis")
     usethis::use_template("template-pipeline.R", save_as = "analysis/pipeline.R", 
                           data = list(package = pkg_name), 
                           package = "MATSS")
@@ -55,15 +56,11 @@ create_MATSS_compendium <- function(path,
                                       author = name, 
                                       matss_ref_key = matss_citation$key), 
                           package = "MATSS")
-    if (DEPLOY)
-    {
-        preamble_text <- paste0(":rotating_light: ", 
-                                "**THIS IS AN AUTO-GENERATED EXAMPLE COMPENDIUM**", 
-                                " :rotating_light:\n\n", 
-                                "*last updated: ", Sys.Date(), "*\n")
-    } else {
-        preamble_text <- ""
-    }
+    usethis::use_template("template-references.bib", save_as = "analysis/references.bib", 
+                          data = list(bibentries = matss_citation %>% 
+                                          utils::toBibtex() %>% 
+                                          paste(collapse = "\n")), 
+                          package = "MATSS")
     
     # add license
     license_text <- ""
@@ -78,17 +75,22 @@ create_MATSS_compendium <- function(path,
                                "├── LICENSE\n")
     }
     
+    # add README
+    if (DEPLOY)
+    {
+        readme_preamble <- paste0(":rotating_light: ", 
+                                "**THIS IS AN AUTO-GENERATED EXAMPLE COMPENDIUM**", 
+                                " :rotating_light:\n\n", 
+                                "*last updated: ", Sys.Date(), "*\n")
+    } else {
+        readme_preamble <- ""
+    }
     usethis::use_template("template-README.md", save_as = "README.md", 
                           data = list(package = pkg_name, 
                                       version = packageVersion("MATSS"), 
                                       citation_txt = citation("MATSS")$textVersion, 
-                                      preamble = preamble_text, 
+                                      preamble = readme_preamble, 
                                       license_file_contents = license_text), 
-                          package = "MATSS")
-    usethis::use_template("template-references.bib", save_as = "analysis/references.bib", 
-                          data = list(bibentries = matss_citation %>% 
-                                          utils::toBibtex() %>% 
-                                          paste(collapse = "\n")), 
                           package = "MATSS")
     
     # add analysis folder to .gitignore and .Rbuildignore

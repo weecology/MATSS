@@ -46,17 +46,17 @@ Otherwise, using the **`devtools`** package:
 devtools::install(".") # in the working directory of this compendium
 ```
 
-3. **Restart R.**
+2. **Restart R.**
 After installing the new package, you will need to restart R. (If you are working within RStudio, this should happen automatically if you use the "Build and Install" button.)
 
-2. **Source the analysis script.**
+3. **Source the analysis script.**
 `analysis/pipeline.R` contains the main workflow. Within RStudio, you can use the "Source" button and/or the keyboard shortcut (<kbd>Control</kbd> + <kbd>Shift</kbd> + <kbd>s</kbd>; or <kbd>Command</kbd> + <kbd>Shift</kbd> + <kbd>s</kbd> on Mac).
 Otherwise, within an R console:
 ```r
 source("analysis/pipeline.R")
 ```
 
-3. **Examine the compiled report.**  
+4. **Examine the compiled report.**  
 `analysis/report.Rmd` contains the Rmarkdown source for reporting and plotting the results of the analysis.  
 After compilation, There should be an html version (`analysis/report.html`) that is viewable within a web browser directly, and a markdown version (`analysis/report.md`) that is viewable within a text editor, but shows formatting when uploaded to GitHub.
 

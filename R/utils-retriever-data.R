@@ -170,6 +170,38 @@ download_datasets <- function(dataset = c("jornada-lter-rodent",
                 force_install = force_install)
 }
 
+#' Prepare datasets for usage
+#' 
+#' @description This wraps all the functions that prepare datasets from specific 
+#'   databases (e.g. [`prepare_bbs_ts_data`], [`prepare_biotime_data`]).
+#'   
+#' @param dataset what datasets to prepare (must follow the naming convention 
+#'   of [`download_datasets`])
+#' @param bbs_params params to pass to [`prepare_bbs_ts_data`]
+#' @param biotime_params params to pass to [`prepare_biotime_data`]
+#'
+#' @return NULL
+#' 
+#' @export
+#' 
+prepare_datasets <- function(dataset = c("breed-bird-survey", 
+                                         "biotimesql"), 
+                             bbs_params = list(path = get_default_data_path(), start_yr = 1965, end_yr = 2018, min_num_yrs = 10, data_subset = NULL), 
+                             biotime_params = list(path = get_default_data_path(), data_subset = NULL))
+{
+    if ("breed-bird-survey" %in% dataset)
+    {
+        do.call(prepare_bbs_ts_data, bbs_params)
+    }
+    
+    if ("biotimesql" %in% dataset)
+    {
+        do.call(prepare_biotime_data, biotime_params)
+    }
+    
+    invisible()
+}
+
 #' @title Append citation info to a formatted dataset
 #' 
 #' @description Given an existing formatted dataset, and the path to the 

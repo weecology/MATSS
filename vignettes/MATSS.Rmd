@@ -8,6 +8,7 @@ vignette: >
   %\VignetteIndexEntry{MATSS: Getting Started}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+bibliography: references.bib
 ---
   
 ```{r setup, include = FALSE}
@@ -19,16 +20,18 @@ comment = "#>"
 
 # Overview
 
-`MATSS` is a package for conducting Macroecological Analyses of Time Series Structure. We have designed it with researchers in mind, as a tool for getting started quickly to analyzes a large collection of ecological time series (specifically for communities, though the data can also be analyzed as individual populations).
+**`MATSS`**  is a package for conducting Macroecological Analyses of Time Series Structure. We designed it to help researchers quickly get started in analyses of ecological time series, and to reinforce and spread good practices in computational analyses.
 
-The goals of the package are to make it as easy as possible to:
+We provide functionality to:
 
-- obtain a hoard of ecological time series data, processed into a common [data format](data-formats.html)
-- build an analysis pipeline, following the workflow framework of the `drake` package; we provide functions to assist with this, as well as project template files
+  - obtain time series data from ecological communities, processed into a common [data format](data-formats.html)
+  - perform basic processing and summaries of those datasets; see [data processing](data-processing.html)
+  - build an analysis pipeline for macroecological analyses, using the workflow framework of the `drake` package
+  - package the above data analytical work in a reproducible way in a [research compendium](#example-research-compendium)
 
 ## Installation
 
-You can install the `MATSS` package from github with:
+You can install **`MATSS`** from github with:
 
 ```{r, eval = FALSE}
 # install.packages("remotes")
@@ -41,24 +44,43 @@ And load the package in the typical fashion:
 library(MATSS)
 ```
 
-# Template Research Compendium
+# Example Research Compendium
 
-If you feel comfortable to dive right in, we recommend you start with our provided functionality to create a new research compendium.
+One of the best ways to get started is to create a research compendium. An auto-updating example is visible at https://github.com/weecology/MATSSdemo
 
-This code will perform the following operations:
-
-* create a new R package for the analysis
-* add required dependencies for the new R package to its `DESCRIPTION` file
-* create an `analysis` folder to hold the analysis files
-* add a template R script for the analysis
-* add a template Rmd report that is created as a result of running the above R 
-  script
-
-After creating the new project, you can source `pipeline.R` to run the analysis and knit the report.
+To get started, identify the location and name for your compendium. For example, `~/MATSSdemo` will put the compendium inside your home directory (the `~` location), with the package name `"MATSSdemo"`. (Note that package names can only contain ASCII letters, numbers, and "." and have to start with a letter.)
 
 ```{r, eval = FALSE}
 create_MATSS_compendium("<path>")
 ```
+
+## Compendium Creation Steps
+
+Running this code will perform the following operations:
+
+* create a new R package for the analysis
+* add required dependencies for the new R package to its `DESCRIPTION` file
+* create an `analysis` folder to hold the analysis files
+  - create a script to define and run the analysis
+  - create an Rmarkdown report to plot the results of the analysis
+  - create a `.bib` file to hold the MATSS reference linked to in the Rmarkdown report
+* create an `R` folder to hold function definitions
+  - create functions for computing population-level and community-level properties
+* add the MIT License file (checking with the user first, if running in an interactive session)
+* add a project README
+* add a template R script for the analysis
+* add a template Rmd report that is created as a result of running the above R 
+  script
+* open the project in a new RStudio window (if available)
+
+## Running the Code
+
+After creating the new project, the readme will contain further instructions to run the code. We summarize briefly here:
+
+1. The compendium exists as an R package and needs to be installed first.
+2. R needs to be restarted.
+3. The analysis script in `analysis/pipeline.R` can be run to perform the analysis and generate the report.
+4. The compiled report at `analysis/report.md` can be viewed.
 
 For further details about how the code within the template project works, see the below guide to interacting with the datasets, the `drake` workflow package, and our tools for building reproducible analyses.
 
@@ -69,9 +91,6 @@ For further details about how the code within the template project works, see th
 Several datasets are included with this package - these can be loaded individually using these specific functions, and require no additional setup.
 
 ```{r, eval = FALSE}
-get_maizuru_data()
-get_jornada_data()
-get_sgs_data()
 get_cowley_lizards()
 get_cowley_snakes()
 get_karoo_data()
@@ -100,7 +119,7 @@ To download individual datasets, call `install_retriever_data()` with the name o
 install_retriever_data("veg-plots-sdl")
 ```
 
-To download all the datasets that are currently supported (i.e. we have functions for importing and processing into the standard format):
+To download all the datasets that are currently supported (i.e. with associated code for importing and formatting):
 
 ```{r, eval = FALSE}
 download_datasets()
@@ -108,33 +127,37 @@ download_datasets()
 
 ## Preprocessing datasets:
 
-Because the BBS database is an aggregate of observations from multiple locations across North America, it is not the ideal scale for doing community or population analysis. Further, it would be slow to load in the entire database, if only a small section is needed at a time. Thus, we provide a function that processes the database into separate routes and regions, which can be read in individually.
+We tap into several collections of datasets in **`MATSS`**, so it is useful to do some preprocessing to split the raw database files into separate datasets. These databases are:
+* BBS (the North American Breeding Bird Survey)
+* BioTIME (ecological assemblages from the BioTIME Consortium)
 
-This function will generate and then add processed dataset files to the set download location. This processing is required before running `get_bbs_route_region_data` to load the data.
+**Processing these databases are necessary before loading individual datasets in.**
 
 ```{r, eval = FALSE}
-prepare_bbs_ts_data()
+prepare_datasets() # wrapper function to prepare all datasets
+# prepare_biotime_data()
+# prepare_bbs_ts_data()
 ```
 
 # Working with Drake
 
-For the most part `MATSS` provides only a light wrapper for the functions in `drake`, so it can be helpful to know about how `drake` plans work if you are going to do analyses using `MATSS`. Note that using `drake` plans is not strictly necessary, as you can use the `MATSS` functions in whatever workflow system you desire.
+We designed **`MATSS`** to build off of the workflow package **`drake`** for computational analyses. Thus, it can be helpful to have a general understanding of how to use **`drake`**.
 
 ## Basic Workflow
 
-The basic workflow of using `drake` plans is:
+The basic apporach to using **`drake`** is:
 
-* run R code to create `drake` plans
-* run R code to take a `drake` plan and execute it
+* run R code to create a **`drake`** plans
+* call `drake::make()` to perform the work described in a **`drake`** plan
 
 ## Provided Helper Functions
 
-We provide several functions to help construct `drake` plans:
+We provide several functions to help construct plans:
 
 * `build_datasets_plan()` constructs a plan for the datasets, with options to include downloaded datasets
 * `build_analyses_plan()` constructs a plan for a set of analyses that applies a method to each dataset. It takes as arguments, a plan for the datasets and a plan for the methods.
-* `collect_analyses()` combines a set of `drake` targets together into a list, which facilitates later processing
-* `analysis_wrapper()` is a function for constructing methods that can operate on the datasets (which are communities) by applying an input argument (which is another function) to each of the individual population time series. (See the example in `?analysis_wrapper` for more information)
+* `collect_analyses()` combines the output objects from a single analysis applied to multiple datasets. This helps to achieve a consistent structure for the results, regardless of what individual analysis functions actually return.
+* `analysis_wrapper()` is a function that wraps a method that applies to a single time series (such as calculating the slope of the linear trendline), so that the result can be applied to a dataset (resulting in outputs of the method applied to each individual time series in that dataset).
 
 Usage of these functions is demonstrated in the template R script generated from `create_MATSS_compendium()`.
 
@@ -160,53 +183,6 @@ readd(my_model)
 readd(my_summary)
 ```
 
-### Making Drake Plans
-
-A `drake` plan is essentially a `tibble` that defines targets and the commands to build those targets. We can view `drake` plans by printing them to the console:
-
-```{r}
-plan # made from the previous example
-```
-
-One thing to be aware of is that the function `drake_plan()` does not evaluate its arguments, but only makes the plan. Thus, if you want any evaluation to occur within the construction of the plan, you will need some NSE magic.
-
-In this example, the plan depends on `iris[, column]`, and so the result will necessarily depends on the value of `column`, when the plan is run, as opposed to fixing the value when the drake plan was first created.
-
-```{r}
-column <- "Species"
-plan <- drake_plan(num_species = nlevels(iris[, column]))
-
-## This computes using the current value of `column` when the analysis is run, 
-#    as opposed to on the "Species" column, which was desired: 
-column <- "Sepal.Length"
-make(plan)
-readd(num_species)
-```
-
-We can solve this in two ways:
-
-First, we can include `column` as a dependency in the plan:
-
-```{r}
-plan <- drake_plan(column = "Species", 
-                   num_species = nlevels(iris[, column]))
-
-make(plan)
-readd(num_species)
-```
-
-Second, make sure that `column` is evaluated when building the plan - this locks in the value of `"Species"`:
-
-```{r}
-column <- "Species"
-plan <- drake_plan(num_species = nlevels(iris[, !!column]))
-
-## does not require column to be in the current environment
-rm(column)
-make(plan)
-readd(num_species)
-```
-
 ### Running Drake Plans
 
 Drake plans are run by calling `make()`. This does several things. First it checks the **cache** to see if any targets need to be re-built, and then it proceeds to build all the targets, in some order that accounts for the dependencies between targets. (e.g. an analysis target that depends on a dataset target to be processed)
@@ -230,3 +206,5 @@ make(plan)
 # make some changes to `some_data.csv`
 make(plan) # will rebuild the `data` target
 ```
+
+# References
