@@ -91,7 +91,7 @@
       <h1 data-toc-skip>MATSS: Getting Started</h1>
                         <h4 class="author">Hao Ye</h4>
             
-            <h4 class="date">2020-04-28</h4>
+            <h4 class="date">2020-04-30</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/weecology/MATSS/blob/master/vignettes/MATSS.Rmd"><code>vignettes/MATSS.Rmd</code></a></small>
       <div class="hidden name"><code>MATSS.Rmd</code></div>
@@ -103,38 +103,71 @@
 <div id="overview" class="section level1">
 <h1 class="hasAnchor">
 <a href="#overview" class="anchor"></a>Overview</h1>
-<p><code>MATSS</code> is a package for conducting Macroecological Analyses of Time Series Structure. We have designed it with researchers in mind, as a tool for getting started quickly to analyzes a large collection of ecological time series (specifically for communities, though the data can also be analyzed as individual populations).</p>
-<p>The goals of the package are to make it as easy as possible to:</p>
+<p><strong><code>MATSS</code></strong> is a package for conducting Macroecological Analyses of Time Series Structure. We designed it to help researchers quickly get started in analyses of ecological time series, and to reinforce and spread good practices in computational analyses.</p>
+<p>We provide functionality to:</p>
 <ul>
-<li>obtain a hoard of ecological time series data, processed into a common <a href="data-formats.html">data format</a>
+<li>obtain time series data from ecological communities, processed into a common <a href="data-formats.html">data format</a>
 </li>
-<li>build an analysis pipeline, following the workflow framework of the <code>drake</code> package; we provide functions to assist with this, as well as project template files</li>
+<li>perform basic processing and summaries of those datasets; see <a href="data-processing.html">data processing</a>
+</li>
+<li>build an analysis pipeline for macroecological analyses, using the workflow framework of the <code>drake</code> package</li>
+<li>package the above data analytical work in a reproducible way in a <a href="#example-research-compendium">research compendium</a>
+</li>
 </ul>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the <code>MATSS</code> package from github with:</p>
+<p>You can install <strong><code>MATSS</code></strong> from github with:</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r"># install.packages("remotes")
 remotes::install_github("weecology/MATSS", build_opts = c("--no-resave-data", "--no-manual")))</pre></body></html></div>
 <p>And load the package in the typical fashion:</p>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">MATSS</span>)</pre></body></html></div>
 </div>
 </div>
-<div id="template-research-compendium" class="section level1">
+<div id="example-research-compendium" class="section level1">
 <h1 class="hasAnchor">
-<a href="#template-research-compendium" class="anchor"></a>Template Research Compendium</h1>
-<p>If you feel comfortable to dive right in, we recommend you start with our provided functionality to create a new research compendium.</p>
-<p>This code will perform the following operations:</p>
+<a href="#example-research-compendium" class="anchor"></a>Example Research Compendium</h1>
+<p>One of the best ways to get started is to create a research compendium. An auto-updating example is visible at <a href="https://github.com/weecology/MATSSdemo" class="uri">https://github.com/weecology/MATSSdemo</a></p>
+<p>To get started, identify the location and name for your compendium. For example, <code>~/MATSSdemo</code> will put the compendium inside your home directory (the <code>~</code> location), with the package name <code>"MATSSdemo"</code>. (Note that package names can only contain ASCII letters, numbers, and “.” and have to start with a letter.)</p>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/create_MATSS_compendium.html">create_MATSS_compendium</a></span>(<span class="st">"&lt;path&gt;"</span>)</pre></body></html></div>
+<div id="compendium-creation-steps" class="section level2">
+<h2 class="hasAnchor">
+<a href="#compendium-creation-steps" class="anchor"></a>Compendium Creation Steps</h2>
+<p>Running this code will perform the following operations:</p>
 <ul>
 <li>create a new R package for the analysis</li>
 <li>add required dependencies for the new R package to its <code>DESCRIPTION</code> file</li>
-<li>create an <code>analysis</code> folder to hold the analysis files</li>
+<li>create an <code>analysis</code> folder to hold the analysis files
+<ul>
+<li>create a script to define and run the analysis</li>
+<li>create an Rmarkdown report to plot the results of the analysis</li>
+<li>create a <code>.bib</code> file to hold the MATSS reference linked to in the Rmarkdown report</li>
+</ul>
+</li>
+<li>create an <code>R</code> folder to hold function definitions
+<ul>
+<li>create functions for computing population-level and community-level properties</li>
+</ul>
+</li>
+<li>add the MIT License file (checking with the user first, if running in an interactive session)</li>
+<li>add a project README</li>
 <li>add a template R script for the analysis</li>
 <li>add a template Rmd report that is created as a result of running the above R script</li>
+<li>open the project in a new RStudio window (if available)</li>
 </ul>
-<p>After creating the new project, you can source <code>pipeline.R</code> to run the analysis and knit the report.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/create_MATSS_compendium.html">create_MATSS_compendium</a></span>(<span class="st">"&lt;path&gt;"</span>)</pre></body></html></div>
+</div>
+<div id="running-the-code" class="section level2">
+<h2 class="hasAnchor">
+<a href="#running-the-code" class="anchor"></a>Running the Code</h2>
+<p>After creating the new project, the readme will contain further instructions to run the code. We summarize briefly here:</p>
+<ol style="list-style-type: decimal">
+<li>The compendium exists as an R package and needs to be installed first.</li>
+<li>R needs to be restarted.</li>
+<li>The analysis script in <code>analysis/pipeline.R</code> can be run to perform the analysis and generate the report.</li>
+<li>The compiled report at <code>analysis/report.md</code> can be viewed.</li>
+</ol>
 <p>For further details about how the code within the template project works, see the below guide to interacting with the datasets, the <code>drake</code> workflow package, and our tools for building reproducible analyses.</p>
+</div>
 </div>
 <div id="data" class="section level1">
 <h1 class="hasAnchor">
@@ -143,10 +176,7 @@ remotes::install_github("weecology/MATSS", build_opts = c("--no-resave-data", "-
 <h2 class="hasAnchor">
 <a href="#packaged-datasets" class="anchor"></a>Packaged datasets</h2>
 <p>Several datasets are included with this package - these can be loaded individually using these specific functions, and require no additional setup.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/get_maizuru_data.html">get_maizuru_data</a></span>()
-<span class="fu"><a href="../reference/get_jornada_data.html">get_jornada_data</a></span>()
-<span class="fu"><a href="../reference/get_sgs_data.html">get_sgs_data</a></span>()
-<span class="fu"><a href="../reference/get_cowley_lizards.html">get_cowley_lizards</a></span>()
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/get_cowley_lizards.html">get_cowley_lizards</a></span>()
 <span class="fu"><a href="../reference/get_cowley_snakes.html">get_cowley_snakes</a></span>()
 <span class="fu"><a href="../reference/get_karoo_data.html">get_karoo_data</a></span>()
 <span class="fu"><a href="../reference/get_kruger_data.html">get_kruger_data</a></span>()</pre></body></html></div>
@@ -164,43 +194,45 @@ remotes::install_github("weecology/MATSS", build_opts = c("--no-resave-data", "-
 <a href="#downloading-datasets" class="anchor"></a>Downloading datasets:</h2>
 <p>To download individual datasets, call <code><a href="../reference/install_retriever_data.html">install_retriever_data()</a></code> with the name of the dataset:</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../reference/install_retriever_data.html">install_retriever_data</a></span>(<span class="st">"veg-plots-sdl"</span>)</pre></body></html></div>
-<p>To download all the datasets that are currently supported (i.e. we have functions for importing and processing into the standard format):</p>
+<p>To download all the datasets that are currently supported (i.e. with associated code for importing and formatting):</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="../reference/install_retriever_data.html">download_datasets</a></span>()</pre></body></html></div>
 </div>
 <div id="preprocessing-datasets" class="section level2">
 <h2 class="hasAnchor">
 <a href="#preprocessing-datasets" class="anchor"></a>Preprocessing datasets:</h2>
-<p>Because the BBS database is an aggregate of observations from multiple locations across North America, it is not the ideal scale for doing community or population analysis. Further, it would be slow to load in the entire database, if only a small section is needed at a time. Thus, we provide a function that processes the database into separate routes and regions, which can be read in individually.</p>
-<p>This function will generate and then add processed dataset files to the set download location. This processing is required before running <code>get_bbs_route_region_data</code> to load the data.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/prepare_bbs_ts_data.html">prepare_bbs_ts_data</a></span>()</pre></body></html></div>
+<p>We tap into several collections of datasets in <strong><code>MATSS</code></strong>, so it is useful to do some preprocessing to split the raw database files into separate datasets. These databases are: * BBS (the North American Breeding Bird Survey) * BioTIME (ecological assemblages from the BioTIME Consortium)</p>
+<p><strong>Processing these databases are necessary before loading individual datasets in.</strong></p>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/prepare_datasets.html">prepare_datasets</a></span>() <span class="co"># wrapper function to prepare all datasets</span>
+<span class="co"># prepare_biotime_data()</span>
+<span class="co"># prepare_bbs_ts_data()</span></pre></body></html></div>
 </div>
 </div>
 <div id="working-with-drake" class="section level1">
 <h1 class="hasAnchor">
 <a href="#working-with-drake" class="anchor"></a>Working with Drake</h1>
-<p>For the most part <code>MATSS</code> provides only a light wrapper for the functions in <code>drake</code>, so it can be helpful to know about how <code>drake</code> plans work if you are going to do analyses using <code>MATSS</code>. Note that using <code>drake</code> plans is not strictly necessary, as you can use the <code>MATSS</code> functions in whatever workflow system you desire.</p>
+<p>We designed <strong><code>MATSS</code></strong> to build off of the workflow package <strong><code>drake</code></strong> for computational analyses. Thus, it can be helpful to have a general understanding of how to use <strong><code>drake</code></strong>.</p>
 <div id="basic-workflow" class="section level2">
 <h2 class="hasAnchor">
 <a href="#basic-workflow" class="anchor"></a>Basic Workflow</h2>
-<p>The basic workflow of using <code>drake</code> plans is:</p>
+<p>The basic apporach to using <strong><code>drake</code></strong> is:</p>
 <ul>
-<li>run R code to create <code>drake</code> plans</li>
-<li>run R code to take a <code>drake</code> plan and execute it</li>
+<li>run R code to create a <strong><code>drake</code></strong> plans</li>
+<li>call <code><a href="https://docs.ropensci.org/drake/reference/make.html">drake::make()</a></code> to perform the work described in a <strong><code>drake</code></strong> plan</li>
 </ul>
 </div>
 <div id="provided-helper-functions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#provided-helper-functions" class="anchor"></a>Provided Helper Functions</h2>
-<p>We provide several functions to help construct <code>drake</code> plans:</p>
+<p>We provide several functions to help construct plans:</p>
 <ul>
 <li>
 <code><a href="../reference/build_datasets_plan.html">build_datasets_plan()</a></code> constructs a plan for the datasets, with options to include downloaded datasets</li>
 <li>
 <code><a href="../reference/build_analyses_plan.html">build_analyses_plan()</a></code> constructs a plan for a set of analyses that applies a method to each dataset. It takes as arguments, a plan for the datasets and a plan for the methods.</li>
 <li>
-<code><a href="../reference/collect_analyses.html">collect_analyses()</a></code> combines a set of <code>drake</code> targets together into a list, which facilitates later processing</li>
+<code><a href="../reference/collect_analyses.html">collect_analyses()</a></code> combines the output objects from a single analysis applied to multiple datasets. This helps to achieve a consistent structure for the results, regardless of what individual analysis functions actually return.</li>
 <li>
-<code><a href="../reference/analysis_wrapper.html">analysis_wrapper()</a></code> is a function for constructing methods that can operate on the datasets (which are communities) by applying an input argument (which is another function) to each of the individual population time series. (See the example in <code><a href="../reference/analysis_wrapper.html">?analysis_wrapper</a></code> for more information)</li>
+<code><a href="../reference/analysis_wrapper.html">analysis_wrapper()</a></code> is a function that wraps a method that applies to a single time series (such as calculating the slope of the linear trendline), so that the result can be applied to a dataset (resulting in outputs of the method applied to each individual time series in that dataset).</li>
 </ul>
 <p>Usage of these functions is demonstrated in the template R script generated from <code><a href="../reference/create_MATSS_compendium.html">create_MATSS_compendium()</a></code>.</p>
 <div id="example" class="section level3">
@@ -249,70 +281,28 @@ remotes::install_github("weecology/MATSS", build_opts = c("--no-resave-data", "-
 <span class="co">#&gt; 2 versicolor         5.94        2.77         4.26       1.33 </span>
 <span class="co">#&gt; 3 virginica          6.59        2.97         5.55       2.03</span></pre></body></html></div>
 </div>
-<div id="making-drake-plans" class="section level3">
-<h3 class="hasAnchor">
-<a href="#making-drake-plans" class="anchor"></a>Making Drake Plans</h3>
-<p>A <code>drake</code> plan is essentially a <code>tibble</code> that defines targets and the commands to build those targets. We can view <code>drake</code> plans by printing them to the console:</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">plan</span> <span class="co"># made from the previous example</span>
-<span class="co">#&gt; # A tibble: 4 x 2</span>
-<span class="co">#&gt;   target     command                                             </span>
-<span class="co">#&gt;   &lt;chr&gt;      &lt;expr_lst&gt;                                          </span>
-<span class="co">#&gt; 1 data_1     mtcars                                              </span>
-<span class="co">#&gt; 2 data_2     iris                                                </span>
-<span class="co">#&gt; 3 my_model   lm(mpg ~ disp, data = data_1)                       </span>
-<span class="co">#&gt; 4 my_summary data_2 %&gt;% group_by(Species) %&gt;% summarize_all(mean)</span></pre></body></html></div>
-<p>One thing to be aware of is that the function <code><a href="https://docs.ropensci.org/drake/reference/drake_plan.html">drake_plan()</a></code> does not evaluate its arguments, but only makes the plan. Thus, if you want any evaluation to occur within the construction of the plan, you will need some NSE magic.</p>
-<p>In this example, the plan depends on <code>iris[, column]</code>, and so the result will necessarily depends on the value of <code>column</code>, when the plan is run, as opposed to fixing the value when the drake plan was first created.</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">column</span> <span class="kw">&lt;-</span> <span class="st">"Species"</span>
-<span class="no">plan</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_plan.html">drake_plan</a></span>(<span class="kw">num_species</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nlevels.html">nlevels</a></span>(<span class="no">iris</span>[, <span class="no">column</span>]))
-
-<span class="co">## This computes using the current value of `column` when the analysis is run, </span>
-<span class="co">#    as opposed to on the "Species" column, which was desired: </span>
-<span class="no">column</span> <span class="kw">&lt;-</span> <span class="st">"Sepal.Length"</span>
-<span class="fu"><a href="https://docs.ropensci.org/drake/reference/make.html">make</a></span>(<span class="no">plan</span>)
-<span class="co">#&gt; ▶ target num_species</span>
-<span class="fu"><a href="https://docs.ropensci.org/drake/reference/readd.html">readd</a></span>(<span class="no">num_species</span>)
-<span class="co">#&gt; [1] 0</span></pre></body></html></div>
-<p>We can solve this in two ways:</p>
-<p>First, we can include <code>column</code> as a dependency in the plan:</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">plan</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_plan.html">drake_plan</a></span>(<span class="kw">column</span> <span class="kw">=</span> <span class="st">"Species"</span>,
-                   <span class="kw">num_species</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nlevels.html">nlevels</a></span>(<span class="no">iris</span>[, <span class="no">column</span>]))
-
-<span class="fu"><a href="https://docs.ropensci.org/drake/reference/make.html">make</a></span>(<span class="no">plan</span>)
-<span class="co">#&gt; ℹ unloading 1 targets from environment</span>
-<span class="co">#&gt; ▶ target column</span>
-<span class="co">#&gt; ▶ target num_species</span>
-<span class="fu"><a href="https://docs.ropensci.org/drake/reference/readd.html">readd</a></span>(<span class="no">num_species</span>)
-<span class="co">#&gt; [1] 3</span></pre></body></html></div>
-<p>Second, make sure that <code>column</code> is evaluated when building the plan - this locks in the value of <code>"Species"</code>:</p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">column</span> <span class="kw">&lt;-</span> <span class="st">"Species"</span>
-<span class="no">plan</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_plan.html">drake_plan</a></span>(<span class="kw">num_species</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/nlevels.html">nlevels</a></span>(<span class="no">iris</span>[, !!<span class="no">column</span>]))
-
-<span class="co">## does not require column to be in the current environment</span>
-<span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span>(<span class="no">column</span>)
-<span class="fu"><a href="https://docs.ropensci.org/drake/reference/make.html">make</a></span>(<span class="no">plan</span>)
-<span class="co">#&gt; ▶ target num_species</span>
-<span class="fu"><a href="https://docs.ropensci.org/drake/reference/readd.html">readd</a></span>(<span class="no">num_species</span>)
-<span class="co">#&gt; [1] 3</span></pre></body></html></div>
-</div>
 <div id="running-drake-plans" class="section level3">
 <h3 class="hasAnchor">
 <a href="#running-drake-plans" class="anchor"></a>Running Drake Plans</h3>
 <p>Drake plans are run by calling <code><a href="https://docs.ropensci.org/drake/reference/make.html">make()</a></code>. This does several things. First it checks the <strong>cache</strong> to see if any targets need to be re-built, and then it proceeds to build all the targets, in some order that accounts for the dependencies between targets. (e.g. an analysis target that depends on a dataset target to be processed)</p>
 <p>The manual has more information about how <a href="https://ropenscilabs.github.io/drake-manual/storage.html#cache-formats">Drake stores its cache</a> and how <a href="https://ropenscilabs.github.io/drake-manual/triggers.html">Drake decides to rebuild targets</a>.</p>
 <p>Note that if there are file inputs, it is important that they are declared explicitly using e.g. <code><a href="https://docs.ropensci.org/drake/reference/file_in.html">file_in()</a></code>, <code><a href="https://docs.ropensci.org/drake/reference/knitr_in.html">knitr_in()</a></code>, and <code><a href="https://docs.ropensci.org/drake/reference/file_out.html">file_out()</a></code>. This enables Drake to check if those files are changed and to rebuild targets that depend on the files if needed. Otherwise Drake will treat them as fixed strings.</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">plan</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_plan.html">drake_plan</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"some_data.csv"</span>))
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">plan</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_plan.html">drake_plan</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"some_data.csv"</span>))
 <span class="fu"><a href="https://docs.ropensci.org/drake/reference/make.html">make</a></span>(<span class="no">plan</span>)
 
 <span class="co"># make some changes to `some_data.csv`</span>
 <span class="fu"><a href="https://docs.ropensci.org/drake/reference/make.html">make</a></span>(<span class="no">plan</span>) <span class="co"># will NOT rebuild the `data` target</span></pre></body></html></div>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">plan</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_plan.html">drake_plan</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="fu"><a href="https://docs.ropensci.org/drake/reference/file_in.html">file_in</a></span>(<span class="st">"some_data.csv"</span>)))
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="no">plan</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://docs.ropensci.org/drake/reference/drake_plan.html">drake_plan</a></span>(<span class="kw">data</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="fu"><a href="https://docs.ropensci.org/drake/reference/file_in.html">file_in</a></span>(<span class="st">"some_data.csv"</span>)))
 <span class="fu"><a href="https://docs.ropensci.org/drake/reference/make.html">make</a></span>(<span class="no">plan</span>)
 
 <span class="co"># make some changes to `some_data.csv`</span>
 <span class="fu"><a href="https://docs.ropensci.org/drake/reference/make.html">make</a></span>(<span class="no">plan</span>) <span class="co"># will rebuild the `data` target</span></pre></body></html></div>
 </div>
 </div>
+</div>
+<div id="references" class="section level1">
+<h1 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h1>
 </div>
   </div>
 

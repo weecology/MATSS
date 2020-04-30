@@ -6,9 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read in the cowley snake community data from a txt file
-
-Import cowley snake data from data files — get_cowley_snakes • MATSS</title>
+<title>Prepare datasets for usage — prepare_datasets • MATSS</title>
 
 
 <!-- jquery -->
@@ -41,11 +39,9 @@ Import cowley snake data from data files — get_cowley_snakes • MATSS</title>
 
 
 
-<meta property="og:title" content="Read in the cowley snake community data from a txt file
-
-Import cowley snake data from data files — get_cowley_snakes" />
-<meta property="og:description" content="Read in the cowley snake community data from a txt file
-Import cowley snake data from data files" />
+<meta property="og:title" content="Prepare datasets for usage — prepare_datasets" />
+<meta property="og:description" content="This wraps all the functions that prepare datasets from specific
+databases (e.g. prepare_bbs_ts_data, prepare_biotime_data)." />
 
 
 
@@ -134,25 +130,41 @@ Import cowley snake data from data files" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read in the cowley snake community data from a txt file
-
-Import cowley snake data from data files</h1>
-    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/get_data_cowley.R'><code>R/get_data_cowley.R</code></a></small>
-    <div class="hidden name"><code>get_cowley_snakes.Rd</code></div>
+    <h1>Prepare datasets for usage</h1>
+    <small class="dont-index">Source: <a href='https://github.com/weecology/MATSS/blob/master/R/utils-retriever-data.R'><code>R/utils-retriever-data.R</code></a></small>
+    <div class="hidden name"><code>prepare_datasets.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Read in the cowley snake community data from a txt file</p>
-<p>Import cowley snake data from data files</p>
+    <p>This wraps all the functions that prepare datasets from specific
+databases (e.g. <code><a href='prepare_bbs_ts_data.html'>prepare_bbs_ts_data</a></code>, <code><a href='get_biotime_dataset_ids.html'>prepare_biotime_data</a></code>).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_cowley_snakes</span>()</pre>
+    <pre class="usage"><span class='fu'>prepare_datasets</span>(
+  <span class='kw'>dataset</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"breed-bird-survey"</span>, <span class='st'>"biotimesql"</span>),
+  <span class='kw'>bbs_params</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(), <span class='kw'>start_yr</span> <span class='kw'>=</span> <span class='fl'>1965</span>, <span class='kw'>end_yr</span> <span class='kw'>=</span> <span class='fl'>2018</span>,
+    <span class='kw'>min_num_yrs</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>data_subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>),
+  <span class='kw'>biotime_params</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='get_default_data_path.html'>get_default_data_path</a></span>(), <span class='kw'>data_subset</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>dataset</th>
+      <td><p>what datasets to prepare (must follow the naming convention
+of <code><a href='install_retriever_data.html'>download_datasets</a></code>)</p></td>
+    </tr>
+    <tr>
+      <th>bbs_params</th>
+      <td><p>params to pass to</p></td>
+    </tr>
+    <tr>
+      <th>biotime_params</th>
+      <td></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>list of two dataframes (one with abundance data, the other with
-covariate data) and one list of metadata.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
