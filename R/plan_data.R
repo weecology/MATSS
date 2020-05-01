@@ -132,21 +132,55 @@ build_bbs_datasets_plan <- function(path = get_default_data_path(), data_subset 
 #' 
 #' @export
 #' 
-build_gpdd_datasets_plan <- function()
+build_gpdd_datasets_plan <- function(path = get_deault_data_path(), data_subset = NULL)
 {
-    locations_file <- system.file("extdata", "gpdd_locations.csv", 
-                                  package = "MATSS", mustWork = TRUE)
+    processed_locations_file <- file.path(path, "gpdd-prepped", 
+                                          "gpdd_locations.csv")
     
-    locations <- utils::read.csv(locations_file, colClasses = "character")
+    if (!file.exists(processed_locations_file)) {
+        message("preprocessing gpdd timeseries data")
+        prepare_gpdd_data(path = path, data_subset = data_subset)
+    }
+    processed_locations <- utils::read.csv(processed_locations_file, 
+                                           colClasses = "character")
     
     gpdd_datasets <- drake::drake_plan(
-        gpdd_rtrg = drake::target(get_gpdd_data(location_id = location_id, timeperiod_id = timeperiod_id),
-                                  transform = map(location_id = !!locations$LocationID,
-                                                  timeperiod_id = !!locations$TimePeriodID)
+        gpdd_rtrg = drake::target(get_gpdd_data(location_id = location_id),
+                                  transform = map(location_id = !!processed_locations$location_id), 
+                                  trigger = trigger(command = FALSE)
         )
     )
     return(gpdd_datasets)
 }
+
+
+build_bbs_datasets_plan <- function(path = get_default_data_path(), data_subset = NULL)
+{
+    # get metadata on routes and regions
+    routes_and_regions_file <- file.path(path, "breed-bird-survey-prepped", 
+                                         "routes_and_regions_table.csv")
+    if (!file.exists(routes_and_regions_file)) {
+        message("preprocessing bbs timeseries data")
+        prepare_bbs_ts_data(path = path, data_subset = data_subset)
+    }
+    routes_and_regions <- utils::read.csv(routes_and_regions_file, 
+                                          colClasses = "character")
+    
+    # filter datasets and generate plan
+    if (!is.null(data_subset)) {
+        routes_and_regions <- routes_and_regions[data_subset, ]
+    }
+    bbs_datasets <- drake::drake_plan(
+        bbs_rtrg = drake::target(get_bbs_route_region_data(path = !!file.path(path, "breed-bird-survey-prepped", 
+                                                                              paste0("route", route, "region", region, ".RDS"))),
+                                 transform = map(route = !!routes_and_regions$route,
+                                                 region = !!routes_and_regions$statenum), 
+                                 trigger = trigger(command = FALSE)
+        )
+    )
+    return(bbs_datasets)
+}
+
 
 #' @title Generate a Drake Plan for Biotime Datasets
 #' 

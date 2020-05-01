@@ -15,9 +15,9 @@ prepare_datasets(
 \item{dataset}{what datasets to prepare (must follow the naming convention
 of \code{\link{download_datasets}})}
 
-\item{bbs_params}{params to pass to}
+\item{bbs_params}{params to pass to \code{\link{prepare_bbs_ts_data}}}
 
-\item{biotime_params}{}
+\item{biotime_params}{params to pass to \code{\link{prepare_biotime_data}}}
 }
 \description{
 This wraps all the functions that prepare datasets from specific

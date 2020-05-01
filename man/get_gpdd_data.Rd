@@ -2,13 +2,12 @@
 % Please edit documentation in R/get_data_gpdd.R
 \name{get_gpdd_data}
 \alias{get_gpdd_data}
-\title{Create GPDD population time-series data}
+\title{Get a cleaned GPDD dataset}
 \usage{
 get_gpdd_data(
-  path = get_default_data_path(),
-  location_id = 83,
-  timeperiod_id = 408,
-  min_num_yrs = 10
+  path = file.path(get_default_data_path(), "gpdd-prepped", paste0("location",
+    location_id, ".RDS")),
+  location_id = 83
 )
 }
 \arguments{
@@ -18,18 +17,13 @@ get_gpdd_data(
 
 \item{timeperiod_id}{Sampling timescale code of data to return
 (some datasets provide at more than one scale)}
-
-\item{min_num_yrs}{minimum number of years of data}
 }
 \value{
 list of abundance, covariates, and metadata
 }
 \description{
-Selects sites containing at least `min_num_yrs`` of data
-samples during that period.
-}
-\examples{
-\dontrun{
-  get_gpdd_data(location_id=83, timeperiod_id=408)
-}
+Gets a prepped GPDD dataset (as a list of abundance,
+covariates, and metadata) for a specified \code{location_id} and \code{timeperiod_id}
+First run \code{\link{prepare_gpdd_data}} to create these files from the raw
+GPDD database. If the files are not found, then \code{NULL} is returned.
 }

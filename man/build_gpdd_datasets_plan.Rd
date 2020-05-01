@@ -4,7 +4,7 @@
 \alias{build_gpdd_datasets_plan}
 \title{Generate a Drake Plan for GPDD Datasets}
 \usage{
-build_gpdd_datasets_plan()
+build_gpdd_datasets_plan(path = get_deault_data_path(), data_subset = NULL)
 }
 \value{
 a drake plan (i.e. a tibble) specifying the targets and commands

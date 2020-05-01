@@ -5,7 +5,6 @@
 #'   BioTime database. If the files are not found, then `NULL` is returned.
 #'   Original data found here http://biotime.st-andrews.ac.uk/home.php
 #' @param dataset_id the dataset index
-#' @param raw_path full path to the raw dataset file
 #' @inheritParams get_mtquad_data
 #' @return list of abundance, covariates, and metadata
 #' @examples 
@@ -13,19 +12,17 @@
 #'   get_biotime_data(dataset_id = 321)
 #' }
 #' @export
-get_biotime_data <- function(path = get_default_data_path(), 
-                             dataset_id = 321, 
-                             raw_path = file.path(path, 
-                                                  "biotime-prepped", 
-                                                  paste0("dataset", dataset_id, ".RDS")))
+get_biotime_data <- function(path = file.path(get_default_data_path(), "biotime-prepped", 
+                                              paste0("dataset", dataset_id, ".RDS")), 
+                             dataset_id = 321)
 {
     if (!is.numeric(dataset_id))
     {
         dataset_id <- as.numeric(dataset_id)
     }
     
-    if (file.exists(raw_path)) {
-        return(readRDS(raw_path)) 
+    if (file.exists(path)) {
+        return(readRDS(path)) 
     } else {
         return(NULL)
     }
@@ -178,7 +175,7 @@ correct_biotime_dataset <- function(raw_data, dataset_id = 10)
 #' @param save_to_file whether to save the processed dataset to a file
 #' @param storage_path folder in which to put processed dataset
 #' @param citation_text text of citation for the database
-#' @return the processed BioTime dataset
+#' @return if saving to file, NULL, otherwise the processed BioTime dataset
 #' @export
 process_biotime_dataset <- function(biotime_data_tables, 
                                     dataset_id = 10, 
@@ -273,12 +270,11 @@ process_biotime_dataset <- function(biotime_data_tables,
                 "metadata" = metadata)
     attr(out, "class") <- "matssdata"
     
-    if (save_to_file)
+    if (!save_to_file)
     {
-        saveRDS(out, 
-                file = file.path(storage_path, 
-                                 paste0("dataset", dataset_id, ".RDS")))
+        return(out)
     }
-    
-    return(out)
+    saveRDS(out, file = file.path(storage_path, 
+                                  paste0("dataset", dataset_id, ".RDS")))
+    invisible()
 }

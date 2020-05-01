@@ -24,7 +24,7 @@ process_biotime_dataset(
 \item{citation_text}{text of citation for the database}
 }
 \value{
-the processed BioTime dataset
+if saving to file, NULL, otherwise the processed BioTime dataset
 }
 \description{
 Filter and modify the BioTime data. Generate the abundance,

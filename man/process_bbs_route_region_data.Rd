@@ -27,7 +27,7 @@ process_bbs_route_region_data(
 \item{citation_text}{text of citation for the database}
 }
 \value{
-the processed BBS data
+if saving to file, NULL, otherwise the processed BBS data
 }
 \description{
 Correct and otherwise filter BBS species data (see

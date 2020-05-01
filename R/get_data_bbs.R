@@ -93,7 +93,7 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2018, min_num_yrs = 10
     species_table <- bbs_data_tables$breed_bird_survey_species
     bbs_routes_regions %>%
         dplyr::select(.data$statenum, .data$route) %>%
-        purrr::pmap(function(statenum, route) {
+        purrr::pwalk(function(statenum, route) {
             bbs_data %>%
                 dplyr::filter(.data$statenum == !!statenum,
                               .data$route == !!route) %>%
@@ -105,7 +105,7 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2018, min_num_yrs = 10
                                               storage_path = storage_path, 
                                               citation_text = citation_text)
         })
-    
+    invisible()
 }
 
 #' @title Process the BBS data for an individual route and region
@@ -117,7 +117,7 @@ prepare_bbs_ts_data <- function(start_yr = 1965, end_yr = 2018, min_num_yrs = 10
 #' @param location_table information about location of the route
 #' @param species_table table of species for BBS
 #' @inheritParams process_biotime_dataset
-#' @return the processed BBS data
+#' @return if saving to file, NULL, otherwise the processed BBS data 
 #' @export
 process_bbs_route_region_data <- function(bbs_data_table, 
                                           location_table, 
@@ -175,16 +175,15 @@ process_bbs_route_region_data <- function(bbs_data_table,
                 "metadata" = metadata)
     attr(out, "class") <- "matssdata"
     
-    if (save_to_file)
+    if (!save_to_file)
     {
-        saveRDS(out, 
-                file = file.path(storage_path, 
-                                 paste0("route", route, "region", region, ".RDS")))
+        return(out)
     }
     
-    return(out)
+    saveRDS(out, file = file.path(storage_path, 
+                                  paste0("route", route, "region", region, ".RDS")))
+    invisible()
 }
-
 
 #' @title Filter BBS to specified time series period and number of samples
 #'
