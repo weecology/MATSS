@@ -20,13 +20,13 @@ test_that("build_bbs_datasets_plan works", {
 test_that("build_gpdd_datasets_plan works", {
     expect_error(datasets <- build_gpdd_datasets_plan(), NA)
     expect_plan(datasets)
-    expect_true(all(grepl("gpdd_rtrg_[0-9]+_[0-9\\.]+$", datasets$target)))
-    expect_equal(dim(datasets), c(120, 2))
+    expect_true(all(grepl("gpdd_rtrg_[0-9]+$", datasets$target)))
+    expect_equal(dim(datasets), c(120, 3))
     
     expect_error(datasets <- build_datasets_plan(include_gpdd_data = TRUE), NA)
     expect_plan(datasets)
-    expect_equal(sum(grepl("gpdd_rtrg_[0-9]+_[0-9\\.]+$", datasets$target)), 120)
-    expect_equal(dim(datasets), c(125, 2))
+    expect_equal(sum(grepl("gpdd_rtrg_[0-9]+$", datasets$target)), 120)
+    expect_equal(dim(datasets), c(125, 3))
 })
 
 test_that("build_biotime_datasets_plan works", {

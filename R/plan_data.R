@@ -132,7 +132,7 @@ build_bbs_datasets_plan <- function(path = get_default_data_path(), data_subset 
 #' 
 #' @export
 #' 
-build_gpdd_datasets_plan <- function(path = get_deault_data_path(), data_subset = NULL)
+build_gpdd_datasets_plan <- function(path = get_default_data_path(), data_subset = NULL)
 {
     processed_locations_file <- file.path(path, "gpdd-prepped", 
                                           "gpdd_locations.csv")
