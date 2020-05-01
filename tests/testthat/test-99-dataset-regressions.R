@@ -6,9 +6,10 @@ Sys.setenv(MATSS_DATA_PATH = test_path)
 test_that("get_gpdd_data formats data correctly", {
     skip_if_no_retriever()
     download_datasets("global-population-dynamics")
+    prepare_gpdd_data(data_subset = 65)
     
-    expect_error(dat <- get_gpdd_data(location_id = 83, timeperiod_id = 408), NA)
-    expect_dataset(dat, "701d60bb9e", "303e5d422b", "22f70476be", "9c44940787")
+    expect_error(dat <- get_gpdd_data(location_id = 83), NA)
+    expect_dataset(dat, "701d60bb9e", "303e5d422b", "19abd0c472", "9c44940787")
     expect_known_hash(dat$metadata$citation, "6c7d2e15e6")
 })
 
